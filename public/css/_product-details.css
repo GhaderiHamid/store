@@ -1,0 +1,82 @@
+.custom-icone span{
+    font-size: 40px;
+    color: #ffffff;
+}
+.nav-tabs .nav-link.active,.nav-tabs .nav-item.show .nav-link{
+    border-radius: 5px !important;
+    border-top: 4px solid red !important;
+
+}
+.product-rate p{
+    font-size: 14px;
+}
+.progress-product{
+    background-color: #3c3c3c;
+    border-radius: 8px;
+}
+.product-desc{
+    line-height: 35px !important;
+}
+.product-desc-step li p{
+    border-right: solid 3px #716565;
+    padding-right: 10px;
+}
+.product-desc-step li .p-img-wrapper{
+   max-width: 500px;
+    margin: 0px auto;
+}
+.product-desc-step li .p-img-wrapper img{
+    display: block;
+    margin: 0px auto;
+}
+.custom-tab-product-detail ul li .key {
+    background-color: #b4b4b4;
+    border-radius: 5px;
+    flex: 0 0 20%;
+    height: 30px;
+    font-size: 15px;
+   
+}
+.custom-tab-product-detail ul li .value  {
+    background-color: #b4b4b4;
+    flex: 0 0 78%;
+    height: 30px;
+    font-size: 15px;
+    border-radius: 5px;
+    
+}
+.add-comment p:first-child{
+    color: #928f8f;
+}
+.custom-product-media p{
+    font-size: 14px;
+}
+.text-color-1{
+    color:  #0edc3d;
+ }
+.text-color-2{
+    color: #ff4f60;
+
+}
+.thumb span p{
+    font-size: 16px;
+}
+.thumb span{
+    font-size: 25px;
+}
+.thumbdown{
+    position: absolute;
+    left: 31px;
+    top: 1px;
+}
+.thumbup{
+    position: absolute;
+    left: 33px;
+    top: 1px;
+}
+.add-comment-user{
+    font-size: 20px;
+    background-color: #6a6a6a;
+    
+    border-radius: 5px;
+}

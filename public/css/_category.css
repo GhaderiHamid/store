@@ -1,0 +1,23 @@
+.cat-desc{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition-duration: 0.5s;
+    border-radius: 8px; 
+    border: solid 1px #545454;
+    /* box-shadow: 0px 0px 3px 1px rgb(94, 94, 94); */
+    /* border: none; */
+    /* box-shadow: 0px 0px 3px 1px rgb(94, 94, 94); */
+}
+.cat-desc p{
+    margin-bottom: 10px;
+}
+.cat-desc img{
+    width: 150px;
+    height: 150px;
+}
+.cat-desc:hover{
+    transform: scale(1.1);
+    
+}

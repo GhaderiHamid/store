@@ -1,0 +1,78 @@
+.bg-top-nav{
+    /* background-color: #445672 ; */
+    background-color: #292929;
+    color: #fff;
+    font-size: 14px;
+    
+   
+}
+.login{
+    border: 1px solid #888888;
+    border-radius: 5px;
+    padding: 8px;
+    
+}
+.custom-top-nav a{
+    padding: 10px;
+    
+}
+.custom-top-nav .border-left{
+    border-color: #545454 !important;
+}
+.custom-btn-font-size{
+    font-size: 14px;
+    border: 1px solid #888888;
+    display: inline-block;
+    padding: 8px;
+}
+.shop-card{
+    background-color: transparent !important;
+
+}
+.shop-card span{
+    vertical-align: middle;
+}
+/* .custom-dropdown-toggle{
+    vertical-align: middle;
+    
+} */
+.custom-navbar-nav .nav-item{
+    position: unset;
+    
+}
+.custom-dropdown-menu{
+    
+    /* width: 18%; */
+    border-radius: 8px;
+    position: relative;
+    /* background-color: #39465a ; */
+    
+    
+    
+   
+}
+
+.custom-dropdown-menu img{
+   width: 400px;
+   height: 300px;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    
+     
+}
+
+.custom-dropdown-menu ul li a{
+    color: black !important;
+    font-size: 16px;
+    transition-duration: 0.5s;
+    
+}
+.custom-dropdown-menu ul li a span{
+    font-size: 20px;
+    vertical-align: middle;
+}
+.custom-dropdown-menu ul li a:hover{
+ margin-right: 7px;
+ color: #62a5f8 !important;
+}

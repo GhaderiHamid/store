@@ -1,0 +1,10 @@
+.custom-border{
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid #797979;
+    /* border: solid 2px #494949; */
+}
+.radius{
+    border: none;
+    border-radius: 15px;
+}
