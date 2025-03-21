@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateStatusOrdersTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('status_orders', function (Blueprint $table) {
+            $table->increments('status_id'); // ایجاد کلید اصلی با AUTO_INCREMENT
+            $table->string('status_name', 50)->collate('utf8mb4_persian_ci'); // ایجاد فیلد status_name
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('status_orders'); // حذف جدول در صورت نیاز
+
+    }
+}
