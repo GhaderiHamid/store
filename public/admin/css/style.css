@@ -1,0 +1,63 @@
+body {
+    direction: rtl;
+    text-align: right;
+    background-color: #f8f9fa;
+  }
+#sidebar {
+    background-color: #343a40;
+    min-height: 100vh;
+  }
+  
+  #sidebar .nav-link {
+      
+    color: #cfd4da;
+    cursor: pointer;
+    background-color: #343a40; /* بک‌گراند پیش‌فرض */
+    text-align: right; /* راست‌چین کردن متن */
+    border-radius: 5px; /* گوشه‌های گرد */
+    padding: 10px; /* پدینگ برای فاصله */
+  }
+  
+  /* استایل برای hover */
+  #sidebar .nav-link:hover {
+    color: #fff;
+    background-color: #495057;
+    border: 1px solid #fff; /* مرز در حالت hover */
+  }
+  
+  /* استایل منوهای کشویی */
+  .submenu .nav-link {
+  
+    font-size: 0.9rem;
+    padding-right: 2rem;
+    background-color: #343a40; /* بک‌گراند پیش‌فرض برای زیرمنوها */
+    text-align: right; /* راست‌چین کردن متن زیرمنوها */
+    
+  }
+  
+  /* استایل برای hover زیرمنوها */
+  .submenu .nav-link:hover {
+    color: #fff;
+    background-color: #495057;
+    border: 2px solid #fff; /* مرز در حالت hover */
+    transition-duration: 0.5s;
+  }
+  .nav-item{
+      text-align: right;
+      transition-duration: 0.5s
+  }
+  
+  
+      /* استایل بخش محتوا */
+      .content {
+        padding: 20px;
+      }
+      /* تراز راست برای عنوان‌های کارت‌ها */
+      .card-header {
+        text-align: right;
+      }
+      /* تراز راست برای تمام عنوان‌های input موجود در فرم‌ها */
+      label {
+        text-align: right;
+        display: block;
+      }
