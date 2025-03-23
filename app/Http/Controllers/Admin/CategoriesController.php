@@ -27,4 +27,11 @@ class CategoriesController extends Controller
         
         
     }
+    public function all(){
+        $categories=Category::all();
+        return view('admin.categories.all',compact('categories'));
+    }
+    public function home(){
+        return view('admin.index');
+    }
 }

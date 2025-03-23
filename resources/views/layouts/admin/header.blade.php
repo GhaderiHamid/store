@@ -101,11 +101,11 @@
                                 <div class="collapse" id="collapseCategories">
                                     <ul class="nav flex-column submenu">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="categories/create">افزودن
+                                            <a class="nav-link" href="{{route('admin.categories.create')}}">افزودن
                                                 دسته‌بندی</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" onclick="showForm('form-category-list');">لیست
+                                            <a class="nav-link" href="{{route('admin.categories.all')}}">لیست
                                                 دسته‌بندی‌ها</a>
                                         </li>
                                     </ul>
