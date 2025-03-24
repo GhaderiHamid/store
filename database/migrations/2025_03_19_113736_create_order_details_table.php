@@ -14,7 +14,7 @@ class CreateOrderDetailsTable extends Migration
     public function up()
     {
         Schema::create('order_details', function (Blueprint $table) {
-            $table->increments('id'); // ایجاد ستون id با AUTO_INCREMENT
+            $table->id(); // ایجاد ستون id با AUTO_INCREMENT
             $table->unsignedInteger('quantity')->default(1); // مقدار پیش فرض 1 برای quantity
             $table->unsignedInteger('price'); // ستون price
             $table->unsignedInteger('discount'); // ستون discount

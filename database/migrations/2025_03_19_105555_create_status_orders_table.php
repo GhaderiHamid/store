@@ -14,7 +14,7 @@ class CreateStatusOrdersTable extends Migration
     public function up()
     {
         Schema::create('status_orders', function (Blueprint $table) {
-            $table->increments('status_id'); // ایجاد کلید اصلی با AUTO_INCREMENT
+            $table->id(); // ایجاد کلید اصلی با AUTO_INCREMENT
             $table->string('status_name', 50)->collate('utf8mb4_persian_ci'); // ایجاد فیلد status_name
             $table->timestamps();
         });

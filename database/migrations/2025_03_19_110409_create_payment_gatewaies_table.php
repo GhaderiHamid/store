@@ -14,7 +14,7 @@ class CreatePaymentGatewaiesTable extends Migration
     public function up()
     {
         Schema::create('payment_gatewaies', function (Blueprint $table) {
-            $table->increments('payment_id'); 
+            $table->id(); 
             $table->string('name', 50)->collate('utf8mb4_persian_ci'); // نام با کدگذاری مناسب
             $table->timestamps();
 

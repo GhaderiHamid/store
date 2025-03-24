@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('user_id'); // INT NOT NULL AUTO_INCREMENT
+            $table->id(); // INT NOT NULL AUTO_INCREMENT
             $table->string('first_name', 100)->charset('utf8mb4')->collation('utf8mb4_persian_ci')->notNull(); // نام
             $table->string('last_name', 100)->charset('utf8mb4')->collation('utf8mb4_persian_ci')->notNull(); // نام خانوادگی
             $table->string('password', 100)->charset('utf8mb4')->collation('utf8mb4_persian_ci'); // رمز عبور

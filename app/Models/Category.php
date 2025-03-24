@@ -10,4 +10,5 @@ class Category extends Model
     use HasFactory;
 
     public $guarded;
+    // protected $primaryKey = 'category_id';
 }

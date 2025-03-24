@@ -14,10 +14,10 @@ class CreateCategoriesTable extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->increments('category_id');
+            $table->id();
             $table->string('category_name', 100)->charset('utf8mb4')->collation('utf8mb4_persian_ci');//نام
             $table->timestamps(); // زمان ایجاد و به‌روزرسانی
-
+            
         });
     }
 

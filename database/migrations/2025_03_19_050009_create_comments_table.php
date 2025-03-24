@@ -15,7 +15,7 @@ class CreateCommentsTable extends Migration
     public function up()
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->increments('comment_id'); // ایجاد فیلد auto-increment
+            $table->id(); // ایجاد فیلد auto-increment
             $table->text('comment_text')->charset('utf8mb4')->collation('utf8mb4_persian_ci'); // فیلد متن نظر
             $table->unsignedInteger('user_id'); // فیلد شناسه کاربر
             $table->unsignedInteger('product_id'); // فیلد شناسه محصول
