@@ -15,12 +15,13 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id(); // AUTO_INCREMENT و PRIMARY KEY
-            $table->string('brand', 100)->charset('utf8mb4')->collate('utf8mb4_persian_ci');
+            $table->string('name', 100)->charset('utf8mb4')->collate('utf8mb4_persian_ci');
             $table->text('description')->charset('utf8mb4')->collate('utf8mb4_persian_ci');
+            $table->char('image_path')->nullable();
             $table->unsignedInteger('price')->notNull();
-            $table->unsignedInteger('quntity')->default(50)->notNull();
-            $table->unsignedInteger('discount');
-            $table->unsignedInteger('limited')->default(3);
+            $table->unsignedInteger('quntity')->nullable();
+            $table->unsignedInteger('discount')->nullable();
+            $table->unsignedInteger('limited')->default(3)->nullable();
             $table->unsignedInteger('category_id')->notNull();
             $table->index('category_id');
             $table->timestamps(); // زمان ایجاد و به‌روزرسانی

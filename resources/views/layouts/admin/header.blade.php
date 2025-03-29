@@ -37,10 +37,10 @@
                                 <div class="collapse" id="collapseProducts">
                                     <ul class="nav flex-column submenu">
                                         <li class="nav-item">
-                                            <a class="nav-link" onclick="showForm('form-add-product');">افزودن محصول</a>
+                                            <a class="nav-link" href="{{ route('admin.products.create') }}">افزودن محصول</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" onclick="showForm('form-list-products');">لیست
+                                            <a class="nav-link" href="{{ route('admin.product.all') }}">لیست
                                                 محصولات</a>
                                         </li>
                                         <li class="nav-item">

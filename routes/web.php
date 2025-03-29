@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\ProductsController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -10,6 +11,10 @@ use Illuminate\Support\Facades\Route;
 // });
 // Route::get('admin/index',function(){
 //        return view('admin.index');
+// });
+
+// Route::get('test',function (){
+//     dd(bcrypt('password'));
 // });
 Route::get('admin.index', [CategoriesController::class, 'home'])->name('admin.index');
 
@@ -25,5 +30,11 @@ Route::prefix('admin')->group(function () {
         Route::get('{category_id}/edit', [CategoriesController::class, 'edit'])->name('admin.categories.edit');
         Route::put('{category_id}/update', [CategoriesController::class, 'update'])->name('admin.categories.update');
 
+    });
+
+    Route::prefix('products')->group(function () {
+        Route::get('',[ProductsController::class,'all'])->name('admin.product.all');
+        Route::get('create', [ProductsController::class, 'create'])->name('admin.products.create');
+        Route::post('', [ProductsController::class,'store'])->name('admin.products.store');
     });
 });

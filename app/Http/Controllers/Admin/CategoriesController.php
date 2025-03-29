@@ -40,15 +40,11 @@ class CategoriesController extends Controller
         // پیدا کردن دسته‌بندی بر اساس category_id
         $category = Category::where('id', $category_id)->first();
 
-        // بررسی وجود دسته‌بندی
-        if (!$category) {
-            return redirect()->back()->with('error', 'دسته‌بندی مورد نظر پیدا نشد.');
-        }
+        $category = Category::find($category_id);
 
-        // حذف دسته‌بندی
         $category->delete();
 
-        return redirect()->route('admin.categories.all')->with('success', 'دسته‌بندی با موفقیت حذف شد.');
+        return back()->with('success', 'دسته بندی حذف شد');
     }
     public function edit($category_id){
         $category = Category::find($category_id);

@@ -16,7 +16,7 @@
 
                 <div class="card-body">
                     <form class="form-inline mb-3" method="get" action="{{ route('admin.categories.all') }}">
-                        <input type="text" class="form-control mr-2" placeholder="جستجو بر اساس نام دسته‌بندی">
+                        <input type="text" class="form-control w-25 mr-2" placeholder="جستجو بر اساس نام دسته‌بندی">
                         <button type="submit" class="btn btn-primary">جستجو</button>
                     </form>
                     <div class="table-responsive">
