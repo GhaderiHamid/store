@@ -43,10 +43,10 @@
                                             <a class="nav-link" href="{{ route('admin.product.all') }}">لیست
                                                 محصولات</a>
                                         </li>
-                                        <li class="nav-item">
+                                        {{-- <li class="nav-item">
                                             <a class="nav-link" onclick="showForm('form-product-categories');">دسته‌بندی
                                                 محصولات</a>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </div>
                             </li>
@@ -73,22 +73,23 @@
                                     </ul>
                                 </div>
                             </li>
-                            <!-- مدیریت مشتریان -->
+                            <!-- مدیریت کاربران -->
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="collapse" href="#collapseCustomers" role="button"
                                     aria-expanded="false" aria-controls="collapseCustomers">
-                                    مدیریت مشتریان
+                                    مدیریت کاربران
                                 </a>
                                 <div class="collapse" id="collapseCustomers">
                                     <ul class="nav flex-column submenu">
+                                       
                                         <li class="nav-item">
-                                            <a class="nav-link" onclick="showForm('form-customer-list');">لیست
-                                                مشتریان</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" onclick="showForm('form-add-customer');">افزودن مشتری
+                                            <a class="nav-link" href="{{ route('admin.users.create') }}">افزودن کاربر
                                                 جدید</a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('admin.users.all') }}">لیست
+                                                کاربران</a>
+                                        </li> 
                                     </ul>
                                 </div>
                             </li>

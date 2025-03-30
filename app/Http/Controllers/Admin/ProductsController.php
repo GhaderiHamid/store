@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Products\StoreRequest;
+use App\Http\Requests\Admin\Products\UpdateRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Utilities\ImageUploader;
@@ -42,5 +43,40 @@ class ProductsController extends Controller
    public function all(){
     $products=Product::paginate(10);
     return view('admin.products.all',compact('products'));
+   }
+   public function delete($product_id){
+$product=Product::findOrFail($product_id);
+$product->delete();
+return back()->with('success','محصول حذف شد');
+   }
+   public function edit($product_id){
+            $categories = Category::all();
+ 
+    $product=Product::findOrFail($product_id);  
+    return view('admin.products.edit',compact('product','categories'));
+   }
+   public function update(UpdateRequest $request, $product_id){
+     $validatedData=$request->validated();
+     $product=Product::findOrFail($product_id);
+      $imagePath = null;
+    if ($request->hasFile('image_path') && $request->file('image_path')->isValid()) {
+        $categoryId = $validatedData['category_id'];
+        $uploadFolder = 'products/' . $categoryId; // مسیر پوشه بر اساس category_id
+        $imagePath = ImageUploader::upload($request->file('image_path'), $uploadFolder); // آپلود تصویر
+    }
+    $updatedProduct= $product->update([
+        'name' => $validatedData['name'],
+        'price' => $validatedData['price'],
+        'description' => $validatedData['description'],
+        'category_id' => $validatedData['category_id'],
+        'image_path'=>$imagePath,
+       
+     ]);
+ if(!$updatedProduct){
+            return back()->with('failed', 'دسته بندی بروزرسانی نشد');
+        }
+                    return back()->with('success', 'دسته بندی بروزرسانی شد');
+
+
    }
 }

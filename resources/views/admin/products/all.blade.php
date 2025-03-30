@@ -35,7 +35,7 @@
                                     <tr>
                                         <td>{{ $product->id }}</td>
                                         <td> 
-                                            <img src="/{{ $product->image_path }}" alt="" >
+                                            {{-- <img src="/{{ $product->image_path }}" alt="" > --}}
                                             {{ $product->name }}
                                         </td>
                                         <td>{{ $product->category->category_name}}</td>
@@ -43,8 +43,13 @@
                                         <td>{{ substr($product->description, 0, 6) }}</td>
                                         <td>{{ $product->created_at }}</td>
                                         <td>
-                                            <button class="btn btn-sm btn-info">ویرایش</button>
-                                            <button class="btn btn-sm btn-danger">حذف</button>
+                                            <a href="{{ route('admin.products.edit', $product->id) }}"><button class="btn ml-2 btn-info">ویرایش</button>
+                                            </a>
+                                            <form action="{{ route('admin.products.delete', $product->id) }}" method="post" class="d-inline">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn  btn-danger">حذف</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
