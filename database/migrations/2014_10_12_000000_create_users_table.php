@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
             $table->string('city', 100)->charset('utf8mb4')->collation('utf8mb4_persian_ci'); // شهر
             $table->char('phone', 11)->charset('utf8mb4')->collation('utf8mb4_persian_ci')->notNull(); // شماره تلفن
             $table->text('address')->charset('utf8mb4')->collation('utf8mb4_persian_ci'); // آدرس
-            $table->enum('role',['admin','user'])->charset('utf8mb4')->collation('utf8mb4_persian_ci');
             $table->timestamps(); // زمان ایجاد و به‌روزرسانی
         });
     }

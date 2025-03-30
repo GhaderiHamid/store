@@ -17,10 +17,13 @@ class CreateShippersTable extends Migration
             $table->id(); // INT NOT NULL AUTO_INCREMENT
             $table->string('first_name', 100)->charset('utf8mb4')->collation('utf8mb4_persian_ci')->notNull(); // نام
             $table->string('last_name', 100)->charset('utf8mb4')->collation('utf8mb4_persian_ci')->notNull(); // نام خانوادگی
+            $table->string('password', 100)->charset('utf8mb4')->collation('utf8mb4_persian_ci'); // رمز عبور
             $table->string('email', 100)->charset('utf8mb4')->collation('utf8mb4_persian_ci')->unique(); // ایمیل
             $table->string('city', 100)->charset('utf8mb4')->collation('utf8mb4_persian_ci'); // شهر
             $table->char('phone', 11)->charset('utf8mb4')->collation('utf8mb4_persian_ci')->notNull(); // شماره تلفن
             $table->timestamps(); // زمان ایجاد و به‌روزرسانی
+            $table->text('address')->charset('utf8mb4')->collation('utf8mb4_persian_ci'); // آدرس
+
         });
     }
 
@@ -32,6 +35,5 @@ class CreateShippersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('shippers');
-
     }
 }
