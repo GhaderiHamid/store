@@ -13,11 +13,15 @@ class CreatePaymentGatewaiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('payment_gatewaies', function (Blueprint $table) {
-            $table->id(); 
-            $table->string('name', 50)->collate('utf8mb4_persian_ci'); // نام با کدگذاری مناسب
+        Schema::create('payments', function (Blueprint $table) {
+            $table->id();
+            $table->enum('gateway', ['idpay', 'zarinpal']);
+            $table->unsignedInteger('res_id');
+            $table->unsignedInteger('ref_id');
+            $table->enum('status', ['paid', 'unpaid',]);
+            $table->unsignedBigInteger('order_id');
+            $table->index('order_id');
             $table->timestamps();
-
         });
     }
 
@@ -29,7 +33,5 @@ class CreatePaymentGatewaiesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('payment_gatewaies');
-
     }
 }
-?>

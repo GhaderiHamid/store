@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    use HasFactory;
-    protected $guarded=[];
+   use HasFactory;
+   protected $guarded = [];
 
- 
+   public function orders()
+   {
+      return $this->hasMany(Order::class);
+   }
 }

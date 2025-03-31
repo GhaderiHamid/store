@@ -67,7 +67,7 @@
                                                 در حال پردازش</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" onclick="showForm('form-completed-orders');">سفارش‌های
+                                            <a class="nav-link" href="{{ route('admin.orders.all') }}">سفارش‌های
                                                 تکمیل شده</a>
                                         </li>
                                     </ul>
@@ -168,6 +168,28 @@
                                         <li class="nav-item">
                                             <a class="nav-link" onclick="showForm('form-order-report');">گزارش
                                                 سفارش‌ها</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <!-- مدیریت پرداخت‌ها -->
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#collapsePayments" role="button" aria-expanded="false"
+                                    aria-controls="collapsePayments">
+                                    مدیریت پرداخت‌ها
+                                </a>
+                                <div class="collapse" id="collapsePayments">
+                                    <ul class="nav flex-column submenu">
+                                        {{-- <li class="nav-item">
+                                            <a class="nav-link" >پرداخت‌های جدید</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" >پرداخت‌های
+                                                تکمیل شده</a>
+                                        </li> --}}
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('admin.payments.all') }}">لیست
+                                                پرداخت‌ها</a>
                                         </li>
                                     </ul>
                                 </div>

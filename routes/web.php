@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\OrdersController;
+use App\Http\Controllers\Admin\PaymentsController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +24,7 @@ Route::get('admin.index', [CategoriesController::class, 'home'])->name('admin.in
 
 
 Route::prefix('admin')->group(function () {
+    
 
     Route::prefix('categories')->group(function () {
         Route::get('all', [CategoriesController::class, 'all'])->name('admin.categories.all');
@@ -52,5 +55,11 @@ Route::prefix('admin')->group(function () {
         Route::delete('{user_id}/delete', [UsersController::class, 'delete'])->name('admin.users.delete');
 
 
+    });
+    Route::prefix('orders')->group(function () {
+        Route::get('', [OrdersController::class,'all'])->name('admin.orders.all');
+    });
+    Route::prefix('payments')->group(function () {
+      Route::get('', [PaymentsController::class,'all'])->name('admin.payments.all');
     });
 });

@@ -15,17 +15,24 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('order_date')->nullable();
+           
             $table->dateTime('payment_date')->nullable();
             $table->dateTime('shipped_date')->nullable();
             $table->dateTime('receive_date')->nullable();
             $table->unsignedBigInteger('tracking_number')->unique();
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('shipper_id')->nullable();
-            $table->unsignedInteger('payment_id');
-            $table->unsignedInteger('status_id');
+            $table->unsignedBigInteger('user_id');
+            // $table->unsignedBigInteger('shipper_id');
+            // $table->unsignedBigInteger('payment_id');
+            $table->unsignedBigInteger('statusorders_id');
 
-            $table->index(['user_id','shipper_id','payment_id','status_id']);
+            // تنظیم کلیدهای خارجی
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('shipper_id')->references('id')->on('shippers')->onDelete('set null');
+            // $table->foreign('payment_id')->references('id')->on('payment_gateways')->onDelete('set null');
+            $table->foreign('statusorders_id')->references('id')->on('statusorders')->onDelete('cascade');
+
+
+            // $table->index(['user_id','shipper_id','payment_id','status_id']);
 
             $table->timestamps(); // زمان ایجاد و به‌روزرسانی
 
