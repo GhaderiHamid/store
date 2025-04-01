@@ -15,7 +15,7 @@ class CreateStatusOrdersTable extends Migration
     {
         Schema::create('status_orders', function (Blueprint $table) {
             $table->id(); // ایجاد کلید اصلی با AUTO_INCREMENT
-            $table->enum('status_name', ['در حال پردازش', 'تحویل داده شده','لغو شده','در انتظار پرداخت','مرجوع شده']); // ایجاد فیلد status_name با نوع enum
+            $table->enum('status_name', ['در حال پردازش', 'تحویل داده شده','لغو شده','در انتظار پرداخت','مرجوع شده'])->charset('utf8mb4')->collation('utf8mb4_persian_ci'); // ایجاد فیلد status_name با نوع enum
             // $table->string('status_name', 50)->collate('utf8mb4_persian_ci'); // ایجاد فیلد status_name
             $table->timestamps();
         });

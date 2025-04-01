@@ -1,7 +1,7 @@
 @extends('layouts.frontend.master')
 @section('content')
 
-<div class="container-fluid bg-top-nav">
+{{-- <div class="container-fluid bg-top-nav">
     <div class="row">
         <div class="container">
             <div class="row d-flex justify-content-center align-items-center">
@@ -74,7 +74,7 @@
 
         </div>
     </div>
-</div> -->
+</div> --> --}}
 <nav class="w-100">
     <div class="container">
         <div class="row">

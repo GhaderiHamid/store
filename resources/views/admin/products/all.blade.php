@@ -18,8 +18,8 @@
                         <button type="submit" class="btn btn-primary">جستجو</button>
                     </form>
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead>
+                        <table class="table table-bordered table-striped text-center">
+                            <thead class="text-center">
                                 <tr>
                                     <th>شناسه</th>
                                     <th>نام محصول</th>
@@ -34,26 +34,27 @@
                                 @foreach ($products as $product)
                                     <tr>
                                         <td>{{ $product->id }}</td>
-                                        <td> 
-                                            {{-- <img src="/{{ $product->image_path }}" alt="" > --}}
+                                        <td>
+                                            {{-- <img src="/{{ $product->image_path }}" alt=""> --}}
                                             {{ $product->name }}
                                         </td>
-                                        <td>{{ $product->category->category_name}}</td>
+                                        <td>{{ $product->category->category_name }}</td>
                                         <td>{{ $product->price }} تومان</td>
-                                        <td>{{ substr($product->description, 0, 6) }}</td>
+                                        <td>{{ $product->description }}</td>
                                         <td>{{ $product->created_at }}</td>
                                         <td>
-                                            <a href="{{ route('admin.products.edit', $product->id) }}"><button class="btn ml-2 btn-info">ویرایش</button>
+                                            <a href="{{ route('admin.products.edit', $product->id) }}">
+                                                <button class="btn  action-btn btn-info">ویرایش</button>
                                             </a>
-                                            <form action="{{ route('admin.products.delete', $product->id) }}" method="post" class="d-inline">
+                                            <form action="{{ route('admin.products.delete', $product->id) }}" method="post"
+                                                class="d-inline">
                                                 @csrf
                                                 @method('delete')
-                                                <button type="submit" class="btn  btn-danger">حذف</button>
+                                                <button type="submit" class="btn action-btn mt-2 btn-danger">حذف</button>
                                             </form>
                                         </td>
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>
@@ -64,6 +65,4 @@
             </div>
         </div>
     </main>
-    </div>
-    </div>
 @endsection

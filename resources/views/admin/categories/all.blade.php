@@ -20,32 +20,30 @@
                         <button type="submit" class="btn btn-primary">جستجو</button>
                     </form>
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped text-center">
                             <thead>
                                 <tr>
-                                    <th>شناسه</th>
-                                    <th>نام دسته‌بندی</th>
-                                    <th>تاریخ ایجاد</th>
-                                    <th>عملیات</th>
+                                    <th class="align-middle">شناسه</th>
+                                    <th class="align-middle">نام دسته‌بندی</th>
+                                    <th class="align-middle">تاریخ ایجاد</th>
+                                    <th class="align-middle">عملیات</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($categories as $category)
                                     <tr>
-                                        <td>{{ $category->id }}</td>
-                                        <td>{{ $category->category_name }}</td>
-                                        <td>{{ $category->created_at }}</td>
-                                        <td>
-                                            <a href="{{ route('admin.categories.edit',$category->id) }}"><button class="btn ml-2 btn-info">ویرایش</button>
+                                        <td class="align-middle">{{ $category->id }}</td>
+                                        <td class="align-middle">{{ $category->category_name }}</td>
+                                        <td class="align-middle">{{ $category->created_at }}</td>
+                                        <td class="align-middle">
+                                            <a href="{{ route('admin.categories.edit', $category->id) }}"><button
+                                                    class="btn action-btn ml-2 btn-info">ویرایش</button>
                                             </a>
-                                            <form action="{{ route('admin.categories.delete', $category->id) }}"
-                                                method="post" class="d-inline">
+                                            <form action="{{ route('admin.categories.delete', $category->id) }}" method="post"
+                                                class="d-inline">
                                                 @csrf
                                                 @method('delete')
-                                                <button type="submit" class="btn  btn-danger">حذف</button>
-                                            </form>
-
-
+                                                <button type="submit" class="btn action-btn btn-danger">حذف</button>
                                             </form>
                                         </td>
                                     </tr>

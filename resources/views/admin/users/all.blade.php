@@ -20,35 +20,39 @@
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>شناسه</th>
-                                        <th>نام ونام خانوادگی</th>
-                                        <th>ایمیل</th>
-                                        <th>شماره تماس</th>
-                                        <th>نقش کاربری</th>
-                                        <th>تاریخ عضویت</th>
-                                        <th>عملیات</th>
+                                        <th style="vertical-align: middle; text-align: center;">شناسه</th>
+                                        <th style="vertical-align: middle; text-align: center;">نام   </th>
+                                        <th style="vertical-align: middle; text-align: center;">ایمیل</th>
+                                        <th style="vertical-align: middle; text-align: center;">شهر</th>
+                                        <th style="vertical-align: middle; text-align: center;">شماره تماس</th>
+                                        <th style="vertical-align: middle; text-align: center;">نقش کاربری</th>
+                                        <th style="vertical-align: middle; text-align: center;">تاریخ عضویت</th>
+                                        <th style="vertical-align: middle; text-align: center;">عملیات</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   @foreach ($users as $user)
-                                    <tr>
-                                        <td>{{ $user->id }}</td>
-                                        <td> {{ $user->first_name }}{{ $user->last_name }}</td>
-                                        <td>{{ $user->email  }}</td>
-                                        <td>{{ $user->phone	 }}</td>
-                                        <td>{{ $user->role == 'admin' ? 'ادمین' : 'کاربر' }}</td>
-                                        <td>{{ $user->created_at }}</td>
-                                        <td>
-                                        <a href="{{ route('admin.users.edit', $user->id) }}"><button class="btn ml-2 btn-info">ویرایش</button>
-                                        </a>
-                                        <form action="{{ route('admin.users.delete', $user->id) }}" method="post" class="d-inline">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn  btn-danger">حذف</button>
-                                        </form>
-                                        </td>
-                                    </tr>
-                                   @endforeach
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            <td style="text-align: center; vertical-align: middle;">{{ $user->id }}</td>
+                                            <td style="text-align: center; vertical-align: middle;">{{ $user->first_name }}{{ ' ' }}{{ $user->last_name }}
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">{{ $user->email }}</td>
+                                            <td style="text-align: center; vertical-align: middle;">{{ $user->city }}</td>
+                                            <td style="text-align: center; vertical-align: middle;">{{ $user->phone }}</td>
+                                            <td style="text-align: center; vertical-align: middle;">{{ $user->role == 'admin' ? 'ادمین' : 'کاربر' }}</td>
+                                            <td style="text-align: center; vertical-align: middle;">{{ $user->created_at }}</td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <a href="{{ route('admin.users.edit', $user->id) }}">
+                                                    <button class="btn action-btn  btn-info">ویرایش</button>
+                                                </a>
+                                                <form action="{{ route('admin.users.delete', $user->id) }}" method="post" class="d-inline">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn action-btn btn-danger mt-2">حذف</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

@@ -61,3 +61,6 @@ body {
         text-align: right;
         display: block;
       }
+       .action-btn {
+        width: 80px; /* عرض ثابت */
+    }

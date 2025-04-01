@@ -110,7 +110,7 @@
     </footer>
     <!-- end footer nav -->
     <?php
-    // $dbc->close();
+// $dbc->close();
     ?>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
@@ -121,6 +121,27 @@
     <script src="/script/owl.carousel.min.js"></script>
     <script src="/script/javaScript.js"></script>
 
+<script src="/script/zoomy.js"></script>
+
+
+<script>
+    var urls = [
+        '/img/products/zoom/s1.jpg',
+        '/img/products/zoom/s2.jpg',
+        '/img/products/zoom/s3.jpg',
+        '/img/products/zoom/s4.jpg'
+
+    ];
+    var options = {
+        // thumbLeft:true,
+        // thumbRight:true,
+        // thumbHide: false,
+        // width: 400,
+        // height:450,
+
+    };
+    $('#el').zoomy(urls, options);
+</script>
 
 
 

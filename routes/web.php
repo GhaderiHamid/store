@@ -1,11 +1,16 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\HomeAdminController;
+use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\PaymentsController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\User\HomeUserController;
+use App\Http\Controllers\User\ProductsController as UserProductsController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -20,11 +25,14 @@ use Illuminate\Support\Facades\Route;
 // Route::get('test',function (){
 //     dd(bcrypt('password'));
 // });
-Route::get('admin.index', [CategoriesController::class, 'home'])->name('admin.index');
+// Route::get('admin/index',function (){
+//     return view('admin.index');
+// });
 
 
 Route::prefix('admin')->group(function () {
-    
+    Route::get('index', [HomeAdminController::class, 'home'])->name('admin.index');
+
 
     Route::prefix('categories')->group(function () {
         Route::get('all', [CategoriesController::class, 'all'])->name('admin.categories.all');
@@ -34,7 +42,6 @@ Route::prefix('admin')->group(function () {
         Route::delete('{category_id}/delete', [CategoriesController::class, 'delete'])->name('admin.categories.delete');
         Route::get('{category_id}/edit', [CategoriesController::class, 'edit'])->name('admin.categories.edit');
         Route::put('{category_id}/update', [CategoriesController::class, 'update'])->name('admin.categories.update');
-
     });
 
     Route::prefix('products')->group(function () {
@@ -44,7 +51,6 @@ Route::prefix('admin')->group(function () {
         Route::delete('{product_id}/delete', [ProductsController::class, 'delete'])->name('admin.products.delete');
         Route::get('{product_id}/edit', [ProductsController::class, 'edit'])->name('admin.products.edit');
         Route::put('{product_id}/update', [ProductsController::class, 'update'])->name('admin.products.update');
-
     });
     Route::prefix('users')->group(function () {
         Route::get('', [UsersController::class, 'all'])->name('admin.users.all');
@@ -53,13 +59,25 @@ Route::prefix('admin')->group(function () {
         Route::get('{user_id}/edit', [UsersController::class, 'edit'])->name('admin.users.edit');
         Route::put('{user_id}/update', [UsersController::class, 'update'])->name('admin.users.update');
         Route::delete('{user_id}/delete', [UsersController::class, 'delete'])->name('admin.users.delete');
-
-
     });
     Route::prefix('orders')->group(function () {
-        Route::get('', [OrdersController::class,'all'])->name('admin.orders.all');
+        Route::get('', [OrdersController::class, 'all'])->name('admin.orders.all');
     });
     Route::prefix('payments')->group(function () {
-      Route::get('', [PaymentsController::class,'all'])->name('admin.payments.all');
+        Route::get('', [PaymentsController::class, 'all'])->name('admin.payments.all');
     });
+});
+
+Route::prefix('')->group(function () {
+
+
+     Route::get('', [HomeUserController::class, 'index'])->name('frontend.home.all');
+     Route::prefix('products')->group (function () {
+        Route::get('all', [UserProductsController::class, 'all'])->name('frontend.product.all');
+        Route::get('single', [UserProductsController::class,'single'])->name('frontend.product.single');
+    });
+
+
+    
+
 });

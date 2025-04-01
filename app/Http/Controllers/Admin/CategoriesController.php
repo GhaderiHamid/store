@@ -31,10 +31,7 @@ class CategoriesController extends Controller
         $categories = Category::paginate(10);
         return view('admin.categories.all', compact('categories'));
     }
-    public function home()
-    {
-        return view('admin.index');
-    }
+   
     public function delete($category_id)
     {
         // پیدا کردن دسته‌بندی بر اساس category_id
