@@ -12,7 +12,7 @@ class Order extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
    
     // public function order_detail()
@@ -23,8 +23,8 @@ class Order extends Model
     // {
     //     return $this->hasOne(Payment::class);
     // }
-    public function statusorder(){
-      return $this->belongsTo(Statusorder::class);  
+    public function status_order(){
+      return $this->belongsTo(Status_order::class, 'status_id');  
     }
    
 }

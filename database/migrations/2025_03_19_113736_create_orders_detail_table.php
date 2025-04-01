@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrderDetailsTable extends Migration
+class CreateOrdersDetailTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateOrderDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('order_details', function (Blueprint $table) {
+        Schema::create('orders_detail', function (Blueprint $table) {
             $table->id(); // ایجاد ستون id با AUTO_INCREMENT
             $table->unsignedInteger('quantity')->default(1); // مقدار پیش فرض 1 برای quantity
             $table->unsignedInteger('price'); // ستون price
@@ -33,7 +33,7 @@ class CreateOrderDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_details'); // حذف جدول در صورت نیاز
+        Schema::dropIfExists('orders_detail'); // حذف جدول در صورت نیاز
 
     }
 }
