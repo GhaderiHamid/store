@@ -14,13 +14,13 @@ class CreateBookmarksTable extends Migration
     public function up()
     {
         Schema::create('bookmarks', function (Blueprint $table) {
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('product_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
             
 
             // تعریف کلید اصلی ترکیبی
             $table->primary(['user_id', 'product_id']);
-            $table->index(['user_id', 'product_id']);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             
             $table->timestamps();
         });

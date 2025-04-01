@@ -17,10 +17,13 @@ class CreateCommentsTable extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id(); // ایجاد فیلد auto-increment
             $table->text('comment_text')->charset('utf8mb4')->collation('utf8mb4_persian_ci'); // فیلد متن نظر
-            $table->unsignedInteger('user_id'); // فیلد شناسه کاربر
-            $table->unsignedInteger('product_id'); // فیلد شناسه محصول
-            $table->unsignedInteger('parent_id')->nullable();// شناسه کامنت والد
-            $table->index(['user_id','product_id','parent_id']);
+            $table->unsignedBigInteger('user_id'); // فیلد شناسه کاربر
+            $table->unsignedBigInteger('product_id'); // فیلد شناسه محصول
+            $table->unsignedBigInteger('parent_id')->nullable();// شناسه کامنت والد
+            // $table->index(['user_id','product_id','parent_id']);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('parent_id')->references('id')->on('comments')->onDelete('cascade');
             $table->timestamps(); // زمان ایجاد و به‌روزرسانی
 
         });

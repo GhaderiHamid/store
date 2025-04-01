@@ -11,7 +11,7 @@ class PaymentsController extends Controller
 
     public function all(){
         $payments = Payment::paginate(10);
-
+        // $payments = Payment::with( 'order_id')->get();
         return view('admin.payments.all',compact('payments'));
     }
 }

@@ -14,10 +14,13 @@ class CreateLikeCommentsTable extends Migration
     public function up()
     {
         Schema::create('like_comments', function (Blueprint $table) {
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('comment_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('comment_id');
             $table->primary(['user_id', 'comment_id']);
-            $table->index(['user_id', 'comment_id']);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('comment_id')->references('id')->on('comments')->onDelete('cascade');
+            
+            // $table->index(['user_id', 'comment_id']);
 
             $table->timestamps(); // زمان ایجاد و به‌روزرسانی
         });

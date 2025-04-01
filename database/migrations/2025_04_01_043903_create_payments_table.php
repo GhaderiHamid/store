@@ -20,7 +20,9 @@ class CreatePaymentsTable extends Migration
             // $table->unsignedInteger('ref_id');
             $table->enum('status', ['paid', 'unpaid',]);
             $table->unsignedBigInteger('order_id');
-            $table->index('order_id');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+
+            // $table->index('order_id');
             $table->timestamps();
         });
     }

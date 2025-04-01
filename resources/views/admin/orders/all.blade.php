@@ -21,31 +21,25 @@
                                     <th>نام مشتری</th>
                                     <th>تاریخ سفارش</th>
                                     <th>وضعيت</th>
-
                                     <th>كد رهگيري</th>
                                     <th>عملیات</th>
                                 </tr>
                             </thead>
                             <tbody>
-                               @foreach ($orders as $order)
+                                @foreach ($orders as $order)
 
                                     <tr>
                                         <td> {{ $order->id }}</td>
                                         <td>{{ $order->user->first_name }}{{ $order->user->last_name  }}</td>
-                            {{-- <td>{{ $order->statusorder->status_name }}</td> --}}
                                         <td>{{ $order->created_at }}</td>
-                                        {{-- <td>{{ $order->status_order->status_name }}</td> --}}
-                                        {{-- <td>{{ $order-> }}</td> --}}
-                                         {{-- <td>{{ $order->status_order ? $order->status_order->status_name : 'نامشخص' }}</td>  --}}
-<td>{{ $order->status_order->status_name }}</td>
-                                        {{-- <td>{{ optional($order-> }}</td> --}}
+                                        <td>{{ $order->status_order->status_name }}</td>
                                         <td>{{ $order->tracking_number  }}</td>
                                         <td>
                                             <button class="btn btn-sm btn-info">مشاهده</button>
                                         </td>
                                     </tr>
 
-                                @endforeach 
+                                @endforeach
 
 
                             </tbody>

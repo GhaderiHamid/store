@@ -25,18 +25,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                     @foreach ($payments as $payment)
                                         <tr>
-                                            <td></td>
-                                            {{-- <td>{{ $payment->id }}</td>
-                                            <td>{{ $payment->order->user->first_name }}{{ $payment->order->user->last_name }} </td>
-                                           
-                                            {{-- <td>{{ $payment->order_detail->price }}</td> --}}
-                                            <td>2000</td>
-                                            {{-- <td>{{ $payment->order->tracking_number  }}</td> --}}
-                                            <td>{{ $payment->created_at }}</td>
-                                            <td>{{ $payment->status }}</td> --}}
+                                           <td>{{ $payment->id }}</td>
+                                           <td>{{ $payment->order->user->first_name }}{{ $payment->order->user->last_name }}</td>
+                                           <td>{{ $payment->order->order_detail->price }}</td>
+                                           <td>{{$payment->order->tracking_number  }}</td>
+                                           <td>{{ $payment->created_at }}</td>
+                                           <td>{{ $payment->status== 'paid'?'پرداخت شده':'پرداخت نشده' }}</td>
+
+
                                             <td>
                                                 <button class="btn btn-sm btn-info">مشاهده</button>
                                                 <button class="btn btn-sm btn-danger">حذف</button>

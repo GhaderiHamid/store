@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStatusOrdersDetailTable extends Migration
+class CreateStatusOrderDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateStatusOrdersDetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('status_orders_detail', function (Blueprint $table) {
+        Schema::create('status_order_details', function (Blueprint $table) {
             $table->id(); // ایجاد ستون status_id به عنوان کلید اصلی و خودکار
             $table->enum('status_name', ['تحویل داده شده', 'لغو شده', 'مرجوع شده']); // ایجاد فیلد status_name با نوع enum
 
@@ -30,7 +30,7 @@ class CreateStatusOrdersDetailTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('status_orders_detail');
+        Schema::dropIfExists('status_order_details');
 
     }
 }

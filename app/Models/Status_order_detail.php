@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Payment extends Model
+class Status_order_detail extends Model
 {
-    public $guarded = [];
-
     use HasFactory;
-    public function order()
+    public $guarded = [];
+    public function order_details()
     {
-        return $this->belongsTo(Order::class, 'order_id');
+        return $this->hasMany(Order_detail::class);
     }
-   
 }

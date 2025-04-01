@@ -22,7 +22,6 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('tracking_number')->unique();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('shipper_id');
-            
             $table->unsignedBigInteger('status_id');
 
             // تنظیم کلیدهای خارجی

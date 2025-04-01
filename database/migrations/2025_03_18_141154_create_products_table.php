@@ -22,8 +22,9 @@ class CreateProductsTable extends Migration
             $table->unsignedInteger('quntity')->nullable();
             $table->unsignedInteger('discount')->nullable();
             $table->unsignedInteger('limited')->default(3)->nullable();
-            $table->unsignedInteger('category_id')->notNull();
-            $table->index('category_id');
+            $table->unsignedBigInteger('category_id')->notNull();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            
             $table->timestamps(); // زمان ایجاد و به‌روزرسانی
 
         });
