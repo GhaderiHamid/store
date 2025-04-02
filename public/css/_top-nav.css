@@ -62,17 +62,19 @@
      
 }
 
-.custom-dropdown-menu ul li a{
+.custom-dropdown-menu div div a{
     color: black !important;
     font-size: 16px;
     transition-duration: 0.5s;
     
 }
-.custom-dropdown-menu ul li a span{
+.custom-dropdown-menu div div a span{
     font-size: 20px;
     vertical-align: middle;
 }
-.custom-dropdown-menu ul li a:hover{
+
+
+.custom-dropdown-menu div div a:hover{
  margin-right: 7px;
  color: #62a5f8 !important;
 }

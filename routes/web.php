@@ -74,7 +74,7 @@ Route::prefix('')->group(function () {
      Route::get('', [HomeUserController::class, 'index'])->name('frontend.home.all');
      Route::prefix('products')->group (function () {
         Route::get('all', [UserProductsController::class, 'all'])->name('frontend.product.all');
-        Route::get('single', [UserProductsController::class,'single'])->name('frontend.product.single');
+        Route::get('{product_id}/single', [UserProductsController::class,'single'])->name('frontend.product.single');
     });
 
 

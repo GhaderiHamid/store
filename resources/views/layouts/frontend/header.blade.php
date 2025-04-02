@@ -21,28 +21,12 @@
     </head>
 
     <body class="rtl">
-        {{--
-        <?php
-$dbHost = 'localhost';
-$dbUser = 'root';
-$dbPass = '';
-$dbName = 'store';
-?>
-        <?php
-    include 'env.php';
+       
+  
 
 
 
-    // 1. connect to DB
-    $dbc = new mysqli($dbHost, $dbUser, $dbPass);
-    $dbc->select_db($dbName);
-    mysqli_query($dbc, "SET NAMES 'utf8'");
-    // Check connection
-    if ($dbc->connect_error) {
-        die("Connection failed: " . $dbc->connect_error);
-    }
-
-    ?> --}}
+    
 
         <!-- start top nav -->
 
@@ -67,12 +51,12 @@ $dbName = 'store';
                 <div class="container my-4">
                     <div class="row mx-0">
                         <div class="col-sm-12 col-md-7 mt-2">
-                            <form action="product.php" method="post">
+                            <form action="{{ route('frontend.product.all') }}">
                                 <div class="input-group">
                                     <input type="text" name="search" class="form-control"
                                         placeholder=" به دنبال محصول خاصی هستید؟ " />
 
-                                    <button class="btn btn-success custom-btn-font-size" name="search-btn"
+                                    <button class="btn btn-success custom-btn-font-size" name=""
                                         type="submit">
                                         جستجو
                                     </button>

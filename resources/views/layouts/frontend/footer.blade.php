@@ -109,9 +109,7 @@
         </div>
     </footer>
     <!-- end footer nav -->
-    <?php
-// $dbc->close();
-    ?>
+  
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
@@ -126,7 +124,7 @@
 
 <script>
     var urls = [
-        '/img/products/zoom/s1.jpg',
+        '/products/20/1743531951_111598404.jpg',
         '/img/products/zoom/s2.jpg',
         '/img/products/zoom/s3.jpg',
         '/img/products/zoom/s4.jpg'
@@ -143,7 +141,16 @@
     $('#el').zoomy(urls, options);
 </script>
 
-
+<script>
+    document.getElementById('sortButton').addEventListener('click', function () {
+        var selectedUrl = document.getElementById('sortSelect').value;
+        if (selectedUrl) {
+            window.location.href = selectedUrl;
+        } else {
+            alert('لطفاً یک معیار مرتب‌سازی انتخاب کنید.');
+        }
+    });
+</script>
 
 </body>
 

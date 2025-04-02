@@ -23,6 +23,7 @@
                                 <tr>
                                     <th>شناسه</th>
                                     <th>نام محصول</th>
+                                    <th>برند</th>
                                     <th>دسته‌بندی</th>
                                     <th>قیمت</th>
                                     <th>توضیحات</th>
@@ -38,6 +39,7 @@
                                             {{-- <img src="/{{ $product->image_path }}" alt=""> --}}
                                             {{ $product->name }}
                                         </td>
+                                        <td>{{ $product->brand }}</td>
                                         <td>{{ $product->category->category_name }}</td>
                                         <td>{{ $product->price }} تومان</td>
                                         <td>{{ $product->description }}</td>

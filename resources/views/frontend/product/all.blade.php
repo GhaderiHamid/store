@@ -1,40 +1,58 @@
 @extends('layouts.frontend.master')
 
-
 @section('content')
     <!-- start offer nav -->
     <section class="container mt-5 custom-container">
-        <h5 class="custom-font"></h5>
+        <h5 class="custom-font mb-3">
+        مرتب‌سازی محصولات:
+
+        </h5>
+        <div class="input-group">
+            <select id="sortSelect" class="form-select mr-1 rounded">
+                <option value="">انتخاب معیار</option>
+                <option value="{{ route('frontend.product.all', ['sort' => 'price_asc']) }}">ارزان‌ترین</option>
+                <option value="{{ route('frontend.product.all', ['sort' => 'price_desc']) }}">گران‌ترین</option>
+                <option value="{{ route('frontend.product.all', ['sort' => 'best_selling']) }}">پرفروش‌ترین</option>
+                <option value="{{ route('frontend.product.all', ['sort' => 'newest']) }}">جدیدترین</option>
+            </select>
+            <button type="button" id="sortButton" class="btn btn-primary">مرتب کن</button>
+        </div>
         <hr>
-        <div class="row "> 
-
-
-            <div class="col-sm-12 col-md-6 col-lg-3  position-relative">
-                <div id="offer-expire-text" class="position-absolute mt-5"></div>
-                <div id="offer-blur" class="">
-                    <div class="card d-flex flex-column align-items-center mt-5 custom-card">
-
-                        <img class="card-img-top" src="/img/products/motherboard/motherboard_ (1).jpg" alt="Card image cap" />
-                        <div class="card-body custom-card-body text-center w-100 ">
-                            <p class="card-text custom-card-text">مادربرد از شرکت </p>
-                            <p class="mt-4 d-flex justify-content-center align-items-center "> <s> 40000000 </s> &nbsp;
-                                <span class="b badge-pill badge-danger custom-span d-flex align-items-center "> 20% </span>
-                            </p>
-                            <p class="mt-2 b">&nbsp; تومان</p>
-                            <div class="count-down-timer">
-                                <!-- <p class="custom-font-color">فرصت باقیمانده تا پایان این پیشنهاد</p> -->
-                                <div id="demo"></div>
+        <div class="row">
+            @include('errors.message')
+            @foreach ($products as $product)
+                <div class="col-sm-12 col-md-6 col-lg-3 position-relative">
+                    <a href="{{ route('frontend.product.single', $product->id) }}">
+                        <div id="offer-expire-text" class="position-absolute mt-5"></div>
+                        <div id="offer-blur">
+                            <div class="card d-flex flex-column align-items-center mt-5 custom-card">
+                                <img class="card-img-top" src="/{{ $product->image_path }}" alt="Card image cap" />
+                                <div class="card-body custom-card-body text-center w-100">
+                                    <p class="card-text custom-card-text">{{ $product->name }}</p>
+                                    <p class="mt-4 d-flex justify-content-center align-items-center">{{ $product->price }}
+                                        &nbsp;
+                                    </p>
+                                    <p class="mt-2 b">تومان</p>
+                                    <input type="button" value="افزودن به سبد خرید" class="price-btn mt-4">
+                                </div>
                             </div>
-
-                            <input type="button" name="" id="" value="افزودن به سبد خرید" class="price-btn mt-4">
-
-
                         </div>
-                    </div>
+                    </a>
                 </div>
-            </div>
-
+            @endforeach
         </div>
     </section>
+    <div class="d-flex justify-content-center mt-5">
+        {{ $products->links() }}
+    </div>
+
+    <script>
+        document.getElementById('sortButton').addEventListener('click', function () {
+            var sortValue = document.getElementById('sortSelect').value;
+            if (sortValue) {
+                window.location.href = sortValue;
+            }
+        });
+    </script>
     <!-- end offer nav -->
 @endsection

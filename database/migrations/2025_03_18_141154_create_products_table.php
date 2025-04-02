@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id(); // AUTO_INCREMENT و PRIMARY KEY
             $table->string('name', 100)->charset('utf8mb4')->collate('utf8mb4_persian_ci');
+            $table->string('brand',50)->charset('utf8mb4')->collate('utf8mb4_persian_ci');
             $table->text('description')->charset('utf8mb4')->collate('utf8mb4_persian_ci');
             $table->char('image_path')->nullable();
             $table->unsignedInteger('price')->notNull();

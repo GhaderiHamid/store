@@ -2,14 +2,14 @@
 
 @section('content')
     <!-- start product-details nav -->
-    
+
     <div class="container my-5">
         <div class="row">
             <div class="col-sm-12 bg-white ">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb custom-breadcrumb">
-                        <li class="breadcrumb-item"><a href="#" class="text-decoration-none">خانه</a></li>
-                        <li class=" breadcrumb-item active" aria-current="page">نام محصول</li>
+                        <li class="breadcrumb-item"><a href="{{ route('frontend.home.all') }}" class="text-decoration-none">خانه</a></li>
+                        <li class=" breadcrumb-item active" aria-current="page"> {{ $product->name }}</li>
                     </ol>
                 </nav>
             </div>
@@ -18,12 +18,12 @@
     <div class="container custom-container mt-5">
         <div class="row border-bottom d-flex align-items-center">
             <div class="col-sm-12 col-md-6 col-lg-5 border-left ">
-                <div id="el" class="my-5 "></div>
+                <div id="el" class="my-5 "><img src="/{{ $product->image_path }}" alt=""></div>
             </div>
 
             <div class="col-sm-12 col-md-6  col-lg-7 mt-4">
                 <div class=" d-flex justify-content-between align-items-center">
-                    <h2>نام محصول</h2>
+                    <h2> {{ $product->name }}</h2>
                     <div class="d-flex ">
                         <div class="custom-icone mx-3">
                             <span class="material-symbols-outlined">
@@ -48,16 +48,8 @@
                     </div>
 
                 </div>
-                <p class="mt-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor fuga perspiciatis,
-                    sequi nisi minima sit nobis, sed, earum itaque accusantium molestiae libero quis at! Fugit, nam
-                    autem id, itaque praesentium, commodi placeat cupiditate ratione non ut libero nesciunt
-                    voluptatum iure reiciendis asperiores possimus quidem. Provident fugit cupiditate ea deleniti
-                    labore et fuga sequi odit distinctio, quaerat vitae nisi perferendis recusandae eaque! Ullam
-                    incidunt debitis impedit magni doloremque veniam id consectetur modi fugiat magnam facere,
-                    molestiae exercitationem labore cumque sit quam numquam ducimus, expedita accusantium placeat
-                    molestias veritatis, similique voluptas ratione! Veritatis nostrum suscipit ex ullam a animi
-                    autem sed obcaecati.
-
+                <p class="mt-5">
+                    {!! $product->description !!}
                 </p>
 
                 <form action="" class="mt-5">
@@ -204,7 +196,7 @@
                                     <ul class="nav flex-column product-desc-step">
                                         <li class="nav-item px-4 mt-3">
                                             <div class="p-img-wrapper">
-                                                <img src="/img/category/cat_ (2).png" alt="">
+                                                <img src="/{{ $product->image_path }} " alt="">
                                             </div>
                                             <p class="product-desc"> متخصصان را می طلبد تا با نرم افزارها شناخت
                                                 بیشتری را برای طراحان
@@ -219,7 +211,7 @@
                                         </li>
                                         <li class="nav-item px-4 mt-3">
                                             <div class="p-img-wrapper">
-                                                <img src="/img/category/cat_ (3).png" alt="">
+                                                <img src="/{{ $product->image_path }}" alt="">
                                             </div>
                                             <p class="product-desc"> متخصصان را می طلبد تا با نرم افزارها شناخت
                                                 بیشتری را برای طراحان
@@ -234,7 +226,7 @@
                                         </li>
                                         <li class="nav-item px-4 mt-3">
                                             <div class="p-img-wrapper">
-                                                <img src="/img/category/cat_ (1).png" alt="">
+                                                <img src="/{{ $product->image_path }}" alt="">
                                             </div>
                                             <p class="product-desc"> متخصصان را می طلبد تا با نرم افزارها شناخت
                                                 بیشتری را برای طراحان
@@ -668,6 +660,40 @@
         </div>
     </div>
 
+
+
+    <!-- اضافه کردن قسمت کالاهای مشابه -->
+    <div class="container mt-5">
+        <div class="col-sm-12">
+            <h3 class="text-center ">
+                <p>كالاهای مشابه</p>
+            </h3>
+            <div class="row">
+                @foreach($similarProducts as $similarProduct)
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="card mb-4">
+                            <img src="/{{ $similarProduct->image_path }}" class="card-img-top"
+                                alt="{{ $similarProduct->name }}">
+                               
+                            <div class="card-body">
+                                <h5 class="card-title text-reset">{{ $similarProduct->name }}</h5>
+                                <h5 class="card-title text-reset">
+                                    <p class="card-text text-reset">{{ Str::limit($similarProduct->description, 100) }}</p>
+                                </h5>
+                                <div style="text-align: center"><p class="text-reset ">{{ $similarProduct->price }} &nbsp;تومان</p></div>
+                                <div class="text-center"> <!-- اینجا برای وسط‌چین کردن دکمه -->
+                                    <a href="{{ route('frontend.product.single', $similarProduct->id) }}"
+                                        class="btn btn-primary mt-2">مشاهده</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+
     <!-- end product-details nav -->
-    
+
 @endsection
