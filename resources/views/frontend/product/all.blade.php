@@ -18,8 +18,9 @@
             <button type="button" id="sortButton" class="btn btn-primary">مرتب کن</button>
         </div>
         <hr>
+        @include('errors.message')
         <div class="row">
-            @include('errors.message')
+
             @foreach ($products as $product)
                 <div class="col-sm-12 col-md-6 col-lg-3 position-relative">
                     <a href="{{ route('frontend.product.single', $product->id) }}">
@@ -33,7 +34,8 @@
                                         &nbsp;
                                     </p>
                                     <p class="mt-2 b">تومان</p>
-                                    <input type="button" value="افزودن به سبد خرید" class="price-btn mt-4">
+                                    <a href="{{ route('frontend.cart.add', $product->id) }}" class="align-items-center"><div class="price-btn mt-4 d-inline-block">افزودن به سبد خرید</div></a>
+
                                 </div>
                             </div>
                         </div>

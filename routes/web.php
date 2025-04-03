@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\PaymentsController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\HomeUserController;
 use App\Http\Controllers\User\ProductsController as UserProductsController;
 use Illuminate\Support\Facades\Route;
@@ -75,7 +77,12 @@ Route::prefix('')->group(function () {
      Route::prefix('products')->group (function () {
         Route::get('all', [UserProductsController::class, 'all'])->name('frontend.product.all');
         Route::get('{product_id}/single', [UserProductsController::class,'single'])->name('frontend.product.single');
+        Route::get('{product_id}/add', [CartController::class, 'add'])->name('frontend.cart.add');
+        Route::get('{product_id}/remove', [CartController::class, 'remove'])->name('frontend.cart.remove');
+
     });
+    Route::get('cart', [CartController::class,'all'])->name('frontend.cart.all');
+
 
 
     

@@ -673,7 +673,7 @@
                     <div class="col-sm-6 col-md-4 col-lg-3">
                         <div class="card mb-4">
                             <img src="/{{ $similarProduct->image_path }}" class="card-img-top"
-                                alt="{{ $similarProduct->name }}">
+                                alt="">
                                
                             <div class="card-body">
                                 <h5 class="card-title text-reset">{{ $similarProduct->name }}</h5>
