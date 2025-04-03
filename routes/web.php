@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\PaymentsController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\HomeUserController;
@@ -30,7 +31,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('admin/index',function (){
 //     return view('admin.index');
 // });
-
+Route::get('pay',[PaymentController::class, 'pay']);
 
 Route::prefix('admin')->group(function () {
     Route::get('index', [HomeAdminController::class, 'home'])->name('admin.index');
