@@ -5,6 +5,7 @@ namespace App\Services\Payment\Requests;
 use League\Flysystem\ReadInterface;
 use App\Services\Payment\Contracts\RequestInterface;
 
+
 class IDPayRequest implements ReadInterface
 {
     private $user;

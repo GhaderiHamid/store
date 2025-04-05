@@ -10,21 +10,33 @@
 
                         <div class="w-100 d-flex align-items-center mt-2 product-border p-2">
                             <img class="card-img-top w-25 rounded" src="/{{ $value['image_path'] }}" alt="Card image cap">
-                            <div class="card-body">
+                            <div class="card-body col-sm-12 col-md-4">
                                 <p class="card-text">{{ $value['name'] }}</p>
                                 <div class="text-center mt-3 text-white">{{ $value['price'] }} تومان</div>
                             </div>
-                            <form action="/cart/remove/{{ $id }}" method="POST" class="">
-                                @csrf <!-- محافظت در برابر حملات CSRF -->
-                                <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-2 col-form-label text-white mt-2">تعداد</label>
-                                    <div class="col-sm-3 mt-2">
-                                        <input type="text" class="form-control" id="staticEmail" value="1">
-                                    </div>
-                                    <a href="{{ route('frontend.cart.remove', $id)  }}" class="btn btn-danger mt-2">حذف</a>
+                            <div class="card-body col-sm-9 col-md-7 d-flex align-items-center">
+                                <form action="/cart/update/{{ $id }}" method="POST" class="">
+                                    @csrf <!-- محافظت در برابر حملات CSRF -->
+                                    <div class="form-group row align-items-center">
+                                        <label for="quantity-{{ $id }}"
+                                            class="col-sm-2 col-form-label text-white mt-2">تعداد</label>
 
-                                </div>
-                            </form>
+                                        <div class="d-flex align-items-center justify-content-between ml-2">
+                                            <button type="button" class="btn btn-secondary px-3"
+                                                onclick="decreaseQuantity({{ $id }})">-</button>
+                                            <input type="text" name="quantity" id="quantity-{{ $id }}"
+                                                class="form-control text-center mx-2 input_cart" value="{{ $value['quantity'] ?? 1 }}"
+                                                readonly>
+                                            <button type="button" class="btn btn-secondary px-3"
+                                                onclick="increaseQuantity({{ $id }})">+</button>
+                                        </div>
+
+                                        <div class="col-sm-3 mt-2">
+                                            <a href="{{ route('frontend.cart.remove', $id) }}" class="btn btn-danger ">حذف</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
 
                     @endforeach
@@ -34,11 +46,16 @@
             <!-- Total and Payment -->
             <div class="col-sm-12 col-md-4 ">
                 <div class="w-100 product-border p-3 text-white">
-                    <h5>جمع کل: &nbsp; <span>{{is_null(Cookie::get('cart'))? 0 : array_sum(array_column(json_decode(Cookie::get('cart'), true), 'price'))  }} تومان</span></h5>
-                    <a href="" class="btn btn-primary w-100 mt-3">   پرداخت</a>
+                    <h5>جمع کل: &nbsp;
+                        <span>{{ is_null(Cookie::get('cart')) ? 0 : array_sum(array_column(json_decode(Cookie::get('cart'), true), 'price')) }}
+                            تومان</span>
+                    </h5>
+                    <a href="" class="btn btn-primary w-100 mt-3"> پرداخت</a>
                 </div>
             </div>
         </div>
     </div>
     <!-- end cart nav -->
+
+
 @endsection

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\Products;
+namespace App\Http\Requests\Login;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,11 +24,11 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|min:3|max:128',
-            'category_id'=>'required|exists:categories,id',
-            'price'=>'required|numeric',
-            'image_path'=>'required|image|mimes:png,jpg,jpeg,webp',
-            'description'=>'required|min:10',
+            'first_name' => 'required|string|min:3|max:255',
+            'last_name' => 'required|string|min:3|max:255',
+            'email' => 'required|email|min:3|max:255|unique:users,email',
+            'password' => 'required|string|min:3|max:255',
+            'phone' => 'required|digits:11|unique:users,phone',
         ];
     }
 }

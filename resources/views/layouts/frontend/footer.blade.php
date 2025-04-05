@@ -109,7 +109,8 @@
         </div>
     </footer>
     <!-- end footer nav -->
-  
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
@@ -119,28 +120,29 @@
     <script src="/script/owl.carousel.min.js"></script>
     <script src="/script/javaScript.js"></script>
 
+
+
+
+
 <script src="/script/zoomy.js"></script>
+ {{-- <script>
+        var urls = [
+            '/{{ $product->image_path }}',
+            '/{{ $product->image_path }}',
+             '/{{ $product->image_path }}',
+              '/{{ $product->image_path }}'
 
+        ];
+        var options = {
+            // thumbLeft:true,
+            // thumbRight:true,
+            // thumbHide: false,
+            // width: 400,
+            // height:450,
 
-<script>
-    var urls = [
-        '/products/20/1743531951_111598404.jpg',
-        '/img/products/zoom/s2.jpg',
-        '/img/products/zoom/s3.jpg',
-        '/img/products/zoom/s4.jpg'
-
-    ];
-    var options = {
-        // thumbLeft:true,
-        // thumbRight:true,
-        // thumbHide: false,
-        // width: 400,
-        // height:450,
-
-    };
-    $('#el').zoomy(urls, options);
-</script>
-
+        };
+        $('#el').zoomy(urls, options);
+    </script> --}}
 <script>
     document.getElementById('sortButton').addEventListener('click', function () {
         var selectedUrl = document.getElementById('sortSelect').value;
@@ -150,6 +152,21 @@
             alert('لطفاً یک معیار مرتب‌سازی انتخاب کنید.');
         }
     });
+</script>
+<script>
+    function increaseQuantity(id) {
+        const quantityField = document.getElementById(`quantity-${id}`);
+        let quantity = parseInt(quantityField.value);
+        quantityField.value = quantity + 1;
+    }
+
+    function decreaseQuantity(id) {
+        const quantityField = document.getElementById(`quantity-${id}`);
+        let quantity = parseInt(quantityField.value);
+        if (quantity > 1) {
+            quantityField.value = quantity - 1;
+        }
+    }
 </script>
 
 </body>

@@ -7,11 +7,13 @@ use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\PaymentsController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\HomeUserController;
 use App\Http\Controllers\User\ProductsController as UserProductsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -31,6 +33,15 @@ use Illuminate\Support\Facades\Route;
 // Route::get('admin/index',function (){
 //     return view('admin.index');
 // });
+Route::get('signIn', [LoginController::class, 'signIn'])->name('sigIn');
+Route::post('register',[LoginController::class, 'store'])->name('register');
+Route::post('login',[LoginController::class,'login'])->name('login');
+Route::get('logout',function () {
+    Auth::logout(); 
+})->name('logout');
+
+Route::get('signUp', [LoginController::class, 'signUp'])->name('signUp');
+
 Route::get('pay',[PaymentController::class, 'pay']);
 
 Route::prefix('admin')->group(function () {
@@ -76,7 +87,7 @@ Route::prefix('')->group(function () {
 
      Route::get('', [HomeUserController::class, 'index'])->name('frontend.home.all');
      Route::prefix('products')->group (function () {
-        Route::get('all', [UserProductsController::class, 'all'])->name('frontend.product.all');
+        Route::get('/all', [UserProductsController::class, 'all'])->name('frontend.product.all');
         Route::get('{product_id}/single', [UserProductsController::class,'single'])->name('frontend.product.single');
         Route::get('{product_id}/add', [CartController::class, 'add'])->name('frontend.cart.add');
         Route::get('{product_id}/remove', [CartController::class, 'remove'])->name('frontend.cart.remove');

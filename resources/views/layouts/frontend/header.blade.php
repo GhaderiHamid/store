@@ -13,7 +13,9 @@
         <link rel="stylesheet" href="/css/bootstrap-rtl.css">
         <link rel="stylesheet" href="/css/owl.carousel.css">
         <link rel="stylesheet" href="/css/owl.theme.default.css">
-                <link rel="stylesheet" href="/css/zoomy.css">
+        <link rel="stylesheet" href="/css/zoomy.css">
+        {{--
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"> --}}
 
         <link rel="stylesheet" href="/css/style.css">
 
@@ -21,12 +23,12 @@
     </head>
 
     <body class="rtl">
-       
-  
 
 
 
-    
+
+
+
 
         <!-- start top nav -->
 
@@ -56,8 +58,7 @@
                                     <input type="text" name="search" class="form-control"
                                         placeholder=" به دنبال محصول خاصی هستید؟ " />
 
-                                    <button class="btn btn-success custom-btn-font-size" name=""
-                                        type="submit">
+                                    <button class="btn btn-success custom-btn-font-size" name="" type="submit">
                                         جستجو
                                     </button>
 
@@ -73,29 +74,53 @@
 
 
 
-                        <div class="col-sm-12 col-md-5 d-flex mt-2" >
-                        <div class="d-inline-block mr-2">
-                            <a class="btn btn-secondary login text-white shop-card text-decoration-none d-flex align-items-center" href="{{ route('frontend.cart.all') }}">
-                                <span id="cart-count" class="d-inline-block badge bg-danger ">{{is_null(Cookie::get('cart'))?0: count(json_decode(Cookie::get('cart'), true)) }}</span>
+                        <div class="col-sm-12 col-md-5 d-flex mt-2">
+                            <div class="d-inline-block mr-2">
+                                <a class="btn btn-secondary login text-white shop-card text-decoration-none d-flex align-items-center"
+                                    href="{{ route('frontend.cart.all') }}">
+                                    <span id="cart-count"
+                                        class="d-inline-block badge bg-danger ">{{is_null(Cookie::get('cart')) ? 0 : count(json_decode(Cookie::get('cart'), true)) }}</span>
                                     <span class="material-symbols-outlined  ">shopping_cart</span>
-                                
-                              
-                      
-                                سبد خرید
-                            </a>
-                        </div>
+
+                                    سبد خرید
+                                </a>
+                            </div>
 
 
 
 
                             <div class="d-inline-block">
-                                <a href="login/signIn.php"
-                                    class=" btn btn-secondary login text-white shop-card text-decoration-none d-flex align-items-center ">
-                                    <span class="material-symbols-outlined">
-                                        person
-                                    </span>
-                                    ثبت نام | ورود
-                                </a>
+                                @if(Auth::check())
+                                    <div class="dropdown ">
+                                        <a href="#"
+                                            class="btn btn-secondary dropdown-toggle  login text-white shop-card text-decoration-none d-flex align-items-center"
+                                            id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="material-symbols-outlined">
+                                                account_circle
+                                            </span>
+                                            پروفایل
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                                            <li><a class="dropdown-item border " href="#">سفارش‌ها</a></li>
+                                            <li><a class="dropdown-item border " href="#">محصولات لایک‌ شده</a></li>
+                                            <li><a class="dropdown-item border " href="#">کامنت‌ها</a></li>
+                                            <li><a class="dropdown-item border " href="#">بروزرسانی حساب کاربری</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item border " href="{{ route('logout') }}">خروج از حساب
+                                                    کاربری</a></li>
+                                        </ul>
+                                    </div>
+                                @else
+                                    <a href="{{ route('sigIn') }}"
+                                        class="btn btn-secondary login text-white shop-card text-decoration-none d-flex align-items-center">
+                                        <span class="material-symbols-outlined">
+                                            person
+                                        </span>
+                                        ثبت نام | ورود
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -18,7 +18,7 @@
     <div class="container custom-container mt-5">
         <div class="row border-bottom d-flex align-items-center">
             <div class="col-sm-12 col-md-6 col-lg-5 border-left ">
-                <div id="el" class="my-5 "><img src="/{{ $product->image_path }}" alt=""></div>
+                <div id="el" class="my-5 "><img src="/{{ $product->image_path }}"   alt=""></div>
             </div>
 
             <div class="col-sm-12 col-md-6  col-lg-7 mt-4">
@@ -84,7 +84,7 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    {{-- <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <p class="mt-3 p-3 product-desc ">
                             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
                             گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
@@ -244,7 +244,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="tab-pane fade custom-tab-product-detail" id="profile" role="tabpanel"
                         aria-labelledby="profile-tab">
                         <h4 class="ml-3 mt-3"> مشخصات کلی</h4>
@@ -671,19 +671,20 @@
             <div class="row">
                 @foreach($similarProducts as $similarProduct)
                     <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="card mb-4">
+                        <div class="card mb-4 custom-card-body1">
                             <img src="/{{ $similarProduct->image_path }}" class="card-img-top"
                                 alt="">
-                               
-                            <div class="card-body">
-                                <h5 class="card-title text-reset">{{ $similarProduct->name }}</h5>
-                                <h5 class="card-title text-reset">
-                                    <p class="card-text text-reset">{{ Str::limit($similarProduct->description, 100) }}</p>
+
+                            <div class="card-body  ">
+                                <h5 class="card-title ">{{ $similarProduct->name}}</h5>
+                                <h5 class="border-0 ">ویژگی ها:&nbsp;</h5>
+                                <h5 class="card-title ">
+                                    <p class="card-text ">{{ Str::limit($similarProduct->description, 2000) }}</p>
                                 </h5>
-                                <div style="text-align: center"><p class="text-reset ">{{ $similarProduct->price }} &nbsp;تومان</p></div>
+                                <div style="text-align: center"><p class=" ">قیمت:&nbsp;{{ $similarProduct->price }} &nbsp;تومان</p></div>
                                 <div class="text-center"> <!-- اینجا برای وسط‌چین کردن دکمه -->
                                     <a href="{{ route('frontend.product.single', $similarProduct->id) }}"
-                                        class="btn btn-primary mt-2">مشاهده</a>
+                                        class="btn btn-danger mt-2">مشاهده</a>
                                 </div>
                             </div>
                         </div>
@@ -696,4 +697,7 @@
 
     <!-- end product-details nav -->
 
+
 @endsection
+
+</script>

@@ -27,7 +27,7 @@ class UpdateRequest extends FormRequest
             'name'=>'required|min:3|max:128',
             'category_id'=>'required|exists:categories,id',
             'price'=>'required|numeric',
-            'image_path'=>'nullable|image|mimes:png,jpg,jpeg',
+            'image_path'=>'nullable|image|mimes:png,jpg,jpeg,webp',
             'description'=>'required|min:10',
         ];
     }

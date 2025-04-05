@@ -16,9 +16,9 @@ class ProductsController extends Controller
         if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->input('search') . '%');
         }
-
+        
         // اعمال مرتب‌سازی بر اساس پارامتر sort
-        if ($request->get('sort') === 'newest') {
+       else if ($request->get('sort') === 'newest') {
             $query->orderBy('created_at', 'desc');
         } elseif ($request->get('sort') === 'price_asc') {
             $query->orderBy('price', 'asc');
@@ -28,8 +28,13 @@ class ProductsController extends Controller
             // فرض کنید فیلدی مانند sold برای تعداد فروش وجود دارد.
             $query->orderBy('sold', 'desc');
         }
+       else if ($request->filled('category_id')) {
+            $query->where('category_id', $request->input('category_id'));
+        }
 
-        $products = $query->paginate(20);
+
+
+        $products = $query->paginate(20)->appends($request->except('page'));
 
         return view('frontend.product.all', compact('products'));
     }

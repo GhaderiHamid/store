@@ -19,5 +19,6 @@
 }
 .cat-desc:hover{
     transform: scale(1.1);
+    border: solid 1px #c5c3c3;
     
 }

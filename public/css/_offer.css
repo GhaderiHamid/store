@@ -32,6 +32,13 @@
     transition-duration: 0.5s;
    
 }
+.custom-card-body1{
+    
+    padding: 10px;
+    background-color: #353535;
+    border: #4e4e4e solid 2px;
+   border-radius: 5px;
+}
 .custom-card:hover .price-btn{
     
     margin-top: 45px !important;

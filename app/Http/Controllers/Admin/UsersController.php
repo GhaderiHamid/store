@@ -62,6 +62,6 @@ class UsersController extends Controller
     public function delete($user_id) {
         $user=User::findOrFail($user_id);
         $user->delete();
-        return back()->with('success','كاربر خذف شد');
+        return back()->with('success','كاربر حذف شد');
     }
 }

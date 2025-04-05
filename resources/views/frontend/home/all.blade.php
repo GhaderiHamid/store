@@ -5,6 +5,7 @@
     <nav class="w-100">
         <div class="container">
             <div class="row">
+                @include('errors.message')
                 <nav class="navbar navbar-expand-lg navbar-dark w-100">
                     <!-- <a class="navbar-brand" href="#">فروشگاه</a> -->
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -100,24 +101,20 @@
     <!-- end slider nav -->
     <!-- start cat nav -->
     <section class="container mt-5 custom-container">
-
-
         <p class="title">دسته بندی ها</p>
         <div class="row mt-5">
-
-
-
-            <div class="col-sm-12 col-md-3 col-lg-2 mb-3  ">
-                <a href=" ">
-                    <div class="cat-desc">
-                        <img src="" alt="">
-                        <p>
-
-                        </p>
-                    </div>
-                </a>
-            </div>
-
+            @foreach ($categories as $category)
+                <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
+                    <a href="{{ route('frontend.product.all', ['category_id' => $category->id]) }}">
+                        <div class="cat-desc">
+                            <img src="/img/category/cat_ ({{ $category->id }}).png" alt="">
+                            <p>
+                                {{ $category->category_name }}
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
         </div>
     </section>
     <!-- end cat nav -->
