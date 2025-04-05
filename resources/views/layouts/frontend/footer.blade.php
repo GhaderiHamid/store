@@ -120,29 +120,28 @@
     <script src="/script/owl.carousel.min.js"></script>
     <script src="/script/javaScript.js"></script>
 
-
-
-
-
 <script src="/script/zoomy.js"></script>
- {{-- <script>
-        var urls = [
-            '/{{ $product->image_path }}',
-            '/{{ $product->image_path }}',
-             '/{{ $product->image_path }}',
-              '/{{ $product->image_path }}'
 
-        ];
-        var options = {
-            // thumbLeft:true,
-            // thumbRight:true,
-            // thumbHide: false,
-            // width: 400,
-            // height:450,
 
-        };
-        $('#el').zoomy(urls, options);
-    </script> --}}
+<script>
+    var urls = [
+        '/products/20/1743531951_111598404.jpg',
+        '/img/products/zoom/s2.jpg',
+        '/img/products/zoom/s3.jpg',
+        '/img/products/zoom/s4.jpg'
+
+    ];
+    var options = {
+        // thumbLeft:true,
+        // thumbRight:true,
+        // thumbHide: false,
+        // width: 400,
+        // height:450,
+
+    };
+    $('#el').zoomy(urls, options);
+</script>
+
 <script>
     document.getElementById('sortButton').addEventListener('click', function () {
         var selectedUrl = document.getElementById('sortSelect').value;

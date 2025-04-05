@@ -26,7 +26,7 @@
                                     <div class="row">
                                         @foreach ($categories as $category)
                                             <div class="col-md-4">
-                                                <a class="nav-link active text-dark" href="#">
+                                                <a class="nav-link active text-dark" href="{{ route('frontend.product.all', ['category_id' => $category->id]) }}">
                                                     <span class="material-symbols-outlined">chevron_left</span>
                                                     {{ $category->category_name }}
                                                 </a>

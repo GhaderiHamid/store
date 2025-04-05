@@ -17,7 +17,7 @@
                             <div class="card-body col-sm-9 col-md-7 d-flex align-items-center">
                                 <form action="/cart/update/{{ $id }}" method="POST" class="">
                                     @csrf <!-- محافظت در برابر حملات CSRF -->
-                                    <div class="form-group row align-items-center">
+                                    <div class="form-group row align-items-center ">
                                         <label for="quantity-{{ $id }}"
                                             class="col-sm-2 col-form-label text-white mt-2">تعداد</label>
 
@@ -29,11 +29,11 @@
                                                 readonly>
                                             <button type="button" class="btn btn-secondary px-3"
                                                 onclick="increaseQuantity({{ $id }})">+</button>
+                                            <a href="{{ route('frontend.cart.remove', $id) }}" class="btn btn-danger ml-2">حذف</a>
+
                                         </div>
 
-                                        <div class="col-sm-3 mt-2">
-                                            <a href="{{ route('frontend.cart.remove', $id) }}" class="btn btn-danger ">حذف</a>
-                                        </div>
+                                       
                                     </div>
                                 </form>
                             </div>
