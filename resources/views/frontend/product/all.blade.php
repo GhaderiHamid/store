@@ -20,7 +20,6 @@
         <hr>
         @include('errors.message')
         <div class="row">
-
             @foreach ($products as $product)
                 <div class="col-sm-12 col-md-6 col-lg-3 position-relative">
                     <a href="{{ route('frontend.product.single', $product->id) }}">
@@ -30,11 +29,41 @@
                                 <img class="card-img-top" src="/{{ $product->image_path }}" alt="Card image cap" />
                                 <div class="card-body custom-card-body text-center w-100">
                                     <p class="card-text custom-card-text">{{ $product->name }}</p>
-                                    <p class="mt-4 d-flex justify-content-center align-items-center">{{ $product->price }}
-                                        &nbsp;
-                                    </p>
-                                    <p class="mt-2 b">تومان</p>
-                                    <a href="{{ route('frontend.cart.add', $product->id) }}" class="align-items-center"><div class="price-btn mt-4 d-inline-block">افزودن به سبد خرید</div></a>
+
+                                    <!-- شرط برای نمایش تخفیف -->
+                                    @if($product->discount > 0)
+                                        <p class="mt-4 d-flex justify-content-center align-items-center">
+                                            <s class="mr-2 ">{{ $product->price }} تومان</s>
+                                            <span class="d-flex align-items-center badge badge-pill badge-danger mt-1"
+                                                style="width: 38px ;height: 35px">
+                                                {{ $product->discount }} %
+                                            </span>
+                                        </p>
+                                        <p class="mt-4 d-flex justify-content-center align-items-center">
+                                            {{ $product->price - ($product->price * $product->discount / 100) }} &nbsp; تومان
+                                        </p>
+                                    @else
+                                        <!-- نمایش قیمت اصلی اگر تخفیف وجود نداشته باشد -->
+                                        <p class="mt-4 d-flex justify-content-center align-items-center">
+                                            {{ $product->price }}  
+                                        </p>
+                                        <p class="mt-4 d-flex justify-content-center align-items-center">
+                                            تومان
+                                        </p>
+                                    @endif
+
+                                    <!-- شرط برای دکمه افزودن به سبد خرید -->
+                                    @auth
+                                        <!-- اگر کاربر لاگین کرده -->
+                                        <a href="{{ route('frontend.cart.add', $product->id) }}" class="align-items-center">
+                                            <div class="price-btn mt-4 d-inline-block">افزودن به سبد خرید</div>
+                                        </a>
+                                    @else
+                                        <!-- اگر کاربر لاگین نکرده -->
+                                        <div class="price-btn mt-4 d-inline-block" onclick="alert('لطفاً وارد حساب کاربری خود شوید!')">افزودن به سبد خرید</div>
+                                    @endauth
+
+
 
                                 </div>
                             </div>
@@ -43,6 +72,7 @@
                 </div>
             @endforeach
         </div>
+
     </section>
     <div class="d-flex justify-content-center mt-5">
         {{ $products->links() }}

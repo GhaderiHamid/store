@@ -75,16 +75,18 @@
 
 
                         <div class="col-sm-12 col-md-5 d-flex mt-2">
-                            <div class="d-inline-block mr-2">
-                                <a class="btn btn-secondary login text-white shop-card text-decoration-none d-flex align-items-center"
-                                    href="{{ route('frontend.cart.all') }}">
-                                    <span id="cart-count"
-                                        class="d-inline-block badge bg-danger ">{{is_null(Cookie::get('cart')) ? 0 : count(json_decode(Cookie::get('cart'), true)) }}</span>
-                                    <span class="material-symbols-outlined  ">shopping_cart</span>
+                            @if(Auth::check())
+                                <div class="d-inline-block mr-2">
+                                    <a class="btn btn-secondary login text-white shop-card text-decoration-none d-flex align-items-center"
+                                        href="{{ route('frontend.cart.all') }}">
+                                        <span id="cart-count"
+                                            class="d-inline-block badge bg-danger ">{{is_null(Cookie::get('cart')) ? 0 : count(json_decode(Cookie::get('cart'), true)) }}</span>
+                                        <span class="material-symbols-outlined  ">shopping_cart</span>
 
-                                    سبد خرید
-                                </a>
-                            </div>
+                                        سبد خرید
+                                    </a>
+                                </div>
+                            @endif
 
 
 

@@ -24,8 +24,8 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_name'=>'required|min:3|max:100|unique:categories,category_name,
-            '. $this->request->get('category_id') .'',
+            'category_name' => 'required|min:1|max:100|unique:categories,category_name,' . $this->request->get('category_id'),
+            'image_path' => 'nullable|image|mimes:png,jpg,jpeg,webp',
         ];
     }
 }

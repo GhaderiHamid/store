@@ -24,7 +24,8 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_name'=>'required|min:3|max:100|unique:categories,category_name',
+            'category_name'=>'required|min:1|max:100|unique:categories,category_name',
+            'image_path'=>'required|image|mimes:png,jpg,jpeg,webp',
         ];
     }
 }

@@ -5,7 +5,7 @@
     align-items: center;
     transition-duration: 0.5s;
     border-radius: 8px; 
-    border: solid 1px #545454;
+    border: solid 1px #877d7d;
     /* box-shadow: 0px 0px 3px 1px rgb(94, 94, 94); */
     /* border: none; */
     /* box-shadow: 0px 0px 3px 1px rgb(94, 94, 94); */
@@ -18,7 +18,8 @@
     height: 150px;
 }
 .cat-desc:hover{
+      border: solid 1px #ffffff;
     transform: scale(1.1);
-    border: solid 1px #c5c3c3;
+  
     
 }

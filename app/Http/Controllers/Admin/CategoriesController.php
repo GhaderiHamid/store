@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Categories\StoreRequest;
 use App\Http\Requests\Admin\Categories\UpdateRequest;
 use App\Models\Category;
+use App\Utilities\ImageUploader;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
@@ -17,8 +18,15 @@ class CategoriesController extends Controller
     public function store(StoreRequest $request)
     {
         $validatedData = $request->validated();
+        $imagePath = null;
+        if ($request->hasFile('image_path') && $request->file('image_path')->isValid()) {
+            
+            $uploadFolder = 'img/category'; // مسیر پوشه بر اساس category_id
+            $imagePath = ImageUploader::upload($request->file('image_path'), $uploadFolder); // آپلود تصویر
+        }
         $createCateory = Category::create([
             'category_name' => $validatedData['category_name'],
+            'image_path' => $imagePath, // ذخیره مسیر تصویر
         ]);
         if (!$createCateory) {
             return back()->with('fail', 'دسته‌بندی ایجاد نشد');
@@ -51,8 +59,15 @@ class CategoriesController extends Controller
     public function update(UpdateRequest $request,$category_id){
        $validatedData = $request->validated();
         $category=Category::find($category_id);
+        $imagePath = null;
+        if ($request->hasFile('image_path') && $request->file('image_path')->isValid()) {
+            
+            $uploadFolder = 'img/category'; // مسیر پوشه بر اساس category_id
+            $imagePath = ImageUploader::upload($request->file('image_path'), $uploadFolder); // آپلود تصویر
+        }
         $updatedCategory=$category->update([
         'category_name'=>$validatedData ['category_name'],
+            'image_path' => $imagePath,
        ]);
        
         if(!$updatedCategory){
