@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\PaymentsController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\UsersController;
+
+use App\Http\Controllers\LikeProductController;
 use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\User\CartController;
@@ -15,10 +17,8 @@ use App\Http\Controllers\User\HomeUserController;
 use App\Http\Controllers\User\ProductsController as UserProductsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
-
-
-
+use App\Http\Controllers\ProductLikeController;
+use App\Http\Controllers\User\LikeController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -89,6 +89,7 @@ Route::prefix('')->group(function () {
      Route::prefix('products')->group (function () {
         Route::get('/all', [UserProductsController::class, 'all'])->name('frontend.product.all');
         Route::get('{product_id}/single', [UserProductsController::class,'single'])->name('frontend.product.single');
+        
         Route::get('{product_id}/add', [CartController::class, 'add'])->name('frontend.cart.add');
         Route::get('{product_id}/remove', [CartController::class, 'remove'])->name('frontend.cart.remove');
 
@@ -100,3 +101,8 @@ Route::prefix('')->group(function () {
     
 
 });
+
+
+// Route::post('/toggle-like', [LikeController::class, 'toggleLike'])->middleware('auth');
+Route::post('/like/toggle', [LikeController::class, 'toggleLike']);
+Route::post('/like/status', [LikeController::class, 'getLikeStatus'])->middleware('auth');

@@ -8,7 +8,8 @@
             <div class="col-sm-12 bg-white ">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb custom-breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('frontend.home.all') }}" class="text-decoration-none">خانه</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('frontend.home.all') }}"
+                                class="text-decoration-none">خانه</a></li>
                         <li class=" breadcrumb-item active" aria-current="page"> {{ $product->name }}</li>
                     </ol>
                 </nav>
@@ -18,34 +19,31 @@
     <div class="container custom-container mt-5">
         <div class="row border-bottom d-flex align-items-center">
             <div class="col-sm-12 col-md-6 col-lg-5 border-left ">
-                <div id="el" class="my-5 "><img src="/{{ $product->image_path }}"   alt=""></div>
+                <div id="el" class="my-5 "><img src="/{{ $product->image_path }}" alt=""></div>
             </div>
 
             <div class="col-sm-12 col-md-6  col-lg-7 mt-4">
                 <div class=" d-flex justify-content-between align-items-center">
                     <h2> {{ $product->name }}</h2>
-                    <div class="d-flex ">
-                        <div class="custom-icone mx-3">
-                            <span class="material-symbols-outlined">
-                                notifications
-                            </span>
+                    @auth
+                        <div class="d-flex ">
+                            <div class="custom-icone mx-3">
+                                <span class="material-symbols-outlined">notifications</span>
+                            </div>
+                            <div class="custom-icone mx-3">
+                                <span class="material-symbols-outlined">share</span>
+                            </div>
+                            <div class="custom-icone mx-3">
+                                <button id="like-button" data-product-id="{{ $product->id }}"
+                                    style="border: none; background: none; cursor: pointer;">
+                                    <span class="material-symbols-outlined favorite" id="favorite-icon">
+                                        favorite
+                                    </span>
+                                </button>
+
+                            </div>
                         </div>
-                        <div class="custom-icone mx-3">
-                            <span class="material-symbols-outlined">
-                                share
-                            </span>
-                        </div>
-                        <div class="custom-icone mx-3"><span class="material-symbols-outlined">
-                                favorite
-                            </span>
-                        </div>
-
-
-
-
-
-
-                    </div>
+                    @endauth
 
                 </div>
                 <p class="mt-5">
@@ -672,16 +670,19 @@
                 @foreach($similarProducts as $similarProduct)
                     <div class="col-sm-6 col-md-4 col-lg-3">
                         <div class="card mb-4 custom-card-body1">
-                            <img src="/{{ $similarProduct->image_path }}" class="card-img-top"
-                                alt="">
+                            <img src="/{{ $similarProduct->image_path }}" class="card-img-top" alt="">
 
                             <div class="card-body  ">
-                                <h5 class="card-title ">{{ $similarProduct->name}}</h5>
+                                <h5 class="card-title ">{{Str::limit($similarProduct->name, 24) }}</h5>
                                 <h5 class="border-0 ">ویژگی ها:&nbsp;</h5>
                                 <h5 class="card-title ">
-                                    <p class="card-text ">{{ Str::limit($similarProduct->description, 2000) }}</p>
+                                    <p class="card-text ">{{ Str::limit($similarProduct->description, 50) }}</p>
                                 </h5>
-                                <div style="text-align: center"><p class=" ">قیمت:&nbsp;{{ $similarProduct->price }} &nbsp;تومان</p></div>
+                                <div style="text-align: center">
+                                    <p class=" ">
+                                        قیمت:&nbsp;{{ $similarProduct->price - ($similarProduct->price * $similarProduct->discount / 100)  }}
+                                        &nbsp;تومان</p>
+                                </div>
                                 <div class="text-center"> <!-- اینجا برای وسط‌چین کردن دکمه -->
                                     <a href="{{ route('frontend.product.single', $similarProduct->id) }}"
                                         class="btn btn-danger mt-2">مشاهده</a>

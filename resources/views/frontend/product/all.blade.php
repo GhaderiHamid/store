@@ -22,11 +22,13 @@
         <div class="row">
             @foreach ($products as $product)
                 <div class="col-sm-12 col-md-6 col-lg-3 position-relative">
-                    <a href="{{ route('frontend.product.single', $product->id) }}">
+
                         <div id="offer-expire-text" class="position-absolute mt-5"></div>
                         <div id="offer-blur">
                             <div class="card d-flex flex-column align-items-center mt-5 custom-card">
+                                <a href="{{ route('frontend.product.single', $product->id) }}">
                                 <img class="card-img-top" src="/{{ $product->image_path }}" alt="Card image cap" />
+                                </a>
                                 <div class="card-body custom-card-body text-center w-100">
                                     <p class="card-text custom-card-text">{{ $product->name }}</p>
 
@@ -68,7 +70,7 @@
                                 </div>
                             </div>
                         </div>
-                    </a>
+
                 </div>
             @endforeach
         </div>

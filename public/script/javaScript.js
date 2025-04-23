@@ -102,3 +102,59 @@ $(document).ready(function(){
     }
   });
 });
+
+
+$(document).ready(function () {
+    var productId = $('#like-button').data('product-id');
+
+    // بررسی وضعیت لایک در هنگام لود صفحه
+    $.ajax({
+        url: `/like/status`,
+        method: 'POST',
+        data: {
+            product_id: productId,
+            _token: $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            const favoriteIcon = $('#favorite-icon');
+            if (response.liked) {
+                favoriteIcon.css('color', 'red');
+                favoriteIcon.text('favorite');
+            } else {
+                favoriteIcon.css('color', 'white');
+                favoriteIcon.text('favorite_border');
+            }
+        },
+        error: function() {
+            console.error('Failed to fetch like status');
+        }
+    });
+
+    // کلیک بر روی دکمه لایک
+    $('#like-button').click(function () {
+        var button = $(this);
+        var productId = button.data('product-id');
+
+        $.ajax({
+            url: `/like/toggle`,
+            method: 'POST',
+            data: {
+                product_id: productId,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                const favoriteIcon = $('#favorite-icon');
+                if (response.status === 'liked') {
+                    favoriteIcon.css('color', 'red');
+                    favoriteIcon.text('favorite');
+                } else if (response.status === 'unliked') {
+                    favoriteIcon.css('color', 'white');
+                    favoriteIcon.text('favorite_border');
+                }
+            },
+            error: function() {
+                console.error('Failed to toggle like');
+            }
+        });
+    });
+});

@@ -1,4 +1,6 @@
 .cat-desc{
+    /* width: 150px;
+    height: 200px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,8 +16,8 @@
     margin-bottom: 10px;
 }
 .cat-desc img{
-    width: 150px;
-    height: 150px;
+    width: 96%;
+    height: 70%;
 }
 .cat-desc:hover{
       border: solid 1px #ffffff;
