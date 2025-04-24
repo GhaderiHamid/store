@@ -26,14 +26,8 @@ class User extends Authenticatable
    {
       return $this->belongsToMany(Product::class, 'like_products');
    }
+   public function bookmarkedProducts()
+   {
+      return $this->belongsToMany(Product::class, 'bookmarks')->withTimestamps();
+   }
 }
-// class User extends Model
-// {
-//    use HasFactory;
-//    protected $guarded = [];
-
-//    public function orders()
-//    {
-//       return $this->hasMany(Order::class);
-//    }
-// }

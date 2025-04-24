@@ -14,7 +14,8 @@
 
 @font-face {
     font-family: Vazir-Medium;
-    src: url('../fonts/Vazir-Medium.eot') format('eot'),
+    src: 
+    url('../fonts/Vazir-Medium.eot') format('eot'),
         url('../fonts/Vazir-Medium.woff') format('woff'),
         url('../fonts/Vazir-Medium.woff2')format('woff2');
     font-weight: normal;
@@ -208,5 +209,7 @@ s {
  .input_cart[type="text"] {
     max-width: 60px;
     text-align: center;
+  
 } 
+
 

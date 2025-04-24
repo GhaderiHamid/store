@@ -18,6 +18,7 @@ use App\Http\Controllers\User\ProductsController as UserProductsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductLikeController;
+use App\Http\Controllers\User\BookmarkController;
 use App\Http\Controllers\User\LikeController;
 
 // Route::get('/', function () {
@@ -106,3 +107,7 @@ Route::prefix('')->group(function () {
 // Route::post('/toggle-like', [LikeController::class, 'toggleLike'])->middleware('auth');
 Route::post('/like/toggle', [LikeController::class, 'toggleLike']);
 Route::post('/like/status', [LikeController::class, 'getLikeStatus'])->middleware('auth');
+
+
+Route::post('/bookmark/toggle', [BookmarkController::class, 'toggleBookmark']);
+Route::post('/bookmark/status', [BookmarkController::class, 'getBookmarkStatus'])->middleware('auth');

@@ -21,4 +21,8 @@ class Product extends Model
     {
         return $this->belongsToMany(User::class, 'like_products');
     }
+    public function bookmarkedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'bookmarks');
+    }
 }

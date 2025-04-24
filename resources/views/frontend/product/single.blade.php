@@ -28,18 +28,43 @@
                     @auth
                         <div class="d-flex ">
                             <div class="custom-icone mx-3">
-                                <span class="material-symbols-outlined">notifications</span>
+
+
+
+
+                                <div class="product" data-product-id="{{ $product->id }}">
+                                    <button class="bookmark-button" data-product-id="{{ $product->id }}"
+                                        style="border: none; background: none; cursor: pointer;">
+                                        <span class="material-symbols-outlined " id="bookmark-icon-{{ $product->id }}">
+                                            bookmark
+                                        </span>
+                                        
+                                    </button>
+
+                                </div>
                             </div>
+
+                            {{-- <div class="custom-icone mx-3">
+                                <span class="material-symbols-outlined ">share</span>
+
+                            </div> --}}
+
                             <div class="custom-icone mx-3">
-                                <span class="material-symbols-outlined">share</span>
-                            </div>
-                            <div class="custom-icone mx-3">
-                                <button id="like-button" data-product-id="{{ $product->id }}"
-                                    style="border: none; background: none; cursor: pointer;">
-                                    <span class="material-symbols-outlined favorite" id="favorite-icon">
-                                        favorite
+                                <!-- فرض کنید چند محصول دارید، هر کدام با کلاس به جای id -->
+                                <div class="product" data-product-id="{{ $product->id }}">
+                                    <button class="like-button" data-product-id="{{ $product->id }}"
+                                        style="border: none; background: none; cursor: pointer;">
+                                        <span class="material-symbols-outlined favorite" id="favorite-icon-{{ $product->id }}">
+                                            favorite
+                                        </span>
+                                    </button>
+
+                                </div>
+                                {{-- <div class="custom-icone mx-3">
+                                    <span class="material-icons-outlined">
+                                        favorite_border
                                     </span>
-                                </button>
+                                </div> --}}
 
                             </div>
                         </div>
