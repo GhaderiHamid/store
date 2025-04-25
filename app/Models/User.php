@@ -30,4 +30,8 @@ class User extends Authenticatable
    {
       return $this->belongsToMany(Product::class, 'bookmarks')->withTimestamps();
    }
+   public function votes()
+   {
+      return $this->hasMany(Vote::class);
+   }
 }

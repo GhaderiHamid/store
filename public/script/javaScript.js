@@ -254,3 +254,64 @@ $(document).ready(function () {
         });
     });
 });
+
+
+///////////////////////////vote_product///////////////////////
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.stars-container').forEach(container => {
+        const productId = container.dataset.productId;
+        const stars = container.querySelectorAll('.star');
+
+        // دریافت رأی ثبت‌شده از سرور و تنظیم ستاره‌ها بعد از بارگیری صفحه
+        axios.get(`/vote/${productId}`)
+            .then(response => {
+                const savedVote = response.data.value;
+                if (savedVote) {
+                    stars.forEach(s => {
+                        if (parseInt(s.dataset.star) <= savedVote) {
+                            s.innerHTML = 'star'; // ستاره طلایی
+                            s.style.color = 'orange';
+                        } else {
+                            s.innerHTML = 'star_border'; // ستاره خالی
+                            s.style.color = '';
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching vote:', error);
+            });
+
+        // ثبت رأی جدید هنگام کلیک
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                const selectedStar = parseInt(this.dataset.star);
+
+                // تغییر رنگ ستاره‌ها
+                stars.forEach(s => {
+                    if (parseInt(s.dataset.star) <= selectedStar) {
+                        s.innerHTML = 'star'; // ستاره طلایی
+                        s.style.color = 'orange';
+                    } else {
+                        s.innerHTML = 'star_border'; // ستاره خالی
+                        s.style.color = '';
+                    }
+                });
+
+                // ارسال رأی جدید
+                axios.post('/vote', {
+                    product_id: productId,
+                    value: selectedStar
+                }, {
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                }).then(response => {
+                    console.log('Vote saved:', response.data);
+                }).catch(error => {
+                    console.error('Error saving vote:', error);
+                });
+            });
+        });
+    });
+});

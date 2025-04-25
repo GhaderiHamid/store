@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductLikeController;
 use App\Http\Controllers\User\BookmarkController;
 use App\Http\Controllers\User\LikeController;
+use App\Http\Controllers\User\VoteController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -111,3 +112,7 @@ Route::post('/like/status', [LikeController::class, 'getLikeStatus'])->middlewar
 
 Route::post('/bookmark/toggle', [BookmarkController::class, 'toggleBookmark']);
 Route::post('/bookmark/status', [BookmarkController::class, 'getBookmarkStatus'])->middleware('auth');
+
+
+Route::get('/vote/{productId}', [VoteController::class, 'show']);
+Route::post('/vote', [VoteController::class, 'store']);

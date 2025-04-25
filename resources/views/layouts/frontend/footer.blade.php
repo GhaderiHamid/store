@@ -150,6 +150,22 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="/script/owl.carousel.min.js"></script>
+
+
+
+<!-- بارگذاری فونت‌های Material Icons -->
+
+
+<!-- اسکریپت اصلی -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+
+
 </body>
 
 </html>

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Vote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
@@ -48,9 +50,6 @@ class ProductsController extends Controller
         $similarProducts = Product::where('category_id', $product->category_id)->take(4)->get();
         return view('frontend.product.single', compact('product', 'similarProducts'));
     }
-    
-    private function findFilter(string $className,string $methodName )
-    {
 
-    }
+   
 }

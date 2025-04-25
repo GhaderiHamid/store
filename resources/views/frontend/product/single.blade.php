@@ -23,11 +23,12 @@
             </div>
 
             <div class="col-sm-12 col-md-6  col-lg-7 mt-4">
-                <div class=" d-flex justify-content-between align-items-center">
+                <div>
                     <h2> {{ $product->name }}</h2>
+                    <hr>
                     @auth
                         <div class="d-flex ">
-                            <div class="custom-icone mx-3">
+                            <div class="custom-icone mx-1">
 
 
 
@@ -38,18 +39,15 @@
                                         <span class="material-symbols-outlined " id="bookmark-icon-{{ $product->id }}">
                                             bookmark
                                         </span>
-                                        
+
                                     </button>
 
                                 </div>
                             </div>
 
-                            {{-- <div class="custom-icone mx-3">
-                                <span class="material-symbols-outlined ">share</span>
 
-                            </div> --}}
 
-                            <div class="custom-icone mx-3">
+                            <div class="custom-icone mx-1">
                                 <!-- فرض کنید چند محصول دارید، هر کدام با کلاس به جای id -->
                                 <div class="product" data-product-id="{{ $product->id }}">
                                     <button class="like-button" data-product-id="{{ $product->id }}"
@@ -67,6 +65,16 @@
                                 </div> --}}
 
                             </div>
+                            <div class="custom-icone mx-1">
+                                <div class="stars-container" data-product-id="{{ $product->id }}" style="cursor: pointer">
+                                    @for ($i = 5; $i >= 1; $i--)
+                                        <span class="material-symbols-outlined star" data-star="{{ $i }}">star_border</span>
+                                    @endfor
+                                </div>
+
+
+                            </div>
+
                         </div>
                     @endauth
 
