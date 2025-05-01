@@ -4,7 +4,7 @@
     <!-- start offer nav -->
     <section class="container mt-5 custom-container">
         <h5 class="custom-font mb-3">
-        مرتب‌سازی محصولات:
+            مرتب‌سازی محصولات:
 
         </h5>
         <div class="input-group">
@@ -23,53 +23,56 @@
             @foreach ($products as $product)
                 <div class="col-sm-12 col-md-6 col-lg-3 position-relative">
 
-                        <div id="offer-expire-text" class="position-absolute mt-5"></div>
-                        <div id="offer-blur">
-                            <div class="card d-flex flex-column align-items-center mt-5 custom-card">
-                                <a href="{{ route('frontend.product.single', $product->id) }}">
+                    <div id="offer-expire-text" class="position-absolute mt-5"></div>
+                    <div id="offer-blur">
+                        <div class="card d-flex flex-column align-items-center mt-5 custom-card">
+                            <a href="{{ route('frontend.product.single', $product->id) }}">
                                 <img class="card-img-top" src="/{{ $product->image_path }}" alt="Card image cap" />
-                                </a>
-                                <div class="card-body custom-card-body text-center w-100">
-                                    <p class="card-text custom-card-text">{{ $product->name }}</p>
+                            </a>
+                            <div class="card-body custom-card-body text-center w-100">
+                                <p class="card-text custom-card-text">{{ $product->name }}</p>
 
-                                    <!-- شرط برای نمایش تخفیف -->
-                                    @if($product->discount > 0)
-                                        <p class="mt-4 d-flex justify-content-center align-items-center">
-                                            <s class="mr-2 ">{{ $product->price }} تومان</s>
-                                            <span class="d-flex align-items-center badge badge-pill badge-danger mt-1"
-                                                style="width: 38px ;height: 35px">
-                                                {{ $product->discount }} %
-                                            </span>
-                                        </p>
-                                        <p class="mt-4 d-flex justify-content-center align-items-center">
-                                            {{ $product->price - ($product->price * $product->discount / 100) }} &nbsp; تومان
-                                        </p>
-                                    @else
-                                        <!-- نمایش قیمت اصلی اگر تخفیف وجود نداشته باشد -->
-                                        <p class="mt-4 d-flex justify-content-center align-items-center">
-                                            {{ $product->price }}  
-                                        </p>
-                                        <p class="mt-4 d-flex justify-content-center align-items-center">
-                                            تومان
-                                        </p>
-                                    @endif
+                                <!-- شرط برای نمایش تخفیف -->
+                                @if($product->discount > 0)
+                                    <p class="mt-4 d-flex justify-content-center align-items-center">
+                                        <s class="mr-2 ">{{ $product->price }} تومان</s>
+                                        <span class="d-flex align-items-center badge badge-pill badge-danger mt-1"
+                                            style="width: 38px ;height: 35px">
+                                            {{ $product->discount }} %
+                                        </span>
+                                    </p>
+                                    <p class="mt-4 d-flex justify-content-center align-items-center">
+                                        {{ $product->price - ($product->price * $product->discount / 100) }} &nbsp; تومان
+                                    </p>
+                                @else
+                                    <!-- نمایش قیمت اصلی اگر تخفیف وجود نداشته باشد -->
+                                    <p class="mt-4 d-flex justify-content-center align-items-center">
+                                        {{ $product->price }}
+                                    </p>
+                                    <p class="mt-4 d-flex justify-content-center align-items-center">
+                                        تومان
+                                    </p>
+                                @endif
 
-                                    <!-- شرط برای دکمه افزودن به سبد خرید -->
-                                    @auth
-                                        <!-- اگر کاربر لاگین کرده -->
-                                        <a href="{{ route('frontend.cart.add', $product->id) }}" class="align-items-center">
+                                <!-- شرط برای دکمه افزودن به سبد خرید -->
+                                @auth
+                                    <!-- اگر کاربر لاگین کرده -->
+                                    {{-- <a href="{{ route('frontend.cart.add', $product->id) }}" class="align-items-center"> --}}
+                                        <a href="{{ route('basket.add',$product->id) }}" class="align-items-center">
+
                                             <div class="price-btn mt-4 d-inline-block">افزودن به سبد خرید</div>
                                         </a>
-                                    @else
-                                        <!-- اگر کاربر لاگین نکرده -->
-                                        <div class="price-btn mt-4 d-inline-block" onclick="alert('لطفاً وارد حساب کاربری خود شوید!')">افزودن به سبد خرید</div>
-                                    @endauth
+                                @else
+                                    <!-- اگر کاربر لاگین نکرده -->
+                                    <div class="price-btn mt-4 d-inline-block"
+                                        onclick="alert('لطفاً وارد حساب کاربری خود شوید!')">افزودن به سبد خرید</div>
+                                @endauth
 
 
 
-                                </div>
                             </div>
                         </div>
+                    </div>
 
                 </div>
             @endforeach

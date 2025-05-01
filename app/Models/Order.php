@@ -7,25 +7,41 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    use HasFactory;
-    public $guarded = [];
+  use HasFactory;
+  public $guarded = [];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class,'user_id');
-    }
-   
-  
-    
-    public function status_order(){
-      return $this->belongsTo(Status_order::class, 'status_id');  
-    }
-     public function payment(){
-      return $this->hasOne((Payment::class));
-     }
-public function order_detail(){
-  return $this->hasOne(Order_detail::class);
-}
-    
-   
+  public function user()
+  {
+    return $this->belongsTo(User::class, 'user_id');
+  }
+
+
+
+  public function status_order()
+  {
+    return $this->belongsTo(Status_order::class, 'status_id');
+  }
+  public function payment()
+  {
+    return $this->hasOne((Payment::class));
+  }
+  public function order_detail()
+  {
+    return $this->hasOne(Order_detail::class);
+  }
+
+  public function products()
+  {
+    return $this->belongsToMany(Product::class, 'order_details')->withPivot('quantity', 'price', 'discount');
+                
+  }
+  public function details()
+  {
+    return $this->hasMany(Order_detail::class);
+  }
+
+  public function getTotalAmount()
+  {
+    return $this->details()->sum('price');
+  }
 }

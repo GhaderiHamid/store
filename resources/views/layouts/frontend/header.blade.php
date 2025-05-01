@@ -33,7 +33,7 @@
 
 
 
-
+        @inject('basket','App\Support\Basket\Basket' )
 
         <!-- start top nav -->
 
@@ -85,7 +85,7 @@
                                     <a class="btn btn-secondary login text-white shop-card text-decoration-none d-flex align-items-center"
                                         href="{{ route('frontend.cart.all') }}">
                                         <span id="cart-count"
-                                            class="d-inline-block badge bg-danger ">{{is_null(Cookie::get('cart')) ? 0 : count(json_decode(Cookie::get('cart'), true)) }}</span>
+                                            class="d-inline-block badge bg-danger ">{{ $basket->itemCount() }}</span>
                                         <span class="material-symbols-outlined  ">shopping_cart</span>
 
                                         سبد خرید

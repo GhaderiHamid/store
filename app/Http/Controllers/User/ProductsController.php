@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Vote;
+use App\Support\Storage\Contracts\StorageInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,6 +14,7 @@ class ProductsController extends Controller
 {
     public function all(Request $request)
     {
+        dump(session()->all());
         $query = Product::query();
 
         // اعمال جستجو در صورت وجود
@@ -50,6 +52,6 @@ class ProductsController extends Controller
         $similarProducts = Product::where('category_id', $product->category_id)->take(4)->get();
         return view('frontend.product.single', compact('product', 'similarProducts'));
     }
-
+    
    
 }

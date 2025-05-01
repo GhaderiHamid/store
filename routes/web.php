@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\UsersController;
 
 use App\Http\Controllers\LikeProductController;
 use App\Http\Controllers\Login\LoginController;
-use App\Http\Controllers\PaymentController;
+
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\HomeUserController;
@@ -18,9 +18,13 @@ use App\Http\Controllers\User\ProductsController as UserProductsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductLikeController;
+use App\Http\Controllers\User\BasketContoller;
 use App\Http\Controllers\User\BookmarkController;
 use App\Http\Controllers\User\LikeController;
 use App\Http\Controllers\User\VoteController;
+use App\Http\Controllers\User\PaymentController;
+
+use App\Support\Storage\Contracts\StorageInterface;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -35,6 +39,11 @@ use App\Http\Controllers\User\VoteController;
 // Route::get('admin/index',function (){
 //     return view('admin.index');
 // });
+
+Route::get('basket/clear',function(){
+    resolve(StorageInterface::class)->clear();
+});
+
 Route::get('signIn', [LoginController::class, 'signIn'])->name('sigIn');
 Route::post('register',[LoginController::class, 'store'])->name('register');
 Route::post('login',[LoginController::class,'login'])->name('login');
@@ -96,7 +105,7 @@ Route::prefix('')->group(function () {
         Route::get('{product_id}/remove', [CartController::class, 'remove'])->name('frontend.cart.remove');
 
     });
-    Route::get('cart', [CartController::class,'all'])->name('frontend.cart.all');
+    // Route::get('cart', [CartController::class,'all'])->name('frontend.cart.all');
 
 
 
@@ -116,3 +125,14 @@ Route::post('/bookmark/status', [BookmarkController::class, 'getBookmarkStatus']
 
 Route::get('/vote/{productId}', [VoteController::class, 'show']);
 Route::post('/vote', [VoteController::class, 'store']);
+
+
+
+Route::get('basket/add/{product}',[BasketContoller::class,'add'])->name('basket.add');
+// Route::get('basket',[BasketContoller::class, 'index'])->name('basket.index');
+Route::get('cart', [BasketContoller::class, 'index'])->name('frontend.cart.all');
+
+Route::get('checkout', [BasketContoller::class, 'checkout'])->name('checkout');
+
+Route::post('payment/{gateway}/callback',[PaymentController::class, 'verify'])->name('payment.verify');
+

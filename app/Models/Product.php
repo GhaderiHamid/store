@@ -29,4 +29,8 @@ class Product extends Model
     {
         return $this->hasMany(Vote::class);
     }
+    public function hasStock(int $quantity)
+    {
+        return $this->quntity > $quantity;
+    }
 }
