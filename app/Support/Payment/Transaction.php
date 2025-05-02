@@ -9,6 +9,7 @@ use App\Support\Payment\Gateways\GatewayInterface;
 use App\Support\Payment\Gateways\Pasargad;
 use App\Support\Payment\Gateways\Saman;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class Transaction
@@ -24,15 +25,24 @@ class Transaction
 
     public function checkout()
     {
+        DB::beginTransaction();
         $t=1;
-        $order = $this->makeOrder();
-        $payment=$this->makePayment($order);
+        try{
+            $order = $this->makeOrder();
+            $payment = $this->makePayment($order);
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            return null;
+        }
 
         // dd($this->getwayFactory());
         if($t==1)
         {
         return $this->getwayFactory()->pay($order);
         }
+        $this->normalizeQuantity($order);
         $this->basket->clear();
         return $order;
        
@@ -91,11 +101,20 @@ class Transaction
             return false;
         }
         $this->confirmPayment($result);
+        $this->normalizeQuantity($result['order']);
         $this->basket->clear();
         return true;
     }
     private function confirmPayment($result)
     {
        return $result['order']->payment->confirm($result['refNum'], $result['gateway']);
+    }
+    private function normalizeQuantity($order)
+    {
+       foreach($order->products as $product)
+       {
+        $product->decrementQuantity($product->pivot->quantity);
+       }
+       dd('test');
     }
 }

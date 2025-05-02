@@ -33,4 +33,8 @@ class Product extends Model
     {
         return $this->quntity > $quantity;
     }
+    public function decrementQuantity(int $count)
+    {
+        return $this->decrement('quntity',$count);
+    }
 }

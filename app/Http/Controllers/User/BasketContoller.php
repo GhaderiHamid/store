@@ -42,6 +42,7 @@ class BasketContoller extends Controller
      {
         // $this->validateForm($request);
          $this->transaction->checkout();
+         
         return redirect()->route('frontend.home.all')->with('success','پرداخت با موفقیت انجام شد');
      }
     public function processPayment(Request $request)
