@@ -26,6 +26,6 @@ class PaymentController extends Controller
    }
    private function sendSuccessResponse()
    {
-      return redirect()->route('frontend.cart.all')->with('success', 'سفارش شما با موفقیت ایجاد شد');
+      return back()->with('success', 'سفارش شما با موفقیت ایجاد شد');
    }
 }

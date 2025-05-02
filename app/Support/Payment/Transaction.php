@@ -115,6 +115,6 @@ class Transaction
        {
         $product->decrementQuantity($product->pivot->quantity);
        }
-       dd('test');
+    //    dd('test');
     }
 }
