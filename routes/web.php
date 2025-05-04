@@ -142,6 +142,8 @@ Route::get('/user/liked-products', [App\Http\Controllers\User\LikeController::cl
 
 Route::POST('/product/unlike', [App\Http\Controllers\User\LikeController::class, 'unlikeProduct'])->name('frontend.product.unlike');
 
+Route::post('/product/{product}/comment', [App\Http\Controllers\User\CommentController::class, 'store'])->name('frontend.product.comment');
+
 Route::middleware('auth')->group(function () {
     Route::get('/bookmarked-products', [App\Http\Controllers\User\BookmarkController::class, 'bookmarkedProducts'])->name('user.bookmarked.products');
     Route::post('/unbookmark', [App\Http\Controllers\User\BookmarkController::class, 'unbookmark'])->name('frontend.product.unbookmark');

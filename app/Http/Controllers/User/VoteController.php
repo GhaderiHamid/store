@@ -46,4 +46,5 @@ class VoteController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Vote saved', 'value' => $vote->value]);
     }
+    
 }

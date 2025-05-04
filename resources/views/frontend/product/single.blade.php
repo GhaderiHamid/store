@@ -58,14 +58,10 @@
                                     </button>
 
                                 </div>
-                                {{-- <div class="custom-icone mx-3">
-                                    <span class="material-icons-outlined">
-                                        favorite_border
-                                    </span>
-                                </div> --}}
+
 
                             </div>
-                            <div class="custom-icone mx-1">
+                            {{-- <div class="custom-icone mx-1">
                                 <div class="stars-container" data-product-id="{{ $product->id }}" style="cursor: pointer">
                                     @for ($i = 5; $i >= 1; $i--)
                                         <span class="material-symbols-outlined star" data-star="{{ $i }}">star_border</span>
@@ -73,7 +69,7 @@
                                 </div>
 
 
-                            </div>
+                            </div> --}}
 
                         </div>
                     @endauth
@@ -132,46 +128,7 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-5">
                                     <div class="progress-product p-4">
-                                        <div class="mt-3 product-rate">
-                                            <div>
-                                                <p class="mb-2 "> ارزش خرید نسبت به قیمت</p>
-                                            </div>
-                                            <div class="progress" style="height:5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mt-3 product-rate">
-                                            <div>
-                                                <p class="mb-2 "> کیفیت ساخت</p>
-                                            </div>
-                                            <div class="progress" style="height:5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 75%;"
-                                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mt-3 product-rate">
-                                            <div>
-                                                <p class="mb-2 "> امکانات</p>
-                                            </div>
-                                            <div class="progress" style="height:5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 55%;"
-                                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mt-3 product-rate">
-                                            <div>
-                                                <p class="mb-2 "> آرگونامی</p>
-                                            </div>
-                                            <div class="progress" style="height:5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 45%;"
-                                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-7 mt-3">
@@ -280,25 +237,17 @@
                         aria-labelledby="profile-tab">
                         <h4 class="ml-3 mt-3"> مشخصات کلی</h4>
                         <ul class="nav flex-column">
-                            <li class="nav-item d-flex mb-3">
-                                <div class="key mr-3 d-flex align-items-center">
-                                    <p class="ml-2 text-dark">ابعاد</p>
-                                </div>
-                                <div class="value d-flex align-items-center">
-                                    <p class="ml-2 text-dark">150*60*50 میلی متر</p>
-                                </div>
 
-                            </li>
-                            <li class="nav-item d-flex mb-3">
-                                <div class="key mr-3 d-flex align-items-center">
-                                    <p class="ml-2 text-dark">وزن</p>
-                                </div>
-                                <div class="value d-flex align-items-center">
-                                    <p class="ml-2 text-dark">700 گرم </p>
-                                </div>
-
-                            </li>
-
+                    @foreach(explode('،', $product->description) as $item)
+                        <li class="nav-item d-flex mb-3">
+                            <div class="key mr-3 d-flex align-items-center">
+                                <p class="ml-2 text-dark">{{ Str::before($item, ':') }}</p>
+                            </div>
+                            <div class="value d-flex align-items-center">
+                                <p class="ml-2 text-dark">{{ Str::after($item, ':') }}</p>
+                            </div>
+                        </li>
+                    @endforeach
 
                         </ul>
                     </div>
@@ -662,27 +611,18 @@
                                     </span>
                                     <p class="d-inline-block ml-2"> دیدگاه خود را وارد کنید:</p>
                                 </div>
-                                <form class="w-100 mt-4">
-                                    <div class="form-row">
-                                        <div class="form-group col-sm-12 col-md-6">
-
-                                            <input type="email" class="form-control" placeholder="نام و نام خانوادگی...">
-                                        </div>
-                                        <div class="form-group col-sm-12 col-md-6">
-
-                                            <input type="password" class="form-control" placeholder="ایمیل...">
-                                        </div>
-                                        <div class="form-group col-sm-12 col-md-12">
-
-                                            <textarea name="" class="form-control mt-3 p-2" placeholder="دیدگاه شما..."
-                                                id="" cols="30" rows="6"></textarea>
-                                        </div>
+                            <form class="w-100 mt-4" method="POST" action="{{ route('frontend.product.comment', $product->id) }}">
+                                @csrf
+                                <div class="form-row">
+                                    <div class="form-group col-sm-12 col-md-12">
+                                        <textarea name="comment_text" class="form-control mt-3 p-2" placeholder="دیدگاه شما..." cols="30"
+                                            rows="6"></textarea>
                                     </div>
-
-                                    <div class="text-right">
-                                        <button type="submit" class="btn btn-primary my-3">ارسال دیدگاه </button>
-                                    </div>
-                                </form>
+                                </div>
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary my-3">ارسال دیدگاه </button>
+                                </div>
+                            </form>
                             </div>
                         </div>
                     </div>

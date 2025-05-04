@@ -123,10 +123,10 @@
 
 <script src="/script/zoomy.js"></script>
 
-{{-- 
+
 <script>
     var urls = [
-        // '/{{ $product->image_path }}',
+        '/{{ $product->image_path }}',
         // '/img/products/zoom/s2.jpg',
         // '/img/products/zoom/s3.jpg',
         // '/img/products/zoom/s4.jpg'
@@ -141,7 +141,7 @@
 
     };
     $('#el').zoomy(urls, options);
-</script> --}}
+</script>
 
 
 <script>
