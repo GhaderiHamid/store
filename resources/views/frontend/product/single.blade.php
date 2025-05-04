@@ -734,4 +734,3 @@
 
 @endsection
 
-</script>

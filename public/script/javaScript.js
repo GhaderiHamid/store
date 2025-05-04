@@ -161,6 +161,31 @@ $(document).ready(function () {
     });
 });
 
+///////////////////////////UnLike_product///////////////////////
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".remove-liked-product").forEach(button => {
+        button.addEventListener("click", function () {
+            let productId = this.getAttribute("data-product-id");
+
+            fetch("{{ route('frontend.product.unlike') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                },
+                body: JSON.stringify({ product_id: productId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "unliked") {
+                        this.closest(".col-sm-12").remove();
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        });
+    });
+});
+
 //////////////////////////////filter//////////////////////////////////
 $(document).ready(function () {
     $('#sortButton').on('click', function () {
@@ -255,6 +280,30 @@ $(document).ready(function () {
     });
 });
 
+//////////////////////////UnBookmark_product///////////////////////
+$(document).ready(function () {
+    $('.remove-bookmarked-product').click(function () {
+        var button = $(this);
+        var productId = button.data('product-id');
+
+        $.ajax({
+            url: '/unbookmark',
+            method: 'POST',
+            data: {
+                product_id: productId,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                if (response.status === 'unBookmarked') {
+                    button.closest('.col-sm-12').remove();
+                }
+            },
+            error: function () {
+                console.error('Failed to remove bookmarked product with ID ' + productId);
+            }
+        });
+    });
+});
 
 ///////////////////////////vote_product///////////////////////
 document.addEventListener('DOMContentLoaded', function () {
@@ -315,3 +364,4 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+

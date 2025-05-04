@@ -33,7 +33,7 @@
 
 
 
-        @inject('basket','App\Support\Basket\Basket' )
+        @inject('basket', 'App\Support\Basket\Basket')
 
         <!-- start top nav -->
 
@@ -109,7 +109,9 @@
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="profileDropdown">
                                             <li><a class="dropdown-item border " href="#">سفارش‌ها</a></li>
-                                            <li><a class="dropdown-item border " href="#">محصولات لایک‌ شده</a></li>
+                        
+                                            <li><a class="dropdown-item border " href="{{ route('user.bookmarked.products') }}">محصولات ذخیره شده</a></li>
+                                            <li><a class="dropdown-item border " href="{{ route('user.liked.products') }}">محصولات لایک‌ شده</a></li>
                                             <li><a class="dropdown-item border " href="#">کامنت‌ها</a></li>
                                             <li><a class="dropdown-item border " href="#">بروزرسانی حساب کاربری</a></li>
                                             <li>

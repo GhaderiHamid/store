@@ -136,3 +136,13 @@ Route::get('checkout', [BasketContoller::class, 'checkout'])->name('checkout');
 
 Route::post('payment/{gateway}/callback',[PaymentController::class, 'verify'])->name('payment.verify');
 
+Route::get('like',[LikeController::class, 'getLikeStatus'])->name('like');
+
+Route::get('/user/liked-products', [App\Http\Controllers\User\LikeController::class, 'getLikedProducts'])->name('user.liked.products');
+
+Route::POST('/product/unlike', [App\Http\Controllers\User\LikeController::class, 'unlikeProduct'])->name('frontend.product.unlike');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/bookmarked-products', [App\Http\Controllers\User\BookmarkController::class, 'bookmarkedProducts'])->name('user.bookmarked.products');
+    Route::post('/unbookmark', [App\Http\Controllers\User\BookmarkController::class, 'unbookmark'])->name('frontend.product.unbookmark');
+});

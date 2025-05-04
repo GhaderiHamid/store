@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\LikeProduct;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,6 +32,7 @@ class LikeController extends Controller
             return response()->json(['status' => 'liked']);
         }
     }
+
     public function getLikeStatus(Request $request)
     {
         $user = Auth::user();
@@ -41,5 +43,29 @@ class LikeController extends Controller
             ->exists();
 
         return response()->json(['liked' => $liked]);
+    }
+
+    public function getLikedProducts()
+    {
+        $user = Auth::user();
+        $likedProducts = Product::whereIn('id', function ($query) use ($user) {
+            $query->select('product_id')
+                ->from('like_products')
+                ->where('user_id', $user->id);
+        })->get();
+
+        return view('frontend.product.liked', compact('likedProducts'));
+    }
+
+    public function unlikeProduct(Request $request)
+    {
+        $user = Auth::user();
+        $productId = $request->product_id;
+
+        LikeProduct::where('user_id', $user->id)
+            ->where('product_id', $productId)
+            ->delete();
+
+        return response()->json(['status' => 'unliked']);
     }
 }

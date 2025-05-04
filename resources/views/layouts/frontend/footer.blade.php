@@ -126,10 +126,10 @@
 
 <script>
     var urls = [
-        '/products/20/1743531951_111598404.jpg',
-        '/img/products/zoom/s2.jpg',
-        '/img/products/zoom/s3.jpg',
-        '/img/products/zoom/s4.jpg'
+        '/{{ $product->image_path }}',
+        // '/img/products/zoom/s2.jpg',
+        // '/img/products/zoom/s3.jpg',
+        // '/img/products/zoom/s4.jpg'
 
     ];
     var options = {
