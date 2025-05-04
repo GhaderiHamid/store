@@ -27,7 +27,7 @@ class Order extends Model
   }
   public function order_detail()
   {
-    return $this->hasOne(Order_detail::class);
+    return $this->hasMany(Order_detail::class);
   }
 
   public function products()

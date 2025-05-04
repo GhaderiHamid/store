@@ -145,4 +145,5 @@ Route::POST('/product/unlike', [App\Http\Controllers\User\LikeController::class,
 Route::middleware('auth')->group(function () {
     Route::get('/bookmarked-products', [App\Http\Controllers\User\BookmarkController::class, 'bookmarkedProducts'])->name('user.bookmarked.products');
     Route::post('/unbookmark', [App\Http\Controllers\User\BookmarkController::class, 'unbookmark'])->name('frontend.product.unbookmark');
+    Route::get('/user/orders', [App\Http\Controllers\User\OrderController::class, 'index'])->name('user.orders.index');
 });

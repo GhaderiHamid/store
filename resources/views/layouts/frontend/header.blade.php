@@ -108,8 +108,8 @@
                                             پروفایل
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                                            <li><a class="dropdown-item border " href="#">سفارش‌ها</a></li>
-                        
+                                            <li><a class="dropdown-item border " href="{{ route('user.orders.index') }}">سفارش‌ها</a></li>
+
                                             <li><a class="dropdown-item border " href="{{ route('user.bookmarked.products') }}">محصولات ذخیره شده</a></li>
                                             <li><a class="dropdown-item border " href="{{ route('user.liked.products') }}">محصولات لایک‌ شده</a></li>
                                             <li><a class="dropdown-item border " href="#">کامنت‌ها</a></li>
