@@ -119,7 +119,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous">
     </script>
     
-    <script src="/script/javaScript.js"></script>
+<script>
+    window.commentReactionUrl = "{{ route('comment.reaction.store') }}";
+</script>
+<script src="/script/javaScript.js"></script>
 
 <script src="/script/zoomy.js"></script>
 
@@ -142,9 +145,6 @@
 </script>
 @endif
 
-<script>
-    
-</script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="/script/owl.carousel.min.js"></script>
@@ -160,10 +160,6 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-
-
-
 </body>
 
 </html>

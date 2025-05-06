@@ -365,4 +365,28 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-///////////////////////////////comment_product///////////////////////
+///////////////////////////////comment_Reaction///////////////////////
+document.addEventListener('DOMContentLoaded', function () {
+    const commentReactionUrl = window.commentReactionUrl; // Use the global variable set in the Blade template
+
+    document.querySelectorAll('.thumb button').forEach(button => {
+        button.addEventListener('click', function () {
+            const commentId = this.closest('.media-body')?.dataset?.commentId;
+            if (!commentId) {
+                console.error('commentId تعریف نشده است!');
+                return;
+            }
+
+            const reaction = this.classList.contains('btn-outline-success') ? 'like' : 'dislike';
+
+            fetch(commentReactionUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                },
+                body: JSON.stringify({ comment_id: commentId, reaction: reaction }),
+            });
+        });
+    });
+});

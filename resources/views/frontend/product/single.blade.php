@@ -290,25 +290,32 @@
 
                                         <p class="d-inline-block mr-3">آیا این نظر برای شما مفید بود؟ </p>
 
-                                        <div class=" thumb d-flex position-relative">
+                                    <div class="media-body" data-comment-id="{{ $comment->id }}">
+                                        ...
+                                        <div class="d-flex justify-content-end mt-5">
+                                            <p class="d-inline-block mr-3">آیا این نظر برای شما مفید بود؟ </p>
 
-
-                                            <span class="material-symbols-outlined text-color-1 ml-5 ">
-                                                thumb_up
-
-                                            </span>
-                                            <p class="thumbup">بله</p>
+                                        <div class="thumb d-flex position-relative">
+                                            <button class="btn btn-outline-success d-flex align-items-center ml-1">
+                                                <span class="material-symbols-outlined text-color-1 ml-2">
+                                                    thumb_up
+                                                </span>
+                                                <p class="mb-0">بله</p>
+                                            </button>
+                                            <span class="thumb-up-count">{{ $comment->likes_count }}</span>
+                                        </div>
+                                        <div class="thumb d-flex position-relative">
+                                            <button class="btn btn-outline-danger d-flex align-items-center ml-1">
+                                                <span class="material-symbols-outlined text-color-2">
+                                                    thumb_down
+                                                </span>
+                                                <p class="mb-0">خیر</p>
+                                            </button>
+                                            <span class="thumb-down-count">{{ $comment->dislikes_count }}</span>
+                                        </div>
 
                                         </div>
-                                        <div class=" thumb  d-flex  position-relative">
-
-
-                                            <span class="material-symbols-outlined text-color-2 ml-5 mt-1">
-                                                thumb_down
-
-                                            </span>
-                                            <p class="thumbdown">خیر</p>
-                                        </div>
+                                    </div>
                                     </div>
 
 

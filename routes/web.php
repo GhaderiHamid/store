@@ -24,7 +24,7 @@ use App\Http\Controllers\User\LikeController;
 use App\Http\Controllers\User\VoteController;
 use App\Http\Controllers\User\PaymentController;
 use App\Http\Controllers\CommentController;
-
+use App\Http\Controllers\User\CommentReactionController;
 use App\Support\Storage\Contracts\StorageInterface;
 
 // Route::get('/', function () {
@@ -158,3 +158,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/orders', [App\Http\Controllers\User\OrderController::class, 'index'])->name('user.orders.index');
 });
 
+Route::post('/comment-reaction', [CommentReactionController::class, 'store'])->name('comment.reaction.store');
+Route::get('/comment-reactions/{comment_id}', [CommentReactionController::class, 'getReactions'])->name('comment.reaction.get');
