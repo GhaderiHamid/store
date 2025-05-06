@@ -2,29 +2,30 @@
 
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\HomeAdminController;
-use App\Http\Controllers\Admin\HomeController;
+
 use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\PaymentsController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\UsersController;
 
-use App\Http\Controllers\LikeProductController;
+
 use App\Http\Controllers\Login\LoginController;
 
 use App\Http\Controllers\User\CartController;
-use App\Http\Controllers\User\CheckoutController;
+
 use App\Http\Controllers\User\HomeUserController;
 use App\Http\Controllers\User\ProductsController as UserProductsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductLikeController;
+
 use App\Http\Controllers\User\BasketContoller;
 use App\Http\Controllers\User\BookmarkController;
 use App\Http\Controllers\User\LikeController;
 use App\Http\Controllers\User\VoteController;
 use App\Http\Controllers\User\PaymentController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\User\CommentReactionController;
+
+use App\Http\Controllers\User\ReactionCommentController;
+
 use App\Support\Storage\Contracts\StorageInterface;
 
 // Route::get('/', function () {
@@ -158,3 +159,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/orders', [App\Http\Controllers\User\OrderController::class, 'index'])->name('user.orders.index');
 });
 
+Route::post('/reaction-comment', [ReactionCommentController::class, 'store'])->name('reaction.comment');

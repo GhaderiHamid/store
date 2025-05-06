@@ -367,26 +367,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
 ///////////////////////////////comment_Reaction///////////////////////
 document.addEventListener('DOMContentLoaded', function () {
-    const commentReactionUrl = window.commentReactionUrl; // Use the global variable set in the Blade template
-
-    document.querySelectorAll('.thumb button').forEach(button => {
+    document.querySelectorAll('.thumb-up').forEach(button => {
         button.addEventListener('click', function () {
-            const commentId = this.closest('.media-body')?.dataset?.commentId;
-            if (!commentId) {
-                console.error('commentId تعریف نشده است!');
-                return;
-            }
-
-            const reaction = this.classList.contains('btn-outline-success') ? 'like' : 'dislike';
-
-            fetch(commentReactionUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                },
-                body: JSON.stringify({ comment_id: commentId, reaction: reaction }),
-            });
+            const commentId = this.getAttribute('data-comment-id');
+            sendReaction(commentId, 'like');
         });
     });
+
+    document.querySelectorAll('.thumb-down').forEach(button => {
+        button.addEventListener('click', function () {
+            const commentId = this.getAttribute('data-comment-id');
+            sendReaction(commentId, 'dislike');
+        });
+    });
+
+    function sendReaction(commentId, reaction) {
+        fetch('/reaction-comment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ comment_id: commentId, reaction: reaction })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    document.getElementById(`thumb-up-count-${commentId}`).textContent = data.thumb_up_count;
+                    document.getElementById(`thumb-down-count-${commentId}`).textContent = data.thumb_down_count;
+                } else {
+                    alert('خطایی رخ داده است.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
 });

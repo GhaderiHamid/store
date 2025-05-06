@@ -290,36 +290,31 @@
 
                                         <p class="d-inline-block mr-3">آیا این نظر برای شما مفید بود؟ </p>
 
-                                    <div class="media-body" data-comment-id="{{ $comment->id }}">
-                                        ...
-                                    <div class="d-flex justify-content-end mt-5">
+                                        <div class=" thumb mx-2 d-flex flex-column align-items-center position-relative">
 
-                                        <p class="d-inline-block mr-3">آیا این نظر برای شما مفید بود؟ </p>
-
-                                        <div class=" thumb d-flex position-relative">
-
-
-                                            <span class="material-symbols-outlined text-color-1 ml-5 ">
+                                          <div class="d-flex align-items-center">
+                                            <span class="material-symbols-outlined text-color-1  thumb-up ml-4" data-comment-id="{{ $comment->id }}"
+                                                style="cursor: pointer;">
                                                 thumb_up
-
                                             </span>
                                             <p class="thumbup">بله</p>
+                                          </div>
 
+                                            <span class="thumb-up-count  text-white" id="thumb-up-count-{{ $comment->id }}">{{ $comment->reactions->where('reaction', 'like')->count() }}</span>
                                         </div>
-                                        <div class=" thumb  d-flex  position-relative">
+                                        <div class="thumb mx-2 d-flex flex-column align-items-center position-relative">
 
+                                               <div class="d-flex align-items-center">
+                                                <span class="material-symbols-outlined text-color-2   thumb-down ml-4 " data-comment-id="{{ $comment->id }}"
+                                                    style="cursor: pointer;">
+                                                    thumb_down
+                                                </span>
+                                                <p class="thumbdown">خیر</p>
+                                               </div>
 
-                                            <span class="material-symbols-outlined text-color-2 ml-5 mt-1">
-                                                thumb_down
-
-                                            </span>
-                                            <p class="thumbdown">خیر</p>
+                                            <span class="thumb-down-count  text-white" id="thumb-down-count-{{ $comment->id }}">{{ $comment->reactions->where('reaction', 'dislike')->count() }}</span>
                                         </div>
                                     </div>
-
-                                    </div>
-                                    </div>
-
 
                                 </div>
                             </div>
@@ -398,9 +393,7 @@
         </div>
     </div>
 
-
+   
     <!-- end product-details nav -->
-
-
 
 @endsection
