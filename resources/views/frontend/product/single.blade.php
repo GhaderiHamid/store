@@ -18,9 +18,11 @@
     </div>
     <div class="container custom-container mt-5">
         <div class="row border-bottom d-flex align-items-center">
-            <div class="col-sm-12 col-md-6 col-lg-5 border-left ">
-                <div id="el" class="my-5 "><img src="/{{ $product->image_path }}" alt=""></div>
-            </div>
+            <a href="/{{ $product->image_path }}">
+                <div class="col-sm-12 col-md-6 col-lg-5 border-left ">
+                    <div id="el" class="my-5 "><img src="/{{ $product->image_path }}" alt=""></div>
+                </div>
+            </a>
 
             <div class="col-sm-12 col-md-6  col-lg-7 mt-4">
                 <div>
@@ -64,7 +66,7 @@
                             {{-- <div class="custom-icone mx-1">
                                 <div class="stars-container" data-product-id="{{ $product->id }}" style="cursor: pointer">
                                     @for ($i = 5; $i >= 1; $i--)
-                                        <span class="material-symbols-outlined star" data-star="{{ $i }}">star_border</span>
+                                    <span class="material-symbols-outlined star" data-star="{{ $i }}">star_border</span>
                                     @endfor
                                 </div>
 
@@ -98,30 +100,22 @@
             <div class="col-sm-12 ">
                 <ul class="nav nav-tabs custom-nav-tabs-product-page" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                            aria-controls="home" aria-selected="true">توضیحات</a>
+                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                            aria-selected="false">توضیحات</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
                             aria-controls="profile" aria-selected="false">مشخصات فنی</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-                            aria-controls="contact" aria-selected="false"> نظرات و پرسش و پاسخ</a>
+                        <a class="nav-link active" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+                            aria-controls="contact" aria-selected="true">نظرات و پرسش و پاسخ</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     {{-- <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <p class="mt-3 p-3 product-desc ">
-                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                            گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
-                            برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی
-                            می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و
-                            متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی
-                            الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید
-                            داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان
-                            مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود
-                            طراحی اساسا مورد استفاده قرار گیرد.
+
 
                         </p>
                         <div class="container">
@@ -158,79 +152,7 @@
                                 </div>
 
                             </div>
-                            <div class="row ">
-                                <div class="col-sm-12 mt-5">
-                                    <h4 class="ml-3 ">نقد و بررسی کلی</h4>
-                                    <p class="p-3 product-desc ">
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-                                        استفاده از طراحان
-                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
-                                        که لازم است و
-                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
-                                        ابزارهای کاربردی
-                                        می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت
-                                        فراوان جامعه و
-                                        متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان
-                                        رایانه ای علی
-                                        الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این
-                                        صورت می توان امید
-                                        داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به
-                                        پایان رسد وزمان
-                                        مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل
-                                        دنیای موجود
-                                        طراحی اساسا مورد استفاده قرار گیرد.
 
-                                    </p>
-                                    <ul class="nav flex-column product-desc-step">
-                                        <li class="nav-item px-4 mt-3">
-                                            <div class="p-img-wrapper">
-                                                <img src="/{{ $product->image_path }} " alt="">
-                                            </div>
-                                            <p class="product-desc"> متخصصان را می طلبد تا با نرم افزارها شناخت
-                                                بیشتری را برای طراحان
-                                                رایانه ای علی
-                                                الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این
-                                                صورت می توان امید
-                                                داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به
-                                                پایان رسد وزمان
-                                                مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل
-                                                دنیای موجود
-                                                طراحی اساسا مورد استفاده قرار گیرد.</p>
-                                        </li>
-                                        <li class="nav-item px-4 mt-3">
-                                            <div class="p-img-wrapper">
-                                                <img src="/{{ $product->image_path }}" alt="">
-                                            </div>
-                                            <p class="product-desc"> متخصصان را می طلبد تا با نرم افزارها شناخت
-                                                بیشتری را برای طراحان
-                                                رایانه ای علی
-                                                الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این
-                                                صورت می توان امید
-                                                داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به
-                                                پایان رسد وزمان
-                                                مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل
-                                                دنیای موجود
-                                                طراحی اساسا مورد استفاده قرار گیرد.</p>
-                                        </li>
-                                        <li class="nav-item px-4 mt-3">
-                                            <div class="p-img-wrapper">
-                                                <img src="/{{ $product->image_path }}" alt="">
-                                            </div>
-                                            <p class="product-desc"> متخصصان را می طلبد تا با نرم افزارها شناخت
-                                                بیشتری را برای طراحان
-                                                رایانه ای علی
-                                                الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این
-                                                صورت می توان امید
-                                                داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به
-                                                پایان رسد وزمان
-                                                مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل
-                                                دنیای موجود
-                                                طراحی اساسا مورد استفاده قرار گیرد.</p>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div> --}}
                     <div class="tab-pane fade custom-tab-product-detail" id="profile" role="tabpanel"
@@ -238,20 +160,20 @@
                         <h4 class="ml-3 mt-3"> مشخصات کلی</h4>
                         <ul class="nav flex-column">
 
-                    @foreach(explode('،', $product->description) as $item)
-                        <li class="nav-item d-flex mb-3">
-                            <div class="key mr-3 d-flex align-items-center">
-                                <p class="ml-2 text-dark">{{ Str::before($item, ':') }}</p>
-                            </div>
-                            <div class="value d-flex align-items-center">
-                                <p class="ml-2 text-dark">{{ Str::after($item, ':') }}</p>
-                            </div>
-                        </li>
-                    @endforeach
+                            @foreach(explode('،', $product->description) as $item)
+                                <li class="nav-item d-flex mb-3">
+                                    <div class="key mr-3 d-flex align-items-center">
+                                        <p class="ml-2 text-dark">{{ Str::before($item, ':') }}</p>
+                                    </div>
+                                    <div class="value d-flex align-items-center">
+                                        <p class="ml-2 text-dark">{{ Str::after($item, ':') }}</p>
+                                    </div>
+                                </li>
+                            @endforeach
 
                         </ul>
                     </div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                         <div class="container my-5 mx-2">
                             <div class="row">
                                 <div class="col-sm-12 col-md-5">
@@ -309,321 +231,119 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mt-5">
-                                <div class="col-sm-12 col-md-3">
-                                    <div class="media custom-product-media">
-                                        <div class="user-details">
-                                            <img class="rounded-circle" src="/img/profile/Untitled.jpg" class="mr-3" alt="">
-                                            <p class="my-2">نام کاربر</p>
-                                            <div class="bg-custom">
+                       @foreach ($product->comments as $comment)
+                        <div class="row mt-5">
+                            <div class="col-sm-12 col-md-2">
+                                <div class="media custom-product-media">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <div class=" user-details  ">
+                                            <img class="rounded-circle " src="/img/profile/Untitled.jpg" class="mr-3" alt="">
+
+                                            {{-- <div class="bg-custom">
                                                 <p class="bg-primary d-flex rounded p-2"> خرید این محصول را پیشنهاد
                                                     میکنم &nbsp;<span class="material-symbols-outlined text-white">
                                                         thumb_up
                                                     </span> </p>
 
-                                                <div class="mt-2 ">
-                                                    <p>رنگ: مشکی</p>
-                                                </div>
-                                            </div>
+
+                                            </div> --}}
                                         </div>
-
+                                        <p class="mt-2"> {{ $comment->user->first_name }}&nbsp;{{ $comment->user->last_name }}</p>
                                     </div>
+
                                 </div>
-                                <div class="col-sm-12 col-md-9">
-                                    <div class="media-body ">
-                                        <p>از خرید خود به شدت راضی هستم</p>
-                                        <ul class="nav flex-column">
-                                            <span>
-                                                <p class="mt-2 text-color-1">نقاط قوت:</p>
-                                            </span>
-                                            <li class="nav-item">
-                                                <p class="d-flex  align-items-center"><span
-                                                        class="material-symbols-outlined mr-2 small">
-                                                        radio_button_unchecked
-                                                    </span> قیمت مناسب </p>
-                                            </li>
-                                            <li class="nav-item">
-                                                <p class="d-flex align-items-center"><span
-                                                        class="material-symbols-outlined mr-2 small">
-                                                        radio_button_unchecked
-                                                    </span> کیفیت مطلوب </p>
-                                            </li>
-                                            <li class="nav-item">
-                                                <p class="d-flex align-items-center"><span
-                                                        class="material-symbols-outlined mr-2 small">
-                                                        radio_button_unchecked
-                                                    </span> ظاهر زیبا </p>
-                                            </li>
-
-                                        </ul>
-                                        <ul class="nav flex-column">
-                                            <span>
-                                                <p class="mt-2  text-color-2 "> نقاط ضعف:</p>
-                                            </span>
-                                            <li class="nav-item">
-                                                <p class="d-flex  align-items-center"> <span
-                                                        class="material-symbols-outlined mr-2 small">
-                                                        radio_button_unchecked
-                                                    </span>عدم خدمات پس از فروش</p>
-                                            </li>
-                                            <li class="nav-item">
-                                                <p class="d-flex  align-items-center"> <span
-                                                        class="material-symbols-outlined mr-2 small">
-                                                        radio_button_unchecked
-                                                    </span>نازک</p>
-                                            </li>
-
-                                        </ul>
-
-                                        <div class="d-flex justify-content-end mt-5">
-
-                                            <p class="d-inline-block mr-3">آیا این نظر برای شما مفید بود؟ </p>
-
-                                            <div class=" thumb d-flex position-relative">
-
-
-                                                <span class="material-symbols-outlined text-color-1 ml-5 ">
-                                                    thumb_up
-
-                                                </span>
-                                                <p class="thumbup">بله</p>
-
-                                            </div>
-                                            <div class=" thumb  d-flex  position-relative">
-
-
-                                                <span class="material-symbols-outlined text-color-2 ml-5 mt-1">
-                                                    thumb_down
-
-                                                </span>
-                                                <p class="thumbdown">خیر</p>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-
                             </div>
-                            <hr>
-                            <div class="row mt-5">
-                                <div class="col-sm-12 col-md-3">
-                                    <div class="media custom-product-media">
-                                        <div class="user-details">
-                                            <img class="rounded-circle" src="/img/profile/Untitled.jpg" class="mr-3" alt="">
-                                            <p class="my-2">نام کاربر</p>
-                                            <div class="bg-custom">
-                                                <p class="bg-danger d-flex rounded p-2"> خرید این محصول را پیشنهاد
-                                                    میکنم &nbsp;<span class="material-symbols-outlined text-white">
-                                                        thumb_up
-                                                    </span> </p>
+                            <div class="col-sm-12 col-md-9">
+                                <div class="media-body ">
+                                    <p>{{ $comment->comment_text }} </p>
+                                    <ul class="nav flex-column">
+                                        <span>
+                                            <p class="mt-2 text-color-1">نقاط قوت:</p>
+                                        </span>
 
-                                                <div class="mt-2 ">
-                                                    <p>رنگ: مشکی</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @foreach(json_decode($comment->analysis)->positives as $positive)
+                                            <li class="nav-item">
+                                                <p class="d-flex  align-items-center">✅{{ $positive }}</p>
+                                            </li>
 
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-9">
-                                    <div class="media-body ">
-                                        <p>از خرید خود به شدت راضی هستم</p>
-                                        <ul class="nav flex-column">
-                                            <span>
-                                                <p class="mt-2 text-color-1">نقاط قوت:</p>
+                                        @endforeach
+
+
+
+                                    </ul>
+                                    <ul class="nav flex-column">
+                                        <span>
+                                            <p class="mt-2  text-color-2 "> نقاط ضعف:</p>
+                                        </span>
+                                        @foreach(json_decode($comment->analysis)->negatives as $negative)
+
+                                            <li class="nav-item">
+                                                <p class="d-flex  align-items-center">❌{{ $negative }} </p>
+                                            </li>
+                                        @endforeach
+
+
+
+                                    </ul>
+
+                                    <div class="d-flex justify-content-end mt-5">
+
+                                        <p class="d-inline-block mr-3">آیا این نظر برای شما مفید بود؟ </p>
+
+                                        <div class=" thumb d-flex position-relative">
+
+
+                                            <span class="material-symbols-outlined text-color-1 ml-5 ">
+                                                thumb_up
+
                                             </span>
-                                            <li class="nav-item">
-                                                <p class="d-flex  align-items-center"><span
-                                                        class="material-symbols-outlined mr-2 small">
-                                                        radio_button_unchecked
-                                                    </span> قیمت مناسب </p>
-                                            </li>
-                                            <li class="nav-item">
-                                                <p class="d-flex align-items-center"><span
-                                                        class="material-symbols-outlined mr-2 small">
-                                                        radio_button_unchecked
-                                                    </span> کیفیت مطلوب </p>
-                                            </li>
-                                            <li class="nav-item">
-                                                <p class="d-flex align-items-center"><span
-                                                        class="material-symbols-outlined mr-2 small">
-                                                        radio_button_unchecked
-                                                    </span> ظاهر زیبا </p>
-                                            </li>
+                                            <p class="thumbup">بله</p>
 
-                                        </ul>
-                                        <ul class="nav flex-column">
-                                            <span>
-                                                <p class="mt-2  text-color-2 "> نقاط ضعف:</p>
-                                            </span>
-                                            <li class="nav-item">
-                                                <p class="d-flex  align-items-center"> <span
-                                                        class="material-symbols-outlined mr-2 small">
-                                                        radio_button_unchecked
-                                                    </span>عدم خدمات پس از فروش</p>
-                                            </li>
-                                            <li class="nav-item">
-                                                <p class="d-flex  align-items-center"> <span
-                                                        class="material-symbols-outlined mr-2 small">
-                                                        radio_button_unchecked
-                                                    </span>نازک</p>
-                                            </li>
-
-                                        </ul>
-
-                                        <div class="d-flex justify-content-end mt-5">
-
-                                            <p class="d-inline-block mr-3">آیا این نظر برای شما مفید بود؟ </p>
-
-                                            <div class=" thumb d-flex position-relative">
-
-
-                                                <span class="material-symbols-outlined text-color-1 ml-5 ">
-                                                    thumb_up
-
-                                                </span>
-                                                <p class="thumbup">بله</p>
-
-                                            </div>
-                                            <div class=" thumb  d-flex  position-relative">
-
-
-                                                <span class="material-symbols-outlined text-color-2 ml-5 mt-1">
-                                                    thumb_down
-
-                                                </span>
-                                                <p class="thumbdown">خیر</p>
-                                            </div>
                                         </div>
+                                        <div class=" thumb  d-flex  position-relative">
 
 
+                                            <span class="material-symbols-outlined text-color-2 ml-5 mt-1">
+                                                thumb_down
+
+                                            </span>
+                                            <p class="thumbdown">خیر</p>
+                                        </div>
                                     </div>
-                                </div>
 
+
+                                </div>
                             </div>
-                            <hr>
-                            <div class="row mt-5">
-                                <div class="col-sm-12 col-md-3">
-                                    <div class="media custom-product-media">
-                                        <div class="user-details">
-                                            <img class="rounded-circle" src="/img/profile/Untitled.jpg" class="mr-3" alt="">
-                                            <p class="my-2">نام کاربر</p>
-                                            <div class="bg-custom">
-                                                <p class="bg-primary d-flex rounded p-2"> خرید این محصول را پیشنهاد
-                                                    میکنم &nbsp;<span class="material-symbols-outlined text-white">
-                                                        thumb_up
-                                                    </span> </p>
 
-                                                <div class="mt-2 ">
-                                                    <p>رنگ: مشکی</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                        </div>
+                        <hr>
+                       @endforeach
 
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-9">
-                                    <div class="media-body ">
-                                        <p>از خرید خود به شدت راضی هستم</p>
-                                        <ul class="nav flex-column">
-                                            <span>
-                                                <p class="mt-2 text-color-1">نقاط قوت:</p>
-                                            </span>
-                                            <li class="nav-item">
-                                                <p class="d-flex  align-items-center"><span
-                                                        class="material-symbols-outlined mr-2 small">
-                                                        radio_button_unchecked
-                                                    </span> قیمت مناسب </p>
-                                            </li>
-                                            <li class="nav-item">
-                                                <p class="d-flex align-items-center"><span
-                                                        class="material-symbols-outlined mr-2 small">
-                                                        radio_button_unchecked
-                                                    </span> کیفیت مطلوب </p>
-                                            </li>
-                                            <li class="nav-item">
-                                                <p class="d-flex align-items-center"><span
-                                                        class="material-symbols-outlined mr-2 small">
-                                                        radio_button_unchecked
-                                                    </span> ظاهر زیبا </p>
-                                            </li>
-
-                                        </ul>
-                                        <ul class="nav flex-column">
-                                            <span>
-                                                <p class="mt-2  text-color-2 "> نقاط ضعف:</p>
-                                            </span>
-                                            <li class="nav-item">
-                                                <p class="d-flex  align-items-center"> <span
-                                                        class="material-symbols-outlined mr-2 small">
-                                                        radio_button_unchecked
-                                                    </span>عدم خدمات پس از فروش</p>
-                                            </li>
-                                            <li class="nav-item">
-                                                <p class="d-flex  align-items-center"> <span
-                                                        class="material-symbols-outlined mr-2 small">
-                                                        radio_button_unchecked
-                                                    </span>نازک</p>
-                                            </li>
-
-                                        </ul>
-
-                                        <div class="d-flex justify-content-end mt-5">
-
-                                            <p class="d-inline-block mr-3">آیا این نظر برای شما مفید بود؟ </p>
-
-                                            <div class=" thumb d-flex position-relative">
-
-
-                                                <span class="material-symbols-outlined text-color-1 ml-5 ">
-                                                    thumb_up
-
-                                                </span>
-                                                <p class="thumbup">بله</p>
-
-                                            </div>
-                                            <div class=" thumb  d-flex  position-relative">
-
-
-                                                <span class="material-symbols-outlined text-color-2 ml-5 mt-1">
-                                                    thumb_down
-
-                                                </span>
-                                                <p class="thumbdown">خیر</p>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-
-                            </div>
-                            <hr>
 
 
                         </div>
                         <div class="container">
                             <div class="row">
-                                <div class="add-comment-user d-flex px-3 py-2">
+                                <div class="add-comment-user d-flex px-3 py-2" id="comment">
                                     <span class="material-symbols-outlined text-white mt-1">
                                         add_comment
                                     </span>
                                     <p class="d-inline-block ml-2"> دیدگاه خود را وارد کنید:</p>
                                 </div>
-                            <form class="w-100 mt-4" method="POST" action="{{ route('frontend.product.comment', $product->id) }}">
-                                @csrf
-                                <div class="form-row">
-                                    <div class="form-group col-sm-12 col-md-12">
-                                        <textarea name="comment_text" class="form-control mt-3 p-2" placeholder="دیدگاه شما..." cols="30"
-                                            rows="6"></textarea>
+                                <form class="w-100 mt-4" method="POST"
+                                    action="{{ route('frontend.product.comment', $product->id) }}">
+                                    @csrf
+                                    <div class="form-row">
+                                        <div class="form-group col-sm-12 col-md-12">
+                                            <textarea name="comment_text" class="form-control mt-3 p-2"
+                                                placeholder="دیدگاه شما..." cols="30" rows="6"></textarea>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="text-right">
-                                    <button type="submit" class="btn btn-primary my-3">ارسال دیدگاه </button>
-                                </div>
-                            </form>
-                            
+                                    <div class="text-right">
+                                        <button type="submit" class="btn btn-primary my-3">ارسال دیدگاه </button>
+                                    </div>
+                                </form>
+
                             </div>
                         </div>
                     </div>
@@ -647,7 +367,7 @@
                             <img src="/{{ $similarProduct->image_path }}" class="card-img-top" alt="">
 
                             <div class="card-body  ">
-                                <h5 class="card-title ">{{Str::limit($similarProduct->name, 24) }}</h5>
+                                <h5 class="card-title ">{{Str::limit($similarProduct->name, 20) }}</h5>
                                 <h5 class="border-0 ">ویژگی ها:&nbsp;</h5>
                                 <h5 class="card-title ">
                                     <p class="card-text ">{{ Str::limit($similarProduct->description, 50) }}</p>
@@ -673,5 +393,5 @@
     <!-- end product-details nav -->
 
 
-@endsection
 
+@endsection

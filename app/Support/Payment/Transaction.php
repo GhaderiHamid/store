@@ -29,6 +29,7 @@ class Transaction
         $t=1;
         try{
             $order = $this->makeOrder();
+           
             $payment = $this->makePayment($order);
             DB::commit();
         }
@@ -42,6 +43,9 @@ class Transaction
         {
         return $this->getwayFactory()->pay($order);
         }
+        $order = Order::create([
+            'status_id' => 1
+        ]);
         $this->normalizeQuantity($order);
         $this->basket->clear();
         return $order;
@@ -51,7 +55,7 @@ class Transaction
     {
         $order = Order::create([
             'user_id' => auth()->user()->id,
-            'tracking_number' => bin2hex(Str::random(16))
+            'tracking_number' => (Str::random(16))
 
         ]);
 

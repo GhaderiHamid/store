@@ -365,3 +365,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+///////////////////////////////comment_product///////////////////////

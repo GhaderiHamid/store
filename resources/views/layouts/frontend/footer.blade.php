@@ -1,4 +1,4 @@
-    <!-- end all products nav -->
+<!-- end all products nav -->
     <!-- start shiping nav -->
     <div class="container my-5 custom-container">
         <div class="row justify-content-between no-gutters">
@@ -123,14 +123,13 @@
 
 <script src="/script/zoomy.js"></script>
 
-
+@if (Route::currentRouteName() === 'frontend.product.single' && isset($product))
 <script>
     var urls = [
         '/{{ $product->image_path }}',
         // '/img/products/zoom/s2.jpg',
         // '/img/products/zoom/s3.jpg',
         // '/img/products/zoom/s4.jpg'
-
     ];
     var options = {
         // thumbLeft:true,
@@ -138,11 +137,10 @@
         // thumbHide: false,
         // width: 400,
         // height:450,
-
     };
     $('#el').zoomy(urls, options);
 </script>
-
+@endif
 
 <script>
     

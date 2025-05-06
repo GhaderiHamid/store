@@ -112,7 +112,7 @@
 
                                             <li><a class="dropdown-item border " href="{{ route('user.bookmarked.products') }}">محصولات ذخیره شده</a></li>
                                             <li><a class="dropdown-item border " href="{{ route('user.liked.products') }}">محصولات لایک‌ شده</a></li>
-                                            <li><a class="dropdown-item border " href="#">کامنت‌ها</a></li>
+                                            <li><a class="dropdown-item border " href="{{ route('comments.index') }}">کامنت‌ها</a></li>
                                             <li><a class="dropdown-item border " href="#">بروزرسانی حساب کاربری</a></li>
                                             <li>
                                                 <hr class="dropdown-divider">

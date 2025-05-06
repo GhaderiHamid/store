@@ -7,10 +7,10 @@
         @if (!$orders->isEmpty())
             @foreach ($orders as $order)
                 <div class="w-100 product-border p-3 mt-3 text-white  border-white">
-                    <h5>شماره سفارش: {{ $order->id }}</h5>
-                    <p>تاریخ سفارش: {{ \Morilog\Jalali\Jalalian::fromDateTime($order->created_at)->format('Y/m/d') }}</p>
-                    <p>وضعیت سفارش: {{ $order->status }}</p>
-                    <p>جمع کل: {{ $order->total }} تومان</p>
+                    <h5>شماره سفارش: {{ $order->tracking_number}}</h5>
+                    <p>تاریخ سفارش: {{ \Morilog\Jalali\Jalalian::fromDateTime($order->created_at)->format('H:i Y/m/d ') }}</p>
+                    <p>وضعیت سفارش: {{ $order->status_id}}</p>
+                    <p>جمع کل: {{ $order->getTotalAmount() }} تومان</p>
 
                     <h6 class="mt-3">جزئیات محصولات:</h6>
 
@@ -37,26 +37,30 @@
 
 
                             <div class="d-flex align-items-center justify-content-around mt-3 ">
-                               <div class="d-flex align-items-center">
-                                 <p class="card-text ">امتیاز دهید:</p>
-                                <div class="custom-icone mx-1">
-                                    <div class="d-flex align-items-center  stars-container" data-product-id="{{ $detail->product_id  }}" style="cursor: pointer">
-                                        @for ($i = 5; $i >= 1; $i--)
-                                               <div class="d-flex flex-column align-items-center">
-                                                <span class="material-symbols-outlined star" data-star="{{ $i }}">star_border</span>
-                                                <p>{{ $i }}</p>
-                                               </div>
-                                        @endfor
+                                <div class="d-flex align-items-center">
+                                    <p class="card-text ">امتیاز دهید:</p>
+                                    <div class="custom-icone mx-1">
+                                        <div class="d-flex align-items-center  stars-container"
+                                            data-product-id="{{ $detail->product_id  }}" style="cursor: pointer">
+                                            @for ($i = 5; $i >= 1; $i--)
+                                                <div class="d-flex flex-column align-items-center">
+                                                    <span class="material-symbols-outlined star" data-star="{{ $i }}">star_border</span>
+                                                    <p>{{ $i }}</p>
+                                                </div>
+                                            @endfor
+                                        </div>
+
+
                                     </div>
-
-
                                 </div>
-                               </div>
-                               
-                                 <button  type="button" class="btn btn-danger d-flex "><span class="material-symbols-outlined">
-                                    chat_bubble
-                                </span> <p class="mx-1">ثبت دیدگاه</p>  </button>
-                               
+
+                                <a href="{{ url('/products/' . $detail->product_id . '/single#comment') }}">
+                                    <button type=" button" class="btn btn-danger d-flex">
+                                        <span class="material-symbols-outlined">chat_bubble</span>
+                                        <p class="mx-1">ثبت دیدگاه</p>
+                                    </button>
+
+                                </a>
                             </div>
 
                         </div>

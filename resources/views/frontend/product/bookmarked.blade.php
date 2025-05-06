@@ -15,50 +15,55 @@
                             </a>
                             <div class="card-body custom-card-body text-center w-100">
                                 <p class="card-text custom-card-text">
-                                    <button class="btn btn-danger btn-sm remove-bookmarked-product mr-2" data-product-id="{{ $product->id }}">
-                                        <span class="material-symbols-outlined">
-                                            delete
-                                        </span>
-                                    </button>
+
                                     {{ $product->name }}
+
                                 </p>
 
                                 <!-- شرط برای نمایش تخفیف -->
-                                @if($product->discount > 0)
-                                    <p class="mt-4 d-flex justify-content-center align-items-center">
+                                @if ($product->discount > 0)
+                                    <p class=" d-flex justify-content-center align-items-center">
                                         <s class="mr-2 ">{{ $product->price }} تومان</s>
                                         <span class="d-flex align-items-center badge badge-pill badge-danger mt-1"
                                             style="width: 38px ;height: 35px">
                                             {{ $product->discount }} %
                                         </span>
                                     </p>
-                                    <p class="mt-4 d-flex justify-content-center align-items-center">
-                                        {{ $product->price - ($product->price * $product->discount / 100) }} &nbsp; تومان
+                                    <p class=" d-flex justify-content-center align-items-center">
+                                        {{ $product->price - ($product->price * $product->discount) / 100 }} &nbsp; تومان
                                     </p>
                                 @else
                                     <!-- نمایش قیمت اصلی اگر تخفیف وجود نداشته باشد -->
-                                    <p class="mt-4 d-flex justify-content-center align-items-center">
+                                    <p class="mt-2 d-flex justify-content-center align-items-center">
                                         {{ $product->price }}
                                     </p>
-                                    <p class="mt-4 d-flex justify-content-center align-items-center">
+                                    <p class="mt-2 d-flex justify-content-center align-items-center">
                                         تومان
+
                                     </p>
-
                                 @endif
+                                <button
+                                    class="btn d-inline-flex align-items-center btn-danger btn-sm remove-bookmarked-product mt-4"
+                                    data-product-id="{{ $product->id }}">
 
+                                    <span class="material-symbols-outlined">
+                                        delete
+                                    </span>
+                                    <p>حذف از لیست</p>
+                                </button>
 
 
 
                                 {{-- <a href="{{ route('frontend.cart.add', $product->id) }}" class="align-items-center"> --}}
-                                    <a href="{{ route('basket.add', $product->id) }}" class="align-items-center">
+                                <a href="{{ route('basket.add', $product->id) }}" class="align-items-center">
 
-                                        <div class="price-btn mt-4 d-inline-block">افزودن به سبد خرید</div>
-                                    </a>
+                                    <div class="price-btn mt-4 d-inline-block">افزودن به سبد خرید</div>
+                                </a>
 
-                                    <!-- اگر کاربر لاگین نکرده -->
-                                    <div class="price-btn mt-4 d-inline-block">
-                                        افزودن به سبد خرید
-                                    </div>
+                                <!-- اگر کاربر لاگین نکرده -->
+                                <div class="price-btn mt-4 d-inline-block">
+                                    افزودن به سبد خرید
+                                </div>
 
 
 
@@ -72,6 +77,4 @@
             @endforeach
         </div>
     </section>
-
-
 @endsection

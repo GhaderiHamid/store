@@ -23,6 +23,7 @@ use App\Http\Controllers\User\BookmarkController;
 use App\Http\Controllers\User\LikeController;
 use App\Http\Controllers\User\VoteController;
 use App\Http\Controllers\User\PaymentController;
+use App\Http\Controllers\CommentController;
 
 use App\Support\Storage\Contracts\StorageInterface;
 
@@ -144,8 +145,16 @@ Route::POST('/product/unlike', [App\Http\Controllers\User\LikeController::class,
 
 Route::post('/product/{product}/comment', [App\Http\Controllers\User\CommentController::class, 'store'])->name('frontend.product.comment');
 
+Route::get('/comments', [App\Http\Controllers\User\CommentController::class, 'index'])->name('comments.index');
+
+Route::get('/user/comments/{id}/edit', [App\Http\Controllers\User\CommentController::class, 'edit'])->name('user.comments.edit');
+Route::put('/user/comments/{id}', [App\Http\Controllers\User\CommentController::class, 'update'])->name('user.comments.update');
+
+Route::delete('/user/comments/{id}', [App\Http\Controllers\User\CommentController::class, 'destroy'])->name('user.comments.destroy');
+
 Route::middleware('auth')->group(function () {
     Route::get('/bookmarked-products', [App\Http\Controllers\User\BookmarkController::class, 'bookmarkedProducts'])->name('user.bookmarked.products');
     Route::post('/unbookmark', [App\Http\Controllers\User\BookmarkController::class, 'unbookmark'])->name('frontend.product.unbookmark');
     Route::get('/user/orders', [App\Http\Controllers\User\OrderController::class, 'index'])->name('user.orders.index');
 });
+

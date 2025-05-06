@@ -17,7 +17,7 @@ class Saman implements GatewayInterface
     }
     public function pay(Order $order)
     {
-        dump('saman pay'); 
+        // dump(''); 
      $this->redirectToBank($order);
      
     }
