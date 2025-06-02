@@ -1,0 +1,236 @@
+
+body {
+    font-family: 'Vazirmatn', Arial, sans-serif;
+    background: linear-gradient(135deg, #fffbe6 0%, #ffe066 100%);
+    min-height: 100vh;
+    text-align: center;
+    padding: 20px;
+   
+}
+
+.payment-form {
+    /* background: #111; */
+   
+    background: linear-gradient(90deg, #2e2929 0%, #472121 100%);
+    padding: 15px 32px 15px 32px;
+    border-radius: 22px;
+    max-width: 650px;
+    min-width: 650px;
+    min-height: 480px;
+    height: 480px;
+    margin: 20px auto;
+    box-shadow: 0 12px 48px 0 rgba(0, 0, 0, 0.18), 0 0 0 4px #ffe066;
+    border: 2px solid #ffe066;
+    transition: box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.payment-form:hover {
+    box-shadow: 0 16px 64px 0 rgba(0, 0, 0, 0.28), 0 0 0 6px #ffd600;
+}
+
+.payment-form h5 {
+    color: #ffe066;
+    margin: 5px auto;
+    font-size: 2.1rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-shadow: 0 2px 8px #0008;
+}
+
+input {
+    text-align: center;
+    width: 80%;
+    padding: 14px 22px;
+    margin: 10px 0;
+    border: 2px solid #ffe066;
+    border-radius: 14px;
+    font-size: 1.18rem;
+    background: linear-gradient(90deg, #222 60%, #333 100%);
+    color: #ffe066;
+    transition: border 0.2s, box-shadow 0.2s, background 0.2s, transform 0.15s;
+    outline: none;
+    box-shadow: 0 4px 18px 0 rgba(255, 224, 102, 0.08), 0 1.5px 0 #ffd600 inset;
+    position: relative;
+}
+
+input::placeholder {
+    color: #ffe066cc;
+    opacity: 1;
+    font-size: 1.08rem;
+    letter-spacing: 1px;
+}
+.cartNumber{
+    width: 73%;
+}
+input:focus {
+    border: 2.5px solid #ffd600;
+    box-shadow: 0 0 0 4px #ffe06633, 0 6px 24px 0 rgba(255, 224, 102, 0.13);
+    background: linear-gradient(90deg, #232323 60%, #444 100%);
+    color: #fffde4;
+    transform: scale(1.03);
+}
+
+input:hover:not(:focus) {
+    
+    background: linear-gradient(90deg, #232323 60%, #393939 100%);
+    box-shadow: 0 2px 12px 0 rgba(255, 224, 102, 0.10);
+}
+
+button {
+    background: linear-gradient(90deg, #ffe066 0%, #ffd600 100%);
+    color: #111;
+    border: none;
+    padding: 14px;
+    width: 100%;
+    margin-top: 16px;
+    border-radius: 8px;
+    font-size: 1.18rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    display: inline-block;
+    transition: background 0.2s, box-shadow 0.2s, color 0.2s, border 0.2s;
+}
+
+/* دکمه پرداخت - سبز */
+.btn-pay {
+    background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+    color: #111;
+    border: 2px solid #43e97b;
+    box-shadow: 0 4px 16px 0 rgba(67, 233, 123, 0.13);
+}
+.btn-pay:hover {
+    background: linear-gradient(90deg, #38f9d7 0%, #43e97b 100%);
+    color: #fff;
+    border: 2px solid #38f9d7;
+    box-shadow: 0 8px 24px 0 rgba(67, 233, 123, 0.22);
+}
+
+/* دکمه انصراف - قرمز */
+.btn-cancel {
+    background: linear-gradient(90deg, #ff5858 0%, #f857a6 100%);
+    color: #fff;
+    border: 2px solid #ff5858;
+    box-shadow: 0 4px 16px 0 rgba(255, 88, 88, 0.13);
+    margin-right: 18px;
+}
+.btn-cancel:hover {
+    background: linear-gradient(90deg, #f857a6 0%, #ff5858 100%);
+    color: #fff;
+    border: 2px solid #f857a6;
+    box-shadow: 0 8px 24px 0 rgba(255, 88, 88, 0.22);
+}
+
+.captcha-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #222;
+    border-radius: 7px;
+    padding: 8px 18px;
+    margin: 14px 0;
+    font-size: 1.15rem;
+    border: 1.5px solid #ffe066;
+    width: 75%;
+    padding: 12px 18px;
+    margin: 10px auto;
+}
+
+.captcha-question {
+    font-weight: bold;
+    color: #ffe066;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    user-select: all;
+}
+
+.captcha-input {
+    width: 100px;
+    margin-right: 14px;
+    padding: 10px;
+    border-radius: 14px;
+    border: 1.5px solid #ffe066;
+    font-size: 1.18rem;
+    background: linear-gradient(90deg, #191919 60%, #292929 100%);
+    color: #ffe066;
+    text-align: center;
+    direction: ltr;
+    box-shadow: 0 2px 8px 0 rgba(255, 224, 102, 0.08);
+    transition: border 0.2s, box-shadow 0.2s, background 0.2s, transform 0.15s;
+}
+
+.captcha-input:focus {
+    border: 1.5px solid #ffd600;
+    background: #222;
+    color: #fffde4;
+    transform: scale(1.03);
+}
+
+.captcha-input:hover:not(:focus) {
+    border: 1.5px solid #ffe066;
+    background: linear-gradient(90deg, #232323 60%, #393939 100%);
+    box-shadow: 0 2px 12px 0 rgba(255, 224, 102, 0.10);
+}
+
+.captcha-error {
+    color: #ffd600;
+    background: #222;
+    border-radius: 6px;
+    font-size: 1.08rem;
+    margin-bottom: 8px;
+    padding: 6px 0;
+    display: none;
+}
+
+.row-flex {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto 10px auto;
+}
+
+.row-flex input {
+    width: 100%;
+    margin: 0;
+}
+
+.expiry-row {
+    display: flex;
+    gap: 10px;
+    width: 80%;
+    margin: 0 auto 10px auto;
+}
+
+.expiry-row input {
+    width: 50%;
+    margin: 0;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .payment-form {
+        max-width: 98vw;
+        min-width: unset;
+        height: auto;
+        min-height: 420px;
+        padding: 18px 8px 16px 8px;
+    }
+
+    .payment-form h5 {
+        font-size: 1.3rem;
+    }
+
+    input,
+    .captcha-input {
+        font-size: 1rem;
+        padding: 10px 8px;
+    }
+
+    .captcha-question {
+        font-size: 1.1rem;
+    }
+}

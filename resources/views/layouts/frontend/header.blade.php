@@ -33,7 +33,7 @@
 
 
 
-        @inject('basket', 'App\Support\Basket\Basket')
+        
 
         <!-- start top nav -->
 
@@ -85,7 +85,9 @@
                                     <a class="btn btn-secondary login text-white shop-card text-decoration-none d-flex align-items-center"
                                         href="{{ route('frontend.cart.all') }}">
                                         <span id="cart-count"
-                                            class="d-inline-block badge bg-danger ">{{ $basket->itemCount() }}</span>
+                                            class="d-inline-block badge bg-danger ">
+                                            {{ session('cart') ? array_sum(session('cart')) : 0 }}
+                                        </span>
                                         <span class="material-symbols-outlined  ">shopping_cart</span>
 
                                         سبد خرید

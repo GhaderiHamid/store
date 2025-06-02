@@ -13,4 +13,5 @@ class OrderController extends Controller
         $orders = Order::where('user_id', auth()->id())->with(['details.product', 'status_order'])->get();
         return view('frontend.order.all', compact('orders'));
     }
+    
 }

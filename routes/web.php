@@ -42,9 +42,6 @@ use App\Support\Storage\Contracts\StorageInterface;
 //     return view('admin.index');
 // });
 
-Route::get('basket/clear',function(){
-    resolve(StorageInterface::class)->clear();
-});
 
 Route::get('signIn', [LoginController::class, 'signIn'])->name('sigIn');
 Route::post('register',[LoginController::class, 'store'])->name('register');
@@ -106,8 +103,12 @@ Route::prefix('')->group(function () {
         Route::get('{product_id}/add', [CartController::class, 'add'])->name('frontend.cart.add');
         Route::get('{product_id}/remove', [CartController::class, 'remove'])->name('frontend.cart.remove');
 
+        // افزودن به سبد خرید با AJAX
+        Route::post('/add-to-cart-ajax', [CartController::class, 'addAjax'])->name('frontend.cart.add.ajax');
+        // بروزرسانی تعداد محصول در سبد خرید با AJAX
+        Route::post('/update-cart-quantity', [CartController::class, 'updateQuantity'])->name('frontend.cart.update.quantity');
     });
-    // Route::get('cart', [CartController::class,'all'])->name('frontend.cart.all');
+    Route::get('cart', [CartController::class,'all'])->name('frontend.cart.all');
 
 
 
@@ -130,11 +131,8 @@ Route::post('/vote', [VoteController::class, 'store']);
 
 
 
-Route::get('basket/add/{product}',[BasketContoller::class,'add'])->name('basket.add');
 // Route::get('basket',[BasketContoller::class, 'index'])->name('basket.index');
-Route::get('cart', [BasketContoller::class, 'index'])->name('frontend.cart.all');
 
-Route::get('checkout', [BasketContoller::class, 'checkout'])->name('checkout');
 
 Route::post('payment/{gateway}/callback',[PaymentController::class, 'verify'])->name('payment.verify');
 
@@ -160,3 +158,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/reaction-comment', [ReactionCommentController::class, 'store'])->name('reaction.comment');
+
+
+Route::post('payment', [PaymentController::class, 'process'])->name('payment.process');
+
+Route::post('payment/pay', [PaymentController::class, 'pay'])->name('pay');
+Route::post('/payment/failed', [\App\Http\Controllers\User\PaymentController::class, 'failed'])->name('payment.failed');

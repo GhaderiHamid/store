@@ -15,12 +15,12 @@ class Payment extends Model
         return $this->belongsTo(Order::class, 'order_id');
     }
 
-   public function confirm(string $refNum,string $gateway)
-   {
-    $this->ref_num=$refNum;
-    $this->gateway=$gateway;
-    $this->status='ok';
-    $this->save();
-   }
-   
+    //    public function confirm(string $refNum,string $gateway)
+    //    {
+    //     // $this->ref_num=$refNum;
+    //     $this->gateway=$gateway;
+    //     $this->status='ok';
+    //     $this->save();
+    //    }
+    
 }

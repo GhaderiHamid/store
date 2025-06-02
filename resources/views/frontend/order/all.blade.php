@@ -7,7 +7,7 @@
         @if (!$orders->isEmpty())
             @foreach ($orders as $order)
                 <div class="w-100 product-border p-3 mt-3 text-white  border-white">
-                    <h5>شماره سفارش: {{ $order->tracking_number}}</h5>
+                    <h5>شماره سفارش: {{ $order->id}}</h5>
                     <p>تاریخ سفارش: {{ \Morilog\Jalali\Jalalian::fromDateTime($order->created_at)->format('H:i Y/m/d ') }}</p>
                     <p>وضعیت سفارش: {{ $order->status_id}}</p>
                     <p>جمع کل: {{ $order->getTotalAmount() }} تومان</p>

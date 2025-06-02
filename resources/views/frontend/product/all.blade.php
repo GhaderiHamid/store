@@ -57,11 +57,11 @@
                                 <!-- شرط برای دکمه افزودن به سبد خرید -->
                                 @auth
                                     <!-- اگر کاربر لاگین کرده -->
-                                    {{-- <a href="{{ route('frontend.cart.add', $product->id) }}" class="align-items-center"> --}}
-                                        <a href="{{ route('basket.add',$product->id) }}" class="align-items-center">
-
-                                            <div class="price-btn mt-4 d-inline-block">افزودن به سبد خرید</div>
-                                        </a>
+                                    <button 
+                                        class="price-btn mt-4 d-inline-block add-to-cart-btn"
+                                        data-product-id="{{ $product->id }}">
+                                        افزودن به سبد خرید
+                                    </button>
                                 @else
                                     <!-- اگر کاربر لاگین نکرده -->
                                     <div class="price-btn mt-4 d-inline-block"
@@ -89,6 +89,36 @@
             if (sortValue) {
                 window.location.href = sortValue;
             }
+        });
+
+        // افزودن به سبد خرید با AJAX
+        document.querySelectorAll('.add-to-cart-btn').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                var productId = this.getAttribute('data-product-id');
+                fetch("{{ route('frontend.cart.add.ajax') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name=\"csrf-token\"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ product_id: productId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.success){
+                        alert('محصول با موفقیت به سبد خرید اضافه شد.');
+                        // اگر شمارنده سبد خرید دارید، اینجا مقدارش را آپدیت کنید
+                        if(data.cart_count !== undefined){
+                            let cartCountElem = document.getElementById('cart-count');
+                            if(cartCountElem) cartCountElem.textContent = data.cart_count;
+                        }
+                    } else {
+                        alert('خطا در افزودن به سبد خرید');
+                    }
+                })
+                .catch(() => alert('خطا در ارتباط با سرور'));
+            });
         });
     </script>
     <!-- end offer nav -->
