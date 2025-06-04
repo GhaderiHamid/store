@@ -148,17 +148,29 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.status === 'liked') {
                     icon.css('color', 'red');
-                  
                 } else if (response.status === 'unliked') {
                     icon.css('color', 'white');
-                    
                 }
+                // پس از هر تغییر، شمارنده را بلافاصله به‌روزرسانی کن
+                $.ajax({
+                    url: `/product/${productId}/like-count`,
+                    method: 'GET',
+                    success: function (data) {
+                        var el = $('#like-count-' + productId);
+                        if (el.length) {
+                            el.text(data.likeCount);
+                        }
+                    }
+                });
             },
             error: function () {
                 console.error('Failed to toggle like for product ' + productId);
             }
         });
     });
+
+    // حذف interval مربوط به شمارنده لایک
+    // ...existing code...
 });
 
 ///////////////////////////UnLike_product///////////////////////
@@ -166,8 +178,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".remove-liked-product").forEach(button => {
         button.addEventListener("click", function () {
             let productId = this.getAttribute("data-product-id");
+            let url = this.getAttribute("data-url"); // Get the URL from the data attribute
 
-            fetch("{{ route('frontend.product.unlike') }}", {
+            fetch(url, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -347,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
 
-                // ارسال رأی جدید
+                // ارسال رأی جدید (همیشه POST، سرور باید آپدیت کند)
                 axios.post('/vote', {
                     product_id: productId,
                     value: selectedStar
@@ -356,7 +369,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                     }
                 }).then(response => {
-                    console.log('Vote saved:', response.data);
+                    // پیام موفقیت‌آمیز بودن آپدیت رأی
+                    if (response.data.updated) {
+                        alert('رأی شما با موفقیت به‌روزرسانی شد.');
+                    } else {
+                        alert('رأی شما ثبت شد.');
+                    }
                 }).catch(error => {
                     console.error('Error saving vote:', error);
                 });
@@ -401,4 +419,128 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => console.error('Error:', error));
     }
+});
+/////////////////////////////////basket/////////////////////
+
+// اسکریپت مرتب‌سازی محصولات و افزودن به سبد خرید با AJAX
+document.addEventListener('DOMContentLoaded', function () {
+    // مرتب‌سازی محصولات
+    var sortButton = document.getElementById('sortButton');
+    if (sortButton) {
+        sortButton.addEventListener('click', function () {
+            var sortValue = document.getElementById('sortSelect').value;
+            if (sortValue) {
+                window.location.href = sortValue;
+            }
+        });
+    }
+
+    // افزودن به سبد خرید با AJAX
+    document.querySelectorAll('.add-to-cart-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            var productId = this.getAttribute('data-product-id');
+            var limited = parseInt(this.getAttribute('data-limited'), 10);
+            var cartQuantity = parseInt(this.getAttribute('data-cart-quantity') || '0', 10);
+
+            if (cartQuantity >= limited) {
+                alert('بیشتر از این نمی‌توانی خرید کنی');
+                return;
+            }
+
+            fetch(window.addToCartAjaxUrl || "{{ route('frontend.cart.add.ajax') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ product_id: productId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success){
+                    alert('محصول با موفقیت به سبد خرید اضافه شد.');
+                    // اگر شمارنده سبد خرید دارید، اینجا مقدارش را آپدیت کنید
+                    if(data.cart_count !== undefined){
+                        let cartCountElem = document.getElementById('cart-count');
+                        if(cartCountElem) cartCountElem.textContent = data.cart_count;
+                    }
+                    // افزایش مقدار cartQuantity در دکمه
+                    btn.setAttribute('data-cart-quantity', cartQuantity + 1);
+                } else if (data.error === 'limited_exceeded') {
+                    alert('بیشتر از این نمی‌توانی خرید کنی');
+                } else {
+                    alert('خطا در افزودن به سبد خرید');
+                }
+            })
+            .catch(() => alert('خطا در ارتباط با سرور'));
+        });
+    });
+});
+
+/////////////////////////cart quantity update (from cart page)///////////////////////
+function number_format(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function updateTotal() {
+    // محاسبه جمع کل با در نظر گرفتن تخفیف هر محصول
+    let total = 0;
+    document.querySelectorAll('.input_cart').forEach(function(input) {
+        let price = parseInt(input.getAttribute('data-price'));
+        let discount = parseInt(input.getAttribute('data-discount')) || 0;
+        let quantity = parseInt(input.value);
+        let final_price = price;
+        if (discount > 0) {
+            final_price = Math.round(price - (price * discount / 100));
+        }
+        total += final_price * quantity;
+    });
+    let totalElem = document.getElementById('cart-total');
+    if (totalElem) totalElem.innerText = number_format(total) + ' تومان';
+    let subtotalInput = document.getElementById('subtotal-input');
+    if (subtotalInput) subtotalInput.value = total;
+}
+
+function changeQuantity(id, price, discount, delta) {
+    let input = document.getElementById('quantity-' + id);
+    let val = parseInt(input.value) || 1;
+    let limited = parseInt(input.getAttribute('data-limited')) || 1;
+    let newVal = val + delta;
+
+    // بررسی مقدار جدید
+    if (newVal < 1) return;
+    if (newVal > limited) {
+        alert('بیشتر از این نمیتوانید خرید کنید');
+        return;
+    }
+
+    input.value = newVal; // به‌روزرسانی مقدار ورودی
+
+    // ارسال مقدار جدید با AJAX به سرور
+    fetch(window.cartUpdateQuantityUrl || "/cart/update-quantity", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                product_id: id,
+                quantity: newVal
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updateTotal(); // به‌روزرسانی جمع کل
+            }
+        })
+        .catch(() => {
+            updateTotal(); // به‌روزرسانی جمع کل در صورت بروز خطا
+        });
+}
+
+// جمع کل همیشه بعد از هر تغییر تعداد بدون رفرش صفحه نمایش داده می‌شود
+document.addEventListener('DOMContentLoaded', function() {
+    updateTotal();
 });

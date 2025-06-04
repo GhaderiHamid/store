@@ -23,52 +23,60 @@
 
 
                                                 <!-- شرط برای نمایش تخفیف -->
-                                                @if($product->discount > 0)
+                                                @if ($product->discount > 0)
                                                     <p class=" d-flex justify-content-center align-items-center">
-                                                        <s class="mr-2 ">{{ $product->price }} تومان</s>
+                                                        <s class="mr-2 ">{{ number_format($product->price) }} تومان</s>
                                                         <span class="d-flex align-items-center badge badge-pill badge-danger mt-1"
                                                             style="width: 38px ;height: 35px">
                                                             {{ $product->discount }} %
                                                         </span>
                                                     </p>
                                                     <p class=" d-flex justify-content-center align-items-center">
-                                                        {{ $product->price - ($product->price * $product->discount / 100) }} &nbsp; تومان
+                                                        {{ number_format($product->price - ($product->price * $product->discount) / 100) }} &nbsp; تومان
                                                     </p>
                                                 @else
                                                     <!-- نمایش قیمت اصلی اگر تخفیف وجود نداشته باشد -->
                                                     <p class="mt-2 d-flex justify-content-center align-items-center">
-                                                        {{ $product->price }}
+                                                        {{ number_format($product->price) }}
                                                     </p>
                                                     <p class="mt-2 d-flex justify-content-center align-items-center">
                                                         تومان
                                                     </p>
-
                                                 @endif
-                <button class="btn d-inline-flex align-items-center btn-danger btn-sm remove-liked-product mt-4"
-                    data-product-id="{{ $product->id }}">
-                    <span class="material-symbols-outlined">
-                        delete
-                    </span>
-                    <p>حذف از لیست</p>
-                </button>
+                                                <button
+                                                    class="btn d-inline-flex align-items-center btn-danger btn-sm remove-liked-product mt-4"
+                                                    data-product-id="{{ $product->id }}"
+                                                    data-url="{{ route('frontend.product.unlike') }}">
+                                                    <span class="material-symbols-outlined">
+                                                        delete
+                                                    </span>
+                                                    <p>حذف از لیست</p>
+                                                </button>
 
-
-                                                {{-- <a href="{{ route('frontend.cart.add', $product->id) }}" class="align-items-center"> --}}
-                                                    <a href="{{ route('basket.add', $product->id) }}" class="align-items-center">
-
-                                                        <div class="price-btn mt-4 d-inline-block">افزودن به سبد خرید</div>
-                                                    </a>
-
-                                                    <!-- اگر کاربر لاگین نکرده -->
-                                                    <div class="price-btn mt-4 d-inline-block">
-                                                        افزودن به سبد خرید
-                                                    </div>
-
+                                                @if ($product->quntity == 0)
+                                                <p class="text-secondary lead mt-3">ناموجود</p>
+                                            @else
+                                                <button class="price-btn mt-4 d-inline-block add-to-cart-btn" data-product-id="{{ $product->id }}"
+                                                    data-limited="{{ $product->limited }}" data-cart-quantity="{{ $product->cart_quantity ?? 0 }}">
+                                                    افزودن به سبد خرید
+                                                </button>
+                @endif
 
 
 
 
                                             </div>
+                                            @if($product->quntity <= 3 && $product->quntity > 0)
+                                                <div class="w-100 bg-warning   d-flex align-items-center justify-content-center">
+                                                    <div class="badge-danger rounded-circle mr-2 d-flex align-items-center justify-content-center "
+                                                        style="width: 20px;height: 20px;">
+                                                        {{-- <span class="material-symbols-outlined" style="font-size: 20px">warning</span> --}}
+                                                        !
+                                                    </div>
+
+                                                    <span>تنها {{ $product->quntity }} عدد در انبار باقی مانده</span>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -76,6 +84,4 @@
             @endforeach
         </div>
     </section>
-
-
 @endsection

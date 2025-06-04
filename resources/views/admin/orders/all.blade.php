@@ -32,7 +32,7 @@
                                         <td> {{ $order->id }}</td>
                                         <td>{{ $order->user->first_name }}{{ $order->user->last_name  }}</td>
                                         <td>{{ $order->created_at }}</td>
-                                        <td>{{ $order->status_order->status_name }}</td>
+                                        {{-- <td>{{ $order->status_order->status_name }}</td> --}}
                                         <td>{{ $order->tracking_number  }}</td>
                                         <td>
                                             <button class="btn btn-sm btn-info">مشاهده</button>

@@ -7,15 +7,15 @@
         @if (!$orders->isEmpty())
             @foreach ($orders as $order)
                 <div class="w-100 product-border p-3 mt-3 text-white  border-white">
-                    <h5>شماره سفارش: {{ $order->id}}</h5>
-                    <p>تاریخ سفارش: {{ \Morilog\Jalali\Jalalian::fromDateTime($order->created_at)->format('H:i Y/m/d ') }}</p>
-                    <p>وضعیت سفارش: {{ $order->status_id}}</p>
-                    <p>جمع کل: {{ $order->getTotalAmount() }} تومان</p>
+                    <h5>شماره سفارش: {{ $order->id }}</h5>
+                    <p>تاریخ سفارش: {{ \Morilog\Jalali\Jalalian::fromDateTime($order->created_at)->format('H:i Y/m/d ') }}
+                    </p>
+                    <p>وضعیت سفارش: {{ $order->status_id }}</p>
+                    <p>جمع کل: {{ number_format($order->payment->amount) }} تومان</p>
 
                     <h6 class="mt-3">جزئیات محصولات:</h6>
 
                     @foreach ($order->order_detail as $detail)
-
                         <div class="  product-border p-2 mt-2 border-secondary  ">
 
                             <div class="d-flex">
@@ -23,13 +23,36 @@
                                     src="/{{ $detail->product->image_path }}" alt="Product Image">
                                 <div class="card-body col-sm-12 col-md-4">
                                     <p class="card-text"> نام: {{ $detail->product->name }} </p>
-                                    @if($detail->discount != 0)
-                                        <p class="card-text">تخفیف: {{ $detail->discount }} درصد</p>
+                                    @if ($detail->discount != 0)
+                                        <p class="card-text d-inline-block">تخفیف: <p class="d-inline-block bg-danger mx-1 p-1 rounded">{{ $detail->discount }} درصد</p></p>
                                     @endif
 
                                     <p class="card-text">تعداد: {{ $detail->quantity }}</p>
-                                    <p class="card-text">قیمت واحد: {{ $detail->price }} تومان</p>
 
+                                    <div class="card-text d-flex "> 
+
+
+                                      <p class="">قیمت: </p>
+                                      @if ($detail->discount > 0)
+                                        <p class=" d-inline-block mx-1">
+                                            <s class="mr-2 d-inline-block">{{ number_format($detail->price) }} تومان</s>
+
+                                        </p>
+                                        <p class="d-inline-block mt-1 ">
+                                            {{ number_format($detail->price - ($detail->price * $detail->discount) / 100) }}
+                                            &nbsp;
+                                            تومان
+                                        </p>
+                                      @else
+                                        <!-- نمایش قیمت اصلی اگر تخفیف وجود نداشته باشد -->
+                                        <p class=" d-inline-block mx-1">
+                                            {{ number_format($detail->price) }}
+                                        </p>
+                                        <p class=" d-inline-block ">
+                                            تومان
+                                        </p>
+                                      @endif
+                                    </div>
                                 </div>
                             </div>
 
@@ -41,7 +64,7 @@
                                     <p class="card-text ">امتیاز دهید:</p>
                                     <div class="custom-icone mx-1">
                                         <div class="d-flex align-items-center  stars-container"
-                                            data-product-id="{{ $detail->product_id  }}" style="cursor: pointer">
+                                            data-product-id="{{ $detail->product_id }}" style="cursor: pointer">
                                             @for ($i = 5; $i >= 1; $i--)
                                                 <div class="d-flex flex-column align-items-center">
                                                     <span class="material-symbols-outlined star" data-star="{{ $i }}">star_border</span>
@@ -55,7 +78,7 @@
                                 </div>
 
                                 <a href="{{ url('/products/' . $detail->product_id . '/single#comment') }}">
-                                    <button type=" button" class="btn btn-danger d-flex">
+                                    <button type=" button" class="btn btn-success d-flex">
                                         <span class="material-symbols-outlined">chat_bubble</span>
                                         <p class="mx-1">ثبت دیدگاه</p>
                                     </button>
@@ -64,9 +87,6 @@
                             </div>
 
                         </div>
-
-
-
                     @endforeach
 
                 </div>

@@ -25,7 +25,8 @@ use App\Http\Controllers\User\VoteController;
 use App\Http\Controllers\User\PaymentController;
 
 use App\Http\Controllers\User\ReactionCommentController;
-
+use App\Http\Controllers\User\UserProfileController as UserUserProfileController;
+use App\Http\Controllers\User\UserProfileController;
 use App\Support\Storage\Contracts\StorageInterface;
 
 // Route::get('/', function () {
@@ -46,9 +47,7 @@ use App\Support\Storage\Contracts\StorageInterface;
 Route::get('signIn', [LoginController::class, 'signIn'])->name('sigIn');
 Route::post('register',[LoginController::class, 'store'])->name('register');
 Route::post('login',[LoginController::class,'login'])->name('login');
-Route::get('logout',function () {
-    Auth::logout(); 
-})->name('logout');
+Route::get('logout',[LoginController::class, 'logout'])->name('logout');
 
 Route::get('signUp', [LoginController::class, 'signUp'])->name('signUp');
 
@@ -96,6 +95,12 @@ Route::prefix('')->group(function () {
 
 
      Route::get('', [HomeUserController::class, 'index'])->name('frontend.home.all');
+    Route::get('/about', function () {
+        return view('frontend.home.about');
+    })->name('frontend.about');
+      Route::get('/contact', function () {
+        return view('frontend.home.contact');
+    })->name('frontend.contact');
      Route::prefix('products')->group (function () {
         Route::get('/all', [UserProductsController::class, 'all'])->name('frontend.product.all');
         Route::get('{product_id}/single', [UserProductsController::class,'single'])->name('frontend.product.single');
@@ -112,7 +117,6 @@ Route::prefix('')->group(function () {
 
 
 
-    
 
 });
 
@@ -155,6 +159,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/bookmarked-products', [App\Http\Controllers\User\BookmarkController::class, 'bookmarkedProducts'])->name('user.bookmarked.products');
     Route::post('/unbookmark', [App\Http\Controllers\User\BookmarkController::class, 'unbookmark'])->name('frontend.product.unbookmark');
     Route::get('/user/orders', [App\Http\Controllers\User\OrderController::class, 'index'])->name('user.orders.index');
+    Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
+    Route::put('/user/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
 });
 
 Route::post('/reaction-comment', [ReactionCommentController::class, 'store'])->name('reaction.comment');
@@ -164,3 +170,9 @@ Route::post('payment', [PaymentController::class, 'process'])->name('payment.pro
 
 Route::post('payment/pay', [PaymentController::class, 'pay'])->name('pay');
 Route::post('/payment/failed', [\App\Http\Controllers\User\PaymentController::class, 'failed'])->name('payment.failed');
+
+// تعداد لایک‌های یک محصول (برای ajax)
+Route::get('/product/{productId}/like-count', [App\Http\Controllers\User\LikeController::class, 'likeCount']);
+
+
+Route::get('/recommend/{userId}', [\App\Http\Controllers\User\ProductsController::class, 'recommendProducts'])->name('user.recommendations');

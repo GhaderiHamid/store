@@ -121,7 +121,7 @@
             </div>
             <h2>پرداخت شما با موفقیت انجام شد</h2>
             <div class="transaction-details">
-                <p><strong>مبلغ سفارش:</strong> {{ $amount }} تومان</p>
+                <p><strong>مبلغ سفارش:</strong> {{number_format($amount) }} تومان</p>
                 <p><strong>زمان تراکنش:</strong> {{ $transaction_time }}</p>
                 <p><strong>شماره پیگیری:</strong> {{ $transaction }}</p>
             </div>

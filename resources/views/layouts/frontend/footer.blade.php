@@ -36,20 +36,18 @@
     </div>
     <!-- end shiping nav -->
     <!-- start footer nav -->
-    <footer class="container-fluid custom-footer mt-5">
+    {{-- <footer class="container-fluid custom-footer mt-5">
         <div class="row">
             <div class="col-sm-12 col-md-3 text-center">
                 <h5>اطلاعات</h5>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link " href="#">درباره ما</a>
+                        <a class="nav-link " href="">درباره ما</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">نحوه خرید</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">محصولات منتخب</a>
-                    </li>
+                   
                     <li class="nav-item">
                         <a class="nav-link " href="#">پیشنهادات</a>
                     </li>
@@ -57,57 +55,18 @@
             </div>
             <div class="col-sm-12 col-md-3 text-center">
                 <h5>خدمات مشتریان</h5>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link " href="#">درباره ما</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">نحوه خرید</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">محصولات منتخب</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="#">پیشنهادات</a>
-                    </li>
-                </ul>
+               
             </div>
             <div class="col-sm-12 col-md-3 text-center">
                 <h5>حساب کاربری</h5>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link " href="#">درباره ما</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">نحوه خرید</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">محصولات منتخب</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="#">پیشنهادات</a>
-                    </li>
-                </ul>
+               
             </div>
             <div class="col-sm-12 col-md-3 text-center">
                 <h5>اطلاعات تماس</h5>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link " href="#">درباره ما</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">نحوه خرید</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">محصولات منتخب</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="#">پیشنهادات</a>
-                    </li>
-                </ul>
+               
             </div>
         </div>
-    </footer>
+    </footer> --}}
     <!-- end footer nav -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
     crossorigin="anonymous"></script>
@@ -159,7 +118,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-
+<script>
+    window.addToCartAjaxUrl = "{{ route('frontend.cart.add.ajax') }}";
+</script>
 </body>
 
 </html>

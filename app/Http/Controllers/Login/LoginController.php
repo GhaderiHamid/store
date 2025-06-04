@@ -59,4 +59,9 @@ class LoginController extends Controller
             'email' => 'اطلاعات وارد شده صحیح نیست',
         ]);
     }
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('frontend.home.all')->with('success','با موفقیت خارج شدید');
+    }
 }

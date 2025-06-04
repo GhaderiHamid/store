@@ -68,4 +68,11 @@ class LikeController extends Controller
 
         return response()->json(['status' => 'unliked']);
     }
+
+    // تعداد لایک‌های یک محصول را به صورت json برمی‌گرداند
+    public function likeCount($productId)
+    {
+        $count = LikeProduct::where('product_id', $productId)->count();
+        return response()->json(['likeCount' => $count]);
+    }
 }

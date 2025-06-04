@@ -30,7 +30,7 @@
                                         <tr>
                                            <td>{{ $payment->id }}</td>
                                            <td>{{ $payment->order->user->first_name }}{{ $payment->order->user->last_name }}</td>
-                                           <td>{{ $payment->order->order_detail->price }}</td>
+                                           {{-- <td>{{ $payment->order->order_detail->price }}</td> --}}
                                            <td>{{$payment->order->tracking_number  }}</td>
                                            <td>{{ $payment->created_at }}</td>
                                            <td>{{ $payment->status== 'paid'?'پرداخت شده':'پرداخت نشده' }}</td>

@@ -37,14 +37,14 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ route('frontend.home.all') }}">خانه </a>
+                            </li> --}}
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('frontend.about') }}">درباره ما</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="#">درباره ما</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="#">تماس با ما</a>
+                                <a class="nav-link text-white" href="{{ route('frontend.contact') }}">تماس با ما</a>
                             </li>
                         </ul>
                     </div>
@@ -57,7 +57,7 @@
     </div>
     <!-- end top nav -->
     <!-- start slider nav -->
-    
+
     <div class="container mt-5">
         <div class="row">
             <div class="col-sm-12 col-md-8">
@@ -97,8 +97,8 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-4 d-flex flex-column justify-content-between">
-                <a href="#"><img class="img-fluid custom-border mt-2" src="/img/slider/motherboard-1.jpg" alt="" /></a>
-                <a href="#"><img class="img-fluid custom-border mt-2" src="/img/slider/ssd-1.jpg" alt="" /></a>
+                <a ><img class="img-fluid custom-border mt-2" src="/img/slider/motherboard-1.jpg" alt="" /></a>
+                <a ><img class="img-fluid custom-border mt-2" src="/img/slider/ssd-1.jpg" alt="" /></a>
             </div>
         </div>
     </div>
@@ -132,29 +132,34 @@
                 <div class="owl-carousel owl-theme bg-white position-relative">
 
                     @foreach ($products as $product)
-                        <a href="{{ route('frontend.product.single', $product->id) }}" class="text-decoration-none">
-                            <div class="p-3">
-                                <div class="card custom-card1">
-                                    <img class="p-img align-self-center mt-5" src="{{ $product->image_path }}"
-                                        alt="Card image cap">
-                                    <div class="card-body text-center">
-                                        <p class="card-text">
-                                        <p class="p-title mt-2">
+                        @if ($product->quntity != 0)
 
-                                            {{ Str::limit($product->name, 20)}}
-                                        </p>
-                                        <p class="p-price mt-2"><s>{{ $product->price }}
-                                            </s>
-                                            <span class="badge badge-pill badge-danger mt-1">{{ $product->discount }}%</span>
-                                            {{ $product->price - ($product->price * $product->discount / 100) }}
-                                            تومان
-                                        </p>
-                                        </p>
+                            <a href="{{ route('frontend.product.single', $product->id) }}" class="text-decoration-none">
+                                <div class="p-3">
+                                    <div class="card custom-card1">
+                                        <img class="p-img align-self-center mt-5" src="{{ $product->image_path }}"
+                                            alt="Card image cap">
+                                        <div class="card-body text-center">
+                                            <p class="card-text">
+                                            <p class="p-title mt-2">
 
+                                                {{ Str::limit($product->name, 20)}}
+                                            </p>
+                                            <p class="p-price mt-2"><s>{{ number_format($product->price) }}
+                                                </s>
+                                                <span class="badge badge-pill badge-danger mt-1">{{ $product->discount }}%</span>
+                                                <span class="d-block mt-2">
+                                                    {{ number_format($product->price - ($product->price * $product->discount / 100)) }}
+                                                تومان
+                                                </span>
+                                            </p>
+                                            </p>
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        @endif
                     @endforeach
 
                 </div>

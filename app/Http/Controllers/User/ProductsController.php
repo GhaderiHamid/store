@@ -14,30 +14,37 @@ class ProductsController extends Controller
 {
     public function all(Request $request)
     {
-        dump(session()->all());
         $query = Product::query();
 
-        // اعمال جستجو در صورت وجود
-        if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->input('search') . '%');
-        }
-        
-        // اعمال مرتب‌سازی بر اساس پارامتر sort
-       else if ($request->get('sort') === 'newest') {
-            $query->orderBy('created_at', 'desc');
-        } elseif ($request->get('sort') === 'price_asc') {
-            $query->orderBy('price', 'asc');
-        } elseif ($request->get('sort') === 'price_desc') {
-            $query->orderBy('price', 'desc');
-        } elseif ($request->get('sort') === 'best_selling') {
-            // فرض کنید فیلدی مانند sold برای تعداد فروش وجود دارد.
-            $query->orderBy('sold', 'desc');
-        }
-       else if ($request->filled('category_id')) {
+        // فقط اگر category_id وجود داشته باشد، محصولات همان دسته و مرتب‌سازی نمایش داده شود
+        if ($request->filled('category_id')) {
             $query->where('category_id', $request->input('category_id'));
+
+            // فقط محصولات موجود
+            if ($request->filled('in_stock')) {
+                $query->where('quntity', '>', 0);
+            }
+
+            // اگر مرتب‌سازی بر اساس قیمت است، مقدار محاسبه شده را select کنید
+            if (in_array($request->get('sort'), ['price_asc', 'price_desc'])) {
+                $query->selectRaw('*, (price - (price * discount / 100)) as final_price');
+            }
+
+            // مرتب‌سازی فقط روی محصولات این دسته
+            if ($request->get('sort') === 'newest') {
+                $query->orderBy('created_at', 'desc');
+            } elseif ($request->get('sort') === 'price_asc') {
+                $query->orderBy('final_price', 'asc');
+            } elseif ($request->get('sort') === 'price_desc') {
+                $query->orderBy('final_price', 'desc');
+            }
+        } elseif ($request->filled('search')) {
+            // اعمال جستجو فقط اگر دسته‌بندی انتخاب نشده باشد
+            $query->where('name', 'like', '%' . $request->input('search') . '%');
+        } else {
+            // اگر هیچ دسته‌ای انتخاب نشده باشد، هیچ محصولی نمایش داده نشود
+            $query->whereRaw('0 = 1');
         }
-
-
 
         $products = $query->paginate(20)->appends($request->except('page'));
 
@@ -49,9 +56,27 @@ class ProductsController extends Controller
     {
 
         $product = Product::findOrFail($product_id);
-        $similarProducts = Product::where('category_id', $product->category_id)->take(4)->get();
+        $similarProducts = Product::where('category_id', $product->category_id)
+            ->where('quntity', '>', 0)
+            ->take(4)
+            ->get();
         return view('frontend.product.single', compact('product', 'similarProducts'));
     }
-    
+    public function recommendProducts($userId)
+    {
+        // دریافت داده‌های پیشنهادی از API
+        $response = file_get_contents("http://127.0.0.1:5000/recommend?user_id=" . $userId);
+        $data = json_decode($response, true);
+
+        // بررسی اینکه آیا داده‌ای دریافت شده است
+        if (!isset($data['recommendations']) || empty($data['recommendations'])) {
+            return view('frontend.user.recommendations')->with('recommendedProducts', []);
+        }
+
+        // دریافت محصولات پیشنهادی از دیتابیس
+        $recommendedProducts = Product::whereIn('id', $data['recommendations'])->get();
+
+        return view('frontend.user.recommendations', compact('recommendedProducts'));
+    }
    
 }

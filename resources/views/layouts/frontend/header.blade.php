@@ -46,11 +46,13 @@
                         </div>
                         <div class="col-sm-12 col-md-6 d-flex justify-content-center align-items-center">
                             <nav class="nav custom-top-nav">
-                                <a class="nav-link text-white border-left" href="#">آدرس فروشگاه</a>
-                                <a class="nav-link text-white border-left" href="#">پیگیری سفارش</a>
-                                <a class="nav-link text-white border-left" href="#">تلفن</a>
-                                <a class="nav-link text-white border-left d-none d-md-block" href="#">ضمانت کیفیت
-                                    محصولات</a>
+                                <a class="nav-link text-white border-left" href="{{ route('frontend.home.all') }}">خانه</a>
+                                <p class="nav-link text-white border-left" href="">پرداخت امن </p>
+                                <p class="nav-link text-white border-left" href=""> ارسال فوری</p>
+                              
+                                <p class="nav-link text-white border-left d-none d-md-block" href="">ضمانت کیفیت
+                                    محصولات</p>
+                                    
                             </nav>
                         </div>
                     </div>
@@ -115,7 +117,8 @@
                                             <li><a class="dropdown-item border " href="{{ route('user.bookmarked.products') }}">محصولات ذخیره شده</a></li>
                                             <li><a class="dropdown-item border " href="{{ route('user.liked.products') }}">محصولات لایک‌ شده</a></li>
                                             <li><a class="dropdown-item border " href="{{ route('comments.index') }}">کامنت‌ها</a></li>
-                                            <li><a class="dropdown-item border " href="#">بروزرسانی حساب کاربری</a></li>
+                                            <li><a class="dropdown-item border " href="{{ route('user.profile.edit') }}">بروزرسانی حساب کاربری</a></li>
+                                            <li><a class="dropdown-item border " href="{{ route('user.recommendations', ['userId' => Auth::user()->id]) }}"> توصیه ها و پیشنهادات</a></li>
                                             <li>
                                                 <hr class="dropdown-divider">
                                             </li>
