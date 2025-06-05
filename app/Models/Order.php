@@ -17,10 +17,7 @@ class Order extends Model
 
 
 
-  public function status_order()
-  {
-    return $this->belongsTo(Status_order::class, 'status_id');
-  }
+  
   public function payment()
   {
     return $this->hasOne((Payment::class));

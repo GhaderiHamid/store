@@ -73,9 +73,9 @@ return back()->with('success','محصول حذف شد');
        
      ]);
  if(!$updatedProduct){
-            return back()->with('failed', 'دسته بندی بروزرسانی نشد');
+            return back()->with('failed', 'محصول بروزرسانی نشد');
         }
-                    return back()->with('success', 'دسته بندی بروزرسانی شد');
+                    return back()->with('success', 'محصول بروزرسانی شد');
 
 
    }

@@ -8,7 +8,7 @@
     <!-- لینک به Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/admin/css/style.css">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
 
 
 </head>
@@ -26,6 +26,13 @@
                             <li class="nav-item">
                                 <a class="nav-link active" onclick="showForm('dashboard');">
                                     داشبورد
+                                </a>
+                            </li>
+                            <!-- تیکت های کاربران -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.tickets.index') }}">
+                                    <span class="material-symbols-outlined align-middle text-info" style="font-size:1.2rem;"></span>
+                                    تیکت‌های کاربران
                                 </a>
                             </li>
                             <!-- مدیریت محصولات -->
@@ -198,4 +205,3 @@
                     </div>
                 </nav>
                 {{-- <p></p> --}}
-    

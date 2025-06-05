@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="captcha-error" id="captchaError">کپچا صحیح وارد نشده است.</div>
-                <div class="expiry-error" id="expiryError" style="color: red; display: none;">سال باید بین 00 تا 10 و
+                <div class="expiry-error" id="expiryError" style="color: red; display: none;">سال باید بین 04 تا 10 و
                     ماه بین 01 تا 12 باشد.</div>
                 <!-- نمایش قیمت -->
                 <div id="priceBox"
@@ -80,7 +80,7 @@
                 const monthInput = document.getElementById('monthInput').value;
                 const expiryError = document.getElementById('expiryError');
 
-                const yearValid = /^[0-9]{2}$/.test(yearInput) && parseInt(yearInput) >= 0 && parseInt(yearInput) <= 10;
+                const yearValid = /^[0-9]{2}$/.test(yearInput) && parseInt(yearInput) >= 4 && parseInt(yearInput) <= 10;
                 const monthValid = /^[0-9]{2}$/.test(monthInput) && parseInt(monthInput) >= 1 && parseInt(monthInput) <= 12;
 
                 if (!yearValid || !monthValid) {
@@ -118,13 +118,32 @@
                     return false;
                 }
 
-                // اگر اولین رقم 1 باشد، رقم دوم فقط می‌تواند 0 باشد (برای محدوده 00-10)
-                if (currentValue.length === 0 && charCode === 49) { // اگر اولین رقم 1 باشد
+                // فقط 0 یا 1 برای رقم اول مجاز است
+                if (currentValue.length === 0) {
+                    return charCode === 48 || charCode === 49;
+                }
+                // اگر رقم اول 0 باشد، رقم دوم باید 4 تا 9 باشد (04-09)
+                if (currentValue.length === 1 && currentValue === '0') {
+                    // اگر کاربر عددی غیر از 4 تا 9 وارد کند، مقدار input پاک و alert نمایش داده شود
+                    if (charCode < 52 || charCode > 57) {
+                        setTimeout(function() {
+                            event.target.value = '';
+                            alert('سال باید بین 04 تا 10 باشد');
+                        }, 0);
+                        return false;
+                    }
                     return true;
-                } else if (currentValue.length === 1 && currentValue === '1') {
-                    return charCode === 48; // فقط 0 مجاز است (10)
-                } else if (currentValue.length === 1 && currentValue === '0') {
-                    return charCode >= 48 && charCode <= 57; // 0-9 برای رقم دوم (00-09)
+                }
+                // اگر رقم اول 1 باشد، رقم دوم فقط 0 مجاز است (10)
+                if (currentValue.length === 1 && currentValue === '1') {
+                    if (charCode !== 48) {
+                        setTimeout(function() {
+                            event.target.value = '';
+                            alert('سال باید بین 04 تا 10 باشد');
+                        }, 0);
+                        return false;
+                    }
+                    return true;
                 }
 
                 return currentValue.length < 2;
@@ -133,9 +152,9 @@
             // اعتبارسنجی نهایی سال
             function validateYearInput(input) {
                 const value = input.value;
-                if (value.length === 2 && (parseInt(value) < 0 || parseInt(value) > 10)) {
+                if (value.length === 2 && (parseInt(value) < 4 || parseInt(value) > 10)) {
                     input.value = '';
-                    alert('سال باید بین 00 تا 10 باشد');
+                    alert('سال باید بین 04 تا 10 باشد');
                 }
             }
 

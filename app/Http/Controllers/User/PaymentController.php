@@ -35,6 +35,7 @@ class PaymentController extends Controller
       // ذخیره سفارش در جدول orders با user_id
       $order = Order::create([
          'user_id' => Auth::id(),
+         'status'=> 'processing',
          
          // سایر فیلدهای مورد نیاز جدول orders را اینجا اضافه کنید
       ]);
@@ -45,6 +46,7 @@ class PaymentController extends Controller
       foreach ($products as $product) {
          $qty = is_array($cart[$product->id]) ? ($cart[$product->id]['quantity'] ?? 1) : $cart[$product->id];
          \App\Models\Order_detail::create([
+            'status' => 'processing',
             'order_id' => $order->id,
             'product_id' => $product->id,
             'quantity' => $qty,
@@ -60,7 +62,7 @@ class PaymentController extends Controller
          'amount' => $amount,
          // مقدار transaction به صورت عددی و یکتا
          'transaction' => time() . rand(1000, 9999),
-         'status' => 'پرداخت شده',
+         'status' => 'paid',
          'order_id' => $order->id,
       ]);
 
@@ -84,35 +86,18 @@ class PaymentController extends Controller
          $orderId = 'ORD-' . time() . '-' . rand(1000, 9999);
       } while (\App\Models\Payment::where('order_id', $orderId)->exists());
 
-      // ذخیره سفارش در جدول orders با user_id
-      $order = Order::create([
-         'user_id' => Auth::id(),
+      
 
-         // سایر فیلدهای مورد نیاز جدول orders را اینجا اضافه کنید
-      ]);
-
-      // ذخیره جزییات سفارش در جدول order_details
-      $cart = session()->get('cart', []);
-      $products = Product::whereIn('id', array_keys($cart))->get();
-      foreach ($products as $product) {
-         $qty = is_array($cart[$product->id]) ? ($cart[$product->id]['quantity'] ?? 1) : $cart[$product->id];
-         \App\Models\Order_detail::create([
-            'order_id' => $order->id,
-            'product_id' => $product->id,
-            'quantity' => $qty,
-            'price' => $product->price,
-            'discount' => $product->discount ?? 0,
-         ]);
-         
-      }
+      
+      
 
       // ثبت پرداخت در جدول payments
       $payment = Payment::create([
          'amount' => $amount,
          // مقدار transaction به صورت عددی و یکتا
          'transaction' => time() . rand(1000, 9999),
-         'status' => ' ناموفق',
-         'order_id' => $order->id,
+         'status' => 'failed',
+         'order_id' => null,
       ]);
 
       // حذف سبد خرید از سشن

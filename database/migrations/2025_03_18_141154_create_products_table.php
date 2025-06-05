@@ -18,12 +18,12 @@ class CreateProductsTable extends Migration
             $table->string('name', 100)->charset('utf8mb4')->collate('utf8mb4_persian_ci');
             $table->string('brand',50)->charset('utf8mb4')->collate('utf8mb4_persian_ci');
             $table->text('description')->charset('utf8mb4')->collate('utf8mb4_persian_ci');
-            $table->char('image_path')->nullable();
-            $table->unsignedInteger('price')->notNull();
-            $table->unsignedInteger('quntity')->nullable();
-            $table->unsignedInteger('discount')->nullable();
-            $table->unsignedInteger('limited')->default(3)->nullable();
-            $table->unsignedBigInteger('category_id')->notNull();
+            $table->char('image_path');
+            $table->unsignedInteger('price');
+            $table->unsignedInteger('quntity');
+            $table->unsignedInteger('discount');
+            $table->unsignedInteger('limited')->default(3);
+            $table->unsignedBigInteger('category_id');;
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             
             $table->timestamps(); // زمان ایجاد و به‌روزرسانی

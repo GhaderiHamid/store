@@ -62,24 +62,6 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="custom-icone mx-1">
-                                <div class="stars-container" data-product-id="{{ $product->id }}" style="cursor: pointer">
-                                    @for ($i = 5; $i >= 1; $i--)
-                                    <span class="material-symbols-outlined star" data-star="{{ $i }}">star_border</span>
-                                    @endfor
-                                </div>
-
-
-                            </div> --}}
-                            {{-- <div class="custom-icone position-absolute mr-2" style="left: 0;">
-                               <div class="d-flex align-items-center">
-                                <p>{{ round(($product->votes)->avg('value'), 1) }}</p>
-                                <span class="material-symbols-outlined  text-warning lead" style="font-size: 30px" >
-                                    star
-                                    </span>
-                                    
-                               </div>
-                            </div> --}}
                             <div class="custom-icone mx-1 d-flex align-items-center">
                                 <p class="text-white">
                                     تا حالا
@@ -106,22 +88,17 @@
                         <div class="col-sm-5 w-100 bg-warning rounded d-flex align-items-center justify-content-center">
                             <div class="badge-danger rounded-circle mr-2 d-flex align-items-center justify-content-center "
                                 style="width: 20px;height: 20px;">
-                                {{-- <span class="material-symbols-outlined" style="font-size: 20px">warning</span> --}}
-                                !
+                               
                             </div>
 
                             <span>تنها {{ $product->quntity }} عدد در انبار باقی مانده</span>
                         </div>
                     @endif
                     <div class="form-group row  d-flex align-items-center justify-content-end">
-                        {{-- <label for="staticEmail" class="col-sm-2 col-form-label text-white mt-2">تعداد</label>
-                        <div class="col-sm-3 mt-2">
-                            <input type="text" readonly class="form-control" id="staticEmail" value="1">
-                        </div> --}}
+                       
 
                         <div class="col-sm-12 mt-2  d-flex align-items-center justify-content-end">
-                            {{-- <button type="submit" class="btn btn-danger mb-2">افزودن به سبد خرید </button>
-                             --}}
+                         
                             @if ($product->quntity == 0)
                                 <p class="text-secondary lead mt-3">ناموجود</p>
                             @else
@@ -178,10 +155,7 @@
         <div class="row mt-5">
             <div class="col-sm-12 ">
                 <ul class="nav nav-tabs custom-nav-tabs-product-page" id="myTab" role="tablist">
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                            aria-controls="home" aria-selected="false">توضیحات</a>
-                    </li> --}}
+                   
 
                     <li class="nav-item">
                         <a class="nav-link active" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
@@ -193,48 +167,7 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    {{-- <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <p class="mt-3 p-3 product-desc ">
-
-
-                        </p>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-12 col-md-5">
-                                    <div class="progress-product p-4">
-
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-7 mt-3">
-                                    <h4 class=" ">ویژگی های محصول</h4>
-                                    <ul class="nav flex-column  my-3 pl-3">
-                                        <li class="nav-item ">
-                                            <a class="nav-link " href="#"> <span class="material-symbols-outlined mr-1">
-                                                    adjust
-                                                </span>درباره ما</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#"> <span class="material-symbols-outlined mr-1">
-                                                    adjust
-                                                </span>نحوه خرید</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#"> <span class="material-symbols-outlined mr-1">
-                                                    adjust
-                                                </span>محصولات منتخب</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link " href="#"> <span class="material-symbols-outlined mr-1">
-                                                    adjust
-                                                </span>پیشنهادات</a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div> --}}
+                  
                     <div class="tab-pane fade custom-tab-product-detail" id="profile" role="tabpanel"
                         aria-labelledby="profile-tab">
                         <h4 class="ml-3 mt-3"> مشخصات کلی</h4>
@@ -305,46 +238,7 @@
                                                 </div>
                                             @endfor
                                         </div>
-                                        {{-- <div class="mt-3 product-rate">
-                                            <div>
-                                                <p class="mb-2 "> ارزش خرید نسبت به قیمت</p>
-                                            </div>
-                                            <div class="progress" style="height:5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mt-3 product-rate">
-                                            <div>
-                                                <p class="mb-2 "> کیفیت ساخت</p>
-                                            </div>
-                                            <div class="progress" style="height:5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 75%;"
-                                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mt-3 product-rate">
-                                            <div>
-                                                <p class="mb-2 "> امکانات</p>
-                                            </div>
-                                            <div class="progress" style="height:5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 55%;"
-                                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mt-3 product-rate">
-                                            <div>
-                                                <p class="mb-2 "> آرگونامی</p>
-                                            </div>
-                                            <div class="progress" style="height:5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 45%;"
-                                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                            </div>
-                                        </div> --}}
+                                       
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-7">
@@ -371,11 +265,7 @@
                                                     <img class="rounded-circle " src="/img/profile/Untitled.jpg"
                                                         class="mr-3" alt="">
 
-                                                    {{-- <div class="bg-custom">
-                                                <p class="bg-primary d-flex rounded p-2"> خرید این محصول را پیشنهاد
-                                                    میکنم &nbsp;<span class="material-symbols-outlined text-white">
-                                                        thumb_up
-                                                    </span> </p>
+                                              
 
 
                                             </div> --}}

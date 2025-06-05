@@ -16,6 +16,7 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('category_name', 100)->charset('utf8mb4')->collation('utf8mb4_persian_ci');//نام
+           $table->char('image_path','255');
             $table->timestamps(); // زمان ایجاد و به‌روزرسانی
             
         });

@@ -15,10 +15,11 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->enum('gateway', ['idpay', 'zarinpal']);
+            $table->unsignedBigInteger('amount');
+            $table->string('transaction',255);
             // $table->unsignedInteger('res_id');
             // $table->unsignedInteger('ref_id');
-            $table->enum('status', ['paid', 'unpaid',]);
+            $table->enum('status', ['paid', 'failed',]);
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
 

@@ -46,6 +46,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ route('frontend.contact') }}">تماس با ما</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('frontend.support') }}">پشتیبانی و تیکت</a>
+                            </li>
                         </ul>
                     </div>
                 </nav>
@@ -167,116 +170,5 @@
         </div>
     </section>
     <!-- end offer nav -->
-    <!-- start special offer nav -->
-
-    {{--
-    <section class="container custom-container mt-5">
-        <p class="title mb-3"> پیشنهاد ویژه امروز </p>
-        <div class="row">
-
-            <div class="col-sm-12 mt-3">
-
-                <div class="owl-carousel owl-theme bg-white position-relative">
-                    <a href="#" class="text-decoration-none">
-                        <div class="p-3">
-                            <div class="card custom-card1">
-                                <img class="p-img align-self-center mt-5" src="/img/offer/off- (1).jpg"
-                                    alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <p class="card-text">
-                                    <p class="p-title mt-2">گوشی</p>
-                                    <p class="p-price mt-2"><s>1000 تومان</s>500 تومان <span
-                                            class="badge badge-pill badge-danger mt-1">15%</span></p>
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="text-decoration-none">
-                        <div class="p-3">
-                            <div class="card custom-card1">
-                                <img class="p-img align-self-center mt-5" src="/img/offer/off- (2).jpg"
-                                    alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <p class="card-text">
-                                    <p class="p-title mt-2">گوشی</p>
-                                    <p class="p-price mt-2"><s>1000 تومان</s>500 تومان <span
-                                            class="badge badge-pill badge-danger mt-1">15%</span></p>
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="text-decoration-none">
-                        <div class="p-3">
-                            <div class="card custom-card1">
-                                <img class="p-img align-self-center mt-5" src="/img/offer/off- (3).jpg"
-                                    alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <p class="card-text">
-                                    <p class="p-title mt-2">گوشی</p>
-                                    <p class="p-price mt-2"><s>1000 تومان</s>500 تومان <span
-                                            class="badge badge-pill badge-danger mt-1">15%</span></p>
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="text-decoration-none">
-                        <div class="p-3">
-                            <div class="card custom-card1">
-                                <img class="p-img align-self-center mt-5" src="/img/offer/off- (4).jpg"
-                                    alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <p class="card-text">
-                                    <p class="p-title mt-2">گوشی</p>
-                                    <p class="p-price mt-2"><s>1000 تومان</s>500 تومان <span
-                                            class="badge badge-pill badge-danger mt-1">15%</span></p>
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="text-decoration-none">
-                        <div class="p-3">
-                            <div class="card custom-card1">
-                                <img class="p-img align-self-center mt-5" src="/img/offer/off- (5).jpg"
-                                    alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <p class="card-text">
-                                    <p class="p-title mt-2">گوشی</p>
-                                    <p class="p-price mt-2"><s>1000 تومان</s>500 تومان <span
-                                            class="badge badge-pill badge-danger mt-1">15%</span></p>
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="text-decoration-none">
-                        <div class="p-3">
-                            <div class="card custom-card1">
-                                <img class="p-img align-self-center mt-5" src="/img/offer/off- (6).jpg"
-                                    alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <p class="card-text">
-                                    <p class="p-title mt-2">گوشی</p>
-                                    <p class="p-price mt-2"><s>1000 تومان</s>500 تومان <span
-                                            class="badge badge-pill badge-danger mt-1">15%</span></p>
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-
-
-                </div>
-            </div>
-        </div>
-    </section> --}}
+  
 @endsection

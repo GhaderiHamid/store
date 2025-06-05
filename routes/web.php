@@ -89,6 +89,13 @@ Route::prefix('admin')->group(function () {
     Route::prefix('payments')->group(function () {
         Route::get('', [PaymentsController::class, 'all'])->name('admin.payments.all');
     });
+    // مدیریت تیکت‌های کاربران
+    Route::get('tickets', [\App\Http\Controllers\Admin\SupportTicketAdminController::class, 'index'])->name('admin.tickets.index');
+    Route::get('tickets/{ticket}', [\App\Http\Controllers\Admin\SupportTicketAdminController::class, 'show'])->name('admin.tickets.show');
+    Route::post('tickets/{ticket}/reply', [\App\Http\Controllers\Admin\SupportTicketAdminController::class, 'reply'])->name('admin.tickets.reply');
+    Route::post('tickets/{ticket}/close', [\App\Http\Controllers\Admin\SupportTicketAdminController::class, 'close'])->name('admin.tickets.close');
+    // افزودن route ویرایش پاسخ
+    Route::put('tickets/{ticket}/reply/{reply}', [\App\Http\Controllers\Admin\SupportTicketAdminController::class, 'updateReply'])->name('admin.tickets.reply.update');
 });
 
 Route::prefix('')->group(function () {
@@ -176,3 +183,17 @@ Route::get('/product/{productId}/like-count', [App\Http\Controllers\User\LikeCon
 
 
 Route::get('/recommend/{userId}', [\App\Http\Controllers\User\ProductsController::class, 'recommendProducts'])->name('user.recommendations');
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/support', [\App\Http\Controllers\SupportTicketController::class, 'index'])->name('frontend.support');
+    Route::get('/support/create', [\App\Http\Controllers\SupportTicketController::class, 'create'])->name('frontend.support.create');
+    Route::post('/support/store', [\App\Http\Controllers\SupportTicketController::class, 'store'])->name('frontend.support.store');
+    Route::get('/support/{ticket}', [\App\Http\Controllers\SupportTicketController::class, 'show'])->name('frontend.support.show');
+    Route::post('/support/{ticket}/reply', [\App\Http\Controllers\SupportTicketController::class, 'reply'])->name('frontend.support.reply');
+    Route::put('/support/{ticket}/reply/{reply}', [\App\Http\Controllers\SupportTicketController::class, 'updateReply'])->name('frontend.support.reply.update');
+    Route::delete('/support/{ticket}', [\App\Http\Controllers\SupportTicketController::class, 'destroy'])->name('frontend.support.destroy');
+    Route::put('/support/{ticket}', [\App\Http\Controllers\SupportTicketController::class, 'update'])->name('frontend.support.update');
+});
+
+Route::post('/cart/update-quantity', [\App\Http\Controllers\CartController::class, 'updateQuantity']);
