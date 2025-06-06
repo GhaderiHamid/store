@@ -46,9 +46,12 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ route('frontend.contact') }}">تماس با ما</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="{{ route('frontend.support') }}">پشتیبانی و تیکت</a>
-                            </li>
+                            @auth
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="{{ route('frontend.support') }}">پشتیبانی و تیکت</a>
+                                </li>
+                            @endauth
+
                         </ul>
                     </div>
                 </nav>
@@ -170,5 +173,5 @@
         </div>
     </section>
     <!-- end offer nav -->
-  
+
 @endsection

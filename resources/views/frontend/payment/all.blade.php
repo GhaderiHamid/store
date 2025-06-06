@@ -10,6 +10,12 @@
 
     <body>
         <div class="payment-form">
+            <!-- شمارش معکوس -->
+            <div id="countdownBox">
+                <span class="timer-icon">⏳</span>
+                <span class="timer-label">زمان باقی‌مانده:</span>
+                <span id="countdownTimer">15:00</span>
+            </div>
             <h5> درگاه پرداخت</h5>
 
             <form id="paymentForm" action="{{ route('pay') }}" method="POST" autocomplete="off">
@@ -192,6 +198,23 @@
                     alert('ماه باید بین 01 تا 12 باشد');
                 }
             }
+
+            // شمارش معکوس ۱۵ دقیقه‌ای
+            let countdownSeconds = 15 * 60;
+            const countdownTimer = document.getElementById('countdownTimer');
+            function updateCountdown() {
+                const min = String(Math.floor(countdownSeconds / 60)).padStart(2, '0');
+                const sec = String(countdownSeconds % 60).padStart(2, '0');
+                countdownTimer.textContent = `${min}:${sec}`;
+                if (countdownSeconds <= 0) {
+                    clearInterval(countdownInterval);
+                    // بازگشت به صفحه قبلی
+                    window.history.back();
+                }
+                countdownSeconds--;
+            }
+            updateCountdown();
+            const countdownInterval = setInterval(updateCountdown, 1000);
         </script>
     </body>
 

@@ -94,11 +94,12 @@
 
                 </div>
             @endforeach
-        </div>
 
+        </div>
+        <div class="d-flex justify-content-center mt-5">
+            {{ $products->links() }}
+            </div>
     </section>
-    <div class="d-flex justify-content-center mt-5">
-        {{ $products->links() }}
-    </div>
+
     <!-- end offer nav -->
 @endsection

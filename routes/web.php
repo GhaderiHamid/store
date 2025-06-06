@@ -197,3 +197,35 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::post('/cart/update-quantity', [\App\Http\Controllers\CartController::class, 'updateQuantity']);
+
+// نمایش فرم لاگین
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login')->middleware('guest');
+
+// پردازش لاگین
+Route::post('/login', function (\Illuminate\Http\Request $request) {
+    $credentials = $request->only('email', 'password');
+    if (Auth::attempt($credentials)) {
+        return redirect()->intended('/admin');
+    }
+    return back()->withErrors(['email' => 'اطلاعات ورود اشتباه است.']);
+})->middleware('guest');
+
+// خروج از حساب
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/login');
+})->name('logout');
+
+// محافظت از داشبورد
+Route::middleware('auth')->group(function () {
+    Route::get('/admin', function () {
+        return view('admin.index');
+    });
+    // ... سایر روت‌های ادمین ...
+});
+
+// Admin Login Routes
+Route::get('/admin/login', [\App\Http\Controllers\Admin\AuthController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin/login', [\App\Http\Controllers\Admin\AuthController::class, 'login'])->name('admin.login.submit');

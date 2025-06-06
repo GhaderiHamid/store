@@ -402,10 +402,12 @@
 
                             <div class="card-body  ">
                                 <h5 class="card-title ">{{ Str::limit($similarProduct->name, 20) }}</h5>
+                                <br>
                                 <h5 class="border-0 ">ویژگی ها:&nbsp;</h5>
                                 <h5 class="card-title ">
-                                    <p class="card-text ">{{ Str::limit($similarProduct->description, 50) }}</p>
+                                    <p class="card-text ">{{ Str::limit($similarProduct->description, 60) }}</p>
                                 </h5>
+                                <br>
                                 <div style="text-align: center">
                                     @if ($similarProduct->discount > 0)
                                         <p class="mt-2 d-flex justify-content-center align-items-center">

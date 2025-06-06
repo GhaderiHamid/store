@@ -43,7 +43,31 @@
 
 body {
     /* background-color: #efefef; */
-    background-color: #353535;
+    /* background-color: #353535; */
+    /* background-color: #3d3f40; */
+    background: linear-gradient(120deg, #3e2723 0%, #4e342e 30%, #616161 70%, #212121 100%);
+    min-height: 100vh;
+    box-shadow: 0 0 240px 0 rgba(110,46,42,0.65) inset;
+    position: relative;
+    z-index: 1;
+    /* افکت شیشه‌ای subtle */
+    backdrop-filter: blur(10px) brightness(1.09) saturate(1.15);
+    -webkit-backdrop-filter: blur(10px) brightness(1.09) saturate(1.15);
+    transition: background 0.8s cubic-bezier(.4,0,.2,1);
+}
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: -1;
+    background:
+        radial-gradient(circle at 70% 20%, rgba(97,97,97,0.18) 0%, transparent 60%),
+        radial-gradient(circle at 20% 80%, rgba(78,52,46,0.16) 0%, transparent 70%),
+        radial-gradient(circle at 80% 80%, rgba(62,39,35,0.14) 0%, transparent 70%),
+        radial-gradient(circle at 50% 50%, rgba(33,33,33,0.13) 0%, transparent 80%);
+    /* درخشش subtle */
+    box-shadow: 0 0 180px 90px rgba(191,169,128,0.11);
 }
 
 a,
@@ -210,5 +234,5 @@ s {
     max-width: 60px;
     text-align: center;
   
-} 
+}
 

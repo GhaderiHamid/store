@@ -12,12 +12,12 @@
                             <div class="card mb-4 custom-card-body1">
                                 <img src="/{{ $product->image_path }}" class="card-img-top" alt="">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ \Illuminate\Support\Str::limit($product->name, 30) }}</h5>
+                                    <h5 class="card-title">{{ \Illuminate\Support\Str::limit($product->name, 20) }}</h5>
                                     <br>
                                     <h5 class="features-title">ویژگی ها:&nbsp;</h5>
                                     <h5 class="card-title">
                                         <p class="card-text">
-                                            {{ \Illuminate\Support\Str::limit($product->description ?? '', 50) }}</p>
+                                            {{ \Illuminate\Support\Str::limit($product->description ?? '', 60) }}</p>
                                     </h5>
                                     <div style="text-align: center">
                                         @if ($product->discount > 0)
