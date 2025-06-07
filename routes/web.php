@@ -145,7 +145,6 @@ Route::post('/vote', [VoteController::class, 'store']);
 // Route::get('basket',[BasketContoller::class, 'index'])->name('basket.index');
 
 
-Route::post('payment/{gateway}/callback',[PaymentController::class, 'verify'])->name('payment.verify');
 
 Route::get('like',[LikeController::class, 'getLikeStatus'])->name('like');
 

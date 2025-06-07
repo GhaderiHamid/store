@@ -26,6 +26,7 @@
                                     $final_price = round($final_price);
                                     $subtotal = $final_price * intval($quantity);
                                     $total += $subtotal;
+                                   
                                                                                                 @endphp
                                                                                                 <div class="w-100 d-flex align-items-center mt-2 product-border p-2">
                                                                                                     <img class="card-img-top w-25 rounded" src="/{{ $item['image_path'] }}" alt="Card image cap">
