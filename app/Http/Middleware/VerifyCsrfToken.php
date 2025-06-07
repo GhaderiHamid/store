@@ -12,6 +12,6 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        '/payment/saman/callback'
+        'payment', // این مسیر از بررسی CSRF معاف خواهد شد
     ];
 }

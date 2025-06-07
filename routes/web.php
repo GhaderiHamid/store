@@ -51,7 +51,7 @@ Route::get('logout',[LoginController::class, 'logout'])->name('logout');
 
 Route::get('signUp', [LoginController::class, 'signUp'])->name('signUp');
 
-Route::get('pay',[PaymentController::class, 'pay']);
+
 
 Route::prefix('admin')->group(function () {
     Route::get('index', [HomeAdminController::class, 'home'])->name('admin.index');
@@ -172,8 +172,9 @@ Route::middleware('auth')->group(function () {
 Route::post('/reaction-comment', [ReactionCommentController::class, 'store'])->name('reaction.comment');
 
 
-Route::post('payment', [PaymentController::class, 'process'])->name('payment.process');
-
+// Route::post('/payment', [PaymentController::class, 'process'])->name('payment.process');
+Route::get('/payment/redirect', [PaymentController::class, 'redirectFromBot']);
+Route::post('/payment', [PaymentController::class, 'process'])->name('payment.process');
 Route::post('payment/pay', [PaymentController::class, 'pay'])->name('pay');
 Route::post('/payment/failed', [\App\Http\Controllers\User\PaymentController::class, 'failed'])->name('payment.failed');
 
