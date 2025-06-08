@@ -211,7 +211,13 @@ class PaymentController extends Controller
    }
    public function failed(Request $request)
    {
-      $amount = $request->amount;
+      $data = session()->get('payment_data');
+      // حذف داده از سشن پس از استفاده
+      session()->forget('payment_data');
+
+
+      $subtotal = $data['subtotal'] ?? 0;
+      $amount = $subtotal;
 
       // ساخت شماره سفارش یکتا و غیرتکراری
       do {
@@ -233,7 +239,9 @@ class PaymentController extends Controller
       ]);
 
       // حذف سبد خرید از سشن
-      session()->forget('cart');
+     if (session()->has('cart')) {
+         session()->forget('cart');
+      }
 
       return view('frontend.payment.paymentFailed', [
          'amount' => $amount,
