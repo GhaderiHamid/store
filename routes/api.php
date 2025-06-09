@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +18,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::post('/payment/webhook', function (Request $request) {
+    $data = $request->json()->all();
+
+    if ($data['status'] == 'success') {
+        $user_id = $data['user_id'];
+        $amount = $data['amount'];
+
+        // ارسال نتیجه پرداخت به ربات تلگرام
+        $bot_url = "http://127.0.0.1:5000/telegram-webhook";
+        Http::post($bot_url, [
+            'chat_id' => $user_id,
+            'message' => "✅ پرداخت موفق! مبلغ: {$amount} تومان"
+        ]);
+
+        return response()->json(['status' => 'received']);
+    }
+
+    return response()->json(['status' => 'failed'], 400);
 });

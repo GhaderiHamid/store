@@ -3,26 +3,23 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Payment;
 use App\Models\Order;
 use App\Models\Order_detail;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Support\Payment\Transaction;
 use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Morilog\Jalali\Jalalian;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Morilog\Jalali\Jalalian;
 
 class PaymentController extends Controller
 {
 
-   // public function process(Request $request)
-   // {
-   //    $subtotal = $request->input('subtotal');
-   //    return view('frontend.payment.all', compact('subtotal'));
-   // }
+   
 
    public function process(Request $request)
    {
@@ -92,59 +89,8 @@ class PaymentController extends Controller
 
       return view('frontend.payment.all', compact('subtotal', 'userId', 'products'));
    }
-   // public function pay(Request $request)
-   // {
-   //    $amount = $request->amount;
-
-   //    // ساخت شماره سفارش یکتا و غیرتکراری
-   //    do {
-   //       $orderId = 'ORD-' . time() . '-' . rand(1000,9999);
-   //    } while (\App\Models\Payment::where('order_id', $orderId)->exists());
-
-   //    // ذخیره سفارش در جدول orders با user_id
-   //    $order = Order::create([
-   //       'user_id' => Auth::id(),
-   //       'status'=> 'processing',
-
-   //       // سایر فیلدهای مورد نیاز جدول orders را اینجا اضافه کنید
-   //    ]);
-
-   //    // ذخیره جزییات سفارش در جدول order_details
-   //    $cart = session()->get('cart', []);
-   //    $products = Product::whereIn('id', array_keys($cart))->get();
-   //    foreach ($products as $product) {
-   //       $qty = is_array($cart[$product->id]) ? ($cart[$product->id]['quantity'] ?? 1) : $cart[$product->id];
-   //       \App\Models\Order_detail::create([
-   //          'status' => 'processing',
-   //          'order_id' => $order->id,
-   //          'product_id' => $product->id,
-   //          'quantity' => $qty,
-   //          'price' => $product->price,
-   //          'discount' => $product->discount ?? 0,
-   //       ]);
-   //       // کم کردن موجودی محصول
-   //       $product->decrement('quntity', $qty);
-   //    }
-
-   //    // ثبت پرداخت در جدول payments
-   //    $payment = Payment::create([
-   //       'amount' => $amount,
-   //       // مقدار transaction به صورت عددی و یکتا
-   //       'transaction' => time() . rand(1000, 9999),
-   //       'status' => 'paid',
-   //       'order_id' => $order->id,
-   //    ]);
-
-   //    // حذف سبد خرید از سشن
-   //    session()->forget('cart');
-
-   //    return view('frontend.payment.paymentSuccess', [
-   //       'amount' => $amount,
-   //       'transaction_time' => Jalalian::fromDateTime($payment->created_at)->format('Y/m/d H:i'),
-   //       'order_id' => $orderId,
-   //       'transaction' => $payment->transaction,
-   //    ]);
-   // }
+  
+   
 
 
    public function pay()
@@ -163,6 +109,7 @@ class PaymentController extends Controller
       $subtotal = $data['subtotal'] ?? 0;
       $userId = $data['user_id'];
       $products = $data['products'] ?? [];
+      $chat_id=$data['chat_id'] ?? null;
 
       // پردازش پرداخت و ثبت سفارش
       $amount = $subtotal;
@@ -197,7 +144,10 @@ class PaymentController extends Controller
       if (session()->has('cart')) {
          session()->forget('cart');
       }
-
+      if($chat_id!= null){
+         $this->sendTelegramMessage($chat_id, 'پرداخت شما با موفقیت انجام شد');
+      }
+     
       return view(
          'frontend.payment.paymentSuccess',
          [
@@ -209,6 +159,16 @@ class PaymentController extends Controller
 
 
    }
+   public function sendTelegramMessage($chatId, $message)
+   {
+      $botToken = env('TELEGRAM_BOT_TOKEN');
+      Http::withOptions(['verify' => false])->post("https://api.telegram.org/bot{$botToken}/sendMessage", [
+         'chat_id' => $chatId,
+         'text' => $message,
+      ]);
+     
+   }
+
    public function failed(Request $request)
    {
       $data = session()->get('payment_data');
@@ -218,6 +178,7 @@ class PaymentController extends Controller
 
       $subtotal = $data['subtotal'] ?? 0;
       $amount = $subtotal;
+      $chat_id = $data['chat_id'] ?? null;
 
       // ساخت شماره سفارش یکتا و غیرتکراری
       do {
@@ -242,7 +203,9 @@ class PaymentController extends Controller
      if (session()->has('cart')) {
          session()->forget('cart');
       }
-
+      if ($chat_id != null) {
+      $this->sendTelegramMessage($chat_id, 'پرداخت شما ناموفق بود');
+      }
       return view('frontend.payment.paymentFailed', [
          'amount' => $amount,
          'transaction_time' => Jalalian::fromDateTime($payment->created_at)->format('Y/m/d H:i'),

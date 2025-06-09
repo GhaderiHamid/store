@@ -58,7 +58,7 @@ return back()->with('success','محصول حذف شد');
    public function update(UpdateRequest $request, $product_id){
      $validatedData=$request->validated();
      $product=Product::findOrFail($product_id);
-      $imagePath = null;
+      $imagePath = $product->image_path;
     if ($request->hasFile('image_path') && $request->file('image_path')->isValid()) {
         $categoryId = $validatedData['category_id'];
         $uploadFolder = 'products/' . $categoryId; // مسیر پوشه بر اساس category_id
