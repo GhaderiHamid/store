@@ -54,7 +54,7 @@ Route::get('signUp', [LoginController::class, 'signUp'])->name('signUp');
 
 
 Route::prefix('admin')->group(function () {
-    Route::get('index', [HomeAdminController::class, 'home'])->name('admin.index');
+    Route::get('/', [HomeAdminController::class, 'home'])->name('admin.index');
 
 
     Route::prefix('categories')->group(function () {
