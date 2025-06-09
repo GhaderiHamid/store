@@ -12,9 +12,10 @@ class HomeUserController extends Controller
     
     public function index()
     {
-        $categories = Category::all();
-        $products = Product::where('discount', '!=', 0)->get(); // محصولات دارای تخفیف
-        return view('frontend.home.all', compact('categories', 'products'));
+        // $categories = Category::all();
+        // $products = Product::where('discount', '!=', 0)->get(); // محصولات دارای تخفیف
+        // return view('frontend.home.all', compact('categories', 'products'));
+        return view('frontend.home.all');
     }
         
     
