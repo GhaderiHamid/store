@@ -39,50 +39,70 @@
     }
     
     // نمونه کد برای نمودار فروش در داشبورد
-    var ctx = document.getElementById('salesChart').getContext('2d');
-    var salesChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور'],
-            datasets: [{
-                label: 'فروش',
-                data: [30, 50, 40, 60, 70, 90],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+    // var ctx = document.getElementById('salesChart').getContext('2d');
+    // var salesChart = new Chart(ctx, {
+    //     type: 'line',
+    //     data: {
+    //         labels: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور'],
+    //         datasets: [{
+    //             label: 'فروش',
+    //             data: [30, 50, 40, 60, 70, 90],
+    //             backgroundColor: 'rgba(75, 192, 192, 0.2)',
+    //             borderColor: 'rgba(75, 192, 192, 1)',
+    //             borderWidth: 2
+    //         }]
+    //     },
+    //     options: {
+    //         scales: {
+    //             y: {
+    //                 beginAtZero: true
+    //             }
+    //         }
+    //     }
+    // });
     
     // نمونه کد برای نمودار گزارش فروش در فرم گزارش فروش
-    var reportCtx = document.getElementById('salesReportChart').getContext('2d');
-    var salesReportChart = new Chart(reportCtx, {
+    // var reportCtx = document.getElementById('salesReportChart').getContext('2d');
+    // var salesReportChart = new Chart(reportCtx, {
+    //     type: 'bar',
+    //     data: {
+    //         labels: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور'],
+    //         datasets: [{
+    //             label: 'گزارش فروش',
+    //             data: [20, 40, 30, 50, 60, 80],
+    //             backgroundColor: 'rgba(153, 102, 255, 0.2)',
+    //             borderColor: 'rgba(153, 102, 255, 1)',
+    //             borderWidth: 2
+    //         }]
+    //     },
+    //     options: {
+    //         scales: {
+    //             y: {
+    //                 beginAtZero: true
+    //             }
+    //         }
+    //     }
+    // });
+  </script> 
+<script>
+    var monthlySales = @json($formattedSales);
+    var labels = monthlySales.map(item => item.month); // نمایش نام فارسی ماه‌ها
+    var data = monthlySales.map(item => item.total);
+
+    var ctx = document.getElementById('salesChart').getContext('2d');
+    var salesChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور'],
+            labels: labels,
             datasets: [{
-                label: 'گزارش فروش',
-                data: [20, 40, 30, 50, 60, 80],
-                backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                borderColor: 'rgba(153, 102, 255, 1)',
+                label: 'گزارش فروش ماهانه (شمسی)',
+                data: data,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 2
             }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
         }
     });
-  </script> 
+</script>
 </body>
 </html>

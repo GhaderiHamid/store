@@ -25,7 +25,7 @@
                                     aria-labelledby="navbarDropdown">
 
                                     <div class="row">
-                                        {{-- @foreach ($categories as $category)
+                                        @foreach ($categories as $category)
                                             <div class="col-md-4">
                                                 <a class="nav-link active text-dark"
                                                     href="{{ route('frontend.product.all', ['category_id' => $category->id]) }}">
@@ -33,7 +33,7 @@
                                                     {{ $category->category_name }}
                                                 </a>
                                             </div>
-                                        @endforeach --}}
+                                        @endforeach
                                     </div>
                                 </div>
                             </li>
@@ -113,7 +113,7 @@
     <section class="container mt-5 custom-container">
         <p class="title">دسته بندی ها</p>
         <div class="row mt-5">
-            {{-- @foreach ($categories as $category)
+            @foreach ($categories as $category)
                 <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
                     <a href="{{ route('frontend.product.all', ['category_id' => $category->id]) }}">
                         <div class="cat-desc ">
@@ -124,7 +124,7 @@
                         </div>
                     </a>
                 </div>
-            @endforeach --}}
+            @endforeach
         </div>
     </section>
 
@@ -137,7 +137,7 @@
 
                 <div class="owl-carousel owl-theme bg-white position-relative">
 
-                    {{-- @foreach ($products as $product)
+                    @foreach ($products as $product)
                         @if ($product->quntity != 0)
 
                             <a href="{{ route('frontend.product.single', $product->id) }}" class="text-decoration-none">
@@ -166,7 +166,7 @@
                                 </div>
                             </a>
                         @endif
-                    @endforeach --}}
+                    @endforeach
 
                 </div>
             </div>

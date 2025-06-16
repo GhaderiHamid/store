@@ -28,6 +28,8 @@ use App\Http\Controllers\User\ReactionCommentController;
 use App\Http\Controllers\User\UserProfileController as UserUserProfileController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Support\Storage\Contracts\StorageInterface;
+use App\Http\Controllers\Admin\AuthController;
+
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -52,9 +54,12 @@ Route::get('logout',[LoginController::class, 'logout'])->name('logout');
 Route::get('signUp', [LoginController::class, 'signUp'])->name('signUp');
 
 
+Route::get('/loginAdmin', [AuthController::class, 'showLoginForm'])->name('loginAdmin');
+Route::post('/loginAdmin', [AuthController::class, 'login']);
+Route::get('logoutAdmin',[AuthController::class, 'logout'])->name('logoutAdmin');
+Route::prefix('admin')->middleware(['admin.auth'])->group(function () {
 
-Route::prefix('admin')->group(function () {
-    Route::get('/', [HomeAdminController::class, 'home'])->name('admin.index');
+    Route::get('index', [HomeAdminController::class, 'home'])->name('admin.index');
 
 
     Route::prefix('categories')->group(function () {
@@ -83,9 +88,13 @@ Route::prefix('admin')->group(function () {
         Route::put('{user_id}/update', [UsersController::class, 'update'])->name('admin.users.update');
         Route::delete('{user_id}/delete', [UsersController::class, 'delete'])->name('admin.users.delete');
     });
-    Route::prefix('orders')->group(function () {
-        Route::get('', [OrdersController::class, 'all'])->name('admin.orders.all');
+    Route::prefix('/orders')->group(function () {
+        Route::get('/', [OrdersController::class, 'all'])->name('admin.orders.all');
+        Route::get('/{order}', [OrdersController::class, 'show'])->name('admin.orders.show');
+        Route::get('/{order}/edit', [OrdersController::class, 'edit'])->name('admin.orders.edit');
+        Route::put('/{order}', [OrdersController::class, 'update'])->name('admin.orders.update');
     });
+    
     Route::prefix('payments')->group(function () {
         Route::get('', [PaymentsController::class, 'all'])->name('admin.payments.all');
     });
@@ -130,11 +139,11 @@ Route::prefix('')->group(function () {
 
 // Route::post('/toggle-like', [LikeController::class, 'toggleLike'])->middleware('auth');
 Route::post('/like/toggle', [LikeController::class, 'toggleLike']);
-Route::post('/like/status', [LikeController::class, 'getLikeStatus'])->middleware('auth');
+Route::post('/like/status', [LikeController::class, 'getLikeStatus'])->middleware('user.auth');
 
 
 Route::post('/bookmark/toggle', [BookmarkController::class, 'toggleBookmark']);
-Route::post('/bookmark/status', [BookmarkController::class, 'getBookmarkStatus'])->middleware('auth');
+Route::post('/bookmark/status', [BookmarkController::class, 'getBookmarkStatus'])->middleware('user.auth');
 
 
 Route::get('/vote/{productId}', [VoteController::class, 'show']);
@@ -161,7 +170,7 @@ Route::put('/user/comments/{id}', [App\Http\Controllers\User\CommentController::
 
 Route::delete('/user/comments/{id}', [App\Http\Controllers\User\CommentController::class, 'destroy'])->name('user.comments.destroy');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('user.auth')->group(function () {
     Route::get('/bookmarked-products', [App\Http\Controllers\User\BookmarkController::class, 'bookmarkedProducts'])->name('user.bookmarked.products');
     Route::post('/unbookmark', [App\Http\Controllers\User\BookmarkController::class, 'unbookmark'])->name('frontend.product.unbookmark');
     Route::get('/user/orders', [App\Http\Controllers\User\OrderController::class, 'index'])->name('user.orders.index');
@@ -185,7 +194,7 @@ Route::get('/product/{productId}/like-count', [App\Http\Controllers\User\LikeCon
 Route::get('/recommend/{userId}', [\App\Http\Controllers\User\ProductsController::class, 'recommendProducts'])->name('user.recommendations');
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['user.auth'])->group(function () {
     Route::get('/support', [\App\Http\Controllers\SupportTicketController::class, 'index'])->name('frontend.support');
     Route::get('/support/create', [\App\Http\Controllers\SupportTicketController::class, 'create'])->name('frontend.support.create');
     Route::post('/support/store', [\App\Http\Controllers\SupportTicketController::class, 'store'])->name('frontend.support.store');
@@ -198,34 +207,3 @@ Route::middleware(['auth'])->group(function () {
 
 Route::post('/cart/update-quantity', [\App\Http\Controllers\CartController::class, 'updateQuantity']);
 
-// نمایش فرم لاگین
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login')->middleware('guest');
-
-// پردازش لاگین
-Route::post('/login', function (\Illuminate\Http\Request $request) {
-    $credentials = $request->only('email', 'password');
-    if (Auth::attempt($credentials)) {
-        return redirect()->intended('/admin');
-    }
-    return back()->withErrors(['email' => 'اطلاعات ورود اشتباه است.']);
-})->middleware('guest');
-
-// خروج از حساب
-Route::post('/logout', function () {
-    Auth::logout();
-    return redirect('/login');
-})->name('logout');
-
-// محافظت از داشبورد
-Route::middleware('auth')->group(function () {
-    Route::get('/admin', function () {
-        return view('admin.index');
-    });
-    // ... سایر روت‌های ادمین ...
-});
-
-// Admin Login Routes
-Route::get('/admin/login', [\App\Http\Controllers\Admin\AuthController::class, 'showLoginForm'])->name('admin.login');
-Route::post('/admin/login', [\App\Http\Controllers\Admin\AuthController::class, 'login'])->name('admin.login.submit');

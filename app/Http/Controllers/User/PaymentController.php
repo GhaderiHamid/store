@@ -145,7 +145,7 @@ class PaymentController extends Controller
          session()->forget('cart');
       }
       if($chat_id!= null){
-         $this->sendTelegramMessage($chat_id, 'پرداخت شما با موفقیت انجام شد');
+         $this->sendTelegramMessage($chat_id, '✅ پرداخت شما با موفقیت انجام شد');
       }
      
       return view(
@@ -204,7 +204,7 @@ class PaymentController extends Controller
          session()->forget('cart');
       }
       if ($chat_id != null) {
-      $this->sendTelegramMessage($chat_id, 'پرداخت شما ناموفق بود');
+      $this->sendTelegramMessage($chat_id, '❌ پرداخت شما ناموفق بود');
       }
       return view('frontend.payment.paymentFailed', [
          'amount' => $amount,

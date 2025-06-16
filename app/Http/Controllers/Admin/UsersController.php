@@ -10,9 +10,16 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    public function all()
+    public function all(Request $request)
     {
-        $users = User::paginate(10);
+        $query = $request->input('query'); // مقدار ورودی جستجو را دریافت می‌کنیم
+
+        $users = User::when($query, function ($queryBuilder) use ($query) {
+            return $queryBuilder->where(function ($subQuery) use ($query) {
+                $subQuery->where('first_name', 'like', "%{$query}%")
+                    ->orWhere('last_name', 'like', "%{$query}%"); // فیلتر بر اساس نام و نام خانوادگی
+            });
+        })->paginate(10); // صفحه‌بندی نتایج
         return view('admin.users.all', compact('users'));
     }
     public function create()

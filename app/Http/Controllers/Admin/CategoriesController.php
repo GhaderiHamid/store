@@ -59,7 +59,7 @@ class CategoriesController extends Controller
     public function update(UpdateRequest $request,$category_id){
        $validatedData = $request->validated();
         $category=Category::find($category_id);
-        $imagePath = null;
+        $imagePath = $category->image_path;
         if ($request->hasFile('image_path') && $request->file('image_path')->isValid()) {
             
             $uploadFolder = 'img/category'; // مسیر پوشه بر اساس category_id

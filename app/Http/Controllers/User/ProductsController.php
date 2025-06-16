@@ -15,7 +15,7 @@ class ProductsController extends Controller
     public function all(Request $request)
     {
         $query = Product::query();
-
+        
         // فقط اگر category_id وجود داشته باشد، محصولات همان دسته و مرتب‌سازی نمایش داده شود
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->input('category_id'));

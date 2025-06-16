@@ -9,22 +9,28 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/admin/css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
 <body>
     <div class="container-fluid">
         <div class="row">
+            <button class="btn btn-dark d-md-none mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar">
+                منو
+            </button>
 
                 <!-- منوی کناری با منوهای کشویی -->
-                <nav id="sidebar" class="col-md-2 d-none d-md-block bg-dark sidebar">
+                <nav id="sidebar" class="col-md-3 col-lg-2  bg-dark text-white sidebar collapse d-md-block">
+
+
                     <div class="sidebar-sticky pt-3">
                         <h4 class="text-center text-white mb-4">مدیریت</h4>
                         <ul class="nav flex-column">
                             <!-- داشبورد -->
                             <li class="nav-item">
-                                <a class="nav-link active" onclick="showForm('dashboard');">
+                                <a class="nav-link active" href="{{ route('admin.index') }}">
                                     داشبورد
                                 </a>
                             </li>
@@ -65,17 +71,16 @@
                                 </a>
                                 <div class="collapse" id="collapseOrders">
                                     <ul class="nav flex-column submenu">
-                                        <li class="nav-item">
+                                        {{-- <li class="nav-item">
                                             <a class="nav-link" onclick="showForm('form-new-orders');">سفارش‌های
                                                 جدید</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" onclick="showForm('form-processing-orders');">سفارش‌های
                                                 در حال پردازش</a>
-                                        </li>
+                                        </li> --}}
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('admin.orders.all') }}">سفارش‌های
-                                                تکمیل شده</a>
+                                            <a class="nav-link" href="{{ route('admin.orders.all') }}">لیست سفارشات</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -119,43 +124,8 @@
                                     </ul>
                                 </div>
                             </li>
-                            <!-- تخفیف‌ها و کوپن‌ها -->
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="collapse" href="#collapseDiscounts" role="button"
-                                    aria-expanded="false" aria-controls="collapseDiscounts">
-                                    تخفیف‌ها و کوپن‌ها
-                                </a>
-                                <div class="collapse" id="collapseDiscounts">
-                                    <ul class="nav flex-column submenu">
-                                        <li class="nav-item">
-                                            <a class="nav-link" onclick="showForm('form-active-discounts');">تخفیف‌های
-                                                فعال</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" onclick="showForm('form-add-coupon');">ایجاد کوپن
-                                                تخفیف</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <!-- مدیریت کاربران -->
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="collapse" href="#collapseUsers" role="button"
-                                    aria-expanded="false" aria-controls="collapseUsers">
-                                    مدیریت کاربران
-                                </a>
-                                <div class="collapse" id="collapseUsers">
-                                    <ul class="nav flex-column submenu">
-                                        <li class="nav-item">
-                                            <a class="nav-link" onclick="showForm('form-user-list');">لیست کاربران</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" onclick="showForm('form-add-user');">افزودن کاربر
-                                                جدید</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
+                            
+                           
                             <!-- گزارش‌گیری و تحلیل‌ها -->
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="collapse" href="#collapseReports" role="button"
@@ -200,6 +170,9 @@
                                         </li>
                                     </ul>
                                 </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logoutAdmin') }}"> خروج</a>
                             </li>
                         </ul>
                     </div>

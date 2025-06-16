@@ -8,7 +8,7 @@
     @section('content')
         <!-- فرم افزودن دسته‌بندی -->
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 content">
+        <main role="main" class="col-md-9  col-lg-10 px-4 content">
 
             <div id="form-add-category">
 
