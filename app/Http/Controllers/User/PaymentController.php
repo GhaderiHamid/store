@@ -61,6 +61,7 @@ class PaymentController extends Controller
 
       $userId = $data['user_id'];
       $subtotal = $data['subtotal'] ?? 0;
+      dd($subtotal);
       $products = $data['products'] ?? [];
 
       session()->put('payment_data', $data);

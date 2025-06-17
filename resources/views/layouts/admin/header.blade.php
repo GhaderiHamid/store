@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="fa">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>پنل مدیریت فروشگاه لوازم کامپیوتر</title>
-    <!-- لینک به Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/admin/css/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>پنل مدیریت فروشگاه لوازم کامپیوتر</title>
+        <!-- لینک به Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/admin/css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-</head>
+    </head>
 
-<body>
-    <div class="container-fluid">
-        <div class="row">
-            <button class="btn btn-dark d-md-none mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar">
-                منو
-            </button>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <button class="btn btn-dark d-md-none mb-2" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#sidebar">
+                    منو
+                </button>
 
                 <!-- منوی کناری با منوهای کشویی -->
                 <nav id="sidebar" class="col-md-3 col-lg-2  bg-dark text-white sidebar collapse d-md-block">
@@ -37,7 +38,8 @@
                             <!-- تیکت های کاربران -->
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.tickets.index') }}">
-                                    <span class="material-symbols-outlined align-middle text-info" style="font-size:1.2rem;"></span>
+                                    <span class="material-symbols-outlined align-middle text-info"
+                                        style="font-size:1.2rem;"></span>
                                     تیکت‌های کاربران
                                 </a>
                             </li>
@@ -50,7 +52,8 @@
                                 <div class="collapse" id="collapseProducts">
                                     <ul class="nav flex-column submenu">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('admin.products.create') }}">افزودن محصول</a>
+                                            <a class="nav-link" href="{{ route('admin.products.create') }}">افزودن
+                                                محصول</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('admin.product.all') }}">لیست
@@ -93,7 +96,7 @@
                                 </a>
                                 <div class="collapse" id="collapseCustomers">
                                     <ul class="nav flex-column submenu">
-                                       
+
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('admin.users.create') }}">افزودن کاربر
                                                 جدید</a>
@@ -101,7 +104,7 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('admin.users.all') }}">لیست
                                                 کاربران</a>
-                                        </li> 
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -124,8 +127,8 @@
                                     </ul>
                                 </div>
                             </li>
-                            
-                           
+
+
                             <!-- گزارش‌گیری و تحلیل‌ها -->
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="collapse" href="#collapseReports" role="button"
@@ -135,33 +138,33 @@
                                 <div class="collapse" id="collapseReports">
                                     <ul class="nav flex-column submenu">
                                         <li class="nav-item">
-                                            <a class="nav-link" onclick="showForm('form-sales-report');">گزارش
-                                                فروش</a>
+                                            <a class="nav-link" href="{{ route('admin.reports.daily_sales') }}">گزارش
+                                                فروش روزانه</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" onclick="showForm('form-customer-report');">گزارش
-                                                مشتریان</a>
+                                            <a class="nav-link" href="{{ route('admin.reports.monthly_sales') }}">گزارش
+                                                فروش ماهانه</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" onclick="showForm('form-order-report');">گزارش
-                                                سفارش‌ها</a>
+                                            <a class="nav-link" href="{{ route('admin.reports.yearly_sales') }}">گزارش
+                                                فروش سالانه</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
                             <!-- مدیریت پرداخت‌ها -->
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="collapse" href="#collapsePayments" role="button" aria-expanded="false"
-                                    aria-controls="collapsePayments">
+                                <a class="nav-link" data-toggle="collapse" href="#collapsePayments" role="button"
+                                    aria-expanded="false" aria-controls="collapsePayments">
                                     مدیریت پرداخت‌ها
                                 </a>
                                 <div class="collapse" id="collapsePayments">
                                     <ul class="nav flex-column submenu">
                                         {{-- <li class="nav-item">
-                                            <a class="nav-link" >پرداخت‌های جدید</a>
+                                            <a class="nav-link">پرداخت‌های جدید</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" >پرداخت‌های
+                                            <a class="nav-link">پرداخت‌های
                                                 تکمیل شده</a>
                                         </li> --}}
                                         <li class="nav-item">

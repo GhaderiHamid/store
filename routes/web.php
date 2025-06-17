@@ -94,6 +94,11 @@ Route::prefix('admin')->middleware(['admin.auth'])->group(function () {
         Route::get('/{order}/edit', [OrdersController::class, 'edit'])->name('admin.orders.edit');
         Route::put('/{order}', [OrdersController::class, 'update'])->name('admin.orders.update');
     });
+    Route::prefix('reports')->group(function () {
+        Route::get('daily_sales', [\App\Http\Controllers\Admin\ReportController::class, 'dailySalesReport'])->name('admin.reports.daily_sales');
+        Route::get('monthly-sales', [\App\Http\Controllers\Admin\ReportController::class, 'monthlySalesReport'])->name('admin.reports.monthly_sales');
+        Route::get('yearly-sales', [\App\Http\Controllers\Admin\ReportController::class, 'yearlySalesReport'])->name('admin.reports.yearly_sales');
+    });
     
     Route::prefix('payments')->group(function () {
         Route::get('', [PaymentsController::class, 'all'])->name('admin.payments.all');
@@ -207,3 +212,6 @@ Route::middleware(['user.auth'])->group(function () {
 
 Route::post('/cart/update-quantity', [\App\Http\Controllers\CartController::class, 'updateQuantity']);
 
+// routes/web.php
+Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');

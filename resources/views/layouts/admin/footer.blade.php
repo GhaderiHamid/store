@@ -84,6 +84,7 @@
     //     }
     // });
   </script> 
+  @if(isset($formattedSales))
 <script>
     var monthlySales = @json($formattedSales);
     var labels = monthlySales.map(item => item.month); // نمایش نام فارسی ماه‌ها
@@ -104,5 +105,6 @@
         }
     });
 </script>
+@endif
 </body>
 </html>
