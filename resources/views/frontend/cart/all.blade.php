@@ -81,37 +81,37 @@
                     @endforeach
                 </div>
                 <!-- Total and Payment -->
-                <div class="col-sm-12 col-md-4 mt-1">
-                    <div class="w-100 product-border p-3 text-white">
-                        <h5>جمع کل: &nbsp;
-                            <span id="cart-total">{{ number_format($total) }} تومان</span>
-                            
-                        </h5>
-                        <form action="{{ route('payment.process') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="data" id="data-input"
-                                value="{{ json_encode([
-                                    'subtotal' => $total,
-                                    'user_id' => auth()->id(),
-                                    'products' => $products->map(function ($item) use ($cart) {
-                                            $quantity = is_array($cart[$item->id]) ? $cart[$item->id]['quantity'] ?? 1 : $cart[$item->id];
-                                            $discount = $item->discount ?? 0;
-                                            $final_price = $item->price - ($item->price * $discount) / 100;
-                                            return [
-                                                'product_id' => $item->id,
-                                                'name' => $item->name,
-                                                'price' => $item->price,
-                                                'discount' => $discount,
-                                                'final_price' => round($final_price),
-                                                'quantity' => intval($quantity),
-                                            ];
-                                        })->toArray(),
-                                ]) }}">
+               <div class="col-sm-12 col-md-4 mt-1">
+    <div class="w-100 product-border p-3 text-white">
+        <h5>جمع کل: &nbsp;
+            <span id="cart-total">{{ number_format($total) }} تومان</span>
+        </h5>
+        <form action="{{ route('payment.process') }}" method="POST">
+            @csrf
+            <input type="hidden" name="data" id="data-input"
+                value="{{ json_encode([
+                    'subtotal' => $total,
+                    'user_id' => auth()->id(),
+                    'products' => $products->map(function ($item) use ($cart) {
+                            $quantity = is_array($cart[$item->id]) ? $cart[$item->id]['quantity'] ?? 1 : $cart[$item->id];
+                            $discount = $item->discount ?? 0;
+                            $final_price = $item->price - ($item->price * $discount) / 100;
+                            return [
+                                'product_id' => $item->id,
+                                'name' => $item->name,
+                                'price' => $item->price,
+                                'discount' => $discount,
+                                'final_price' => round($final_price),
+                                'quantity' => intval($quantity),
+                            ];
+                        })->toArray(),
+                ]) }}">
+            <input type="hidden" id="subtotal-input" name="subtotal" value="{{ $total }}">
 
-                            <button type="submit" class="btn btn-primary w-100 mt-3">پرداخت</button>
-                        </form>
-                    </div>
-                </div>
+            <button type="submit" class="btn btn-primary w-100 mt-3">پرداخت</button>
+        </form>
+    </div>
+</div>
                 <span class="text-white">{{ $total }}</span>
             </div>
         @else

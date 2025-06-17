@@ -138,16 +138,27 @@
                                 <div class="collapse" id="collapseReports">
                                     <ul class="nav flex-column submenu">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('admin.reports.daily_sales') }}">گزارش
+                                            <a class="nav-link" href="{{ route('admin.reports.daily_sales') }}">
                                                 فروش روزانه</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('admin.reports.monthly_sales') }}">گزارش
+                                            <a class="nav-link" href="{{ route('admin.reports.weekly_sales') }}">
+                                                فروش هفتگی</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('admin.reports.monthly_sales') }}">
                                                 فروش ماهانه</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('admin.reports.yearly_sales') }}">گزارش
+                                            <a class="nav-link" href="{{ route('admin.reports.annual_sales') }}">
                                                 فروش سالانه</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('admin.reports.top_products') }}">
+                                                 محصولات پر فروش</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('admin.reports.top_customers') }}">مشتریان وفادار</a>
                                         </li>
                                     </ul>
                                 </div>

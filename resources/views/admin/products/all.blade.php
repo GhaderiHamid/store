@@ -16,7 +16,15 @@
                         <form class="form-inline mb-3" method="GET" action="{{ route('admin.product.all') }}">
                             <input type="text" name="query" class="form-control  mr-2" placeholder="جستجو براساس نام محصول"
                                 value="{{ request('query') }}">
-                            <button type="submit" class="btn btn-primary">جستجو</button>             </form>
+                                <div class="form-check ">
+                                   <div class=""> <input type="checkbox" name="no_stock" value="1" class="form-check-input " id="noStockCheckbox"
+                                    {{ request('no_stock') ? 'checked' : '' }}></div>
+                                  <div class=""><label class="form-check-label " for="noStockCheckbox">
+                                    محصولات ناموجود
+                                </label></div>
+                                </div>
+
+                            <button type="submit" class="btn btn-primary m-1">جستجو</button>             </form>
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped text-center">
                                 <thead class="text-center">

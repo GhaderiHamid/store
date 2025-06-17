@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\HomeAdminController;
 use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\PaymentsController;
 use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\UsersController;
 
 
@@ -95,9 +96,13 @@ Route::prefix('admin')->middleware(['admin.auth'])->group(function () {
         Route::put('/{order}', [OrdersController::class, 'update'])->name('admin.orders.update');
     });
     Route::prefix('reports')->group(function () {
+       
         Route::get('daily_sales', [\App\Http\Controllers\Admin\ReportController::class, 'dailySalesReport'])->name('admin.reports.daily_sales');
+        Route::get('weekly-sales', [ReportController::class, 'weeklySalesReport'])->name('admin.reports.weekly_sales');
         Route::get('monthly-sales', [\App\Http\Controllers\Admin\ReportController::class, 'monthlySalesReport'])->name('admin.reports.monthly_sales');
-        Route::get('yearly-sales', [\App\Http\Controllers\Admin\ReportController::class, 'yearlySalesReport'])->name('admin.reports.yearly_sales');
+        Route::get('annual-sales', [ReportController::class, 'annualSalesReport'])->name('admin.reports.annual_sales');
+        Route::get('top-products', [ReportController::class, 'topSellingProducts'])->name('admin.reports.top_products');
+        Route::get('top-customers', [ReportController::class, 'topCustomersReport'])->name('admin.reports.top_customers');
     });
     
     Route::prefix('payments')->group(function () {
@@ -212,6 +217,3 @@ Route::middleware(['user.auth'])->group(function () {
 
 Route::post('/cart/update-quantity', [\App\Http\Controllers\CartController::class, 'updateQuantity']);
 
-// routes/web.php
-Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
-Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');

@@ -48,11 +48,14 @@ class ProductsController extends Controller
     }
     public function all(Request $request)
     {
-        $query = $request->input('query'); // مقدار ورودی جستجو را دریافت می‌کنیم
+        $query = $request->input('query');
+        $noStock = $request->has('no_stock'); // بررسی وضعیت چک‌باکس
 
         $products = Product::when($query, function ($queryBuilder) use ($query) {
-            return $queryBuilder->where('name', 'like', "%{$query}%"); // فیلتر بر اساس نام محصول
-        })->paginate(10); // صفحه‌بندی نتایج
+            return $queryBuilder->where('name', 'like', "%{$query}%");
+        })->when($noStock, function ($queryBuilder) {
+            return $queryBuilder->where('quntity', '<=', 0);
+        })->paginate(10);
 
         return view('admin.products.all', compact('products'));
     }
