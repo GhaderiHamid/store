@@ -5,12 +5,12 @@
         <div class="container-fluid">
                 <div class="row mb-3">
                     <div class="col-12">
-                        <h2 class="page-title">جزئیات سفارش </h2>
+                        <h2 class="page-title">جزئیات سفارش #{{ $order->id }}</h2>
                         <a href="{{ route('admin.orders.all') }}" class="btn btn-sm btn-primary text-white">
                             <i class="fas fa-arrow-right"></i> بازگشت به لیست سفارشات
                         </a>
                         <a href="{{ route('admin.orders.edit', $order) }}" class="btn btn-sm btn-warning text-white">
-                            <i class="fas fa-arrow-right"></i> تغییر وضعیت سفارش
+                            <i class="fas fa-arrow-right"></i>ویرایش سفارش
                         </a>
                     </div>
                 </div>
@@ -29,15 +29,31 @@
                                         <p><strong>تاریخ سفارش:</strong>
                                             {{ \Morilog\Jalali\Jalalian::fromCarbon($order->created_at)->format('Y/m/d H:i') }}</p>
                                         <p><strong>وضعیت:</strong>
-                                            <span
-                                                class="">
+                                            <span>
                                                 {{ $statusLabels[$order->status] ?? $order->status }}
                                             </span>
                                         </p>
+                                        @if ($order->send_shipper != null)
+                                            <p><strong>مامور ارسال:</strong> {{ $order->sendShipper->first_name }} {{ $order->sendShipper->last_name }}</p>
+
+                                        @endif
+                                        @if ($order->receive_shipper != null)
+                                            <p><strong>مامور بازگشت:</strong> {{ $order->receiveShipper->first_name }} {{ $order->receiveShipper->last_name }}</p>
+
+                                        @endif
                                     </div>
                                     <div class="col-md-6">
                                         <p><strong>مبلغ کل:</strong> {{ number_format($order->payment->amount) }} تومان</p>
 
+                                    </div>
+                                    <div class="col-md-12">
+                                    @if ($order->status === 'return_requested')
+                                        <p><strong>علت مرجوعی:</strong>
+                                            <span>
+                                                {{ $order->return_note }}
+                                            </span>
+                                        </p>
+                                    @endif
                                     </div>
                                 </div>
                             </div>
@@ -54,7 +70,8 @@
                                 <p><strong>نام:</strong> {{ $order->user->first_name }} {{ $order->user->last_name }}</p>
                                 <p><strong>تلفن:</strong> {{ $order->user->phone }}</p>
                                 <p><strong>آدرس ایمیل:</strong> {{ $order->user->email }}</p>
-                                <p><strong>آدرس:</strong> {{ $order->address }}</p>
+                                <p><strong>شهر:</strong> {{ $order->user->city }}</p>
+
                             </div>
                         </div>
                     </div>

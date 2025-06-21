@@ -43,7 +43,7 @@
                                         <tr>
                                             <td> {{ $order->id }}</td>
                                             <td>{{ $order->user->first_name }} {{ $order->user->last_name  }}</td>
-                                            <td>{{ optional($order->payment)->amount ? number_format(optional($order->payment)->amount) : 'بدون پرداخت' }}
+                                            <td>{{ optional(value: $order->payment)->amount ? number_format(optional($order->payment)->amount) : 'بدون پرداخت' }}
                                             </td>
                                             <td>{{ \Morilog\Jalali\Jalalian::fromCarbon($order->created_at)->format('Y/m/d H:i')}}</td>
                                             <td>{{ $statusLabels[$order->status]  }}</td>
@@ -53,7 +53,7 @@
                                                     <i class="fas fa-eye"></i> مشاهده جزئیات
                                                 </a>
                                                 <a href="{{ route('admin.orders.edit', $order) }}" class="btn btn-warning btn-sm text-white">
-                                                    <i class="fas fa-edit"></i> ویرایش وضعیت
+                                                    <i class="fas fa-edit"></i> ویرایش سفارش
                                                 </a>
                                             </td>
                                         </tr>

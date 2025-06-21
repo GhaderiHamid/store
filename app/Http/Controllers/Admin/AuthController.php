@@ -25,7 +25,7 @@ class AuthController extends Controller
             if (Auth::user()->role === 'admin') {
                 return redirect()->route('admin.index'); // هدایت مدیر به داشبورد
             }
-            return redirect()->route('home'); // هدایت کاربر به صفحه اصلی
+            // return redirect()->route(''); // هدایت کاربر به صفحه اصلی
         }
 
         return back()->withErrors(['email' => 'اطلاعات ورود صحیح نیست']);

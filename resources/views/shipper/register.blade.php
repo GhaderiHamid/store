@@ -2,15 +2,43 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>ورود ادمین</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>ورود مامور</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+    font-family: Vazir-Medium;
+    src: 
+    url('../fonts/Vazir-Medium.eot') format('eot'),
+        url('../fonts/Vazir-Medium.woff') format('woff'),
+        url('../fonts/Vazir-Medium.woff2')format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Vazir-Bold;
+    src: url('../fonts/Vazir-Bold.eot');
+    src: url('../fonts/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Vazir-Bold.woff2') format('woff2'),
+        url('../fonts/Vazir-Bold.woff') format('woff'),
+        url('../fonts/Vazir-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+* {
+    font-family: Vazir-Medium;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+
+}
         body {
             
-            background: #d8dbe6;
+            background: linear-gradient(120deg, #78c4be 0%, #1a938f 30%, #616161 70%, #147bc0 100%);
             min-height: 100vh;
             direction: rtl;
             text-align: right;
@@ -25,13 +53,13 @@
             z-index: 0;
             pointer-events: none;
         }
-        .login-bg-art .circle1 {
+        /* .login-bg-art .circle1 {
             position: absolute;
             left: -120px;
             top: -80px;
             width: 320px;
             height: 320px;
-            background: radial-gradient(circle, #a18cd1 0%, #fbc2eb 100%);
+            background: radial-gradient(circle, #ecfbff 0%, #c9e0e8 100%);
             opacity: 0.25;
             border-radius: 50%;
         }
@@ -41,32 +69,50 @@
             bottom: -100px;
             width: 260px;
             height: 260px;
-            background: radial-gradient(circle, #fbc2eb 0%, #a6c1ee 100%);
+            background: radial-gradient(circle, #ecfbff 0%, #c9e0e8 100%);
             opacity: 0.18;
             border-radius: 50%;
-        }
+        } */
+         .login-account{
+           margin-bottom: -20px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: medium;
+         }
         .login-container {
+           display: block;
             max-width: 410px;
             width: 100%;
-            margin: 0 auto;
+            margin: 20px auto;
             border: none;
             background: #fff;
             border-radius: 30px;
             box-shadow: 0 12px 48px 0 rgba(161,140,209,0.13), 0 2px 8px rgba(31,38,135,0.08);
-            padding: 44px 36px 32px 36px;
-            position: relative;
+            /* padding: 20px 30px 25px 30px; */
+            /* position: relative; */
             z-index: 1;
+            border-radius: 20px;
             overflow: hidden;
+        }
+        .registerform{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         /* کادر زیبای فرم */
         .form-box {
-            background: linear-gradient(100deg, #f8cdec 60%, #fab1e5 100%);
+           
+            /* font-size: x-small; */
+            background: linear-gradient(100deg, #c8b8f3 60%, #6916ee 100%);
             border-radius: 22px;
             box-shadow: 0 4px 24px 0 rgba(161,140,209,0.10);
             padding: 32px 24px 24px 24px;
-            margin-bottom: 0;
-            margin-top: 10px;
-            position: relative;
+           margin: 20px auto;
+            /* position: relative; */
+            height: 100%;
+            width: 90%;
+            display: block;
+            border-radius: 20px;
         }
         .logo {
             display: flex;
@@ -76,7 +122,7 @@
             width: 86px;
             height: 86px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #765cb4 0%, #fbc2eb 100%);
+            background: linear-gradient(135deg, #7c86e7 0%, #0f0ca9 100%);
             box-shadow: 0 8px 24px rgba(161,140,209,0.13);
             position: relative;
             z-index: 1;
@@ -90,17 +136,25 @@
             text-align: center;
             font-size: 1.6rem;
             font-weight: bold;
-            color: #a18cd1;
-            margin-bottom: 18px;
+            color: #0c6fe8;
+           margin: 5px auto;
             letter-spacing: 1px;
             position: relative;
             z-index: 1;
             text-shadow: 0 2px 8px #f9fafc;
         }
         .form-group label {
-            font-weight: 500;
-            color: #896ad1;
-            font-size: 1.08em;
+            
+            color: #ddf2f7;
+            font-size: medium;
+            
+        }
+        .form-group{
+            width: 95%;
+            margin: 5px auto;
+        }
+        .form-group input{
+            font-size: small;
         }
         .form-control {
             border-radius: 16px;
@@ -116,14 +170,16 @@
             background: #fff;
         }
         .btn-primary {
-            background: linear-gradient(90deg, #5531a9 0%, #ff3fc9 100%);
+            background: linear-gradient(90deg, #cb07e9 0%, #a300bc 100%);
+            width: 95%;
+
             border: none;
             transition: box-shadow 0.2s, transform 0.2s;
             font-weight: bold;
             border-radius: 16px;
-            font-size: 1.18em;
+            font-size: medium;
             letter-spacing: 1px;
-            margin-top: 16px;
+            margin-top: 50px;
             box-shadow: 0 2px 8px rgba(161,140,209,0.13);
             padding: 0.7rem 0;
         }
@@ -173,37 +229,53 @@
     </style>
 </head>
 <body>
-<div class="login-bg-art">
+    @include('errors.message')
+{{-- <div class="login-bg-art">
     <div class="circle1"></div>
     <div class="circle2"></div>
-</div>
+</div> --}}
 <div class="login-container">
-    <div class="logo">
+    {{-- <div class="logo">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <circle cx="12" cy="8" r="4"/>
             <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
         </svg>
-    </div>
-    <div class="login-title" style="text-align:center;">ورود ادمین</div>
+    </div> --}}
+    <div class="login-title" style="text-align:center;"> فرم ثبت نام </div>
     <div class="form-box">
-        @if($errors->any())
-            <div class="alert alert-danger text-center">
-                {{ $errors->first() }}
-            </div>
-        @endif
-        <form method="POST" action="{{ route('loginAdmin') }}">
+        
+        <form class="registerform" method="POST" action="{{ route('storeShipper') }}">
             @csrf
             <div class="form-group">
+                <label for="first_name">نام</label>
+                <input type="text" class="form-control" id="first_name" name="first_name" required autofocus placeholder="لطفا نام خود را وارد کنید">
+            </div>
+            <div class="form-group">
+                <label for="last_name">نام خانوادگی</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" required 
+                    placeholder="لطفا نام خانوادگی خود را وارد کنید">
+            </div>
+            <div class="form-group">
+                <label for="city">شهر</label>
+                <input type="text" class="form-control" id="city" name="city" required
+                    placeholder="لطفا شهر خود را وارد کنید">
+            </div>
+            <div class="form-group">
+                <label for="phone">شماره همراه</label>
+                <input type="number" class="form-control" id="phone" name="phone" required placeholder="لطفا شماره همراه خود را وارد کنید">
+            </div>
+            <div class="form-group">
                 <label for="email">ایمیل</label>
-                <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required autofocus>
-              
+                <input type="email" class="form-control" id="email" name="email"  required placeholder="لطفا ایمیل خود را وارد کنید">
             </div>
             <div class="form-group">
                 <label for="password">رمز عبور</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-              
+                <input type="password" class="form-control" id="password" name="password" required placeholder="لطفا رمز عبور خود را وارد کنید">
             </div>
-            <button type="submit" class="btn btn-primary btn-block">ورود</button>
+            <button type="submit" class="btn btn-primary btn-block">ثبت نام</button>
+            <div class="login-account ">
+                <p>حساب کاربری دارید؟ <a class="text-dark"  href="{{ route('loginShipper') }}"><u>ورود </u></a></p>
+            </div>
         </form>
     </div>
 </div>

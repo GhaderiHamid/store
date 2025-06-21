@@ -30,7 +30,7 @@ use App\Http\Controllers\User\UserProfileController as UserUserProfileController
 use App\Http\Controllers\User\UserProfileController;
 use App\Support\Storage\Contracts\StorageInterface;
 use App\Http\Controllers\Admin\AuthController;
-
+use App\Http\Controllers\User\OrderController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -94,6 +94,7 @@ Route::prefix('admin')->middleware(['admin.auth'])->group(function () {
         Route::get('/{order}', [OrdersController::class, 'show'])->name('admin.orders.show');
         Route::get('/{order}/edit', [OrdersController::class, 'edit'])->name('admin.orders.edit');
         Route::put('/{order}', [OrdersController::class, 'update'])->name('admin.orders.update');
+        Route::post('/{order}/assign-shipper', [OrdersController::class, 'assignShipper'])->name('admin.orders.assignShipper');
     });
     Route::prefix('reports')->group(function () {
        
@@ -184,6 +185,8 @@ Route::middleware('user.auth')->group(function () {
     Route::get('/bookmarked-products', [App\Http\Controllers\User\BookmarkController::class, 'bookmarkedProducts'])->name('user.bookmarked.products');
     Route::post('/unbookmark', [App\Http\Controllers\User\BookmarkController::class, 'unbookmark'])->name('frontend.product.unbookmark');
     Route::get('/user/orders', [App\Http\Controllers\User\OrderController::class, 'index'])->name('user.orders.index');
+    Route::get('/user/return-request/{order}', [OrderController::class, 'showForm'])->name('user.return.form');
+    Route::post('/return-request/{order}', [OrderController::class, 'submit'])->name('user.return.submit');
     Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
     Route::put('/user/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
 });
@@ -217,3 +220,12 @@ Route::middleware(['user.auth'])->group(function () {
 
 Route::post('/cart/update-quantity', [\App\Http\Controllers\CartController::class, 'updateQuantity']);
 
+Route::get('/loginShipper', [\App\Http\Controllers\shipper\AuthController::class, 'showLoginForm'])->name('loginShipper');
+Route::post('/loginShipper', [\App\Http\Controllers\shipper\AuthController::class, 'login'])->name('authshipper');
+Route::get('/registerShipper', [\App\Http\Controllers\shipper\AuthController::class, 'register'])->name('registerShipper');
+
+Route::post('/CreateShipper', [\App\Http\Controllers\shipper\AuthController::class, 'store'])->name('storeShipper');
+Route::get('logoutShipper', [\App\Http\Controllers\shipper\AuthController::class, 'logout'])->name('logoutShipper');
+Route::get('/shipper/orders',[\App\Http\Controllers\shipper\OrdersController::class,'index'])->name('ShipperIndex');
+Route::post('/orders/{order}/deliver', [\App\Http\Controllers\shipper\OrdersController::class, 'deliver'])->name('shipper.orders.deliver');
+Route::post('/orders/{order}/return', [\App\Http\Controllers\shipper\OrdersController::class, 'markAsReturned'])->name('shipper.orders.return');

@@ -1,0 +1,254 @@
+@font-face {
+    font-family: Vazir-Medium;
+    src: 
+    url('../fonts/Vazir-Medium.eot') format('eot'),
+        url('../fonts/Vazir-Medium.woff') format('woff'),
+        url('../fonts/Vazir-Medium.woff2')format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Vazir-Bold;
+    src: url('../fonts/Vazir-Bold.eot');
+    src: url('../fonts/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Vazir-Bold.woff2') format('woff2'),
+        url('../fonts/Vazir-Bold.woff') format('woff'),
+        url('../fonts/Vazir-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+* {
+    font-family: Vazir-Medium;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    padding-top: 50px;
+    /* margin-top: -50px; */
+    background: linear-gradient(120deg, #231815 0%, #6e2e2a 30%, #a67c52 65%, #6d597a 100%);
+    min-height: 100vh;
+    /* box-shadow: 0 0 240px 0 rgba(110,46,42,0.65) inset;
+    /* position: relative;
+    z-index: 1;
+    /* افکت شیشه‌ای subtle */
+    backdrop-filter: blur(10px) brightness(1.09) saturate(1.15);
+    -webkit-backdrop-filter: blur(10px) brightness(1.09) saturate(1.15);
+    transition: background 0.8s cubic-bezier(.4,0,.2,1); */ */
+}
+.custom-container {
+    /* background-color:#d6d6d6; */
+    background-color: #2a2a2a;
+
+    border-radius: 10px;
+    padding: 20px;
+}
+.order-card {
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: #fff;
+}
+
+.order-card:hover {
+    transform: scale(1.009);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.order-header {
+    background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+    color: white;
+    padding: 15px;
+    border-bottom: none;
+}
+
+
+.order-body {
+    padding: 24px;
+    background-color: #fff;
+}
+
+.order-detail {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #a79999;
+    align-items: center;
+}
+
+.order-detail:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.order-detail-label {
+    font-weight: 600;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.order-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.no-orders {
+    text-align: center;
+    padding: 60px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    margin-top: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.nav-tabs .nav-link {
+    transition: all 0.3s ease;
+}
+
+/* استایل‌های جدید برای بخش محصولات مرجوعی */
+.returned-products {
+    margin-top: 16px;
+    border-top: 1px dashed #eee;
+    padding-top: 16px;
+}
+
+.product-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.product-item:hover {
+    background: #f0f0f0;
+}
+
+.product-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #eee;
+    margin-left: 12px;
+}
+
+.product-info {
+    flex: 1;
+}
+
+.product-name {
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+    color: #333;
+}
+
+.product-quantity {
+    font-size: 0.8rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+}
+
+.product-quantity::before {
+    content: "×";
+    margin-left: 4px;
+}
+
+.return-badge {
+    background: #ff4b2b;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+a,
+a:hover {
+    text-decoration: none;
+    color: #eee;
+    
+}
+
+.order-card.return-order {
+    height: 545px; /* ارتفاع ثابت */
+    display: flex;
+    flex-direction: column;
+}
+
+.return-order .order-body {
+    flex: 1;
+    overflow-y: auto; 
+    padding: 16px;
+}
+
+/* استایل اسکرول بار */
+.return-order .order-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.return-order .order-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.return-order .order-body::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.return-order .order-body::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+
+.order-card.delivered-order {
+    height: 410px; /* ارتفاع ثابت */
+    display: flex;
+    flex-direction: column;
+}
+
+.delivered-order .order-body {
+    flex: 1;
+    overflow-y: auto; 
+    padding: 16px;
+}
+
+/* استایل اسکرول بار */
+.delivered-order .order-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.delivered-order .order-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.delivered-order .order-body::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.delivered-order .order-body::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.order-detail-icon {
+    font-size: 18px;
+    margin-left: 5px;
+    vertical-align: middle;
+    color: #666;
+}

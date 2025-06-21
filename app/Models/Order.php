@@ -41,4 +41,12 @@ class Order extends Model
   {
     return $this->details()->sum('price');
   }
+  public function sendShipper()
+  {
+    return $this->belongsTo(Shipper::class, 'send_shipper');
+  }
+  public function receiveShipper()
+  {
+    return $this->belongsTo(Shipper::class, 'receive_shipper');
+  }
 }

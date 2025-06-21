@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>لیست سفارشات</title>
+
+    <!-- فونت‌ها و آیکون‌ها -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- استایل‌های اختصاصی -->
+    <link rel="stylesheet" href="/css/bootstrap-rtl.css">
+    <link rel="stylesheet" href="/css/shipper.css">
+
+</head>
+
+<body class="rtl">
+ 
+    <div class="container custom-container mt-5">
+        <div class="d-flex align-items-center justify-content-between"> 
+            <h2 class="text-white mb-4">لیست سفارشات شما</h2>
+            <div class="border rounded p-1 btn d-flex align-items-center mb-3">
+                <a href="{{ route('logoutShipper') }}"><p class="m-0">خروج از حساب کاربری</p></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                @if ($orders->total() > 0)
+                    <ul class="nav nav-tabs custom-nav-tabs-product-page justify-content-center rounded-pill bg-dark p-2 shadow-lg"
+                        id="myTab" role="tablist">
+                        <li class="nav-item m-1">
+                            <a class="nav-link {{ request('status') == 'shipped' || !request('status') ? 'active' : '' }} text-white d-flex align-items-center px-4 py-2 rounded-pill fw-bold bg-primary shadow-sm"
+                                href="?status=shipped">
+                                <span class="material-symbols-outlined me-2 text-white">local_shipping</span>
+                                ارسالی  
+                                <span class="badge bg-white text-dark mx-1">{{ $counts['shipped'] ?? 0 }}</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item m-1">
+                            <a class="nav-link {{ request('status') == 'return_in_progress' ? 'active' : '' }} text-white d-flex align-items-center px-4 py-2 rounded-pill fw-bold bg-danger shadow-sm"
+                                href="?status=return_in_progress">
+                                <span class="material-symbols-outlined me-2">undo</span>
+                                مرجوعی
+                                <span class="badge bg-white text-dark mx-1">{{ $counts['return_in_progress'] ?? 0 }}</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content mt-3" id="myTabContent">
+                        <!-- تب سفارشات ارسالی -->
+                        <div class="tab-pane fade {{ request('status') == 'shipped' || !request('status') ? 'show active' : '' }}" id="shipped" role="tabpanel" aria-labelledby="shipped-tab">
+                            <div class="container my-5 mx-2">
+                                <div class="row">
+                                    @if ($orders->where('status', 'shipped')->isEmpty())
+                                        <p class="text-white">شما هیچ سفارش برای ارسال ندارید.</p>
+                                    @endif
+                                    
+                                    @foreach ($orders as $order)
+                                        @if ($order->status == 'shipped')
+                                            <div class="col-md-6 col-lg-4 mb-4">
+                                                <div class="order-card delivered-order">
+                                                    <div class="order-header">
+                                                        <h5 class="mb-0">سفارش #{{ $order->id }}</h5>
+                                                    </div>
+                                                    <div class="order-body">
+                                                        <div class="order-detail">
+                                                            <div><span class="material-symbols-outlined order-detail-icon">person</span>
+                                                                <span class="order-detail-label">نام:</span></div>
+                                                            <span>{{ $order->user->first_name }} {{ $order->user->last_name }}</span>
+                                                        </div>
+                                                        <div class="order-detail">
+                                                           <div> <span class="material-symbols-outlined order-detail-icon">phone</span>
+                                                            <span class="order-detail-label">شماره همراه:</span></div>
+                                                            <span>{{ $order->user->phone }}</span>
+                                                        </div>
+                                                        <div class="order-detail">
+                                                           <div class="d-flex align-items-center justify-content-center "> 
+                                                              <div><span class="material-symbols-outlined order-detail-icon">location_on</span></div>
+                                                               <div>
+                                                                  <span class="order-detail-label">آدرس:</span>
+                                                               </div>
+                                                            </div>
+                                                       
+                                                            <div class="w-75 text-right">{{ $order->user->address }}</div>
+                                                        </div>
+                                                        <div class="order-detail">
+                                                           <div> <span class="material-symbols-outlined order-detail-icon">calendar_today</span>
+                                                            <span class="order-detail-label">تاریخ سفارش:</span></div>
+                                                            <span>{{ \Morilog\Jalali\Jalalian::fromCarbon($order->created_at)->format('Y/m/d H:i') }}</span>
+                                                        </div>
+                                                        <div class="order-detail">
+                                                           <div> <span class="material-symbols-outlined order-detail-icon">info</span>
+                                                            <span class="order-detail-label">وضعیت:</span></div>
+                                                            <span class="badge bg-info">{{ $statusLabels[$order->status] }}</span>
+                                                        </div>
+                                                        <div class="order-actions">
+                                                            <button onclick="deliverOrder({{ $order->id }})" class="btn btn-success btn-sm text-white flex-grow-1 d-flex align-items-center justify-content-center">
+                                                                <span class="material-symbols-outlined me-1 ">check_circle</span>
+                                                                <p class="d-inline-block m-0">تحویل</p>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                                
+                                <!-- صفحه‌بندی -->
+                                <div class="d-flex justify-content-center mt-4">
+                                    {{ $orders->appends(['status' => 'shipped'])->links() }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- تب سفارشات مرجوعی -->
+                        <div class="tab-pane fade {{ request('status') == 'return_in_progress' ? 'show active' : '' }}" id="return_in_progress" role="tabpanel" aria-labelledby="return_in_progress-tab">
+                            <div class="container my-5 mx-2">
+                                <div class="row">
+                                    @if ($orders->where('status', 'return_in_progress')->isEmpty())
+                                        <p class="text-white">شما هیچ سفارش برای مرجوع ندارید.</p>
+                                    @endif
+                                    
+                                    @foreach ($orders as $order)
+                                    @if ($order->status == 'return_in_progress')
+                                    <div class="col-md-6 col-lg-4 mb-4">
+                                        <div class="order-card return-order">
+                                            <div class="order-header">
+                                                <h5 class="mb-0">سفارش #{{ $order->id }}</h5>
+                                            </div>
+                                            <div class="order-body">
+                                                <div class="order-detail">
+                                                    <div><span class="material-symbols-outlined order-detail-icon">person</span>
+                                                        <span class="order-detail-label">نام:</span></div>
+                                                    <span>{{ $order->user->first_name }} {{ $order->user->last_name }}</span>
+                                                </div>
+                                                <div class="order-detail">
+                                                    <div><span class="material-symbols-outlined order-detail-icon">phone</span>
+                                                        <span class="order-detail-label">شماره همراه:</span></div>
+                                                    <span>{{ $order->user->phone }}</span>
+                                                </div>
+                                                <div class="order-detail">
+                                                    <div class="d-flex align-items-center justify-content-center "> 
+                                                       <div><span class="material-symbols-outlined order-detail-icon">location_on</span></div>
+                                                        <div>
+                                                           <span class="order-detail-label">آدرس:</span>
+                                                        </div>
+                                                     </div>
+                                                
+                                                     <div class="w-75 text-right">{{ $order->user->address }}</div>
+                                                 </div>
+                                                
+                                                <!-- نمایش محصولات مرجوعی -->
+                                                <div class="order-detail">
+                                                   <div> <span class="material-symbols-outlined order-detail-icon">shopping_bag</span>
+                                                    <div><span class="order-detail-label">محصولات مرجوعی:</span></div></div>
+                                                    <div class="mt-2">
+                                                        @foreach($order->details as $item)
+                                                            @if($item->status === 'return_in_progress')
+                                                                <div class="d-flex align-items-center mb-2 p-2 bg-light rounded">
+                                                                    <img src="/{{ $item->product->image_path }}" 
+                                                                        alt="{{ $item->product->name }}" 
+                                                                        class="img-thumbnail" 
+                                                                        style="width: 80px; height: 80px; object-fit: cover;">
+                                                                    <div class="m-2">
+                                                                        <small class="d-block">{{ $item->product->name }}</small>
+                                                                        <small class="text-muted">تعداد: {{ $item->return_quantity }}</small>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="order-detail">
+                                                    <div><span class="material-symbols-outlined order-detail-icon">calendar_today</span>
+                                                        <span class="order-detail-label">تاریخ سفارش:</span></div>
+                                                    <span>{{ \Morilog\Jalali\Jalalian::fromCarbon($order->created_at)->format('Y/m/d H:i') }}</span>
+                                                </div>
+                                                <div class="order-detail">
+                                                    <div><span class="material-symbols-outlined order-detail-icon">info</span>
+                                                        <span class="order-detail-label">وضعیت:</span></div>
+                                                    <span class="badge bg-danger text-white">{{ $statusLabels[$order->status] }}</span>
+                                                </div>
+                                                
+                                                <div class="order-actions">
+                                                    <button onclick="returnOrder({{ $order->id }})" class="btn btn-success btn-sm text-white flex-grow-1 d-flex align-items-center justify-content-center">
+                                                        <span class="material-symbols-outlined me-1">undo</span>
+                                                        <p class="d-inline-block m-0">مرجوع</p>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                                    @endforeach
+                                </div>
+                                
+                                <!-- صفحه‌بندی -->
+                                <div class="d-flex justify-content-center mt-4">
+                                    {{ $orders->appends(['status' => 'return_in_progress'])->links() }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <p class="text-white">شما هیچ سفارش ثبت‌ شده‌ای ندارید.</p>
+                @endif
+            </div>
+        </div>
+    </div>
+
+    <!-- اسکریپت‌های مورد نیاز -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function deliverOrder(orderId) {
+            if (confirm('آیا از تحویل این سفارش اطمینان دارید؟')) {
+                fetch(`/orders/${orderId}/deliver`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('وضعیت سفارش با موفقیت به "تحویل داده شده" تغییر یافت.');
+                        location.reload();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        function returnOrder(orderId) {
+            if (confirm('آیا از مرجوع کردن این سفارش اطمینان دارید؟')) {
+                fetch(`/orders/${orderId}/return`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('وضعیت سفارش با موفقیت به "مرجوع شده" تغییر یافت.');
+                        location.reload();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+    </script>
+</body>
+</html>

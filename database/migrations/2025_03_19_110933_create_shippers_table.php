@@ -21,8 +21,10 @@ class CreateShippersTable extends Migration
             $table->string('email', 100)->charset('utf8mb4')->collation('utf8mb4_persian_ci')->unique(); // ایمیل
             $table->string('city', 100)->charset('utf8mb4')->collation('utf8mb4_persian_ci'); // شهر
             $table->char('phone', 11)->charset('utf8mb4')->collation('utf8mb4_persian_ci')->notNull(); // شماره تلفن
+            $table->integer('active_orders')->default(0);
+
             $table->timestamps(); // زمان ایجاد و به‌روزرسانی
-            $table->text('address')->charset('utf8mb4')->collation('utf8mb4_persian_ci'); // آدرس
+            // $table->text('address')->charset('utf8mb4')->collation('utf8mb4_persian_ci'); // آدرس
 
         });
     }
