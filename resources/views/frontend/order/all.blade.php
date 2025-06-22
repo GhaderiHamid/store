@@ -16,41 +16,47 @@
         <div class="row mt-5">
             <div class="col-sm-12">
                 @if (!$orders->isEmpty())
-                    <ul class="nav nav-tabs custom-nav-tabs-product-page justify-content-center rounded-pill bg-dark p-2 shadow-lg"
-                        id="myTab" role="tablist">
-                        <li class="nav-item m-1">
-                            <a class="nav-link {{ request('status') == 'processing' || !request('status') ? 'active' : '' }} text-white d-flex align-items-center px-4 py-2 rounded-pill fw-bold  bg-warning shadow-sm"
-                                href="?status=processing">
-                                <span class="material-symbols-outlined me-2 text-white">autorenew</span>
-                                در حال پردازش
-                                <span class="badge bg-white text-dark mx-1">{{ $counts['processing'] ?? 0 }}</span>
-                            </a>
-                        </li>
-                        <li class="nav-item m-1">
-                            <a class="nav-link {{ request('status') == 'shipped' ? 'active' : '' }} text-white d-flex align-items-center px-4 py-2 rounded-pill fw-bold  bg-primary shadow-sm"
-                                href="?status=shipped">
-                                <span class="material-symbols-outlined me-2 text-white">local_shipping</span>
-                                در حال ارسال
-                                <span class="badge bg-white text-dark mx-1">{{ $counts['shipped'] ?? 0 }}</span>
-                            </a>
-                        </li>
-                        <li class="nav-item m-1">
-                            <a class="nav-link {{ request('status') == 'delivered' ? 'active' : '' }} d-flex align-items-center px-4 py-2 rounded-pill fw-bold  bg-success text-white"
-                                href="?status=delivered">
-                                <span class="material-symbols-outlined me-2">check_circle</span>
-                                تحویل شده
-                                <span class="badge bg-white text-dark mx-1">{{ $counts['delivered'] ?? 0 }}</span>
-                            </a>
-                        </li>
-                        <li class="nav-item m-1">
-                            <a class="nav-link {{ request('status') == 'returned' ? 'active' : '' }} d-flex align-items-center px-4 py-2 rounded-pill fw-bold  bg-danger text-white"
-                                href="?status=returned">
-                                <span class="material-symbols-outlined me-2">undo</span>
-                                مرجوع شده
-                                <span class="badge bg-white text-dark mx-1">{{ $counts['returned'] ?? 0 }}</span>
-                            </a>
-                        </li>
-                    </ul>
+                <ul class="nav nav-tabs custom-nav-tabs-product-page justify-content-center rounded-pill bg-dark p-2 shadow-lg" id="myTab" role="tablist">
+                    <!-- در حال پردازش -->
+                    <li class="nav-item m-1">
+                        <a class="nav-link {{ request('status') == 'processing' || !request('status') ? 'active' : '' }} text-white d-flex align-items-center px-4 py-2 rounded-pill fw-bold bg-warning shadow-sm"
+                           href="?status=processing">
+                            <span class="material-symbols-outlined me-2 text-white">autorenew</span>
+                            در حال پردازش
+                            <span class="badge bg-white text-dark mx-1">{{ $counts['processing'] ?? 0 }}</span>
+                        </a>
+                    </li>
+                    
+                    <!-- در حال ارسال -->
+                    <li class="nav-item m-1">
+                        <a class="nav-link {{ request('status') == 'shipped' ? 'active' : '' }} text-white d-flex align-items-center px-4 py-2 rounded-pill fw-bold bg-primary shadow-sm"
+                           href="?status=shipped">
+                            <span class="material-symbols-outlined me-2 text-white">local_shipping</span>
+                            در حال ارسال
+                            <span class="badge bg-white text-dark mx-1">{{ $counts['shipped'] ?? 0 }}</span>
+                        </a>
+                    </li>
+                    
+                    <!-- تحویل داده شده -->
+                    <li class="nav-item m-1">
+                        <a class="nav-link {{ request('status') == 'delivered' ? 'active' : '' }} d-flex align-items-center px-4 py-2 rounded-pill fw-bold bg-success text-white"
+                           href="?status=delivered">
+                            <span class="material-symbols-outlined me-2">check_circle</span>
+                            تحویل شده
+                            <span class="badge bg-white text-dark mx-1">{{ $counts['delivered'] ?? 0 }}</span>
+                        </a>
+                    </li>
+                    
+                    <!-- مرجوع شده -->
+                    <li class="nav-item m-1">
+                        <a class="nav-link {{ request('status') == 'returned' ? 'active' : '' }} d-flex align-items-center px-4 py-2 rounded-pill fw-bold bg-danger text-white"
+                           href="?status=returned">
+                            <span class="material-symbols-outlined me-2">undo</span>
+                            مرجوع شده
+                            <span class="badge bg-white text-dark mx-1">{{ $counts['returned'] ?? 0 }}</span>
+                        </a>
+                    </li>
+                </ul>
 
                     <div class="tab-content mt-3" id="myTabContent">
                         <!-- تب سفارشات در حال پردازش -->
@@ -224,7 +230,7 @@
                                         <div class="w-100 product-border p-3 mt-3 text-white border-white">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <h5>شماره سفارش: {{ $order->id }}</h5>
-                                                @if ($order->status !== 'return_requested' && $order->updated_at->gt(now()->subWeek()))
+                                                @if ($order->status == 'delivered' && $order->updated_at->gt(now()->subWeek()))
                                                     <a href="{{ route('user.return.form', $order->id) }}" 
                                                         class="btn btn-warning">
                                                         ثبت درخواست مرجوعی
@@ -251,6 +257,12 @@
                                                             src="/{{ $detail->product->image_path }}" 
                                                             alt="Product Image">
                                                         <div class="card-body col-sm-12 col-md-4">
+                                                          @if ($order->status!='delivered')
+                                                          <p class="card-text"> وضعیت: <span class="{{ $statusColors[$detail->status] ?? 'badge bg-secondary' }} p-2">
+                                                            {{ $statusLabels[$detail->status] ?? 'نامشخص' }}
+                                                        </span> </p>
+                                                          @endif
+                                                         
                                                             <p class="card-text"> نام: {{ $detail->product->name }} </p>
                                                             @if ($detail->discount != 0)
                                                                 <p class="card-text d-inline-block">تخفیف:

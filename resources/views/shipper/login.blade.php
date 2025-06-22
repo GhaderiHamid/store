@@ -2,272 +2,248 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-  
-    <title>ورود مامور</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+    <title>ورود مامور ارسال | سامانه حمل و نقل</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- فونت‌ها و آیکون‌ها -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+    
     <style>
-        @font-face {
-    font-family: Vazir-Medium;
-    src: 
-    url('../fonts/Vazir-Medium.eot') format('eot'),
-        url('../fonts/Vazir-Medium.woff') format('woff'),
-        url('../fonts/Vazir-Medium.woff2')format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: Vazir-Bold;
-    src: url('../fonts/Vazir-Bold.eot');
-    src: url('../fonts/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/Vazir-Bold.woff2') format('woff2'),
-        url('../fonts/Vazir-Bold.woff') format('woff'),
-        url('../fonts/Vazir-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-}
-* {
-    font-family: Vazir-Medium;
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-
-}
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --text-color: #2b2d42;
+            --light-color: #f8f9fa;
+            --error-color: #ef233c;
+            --success-color: #4cc9f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+        
         body {
-            
-            background: linear-gradient(120deg, #78c4be 0%, #1a938f 30%, #616161 70%, #147bc0 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            direction: rtl;
-            text-align: right;
-            font-family: 'Vazirmatn', Tahoma, Arial, sans-serif;
             display: flex;
-            align-items: center;
             justify-content: center;
-        }
-        .login-bg-art {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
-        /* .login-bg-art .circle1 {
-            position: absolute;
-            left: -120px;
-            top: -80px;
-            width: 320px;
-            height: 320px;
-            background: radial-gradient(circle, #ecfbff 0%, #c9e0e8 100%);
-            opacity: 0.25;
-            border-radius: 50%;
-        }
-        .login-bg-art .circle2 {
-            position: absolute;
-            right: -100px;
-            bottom: -100px;
-            width: 260px;
-            height: 260px;
-            background: radial-gradient(circle, #ecfbff 0%, #c9e0e8 100%);
-            opacity: 0.18;
-            border-radius: 50%;
-        } */
-         .loginform{
-            display: flex;
-            flex-direction: column;
             align-items: center;
-         
-         }
-         .Create-account{
-            margin-bottom: -20px;
-            margin-top: 30px;
-            text-align: center;
-          
-         }
+            padding: 15px;
+        }
+        
         .login-container {
-            display: block;
-            max-width: 410px;
             width: 100%;
-            margin: 0 auto;
-            border: none;
-            background: #fff;
-            border-radius: 30px;
-            box-shadow: 0 12px 48px 0 rgba(161,140,209,0.13), 0 2px 8px rgba(31,38,135,0.08);
-            /* padding: 20px 30px 25px 30px; */
+            max-width: 400px; /* کاهش عرض */
+            background: white;
+            border-radius: 16px; /* کاهش شعاع گوشه */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
             position: relative;
             z-index: 1;
-            border-radius: 20px;
+            
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 20px; /* کاهش padding */
+            text-align: center;
+            position: relative;
             overflow: hidden;
         }
-        /* کادر زیبای فرم */
-        .form-box {
-            background: linear-gradient(100deg, #c8b8f3 60%, #6916ee 100%);
-            border-radius: 22px;
-            box-shadow: 0 4px 24px 0 rgba(161,140,209,0.10);
-            padding: 32px 24px 24px 24px;
-            margin: 30px auto;
-            /* position: relative; */
-            height: 100%;
-            width: 85%;
-            display: block;
-            border-radius: 20px;
+        
+        .login-header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
         }
-       
+        
         .logo {
+            width: 60px; /* کاهش سایز */
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 15px; /* کاهش margin */
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 18px auto;
-            width: 86px;
-            height: 86px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #7c86e7 0%, #0f0ca9 100%);
-            box-shadow: 0 8px 24px rgba(161,140,209,0.13);
-            position: relative;
-            z-index: 1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        .logo svg {
-            width: 50px;
-            height: 50px;
-            color: #fff;
+        
+        .logo .material-symbols-outlined {
+            font-size: 32px; /* کاهش سایز آیکون */
+            color: var(--primary-color);
         }
+        
         .login-title {
-            text-align: center;
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: #0c6fe8;
-           margin: 20px auto;
-            letter-spacing: 1px;
+            font-size: 1.4rem; /* کاهش سایز فونت */
+            font-weight: 700;
+            margin-bottom: 8px; /* کاهش margin */
+        }
+        
+        .login-subtitle {
+            font-size: 0.9rem; /* کاهش سایز فونت */
+            opacity: 0.9;
+        }
+        
+        .login-body {
+            padding: 20px; /* کاهش padding */
+        }
+        
+        .form-group {
+            margin-bottom: 18px; /* کاهش margin */
             position: relative;
-            z-index: 1;
-            text-shadow: 0 2px 8px #f9fafc;
         }
-        .form-group label {
-            
-            color: #ddf2f7;
-            font-size: medium;
-            
-        }
-        .form-group{
-            width: 95%;
-            margin: 5px auto;
-        }
-        .form-group input{
-            font-size: medium;
-        }
-        .form-control {
-            border-radius: 16px;
-            font-size: 1.13em;
-            background: #f7f8fa;
-            border: 1.5px solid #e3e6ee;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            padding: 0.85rem 1rem;
-        }
-        .form-control:focus {
-            border-color: #fbc2eb;
-            box-shadow: 0 0 0 0.15rem rgba(251,194,235,.10);
-            background: #fff;
-        }
-        .btn-primary {
-            background: linear-gradient(90deg, #cb07e9 0%, #a300bc 100%);
-            width: 95%;
-            border: none;
-            transition: box-shadow 0.2s, transform 0.2s;
-            font-weight: bold;
-            border-radius: 16px;
-            font-size: 1.18em;
-            letter-spacing: 1px;
-            margin-top: 60px;
-            box-shadow: 0 2px 8px rgba(161,140,209,0.13);
-            padding: 0.7rem 0;
-        }
-        .btn-primary:hover, .btn-primary:focus {
-            box-shadow: 0 8px 28px rgba(251,194,235,0.18);
-            transform: translateY(-2px) scale(1.04);
-        }
-        .text-danger.small {
+        
+        .form-label {
             display: block;
-            margin-top: 4px;
-            font-size: 1em;
+            margin-bottom: 6px; /* کاهش margin */
+            font-weight: 500;
+            color: var(--text-color);
+            font-size: 0.9rem; /* کاهش سایز فونت */
         }
-        .alert {
-            font-size: 1.05em;
-            margin-bottom: 18px;
-            border-radius: 12px;
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px; /* کاهش padding */
+            border: 2px solid #e9ecef;
+            border-radius: 10px; /* کاهش شعاع گوشه */
+            font-size: 0.9rem; /* کاهش سایز فونت */
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
         }
-        .footer-text {
+        
+        .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            background-color: white;
+            outline: none;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 12px; /* کاهش padding */
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px; /* کاهش شعاع گوشه */
+            font-size: 1rem; /* کاهش سایز فونت */
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+            margin-top: 10px; /* کاهش margin */
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+        }
+        
+        .btn-login:active {
+            transform: translateY(0);
+        }
+        
+        .login-footer {
             text-align: center;
-            color: #b0b3c2;
-            font-size: 1em;
-            margin-top: 22px;
-            letter-spacing: 0.5px;
+            margin-top: 18px; /* کاهش margin */
+            color: #6c757d;
+            font-size: 0.85rem; /* کاهش سایز فونت */
         }
-        @media (max-width: 600px) {
+        
+        .login-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.8rem; /* کاهش سایز فونت */
+            margin-top: 4px; /* کاهش margin */
+            display: block;
+        }
+        
+        .alert {
+            padding: 12px; /* کاهش padding */
+            border-radius: 10px; /* کاهش شعاع گوشه */
+            margin-bottom: 18px; /* کاهش margin */
+            font-size: 0.85rem; /* کاهش سایز فونت */
+        }
+        
+        @media (max-width: 576px) {
             .login-container {
-                padding: 18px 4px 12px 4px;
-                border-radius: 18px;
+                max-width: 320px; /* کاهش بیشتر در موبایل */
             }
+            
+            .login-header {
+                padding: 18px 15px;
+            }
+            
+            .login-body {
+                padding: 18px 15px;
+            }
+            
             .logo {
-                width: 62px;
-                height: 62px;
+                width: 50px;
+                height: 50px;
             }
-            .logo svg {
-                width: 34px;
-                height: 34px;
+            
+            .login-title {
+                font-size: 1.2rem;
             }
-            .form-box {
-                padding: 14px 4px 10px 4px;
-                border-radius: 14px;
-            }
-        }
-        .login-container, .form-group, label, input, .login-title, .alert, .footer-text {
-            direction: rtl;
-            text-align: right;
         }
     </style>
 </head>
 <body>
-{{-- <div class="login-bg-art">
-    <div class="circle1"></div>
-    <div class="circle2"></div>
-</div> --}}
-<div class="login-container">
-    {{-- <div class="logo">
-        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <circle cx="12" cy="8" r="4"/>
-            <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
-        </svg>
-    </div> --}}
-    <div class="login-title" style="text-align:center;"> فرم ورود </div>
-    <div class="form-box">
-        {{-- @if($errors->any())
-            <div class="alert alert-danger text-center">
-                {{ $errors->first() }}
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo">
+                <span class="material-symbols-outlined">local_shipping</span>
             </div>
-        @endif --}}
-        @include('errors.message')
-        <form class="loginform" method="POST" action="{{ route('authshipper') }}">
-            @csrf
-            <div class="form-group">
-                <label for="email">ایمیل</label>
-                <input type="email" class="form-control" id="email" name="email"  required autofocus placeholder="لطفا ایمیل خود را وارد کنید">
+            <h1 class="login-title">ورود مامور ارسال</h1>
+            <p class="login-subtitle">لطفا اطلاعات حساب خود را وارد نمایید</p>
+        </div>
+        
+        <div class="login-body">
+            @include('errors.message')
+            
+            <form method="POST" action="{{ route('authshipper') }}">
+                @csrf
                 
-            </div>
-            <div class="form-group">
-                <label for="password">رمز عبور</label>
-                <input type="password" class="form-control" id="password" name="password" required placeholder="لطفا رمز عبور خود را وارد کنید">
-               
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">ورود</button>
-            <div class="Create-account ">
-                <p>حساب کاربری ندارید؟ <a class="text-dark"  href="{{ route('registerShipper') }}"><u>ایجاد حساب</u></a></p>
-            </div>
-        </form>
+                <div class="form-group">
+                    <label for="email" class="form-label"> ایمیل</label>
+                    <input type="email" class="form-control" id="email" name="email" required autofocus placeholder="example@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">رمز عبور</label>
+                    <input type="password" class="form-control" id="password" name="password" required placeholder="••••••••">
+                </div>
+                
+                <button type="submit" class="btn-login">ورود به سیستم</button>
+                
+                <div class="login-footer">
+                    حساب کاربری ندارید؟ 
+                    <a href="{{ route('registerShipper') }}">ثبت نام کنید</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-<!-- Bootstrap JS CDN -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

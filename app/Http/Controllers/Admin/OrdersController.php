@@ -74,153 +74,108 @@ class OrdersController extends Controller
     // بروزرسانی سفارش
     public function update(Request $request, Order $order)
     {
-        // dd($request);
-
-        $id=$order->id;
-       
-
+        $id = $order->id;
         $oldSend_shipper = $order->send_shipper;
         $oldReceive_shipper = $order->receive_shipper;
-        // اگر وضعیت فعلی سفارش هنوز در انتظار پردازشه، وضعیت رو تغییر بده
+
         if ($order->status === 'processing') {
-            // اعتبارسنجی فقط روی shipper_id
             $validated = $request->validate([
                 'send_shipper' => 'required|exists:shippers,id',
             ]);
+
             $order->update([
                 'send_shipper' => $validated['send_shipper'],
-                'status' => 'shipped', // یا هر وضعیت دلخواه شما
-
+                'status' => 'shipped',
             ]);
-            foreach ($order->order_detail as $item) {
 
-                
-                    $item->update([
-                    'status' => 'shipped',
-                    ]);
-                
+            foreach ($order->order_detail as $item) {
+                $item->update(['status' => 'shipped']);
             }
-            // اگر Shipper تغییر کرده باشه، شمارنده‌ها رو بروزرسانی کن
+
             if ($oldSend_shipper !== $validated['send_shipper']) {
                 if ($oldSend_shipper) {
                     Shipper::where('id', $oldSend_shipper)
                         ->where('send_orders', '>', 0)
                         ->decrement('send_orders');
                 }
-
-                Shipper::where(column: 'id', operator: $validated['send_shipper'])->increment('send_orders');
+                Shipper::where('id', $validated['send_shipper'])->increment('send_orders');
             }
-        } 
-        elseif ($order->status === 'return_requested') {
-            // اعتبارسنجی فقط روی shipper_id
+        } elseif ($order->status === 'return_requested') {
             $validated = $request->validate([
-                'receive_shipper' => 'required|exists:shippers,id',
-                'yes' => 'nullable|string|min:1',
-
+                'return_approval' => 'required|in:yes,no',
+                'receive_shipper' => 'required_if:return_approval,yes|nullable|exists:shippers,id',
             ]);
 
-
-            if ($validated['yes'] == 'yes') {
-               
-              
+            if ($validated['return_approval'] == 'yes') {
                 $order->update([
                     'receive_shipper' => $validated['receive_shipper'],
-                    'status' => 'return_in_progress', // یا هر وضعیت دلخواه شما
+                    'status' => 'return_in_progress',
                 ]);
-                foreach ($order->order_detail as $item) {
 
-                    if ($item->order_id == $id && $item->return_quantity!=null) {
-                        $item->update([
-                            'status' => 'return_in_progress',
-                        ]);
+                foreach ($order->order_detail as $item) {
+                    if ($item->order_id == $id && $item->return_quantity != null) {
+                        $item->update(['status' => 'return_in_progress']);
                     }
                 }
-                // اگر Shipper تغییر کرده باشه، شمارنده‌ها رو بروزرسانی کن
+
                 if ($oldReceive_shipper !== $validated['receive_shipper']) {
                     if ($oldReceive_shipper) {
                         Shipper::where('id', $oldReceive_shipper)
                             ->where('receive_orders', '>', 0)
                             ->decrement('receive_orders');
                     }
-
-                    Shipper::where(column: 'id', operator: $validated['receive_shipper'])->increment('receive_orders');
+                    Shipper::where('id', $validated['receive_shipper'])->increment('receive_orders');
                 }
-
-            } elseif ($validated['yes'] == 'no') {
+            } elseif ($validated['return_approval'] == 'no') {
                 $order->update([
-                    'status' => 'return_rejected', // یا هر وضعیت دلخواه شما
+                    'receive_shipper' => null,
+                    'status' => 'return_rejected',
                 ]);
-                foreach ($order->order_detail as $item) {
 
+                foreach ($order->order_detail as $item) {
                     if ($item->order_id == $id && $item->return_quantity != null) {
-                        $item->update([
-                            'status' => 'return_rejected',
-                        ]);
+                        $item->update(['status' => 'return_rejected']);
                     }
                 }
-               
+
+                // اگر قبلا مامور بازگشت داشت، شمارنده را کاهش دهید
+                if ($oldReceive_shipper) {
+                    Shipper::where('id', $oldReceive_shipper)
+                        ->where('receive_orders', '>', 0)
+                        ->decrement('receive_orders');
+                }
             }
-        } 
-        elseif($order->status === 'shipped'){
+        } elseif ($order->status === 'shipped') {
             $validated = $request->validate([
                 'send_shipper' => 'required|exists:shippers,id',
             ]);
-            // فقط shipper رو تغییر بده
-            $order->update([
-                'send_shipper' => $validated['send_shipper'],
-            ]);
-            // اگر Shipper تغییر کرده باشه، شمارنده‌ها رو بروزرسانی کن
+
+            $order->update(['send_shipper' => $validated['send_shipper']]);
+
             if ($oldSend_shipper !== $validated['send_shipper']) {
                 if ($oldSend_shipper) {
                     Shipper::where('id', $oldSend_shipper)
                         ->where('send_orders', '>', 0)
                         ->decrement('send_orders');
                 }
-
-                Shipper::where(column: 'id', operator: $validated['send_shipper'])->increment('send_orders');
+                Shipper::where('id', $validated['send_shipper'])->increment('send_orders');
             }
-        } 
-
-        elseif ($order->status === 'return_in_progress') {
+        } elseif ($order->status === 'return_in_progress') {
             $validated = $request->validate([
                 'receive_shipper' => 'required|exists:shippers,id',
             ]);
-            // فقط shipper رو تغییر بده
-            $order->update([
-                'receive_shipper' => $validated['receive_shipper'],
-            ]);
-            // اگر Shipper تغییر کرده باشه، شمارنده‌ها رو بروزرسانی کن
+
+            $order->update(['receive_shipper' => $validated['receive_shipper']]);
+
             if ($oldReceive_shipper !== $validated['receive_shipper']) {
                 if ($oldReceive_shipper) {
                     Shipper::where('id', $oldReceive_shipper)
                         ->where('receive_orders', '>', 0)
                         ->decrement('receive_orders');
                 }
-
-                Shipper::where(column: 'id', operator: $validated['receive_shipper'])->increment('receive_orders');
+                Shipper::where('id', $validated['receive_shipper'])->increment('receive_orders');
             }
         }
-
-        // // اگر Shipper تغییر کرده باشه، شمارنده‌ها رو بروزرسانی کن
-        // if ($oldSend_shipper !== $validated['send_shipper']) {
-        //     if ($oldSend_shipper) {
-        //         Shipper::where('id', $oldSend_shipper)
-        //             ->where('send_orders', '>', 0)
-        //             ->decrement('send_orders');
-        //     }
-
-        //     Shipper::where(column: 'id', operator: $validated['send_shipper'])->increment('send_orders');
-        // }
-        // اگر Shipper تغییر کرده باشه، شمارنده‌ها رو بروزرسانی کن
-        // if ($oldReceive_shipper !== $validated['receive_shipper']) {
-        //     if ($oldReceive_shipper) {
-        //         Shipper::where('id', $oldReceive_shipper)
-        //             ->where('receive_orders', '>', 0)
-        //             ->decrement('receive_orders');
-        //     }
-
-        //     Shipper::where(column: 'id', operator: $validated['receive_shipper'])->increment('receive_orders');
-        // }
 
         return redirect()
             ->route('admin.orders.show', $order)

@@ -30,6 +30,7 @@ use App\Http\Controllers\User\UserProfileController as UserUserProfileController
 use App\Http\Controllers\User\UserProfileController;
 use App\Support\Storage\Contracts\StorageInterface;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\shipper\ShipperProfileController;
 use App\Http\Controllers\User\OrderController;
 
 // Route::get('/', function () {
@@ -229,3 +230,6 @@ Route::get('logoutShipper', [\App\Http\Controllers\shipper\AuthController::class
 Route::get('/shipper/orders',[\App\Http\Controllers\shipper\OrdersController::class,'index'])->name('ShipperIndex');
 Route::post('/orders/{order}/deliver', [\App\Http\Controllers\shipper\OrdersController::class, 'deliver'])->name('shipper.orders.deliver');
 Route::post('/orders/{order}/return', [\App\Http\Controllers\shipper\OrdersController::class, 'markAsReturned'])->name('shipper.orders.return');
+Route::get('/shipper/profile', [ShipperProfileController::class, 'profile'])->name('shipper.profile');
+Route::put('/shipper/profile/update', [ShipperProfileController::class, 'updateProfile'])->name('shipper.profile.update');
+Route::put('/shipper/password/update', [ShipperProfileController::class, 'updatePassword'])->name('shipper.password.update');

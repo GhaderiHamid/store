@@ -3,284 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>ورود مامور</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+    <title>ثبت نام مامور ارسال | سامانه حمل و نقل</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- فونت‌ها و آیکون‌ها -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+    
     <style>
-        @font-face {
-    font-family: Vazir-Medium;
-    src: 
-    url('../fonts/Vazir-Medium.eot') format('eot'),
-        url('../fonts/Vazir-Medium.woff') format('woff'),
-        url('../fonts/Vazir-Medium.woff2')format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: Vazir-Bold;
-    src: url('../fonts/Vazir-Bold.eot');
-    src: url('../fonts/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/Vazir-Bold.woff2') format('woff2'),
-        url('../fonts/Vazir-Bold.woff') format('woff'),
-        url('../fonts/Vazir-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-}
-* {
-    font-family: Vazir-Medium;
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-
-}
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --text-color: #2b2d42;
+            --light-color: #f8f9fa;
+            --error-color: #ef233c;
+            --success-color: #4cc9f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+        
         body {
-            
-            background: linear-gradient(120deg, #78c4be 0%, #1a938f 30%, #616161 70%, #147bc0 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            direction: rtl;
-            text-align: right;
-            font-family: 'Vazirmatn', Tahoma, Arial, sans-serif;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            padding: 10px;
         }
-        .login-bg-art {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
-        /* .login-bg-art .circle1 {
-            position: absolute;
-            left: -120px;
-            top: -80px;
-            width: 320px;
-            height: 320px;
-            background: radial-gradient(circle, #ecfbff 0%, #c9e0e8 100%);
-            opacity: 0.25;
-            border-radius: 50%;
-        }
-        .login-bg-art .circle2 {
-            position: absolute;
-            right: -100px;
-            bottom: -100px;
-            width: 260px;
-            height: 260px;
-            background: radial-gradient(circle, #ecfbff 0%, #c9e0e8 100%);
-            opacity: 0.18;
-            border-radius: 50%;
-        } */
-         .login-account{
-           margin-bottom: -20px;
-            margin-top: 20px;
-            text-align: center;
-            font-size: medium;
-         }
-        .login-container {
-           display: block;
-            max-width: 410px;
+        
+        .register-container {
             width: 100%;
-            margin: 20px auto;
-            border: none;
-            background: #fff;
-            border-radius: 30px;
-            box-shadow: 0 12px 48px 0 rgba(161,140,209,0.13), 0 2px 8px rgba(31,38,135,0.08);
-            /* padding: 20px 30px 25px 30px; */
-            /* position: relative; */
-            z-index: 1;
-            border-radius: 20px;
+            max-width: 400px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
             overflow: hidden;
-        }
-        .registerform{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        /* کادر زیبای فرم */
-        .form-box {
-           
-            /* font-size: x-small; */
-            background: linear-gradient(100deg, #c8b8f3 60%, #6916ee 100%);
-            border-radius: 22px;
-            box-shadow: 0 4px 24px 0 rgba(161,140,209,0.10);
-            padding: 32px 24px 24px 24px;
-           margin: 20px auto;
-            /* position: relative; */
-            height: 100%;
-            width: 90%;
-            display: block;
-            border-radius: 20px;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 18px auto;
-            width: 86px;
-            height: 86px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #7c86e7 0%, #0f0ca9 100%);
-            box-shadow: 0 8px 24px rgba(161,140,209,0.13);
             position: relative;
             z-index: 1;
         }
-        .logo svg {
+        
+        .register-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .logo {
             width: 50px;
             height: 50px;
-            color: #fff;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
-        .login-title {
-            text-align: center;
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: #0c6fe8;
-           margin: 5px auto;
-            letter-spacing: 1px;
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 2px 8px #f9fafc;
+        
+        .logo .material-symbols-outlined {
+            font-size: 28px;
+            color: var(--primary-color);
         }
-        .form-group label {
-            
-            color: #ddf2f7;
-            font-size: medium;
-            
+        
+        .register-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
         }
-        .form-group{
-            width: 95%;
-            margin: 5px auto;
+        
+        .register-subtitle {
+            font-size: 0.8rem;
+            opacity: 0.9;
         }
-        .form-group input{
-            font-size: small;
+        
+        .register-body {
+            padding: 15px;
         }
-        .form-control {
-            border-radius: 16px;
-            font-size: 1.13em;
-            background: #f7f8fa;
-            border: 1.5px solid #e3e6ee;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            padding: 0.85rem 1rem;
+        
+        .form-group {
+            margin-bottom: 12px;
         }
-        .form-control:focus {
-            border-color: #fbc2eb;
-            box-shadow: 0 0 0 0.15rem rgba(251,194,235,.10);
-            background: #fff;
+        
+        .form-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
         }
-        .btn-primary {
-            background: linear-gradient(90deg, #cb07e9 0%, #a300bc 100%);
-            width: 95%;
-
-            border: none;
-            transition: box-shadow 0.2s, transform 0.2s;
-            font-weight: bold;
-            border-radius: 16px;
-            font-size: medium;
-            letter-spacing: 1px;
-            margin-top: 50px;
-            box-shadow: 0 2px 8px rgba(161,140,209,0.13);
-            padding: 0.7rem 0;
+        
+        .form-col {
+            flex: 1;
         }
-        .btn-primary:hover, .btn-primary:focus {
-            box-shadow: 0 8px 28px rgba(251,194,235,0.18);
-            transform: translateY(-2px) scale(1.04);
-        }
-        .text-danger.small {
+        
+        .form-label {
             display: block;
-            margin-top: 4px;
-            font-size: 1em;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--text-color);
+            font-size: 0.85rem;
         }
-        .alert {
-            font-size: 1.05em;
-            margin-bottom: 18px;
-            border-radius: 12px;
+        
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1.5px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            background-color: #f8f9fa;
         }
-        .footer-text {
+        
+        .form-control:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
+        
+        .btn-register {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 8px;
+            cursor: pointer;
+        }
+        
+        .register-footer {
             text-align: center;
-            color: #b0b3c2;
-            font-size: 1em;
-            margin-top: 22px;
-            letter-spacing: 0.5px;
+            margin-top: 12px;
+            color: #6c757d;
+            font-size: 0.8rem;
         }
-        @media (max-width: 600px) {
-            .login-container {
-                padding: 18px 4px 12px 4px;
-                border-radius: 18px;
-            }
-            .logo {
-                width: 62px;
-                height: 62px;
-            }
-            .logo svg {
-                width: 34px;
-                height: 34px;
-            }
-            .form-box {
-                padding: 14px 4px 10px 4px;
-                border-radius: 14px;
-            }
+        
+        .register-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
         }
-        .login-container, .form-group, label, input, .login-title, .alert, .footer-text {
-            direction: rtl;
-            text-align: right;
+        
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.75rem;
+            margin-top: 3px;
+        }
+        
+        @media (max-width: 576px) {
+            .register-container {
+                max-width: 340px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
         }
     </style>
 </head>
 <body>
-    @include('errors.message')
-{{-- <div class="login-bg-art">
-    <div class="circle1"></div>
-    <div class="circle2"></div>
-</div> --}}
-<div class="login-container">
-    {{-- <div class="logo">
-        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <circle cx="12" cy="8" r="4"/>
-            <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
-        </svg>
-    </div> --}}
-    <div class="login-title" style="text-align:center;"> فرم ثبت نام </div>
-    <div class="form-box">
+    <div class="register-container">
+        <div class="register-header">
+            <div class="logo">
+                <span class="material-symbols-outlined">local_shipping</span>
+            </div>
+            <h1 class="register-title">ثبت نام مامور ارسال</h1>
+            <p class="register-subtitle">لطفا اطلاعات مورد نیاز را وارد نمایید</p>
+        </div>
         
-        <form class="registerform" method="POST" action="{{ route('storeShipper') }}">
-            @csrf
-            <div class="form-group">
-                <label for="first_name">نام</label>
-                <input type="text" class="form-control" id="first_name" name="first_name" required autofocus placeholder="لطفا نام خود را وارد کنید">
-            </div>
-            <div class="form-group">
-                <label for="last_name">نام خانوادگی</label>
-                <input type="text" class="form-control" id="last_name" name="last_name" required 
-                    placeholder="لطفا نام خانوادگی خود را وارد کنید">
-            </div>
-            <div class="form-group">
-                <label for="city">شهر</label>
-                <input type="text" class="form-control" id="city" name="city" required
-                    placeholder="لطفا شهر خود را وارد کنید">
-            </div>
-            <div class="form-group">
-                <label for="phone">شماره همراه</label>
-                <input type="number" class="form-control" id="phone" name="phone" required placeholder="لطفا شماره همراه خود را وارد کنید">
-            </div>
-            <div class="form-group">
-                <label for="email">ایمیل</label>
-                <input type="email" class="form-control" id="email" name="email"  required placeholder="لطفا ایمیل خود را وارد کنید">
-            </div>
-            <div class="form-group">
-                <label for="password">رمز عبور</label>
-                <input type="password" class="form-control" id="password" name="password" required placeholder="لطفا رمز عبور خود را وارد کنید">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">ثبت نام</button>
-            <div class="login-account ">
-                <p>حساب کاربری دارید؟ <a class="text-dark"  href="{{ route('loginShipper') }}"><u>ورود </u></a></p>
-            </div>
-        </form>
+        <div class="register-body">
+            @include('errors.message')
+            
+            <form method="POST" action="{{ route('storeShipper') }}">
+                @csrf
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="first_name" class="form-label">نام</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" required autofocus placeholder="نام">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="last_name" class="form-label">نام خانوادگی</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" required placeholder="نام خانوادگی">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" class="form-label">شماره همراه</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" required placeholder="09xxxxxxxxx">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">آدرس ایمیل</label>
+                    <input type="email" class="form-control" id="email" name="email" required placeholder="example@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="city" class="form-label">شهر</label>
+                    <input type="text" class="form-control" id="city" name="city" required placeholder="شهر محل فعالیت">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">رمز عبور</label>
+                    <input type="password" class="form-control" id="password" name="password" required placeholder="••••••••">
+                </div>
+                
+                <button type="submit" class="btn-register">ثبت نام</button>
+                
+                <div class="register-footer">
+                    قبلاً ثبت نام کرده‌اید؟ 
+                    <a href="{{ route('loginShipper') }}">وارد شوید</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-<!-- Bootstrap JS CDN -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

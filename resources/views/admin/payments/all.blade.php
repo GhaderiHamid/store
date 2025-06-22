@@ -13,7 +13,7 @@
                                     <thead>
                                         <tr class="text-center">
                                             <th>شناسه پرداخت</th>
-                                            {{-- <th>نام مشتری</th> --}}
+                                            <th>نام مشتری</th>
                                             <th>مبلغ</th>
                                             <th>کد رهگیری</th>
                                             <th>تاریخ پرداخت</th>
@@ -26,7 +26,7 @@
                                         @foreach ($payments as $payment)
                                             <tr class="text-center">
                                                <td>{{ $payment->id }}</td>
-                                               {{-- <td>{{ $payment->order->user->first_name }} {{ $payment->order->user->last_name }}</td> --}}
+                                               <td>{{ $payment->order->user->first_name }} {{ $payment->order->user->last_name }}</td>
                                                <td>{{ number_format($payment->amount)}} تومان</td>
                                             <td>{{ hexdec($payment->transaction) }}</td>
                                                <td>{{ \Morilog\Jalali\Jalalian::fromCarbon($payment->created_at)->format('Y/m/d H:i')}}</td>

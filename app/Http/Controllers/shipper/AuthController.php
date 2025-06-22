@@ -83,7 +83,7 @@ class AuthController extends Controller
     
     public function logout()
     {
-        Auth::logout();
+        Auth::guard('shipper');
         return redirect()->route('loginShipper')->with('success', 'با موفقیت خارج شدید');
         
     }

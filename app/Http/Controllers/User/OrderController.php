@@ -14,26 +14,49 @@ class OrderController extends Controller
         // دریافت وضعیت از پارامتر URL یا مقدار پیش‌فرض
         $status = request('status', 'processing');
 
-        // دریافت سفارشات مربوط به کاربر با جزئیات محصولات و صفحه‌بندی
-        $orders = Order::where('user_id', auth()->id())
-            ->where('status', $status)
+        // ایجاد کوئری پایه
+        $query = Order::where('user_id', auth()->id())
             ->with(['details.product'])
-            ->orderBy('created_at', 'desc')
-            ->paginate(5); // تعداد آیتم‌ها در هر صفحه
+            ->orderBy('created_at', 'desc');
 
-        // تعداد سفارشات برای هر وضعیت
+        // فیلتر بر اساس دسته‌بندی انتخابی
+        switch ($status) {
+            case 'processing':
+                $query->where('status', 'processing');
+                break;
+
+            case 'shipped':
+                $query->where('status', 'shipped');
+                break;
+
+            case 'delivered':
+                $query->whereIn('status', ['delivered', 'return_rejected']);
+                break;
+
+            case 'returned':
+                $query->whereIn('status', ['return_requested', 'return_in_progress', 'returned']);
+                break;
+        }
+
+        // صفحه‌بندی نتایج
+        $orders = $query->paginate(5);
+
+        // تعداد سفارشات برای هر دسته‌بندی
         $counts = [
             'processing' => Order::where('user_id', auth()->id())
                 ->where('status', 'processing')
                 ->count(),
+
             'shipped' => Order::where('user_id', auth()->id())
                 ->where('status', 'shipped')
                 ->count(),
+
             'delivered' => Order::where('user_id', auth()->id())
-                ->where('status', 'delivered')
+                ->whereIn('status', ['delivered', 'return_rejected'])
                 ->count(),
+
             'returned' => Order::where('user_id', auth()->id())
-                ->where('status', 'returned')
+                ->whereIn('status', ['return_requested', 'return_in_progress', 'returned'])
                 ->count(),
         ];
 

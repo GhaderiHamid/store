@@ -47,7 +47,7 @@
 
                                     </div>
                                     <div class="col-md-12">
-                                    @if ($order->status === 'return_requested')
+                                    @if ($order->status === 'return_requested'||$order->status === 'returned'||$order->status==='return_rejected'||$order->status==='return_in_progress')
                                         <p><strong>علت مرجوعی:</strong>
                                             <span>
                                                 {{ $order->return_note }}
@@ -69,7 +69,7 @@
                             <div class="card-body">
                                 <p><strong>نام:</strong> {{ $order->user->first_name }} {{ $order->user->last_name }}</p>
                                 <p><strong>تلفن:</strong> {{ $order->user->phone }}</p>
-                                <p><strong>آدرس ایمیل:</strong> {{ $order->user->email }}</p>
+                                <p><strong>ایمیل:</strong> {{ $order->user->email }}</p>
                                 <p><strong>شهر:</strong> {{ $order->user->city }}</p>
 
                             </div>
@@ -93,6 +93,9 @@
                                                 <th>تصویرمحصول</th>
                                                 <th>نام محصول</th>
                                                 <th>تعداد</th>
+                                                @if ($order->status === 'return_requested'||$order->status === 'returned'||$order->status==='return_in_progress')
+                                                <th class="text-white bg-danger">تعداد مرجوعی</th>
+                                               @endif
                                                 <th>قیمت واحد</th>
                                                 <th>درصد تخفیف</th>
                                                 <th>قیمت کل</th>
@@ -106,7 +109,10 @@
                                                         alt="Product Image"></td>
                                                     <td>{{ $detail->product->name }}</td>
                                                     <td >{{ $detail->quantity }}</td>
-                                                    {{-- <td>{{ $detail->price }}</td> --}}
+                                                    @if ($order->status === 'return_requested'||$order->status === 'returned'||$order->status==='return_in_progress')
+                                               <td>{{ $detail->return_quantity?!null:0 }}</td>
+                                               @endif
+                                                   
                                                     <td>{{ number_format($detail->price) }} تومان</td>
                                                     <td>{{ $detail->discount }}</td>
                                                     <td>{{ number_format($detail->price - ($detail->price * $detail->discount) / 100) }} تومان</td>

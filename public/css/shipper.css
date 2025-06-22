@@ -27,8 +27,9 @@
 }
 
 body {
-    padding-top: 50px;
+    /* padding-top: 50px; */
     /* margin-top: -50px; */
+    padding-bottom: 50px;
     background: linear-gradient(120deg, #231815 0%, #6e2e2a 30%, #a67c52 65%, #6d597a 100%);
     min-height: 100vh;
     /* box-shadow: 0 0 240px 0 rgba(110,46,42,0.65) inset;
@@ -251,4 +252,337 @@ a:hover {
     margin-left: 5px;
     vertical-align: middle;
     color: #666;
+}
+
+/* استایل‌های هدر و منوی کاربر */
+.header-container {
+    padding: 15px 20px;
+    background: rgba(42, 42, 42, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-user {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 8px;
+    padding: 8px 15px;
+    transition: all 0.3s ease;
+}
+
+.btn-user:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.user-name {
+    font-family: Vazir-Bold;
+    font-size: 0.95rem;
+}
+
+.dropdown-menu {
+    background: #2a2a2a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 5px 0;
+}
+
+.dropdown-item {
+    color: #eee;
+    padding: 8px 15px;
+    border-radius: 5px;
+    margin: 3px 8px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.dropdown-divider {
+    border-color: rgba(255, 255, 255, 0.1);
+    margin: 5px 0;
+}
+
+/* انیمیشن برای منوی dropdown */
+.dropdown-menu {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* استایل‌های هدر اصلی */
+.main-header {
+    background: linear-gradient(135deg, #3a3a5a, #2a2a3a);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+   
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-content {
+    padding: 0 20px;
+}
+
+.logo h1 {
+    font-family: Vazir-Bold;
+    font-size: 1.4rem;
+    background: linear-gradient(90deg, #fff, #aaa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* استایل‌های پروفایل کاربر */
+.user-profile {
+    position: relative;
+}
+
+.btn-user-profile {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50px;
+    padding: 8px 15px;
+    color: #fff;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.btn-user-profile:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.user-avatar .material-symbols-outlined {
+    font-size: 24px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.user-name {
+    font-family: Vazir-Bold;
+    font-size: 0.9rem;
+    line-height: 1.2;
+}
+
+.user-role {
+    font-size: 0.75rem;
+    color: #aaa;
+    margin-top: 2px;
+}
+
+/* استایل‌های منوی dropdown */
+.dropdown-menu {
+    background: #3a3a5a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 8px 0;
+    min-width: 220px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease;
+}
+
+.dropdown-item {
+    color: #eee;
+    padding: 10px 15px;
+    margin: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.dropdown-item .material-symbols-outlined {
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.dropdown-divider {
+    border-color: rgba(255, 255, 255, 0.1);
+    margin: 8px 0;
+}
+
+/* انیمیشن */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* تغییرات برای دکمه dropdown در حالت hover */
+.btn-user-profile::after {
+    display: none;
+}
+
+.btn-user-profile:hover .user-avatar {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* استایل badge برای اعلان‌ها */
+.badge {
+    font-family: Vazir-Medium;
+    font-size: 0.7rem;
+    padding: 3px 6px;
+}
+/* استایل‌های پروفایل */
+.profile-sidebar {
+    border-radius: 10px;
+    border: none;
+    background: #fff;
+    height: 100%;
+}
+
+.profile-content {
+    border-radius: 10px;
+    border: none;
+    background: #fff;
+}
+
+.profile-avatar {
+    margin: 0 auto;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.profile-name {
+    font-family: Vazir-Bold;
+    color: #333;
+    margin-top: 15px;
+}
+
+.profile-stats {
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.profile-stats div {
+    text-align: center;
+}
+
+.profile-stats h5 {
+    font-family: Vazir-Bold;
+    color: #3a7bd5;
+}
+
+/* استایل تب‌ها */
+.nav-tabs {
+    border-bottom: 2px solid #eee;
+}
+
+.nav-tabs .nav-link {
+    border: none;
+    color: #666;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 0;
+}
+
+.nav-tabs .nav-link.active {
+    color: #3a7bd5;
+    border-bottom: 2px solid #3a7bd5;
+    background: transparent;
+}
+
+.nav-tabs .nav-link:hover {
+    color: #3a7bd5;
+    border-color: transparent;
+}
+
+/* استایل فرم‌ها */
+.form-label {
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+
+.form-control:focus {
+    border-color: #3a7bd5;
+    box-shadow: 0 0 0 0.25rem rgba(58, 123, 213, 0.25);
+}
+
+.btn-primary {
+    background-color: #3a7bd5;
+    border-color: #3a7bd5;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: #2c5fb3;
+    border-color: #2c5fb3;
+}
+
+/* استایل‌های ریسپانسیو */
+@media (max-width: 992px) {
+    .profile-sidebar {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .nav-tabs .nav-link {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+    
+    .profile-name {
+        font-size: 18px;
+    }
 }

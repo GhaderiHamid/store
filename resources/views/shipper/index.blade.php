@@ -21,13 +21,51 @@
 </head>
 
 <body class="rtl">
- 
-    <div class="container custom-container mt-5">
-        <div class="d-flex align-items-center justify-content-between"> 
-            <h2 class="text-white mb-4">لیست سفارشات شما</h2>
-            <div class="border rounded p-1 btn d-flex align-items-center mb-3">
-                <a href="{{ route('logoutShipper') }}"><p class="m-0">خروج از حساب کاربری</p></a>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content d-flex align-items-center justify-content-between py-3">
+                <div class="logo">
+                    <h1 class="text-white mb-0">پنل مامور ارسال</h1>
+                </div>
+                
+                <div class="user-profile">
+                    <div class="dropdown">
+                        <button class="btn-user-profile dropdown-toggle d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="user-avatar">
+                                <span class="material-symbols-outlined">account_circle</span>
+                            </div>
+                            <div class="user-info ms-2">
+                                <span class="user-name">{{ Auth::guard('shipper')->user()->first_name  ?? 'حساب کاربری' }} {{ Auth::guard('shipper')->user()->last_name  ?? 'حساب کاربری' }}</span>
+                                
+                            </div>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="{{ route('shipper.profile') }}">
+                                    <span class="material-symbols-outlined me-2">person</span>
+                                    پروفایل کاربری
+                                </a>
+                            </li>
+                           
+                            
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center " href="{{ route('logoutShipper') }}">
+                                    <span class="material-symbols-outlined me-2">logout</span>
+                                    خروج از سیستم
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+        </div>
+    </header>
+    <div class="container custom-container mt-5">
+        <div class="header-container d-flex align-items-center justify-content-between mb-4">
+            <h2 class="text-white mb-0">لیست سفارشات شما</h2>
+            
+            
         </div>
         <div class="row">
             <div class="col-12">
@@ -181,8 +219,8 @@
                                                 
                                                 <div class="order-detail">
                                                     <div><span class="material-symbols-outlined order-detail-icon">calendar_today</span>
-                                                        <span class="order-detail-label">تاریخ سفارش:</span></div>
-                                                    <span>{{ \Morilog\Jalali\Jalalian::fromCarbon($order->created_at)->format('Y/m/d H:i') }}</span>
+                                                        <span class="order-detail-label">تاریخ درخواست:</span></div>
+                                                    <span>{{ \Morilog\Jalali\Jalalian::fromCarbon($order->updated_at)->format('Y/m/d H:i') }}</span>
                                                 </div>
                                                 <div class="order-detail">
                                                     <div><span class="material-symbols-outlined order-detail-icon">info</span>
