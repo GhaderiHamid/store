@@ -29,6 +29,7 @@ class ShipperProfileController extends Controller
             'email' => 'nullable|email|max:255|unique:shippers,email,' . Auth::guard('shipper')->id(),
             'city' => 'nullable|string|min:2|max:255',
             'phone' => 'nullable|digits:11|unique:users,phone',
+            'sheba_number' => 'nullable|string|min:26|',
             'address' => 'nullable|string|min:3|max:255',
         ]);
 
@@ -40,6 +41,7 @@ class ShipperProfileController extends Controller
             'city' => $request['city'] ?? null,
             'phone' => $request['phone'] ?? null,
             'address' => $request['address'] ?? null,
+            'sheba_number' => $request['sheba_number'] ?? null,
         ];
         Shipper::where('id', $id)->update($data);
         return redirect()->route('shipper.profile')->with('success', 'پروفایل با موفقیت به‌روزرسانی شد.');

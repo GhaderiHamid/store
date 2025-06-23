@@ -28,6 +28,7 @@ class UserProfileController extends Controller
             'password' => 'nullable|string|min:6',
             'city' => 'nullable|string|min:2|max:255',
             'phone' => 'nullable|digits:11|unique:users,phone,' . $user->id,
+            'sheba_number'=>'nullable|string|min:26|',
             'address' => 'nullable|string|min:3|max:255',
         ]);
 
@@ -38,6 +39,7 @@ class UserProfileController extends Controller
             'city' => $data['city'] ?? null,
             'phone' => $data['phone'] ?? null,
             'address' => $data['address'] ?? null,
+            'sheba_number'=>$data['sheba_number']??null,
         ];
 
         if (!empty($data['password'])) {

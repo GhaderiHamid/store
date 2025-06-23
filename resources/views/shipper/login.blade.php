@@ -116,7 +116,7 @@
         .form-control {
             width: 100%;
             padding: 12px 15px; /* کاهش padding */
-            border: 2px solid #e9ecef;
+            border: 2px solid #a3a3a3;
             border-radius: 10px; /* کاهش شعاع گوشه */
             font-size: 0.9rem; /* کاهش سایز فونت */
             transition: all 0.3s ease;
@@ -228,12 +228,12 @@
                 
                 <div class="form-group">
                     <label for="email" class="form-label"> ایمیل</label>
-                    <input type="email" class="form-control" id="email" name="email" required autofocus placeholder="example@example.com">
+                    <input type="email" class="form-control" id="email" name="email" required autofocus >
                 </div>
                 
                 <div class="form-group">
                     <label for="password" class="form-label">رمز عبور</label>
-                    <input type="password" class="form-control" id="password" name="password" required placeholder="••••••••">
+                    <input type="password" class="form-control" id="password" name="password" required >
                 </div>
                 
                 <button type="submit" class="btn-login">ورود به سیستم</button>

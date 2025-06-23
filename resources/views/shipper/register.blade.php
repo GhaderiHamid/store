@@ -112,7 +112,7 @@
         .form-control {
             width: 100%;
             padding: 10px 12px;
-            border: 1.5px solid #e9ecef;
+            border: 1.5px solid #a3a3a3;
             border-radius: 8px;
             font-size: 0.85rem;
             background-color: #f8f9fa;
@@ -187,35 +187,35 @@
                     <div class="form-col">
                         <div class="form-group">
                             <label for="first_name" class="form-label">نام</label>
-                            <input type="text" class="form-control" id="first_name" name="first_name" required autofocus placeholder="نام">
+                            <input type="text" class="form-control" id="first_name" name="first_name" required autofocus>
                         </div>
                     </div>
                     <div class="form-col">
                         <div class="form-group">
                             <label for="last_name" class="form-label">نام خانوادگی</label>
-                            <input type="text" class="form-control" id="last_name" name="last_name" required placeholder="نام خانوادگی">
+                            <input type="text" class="form-control" id="last_name" name="last_name" required >
                         </div>
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="phone" class="form-label">شماره همراه</label>
-                    <input type="tel" class="form-control" id="phone" name="phone" required placeholder="09xxxxxxxxx">
+                    <input type="tel" class="form-control" id="phone" name="phone" required >
                 </div>
                 
                 <div class="form-group">
                     <label for="email" class="form-label">آدرس ایمیل</label>
-                    <input type="email" class="form-control" id="email" name="email" required placeholder="example@example.com">
+                    <input type="email" class="form-control" id="email" name="email" required >
                 </div>
                 
                 <div class="form-group">
                     <label for="city" class="form-label">شهر</label>
-                    <input type="text" class="form-control" id="city" name="city" required placeholder="شهر محل فعالیت">
+                    <input type="text" class="form-control" id="city" name="city" required >
                 </div>
                 
                 <div class="form-group">
                     <label for="password" class="form-label">رمز عبور</label>
-                    <input type="password" class="form-control" id="password" name="password" required placeholder="••••••••">
+                    <input type="password" class="form-control" id="password" name="password" required >
                 </div>
                 
                 <button type="submit" class="btn-register">ثبت نام</button>

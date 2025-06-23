@@ -49,8 +49,9 @@
                                             @foreach($shippers as $shipper)
                                                 @if($shipper->city == $order->user->city)
                                                     <option value="{{ $shipper->id }}" @if($shipper->id == $order->send_shipper) selected @endif>
-                                                        {{ $shipper->first_name }} {{ $shipper->last_name }} 
-                                                        (تعداد ارسال: {{ $shipper->send_orders }} سفارش)
+                                                        {{ $shipper->first_name }} {{ $shipper->last_name }} (تعداد ارسال:
+                                                {{ $shipper->send_orders }}</> سفارش *** تعداد بازگشت:
+                                                {{ $shipper->receive_orders }} سفارش)
                                                     </option>
                                                 @endif
                                             @endforeach

@@ -135,6 +135,10 @@
                                             <input type="email" class="form-control" name="email" value="{{ $shipper->email }}" required >
                                         </div>
                                         <div class="col-md-6 mb-3">
+                                            <label class="form-label">ایمیل</label>
+                                            <input type="sheba_number" maxlength="26" class="form-control" name="sheba_number" value="{{ $shipper->sheba_number }}" >
+                                        </div>
+                                        <div class="col-md-6 mb-3">
                                             <label class="form-label">تاریخ عضویت</label>
                                             <input type="text" class="form-control" value="{{ \Morilog\Jalali\Jalalian::fromCarbon($shipper->created_at)->format('Y/m/d') }}" disabled>
                                         </div>

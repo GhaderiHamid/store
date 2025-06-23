@@ -97,6 +97,19 @@
                         @enderror
                     </div>
                     <div class="mb-3">
+                        <label for="sheba_number" class="form-label text-white">شماره شبا</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-info text-white border-0">
+                                <span class="material-icons">account_balance</span> <!-- آیکون جدید -->
+                            </span>
+                            <input type="text" maxlength="26" class="form-control bg-dark text-white @error('sheba_number') is-invalid @enderror"
+                                id="sheba_number" name="sheba_number" value="{{ old('sheba_number', $user->sheba_number) }}">
+                        </div>
+                        @error('sheba_number')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
                         <label for="address" class="form-label text-white">آدرس</label>
                         <div class="input-group">
                             <span class="input-group-text bg-info text-white border-0">

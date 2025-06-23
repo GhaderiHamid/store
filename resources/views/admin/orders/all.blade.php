@@ -46,7 +46,7 @@
                                             <td>{{ optional(value: $order->payment)->amount ? number_format(optional($order->payment)->amount) : 'بدون پرداخت' }}
                                             </td>
                                             <td>{{ \Morilog\Jalali\Jalalian::fromCarbon($order->created_at)->format('Y/m/d H:i')}}</td>
-                                            <td>{{ $statusLabels[$order->status]  }}</td>
+                                            <td>{{ $statusLabels[$order->status] ?? 'null' }}</td>
 
                                             <td class="text-center">
                                                 <a href="{{ route('admin.orders.show', $order) }}" class="btn btn-info btn-sm text-white">
