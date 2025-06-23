@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use GrahamCampbell\ResultType\Success;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -15,7 +16,7 @@ class OrderController extends Controller
         $status = request('status', 'processing');
 
         // ایجاد کوئری پایه
-        $query = Order::where('user_id', auth()->id())
+        $query = Order::where('user_id', Auth::guard('web')->id())
             ->with(['details.product'])
             ->orderBy('created_at', 'desc');
 
@@ -43,19 +44,19 @@ class OrderController extends Controller
 
         // تعداد سفارشات برای هر دسته‌بندی
         $counts = [
-            'processing' => Order::where('user_id', auth()->id())
+            'processing' => Order::where('user_id', Auth::guard('web')->id())
                 ->where('status', 'processing')
                 ->count(),
 
-            'shipped' => Order::where('user_id', auth()->id())
+            'shipped' => Order::where('user_id', Auth::guard('web')->id())
                 ->where('status', 'shipped')
                 ->count(),
 
-            'delivered' => Order::where('user_id', auth()->id())
+            'delivered' => Order::where('user_id', Auth::guard('web')->id())
                 ->whereIn('status', ['delivered', 'return_rejected'])
                 ->count(),
 
-            'returned' => Order::where('user_id', auth()->id())
+            'returned' => Order::where('user_id', Auth::guard('web')->id())
                 ->whereIn('status', ['return_requested', 'return_in_progress', 'returned'])
                 ->count(),
         ];

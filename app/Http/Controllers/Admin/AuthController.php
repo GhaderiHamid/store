@@ -20,19 +20,16 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        if (Auth::attempt($credentials)) {
-            // چک کردن نقش کاربر و هدایت به صفحه مناسب
-            if (Auth::user()->role === 'admin') {
-                return redirect()->route('admin.index'); // هدایت مدیر به داشبورد
-            }
-            // return redirect()->route(''); // هدایت کاربر به صفحه اصلی
+        if (Auth::guard('admin')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->route('admin.index');
         }
 
         return back()->withErrors(['email' => 'اطلاعات ورود صحیح نیست']);
     }
     public function logout()
     {
-        Auth::logout();
+        Auth::guard('admin')->logout();
         // return redirect()->route('frontend.home.all')->with('success', 'با موفقیت خارج شدید');
         return back();
     }

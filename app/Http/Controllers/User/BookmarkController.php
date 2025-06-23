@@ -13,7 +13,7 @@ class BookmarkController extends Controller
 
     public function toggleBookmark(Request $request)
     {
-        $user = Auth::user();
+        $user = Auth::guard('web')->user();
         $productId = $request->product_id;
 
         $bookmarkExists = Bookmark::where('user_id', $user->id)
@@ -35,7 +35,7 @@ class BookmarkController extends Controller
 
     public function getBookmarkStatus(Request $request)
     {
-        $user = Auth::user();
+        $user = Auth::guard('web')->user();
         $productId = $request->product_id;
 
         $bookmarked = Bookmark::where('user_id', $user->id)
@@ -47,7 +47,7 @@ class BookmarkController extends Controller
 
     public function bookmarkedProducts()
     {
-        $user = Auth::user();
+        $user = Auth::guard('web')->user();
         $bookmarkedProducts = Product::whereIn('id', Bookmark::where('user_id', $user->id)->pluck('product_id'))->get();
 
         return view('frontend.product.bookmarked', compact('bookmarkedProducts'));
@@ -55,7 +55,7 @@ class BookmarkController extends Controller
 
     public function unbookmark(Request $request)
     {
-        $user = Auth::user();
+        $user = Auth::guard('web')->user();
         Bookmark::where('user_id', $user->id)
             ->where('product_id', $request->product_id)
             ->delete();

@@ -13,7 +13,7 @@ class VoteController extends Controller
     // دریافت رأی کاربر هنگام بارگذاری صفحه
     public function show($productId)
     {
-        $user = Auth::user();
+        $user = Auth::guard('web')->user();
         $vote = Vote::where('user_id', $user->id)
             ->where('product_id', $productId)
             ->first();
@@ -26,7 +26,7 @@ class VoteController extends Controller
     // ثبت یا جایگزینی رأی
     public function store(Request $request)
     {
-        $user = Auth::user();
+        $user = Auth::guard('web')->user();
         $productId = $request->input('product_id');
         $value = $request->input('value');
 

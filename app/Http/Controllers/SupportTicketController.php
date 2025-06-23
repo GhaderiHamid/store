@@ -10,7 +10,7 @@ class SupportTicketController extends Controller
 {
     public function index()
     {
-        $tickets = SupportTicket::where('user_id', Auth::id())->latest()->get();
+        $tickets = SupportTicket::where('user_id', Auth::guard('web')->id())->latest()->get();
         return view('frontend.support.index', compact('tickets'));
     }
 
@@ -26,7 +26,7 @@ class SupportTicketController extends Controller
             'message' => 'required|string',
         ]);
         $ticket = SupportTicket::create([
-            'user_id' => Auth::id(),
+            'user_id' => Auth::guard('web')->id(),
             'subject' => $request->subject,
             'message' => $request->message,
             'status' => 'open',
@@ -51,7 +51,7 @@ class SupportTicketController extends Controller
         ]);
         SupportTicketReply::create([
             'ticket_id' => $ticket->id,
-            'user_id' => Auth::id(),
+            'user_id' => Auth::guard('web')->id(),
             'message' => $request->message,
         ]);
         return back()->with('success', 'پاسخ شما ارسال شد.');
@@ -60,7 +60,7 @@ class SupportTicketController extends Controller
     public function destroy(SupportTicket $ticket)
     {
         // فقط کاربر صاحب تیکت می‌تواند آن را حذف کند
-        if ($ticket->user_id !== Auth::id()) {
+        if ($ticket->user_id !== Auth::guard('web')->id()) {
             abort(403, 'شما اجازه حذف این تیکت را ندارید.');
         }
         $ticket->delete();
@@ -69,7 +69,7 @@ class SupportTicketController extends Controller
 
     public function update(Request $request, SupportTicket $ticket)
     {
-        if ($ticket->user_id !== Auth::id()) {
+        if ($ticket->user_id !== Auth::guard('web')->id()) {
             abort(403, 'شما اجازه ویرایش این تیکت را ندارید.');
         }
         if ($ticket->status === 'closed') {
@@ -85,7 +85,7 @@ class SupportTicketController extends Controller
 
     public function updateReply(Request $request, SupportTicket $ticket, SupportTicketReply $reply)
     {
-        if ($reply->user_id !== Auth::id()) {
+        if ($reply->user_id !== Auth::guard('web')->id()) {
             abort(403, 'شما اجازه ویرایش این پیام را ندارید.');
         }
         if ($ticket->status === 'closed') {

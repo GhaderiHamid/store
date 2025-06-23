@@ -21,7 +21,7 @@
                             {{ jdate($ticket->created_at)->format('Y/m/d H:i') }}
                         </small>
                     </div>
-                    @if(auth()->id() === $ticket->user_id && $ticket->status == 'open')
+                    @if(auth('web')->id() === $ticket->user_id && $ticket->status == 'open')
                     <form action="{{ route('frontend.support.update', $ticket->id) }}" method="POST" class="mb-3">
                         @csrf
                         @method('PUT')
@@ -41,15 +41,32 @@
                 </div>
             </div>
             @foreach($ticket->replies as $reply)
-            <div class="card mb-3 ml-4 shadow-sm border-0 rounded-4" style="background:rgba(245,247,255,0.7);">
+            <div class="card mb-3 mr-4 shadow-sm border-0 rounded-4 @if ($reply->user_id==auth('admin')->id())
+                    ml-5
+                @endif" style="background:rgba(245,247,255,0.7);">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-2">
+                      
+                        @if ($reply->user_id==auth('admin')->id())
                         <span class="material-symbols-outlined text-success mr-2" style="font-size:1.1rem;">reply</span>
-                        {{-- <strong>admin</strong> --}}
-                        <span class="badge badge-light ml-2" style="font-size:0.85rem;">پاسخ</span>
+                        <span class="badge badge-light mr-2" style="font-size:0.85rem;">admin</span>
+                        {{-- <strong class="text-dark">admin</strong> --}}
+                        @else
+                        <span class="material-symbols-outlined" style="font-size:1.1rem; color:red; margin-left:0.5rem; transform: scaleX(-1); display:inline-block;">reply</span>           
+                        <span class="badge badge-light mr-2" style="font-size:0.85rem;">شما</span>
+                        {{-- <strong class="text-dark">شما</strong> --}}
+                        @endif
+                        
+                       
                     </div>
-                    <div class="bg-white rounded p-2 mb-1 border-right border-success" style="border-right: 4px solid #28a745;">
-                        @if($reply->user_id == auth()->id() && $ticket->status == 'open')
+                    @if ($reply->user_id==auth('admin')->id())
+                        <div class="bg-white rounded p-2 mb-1 border-right border-success" style="border-right: 5px solid #28a745 !important;">
+
+                    @else
+                        <div class="bg-white rounded p-2 mb-1 border-right border-danger " style="border-right: 5px solid #ff0303 !important;">
+
+                     @endif
+                        @if($reply->user_id == auth('web')->id() && $ticket->status == 'open')
                             @if(request('edit_reply') == $reply->id)
                                 <form action="{{ route('frontend.support.reply.update', [$ticket->id, $reply->id]) }}" method="POST" class="mb-2">
                                     @csrf

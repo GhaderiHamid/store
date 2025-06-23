@@ -135,7 +135,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
+        'admin' => [ // گارد جدید برای ادمین‌ها
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
         'shipper' => [
             'driver' => 'session',
             'provider' => 'shippers',
@@ -146,6 +149,16 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+            'conditions' => [
+                ['role', '=', 'user'], // فقط کاربران عادی
+            ],
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+            'conditions' => [
+                ['role', '=', 'admin'], // فقط ادمین‌ها
+            ],
         ],
 
         'shippers' => [

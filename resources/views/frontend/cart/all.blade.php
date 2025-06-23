@@ -91,7 +91,7 @@
             <input type="hidden" name="data" id="data-input"
                 value="{{ json_encode([
                     'subtotal' => $total,
-                    'user_id' => auth()->id(),
+                    'user_id' => auth('web')->id(),
                     'products' => $products->map(function ($item) use ($cart) {
                             $quantity = is_array($cart[$item->id]) ? $cart[$item->id]['quantity'] ?? 1 : $cart[$item->id];
                             $discount = $item->discount ?? 0;

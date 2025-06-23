@@ -11,7 +11,7 @@ class AdminAuth
     public function handle(Request $request, Closure $next)
     {
         // بررسی ورود و نقش کاربر
-        if (!Auth::check() || Auth::user()->role !== 'admin') {
+        if (!Auth::guard('admin')->check()) {
             return redirect('/loginAdmin')->with('error', 'دسترسی به این بخش فقط برای مدیران امکان‌پذیر است.');
         }
 

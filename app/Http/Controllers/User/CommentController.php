@@ -22,7 +22,7 @@ class CommentController extends Controller
         $analysis = $this->analyzeComment($commentText);
 
         Comment::create([
-            'user_id' => Auth::id(),
+            'user_id' => Auth::guard('web')->id(),
             'product_id' => $productId,
             'comment_text' => $commentText, // ذخیره رشته صحیح
             'analysis' => json_encode($analysis)
@@ -33,13 +33,13 @@ class CommentController extends Controller
 
     public function index()
     {
-        $comments = Comment::with('product')->where('user_id', auth()->id())->get();
+        $comments = Comment::with('product')->where('user_id', Auth::guard('web')->id())->get();
         return view('frontend.comment.all', compact('comments'));
     }
 
     public function destroy($id)
     {
-        $comment = Comment::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+        $comment = Comment::where('id', $id)->where('user_id', Auth::guard('web')->id())->firstOrFail();
         $comment->delete();
 
         return redirect()->back()->with('success', 'دیدگاه شما با موفقیت حذف شد.');
@@ -47,7 +47,7 @@ class CommentController extends Controller
 
     public function edit($id)
     {
-        $comment = Comment::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+        $comment = Comment::where('id', $id)->where('user_id', Auth::guard('web')->id())->firstOrFail();
         return view('frontend.comment.edit', compact('comment'));
     }
 
@@ -57,7 +57,7 @@ class CommentController extends Controller
             'comment_text' => 'required|string|max:1000',
         ]);
 
-        $comment = Comment::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+        $comment = Comment::where('id', $id)->where('user_id', Auth::guard('web')->id())->firstOrFail();
         $comment->update([
             'comment_text' => $request->input('comment_text'),
         ]);

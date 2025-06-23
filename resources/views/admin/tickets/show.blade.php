@@ -3,7 +3,7 @@
     <main role="main" class="col-md-9  col-lg-10 px-4 content">
             <div class="container mt-4" style="background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%); border-radius: 2.5rem; padding: 2.5rem 0; box-shadow: 0 8px 32px rgba(44,62,80,0.08);">
                 <div class="row justify-content-center">
-                    <div class="col-lg-8 col-md-10">
+                    <div class="col-lg-8 col-md-10 p-0" >
                         <div class="card shadow-lg border-0 rounded-5 mb-4" style="overflow:hidden; transition: box-shadow 0.2s; border: 1.5px solid #e3e8f7;">
                             <div class="card-header bg-primary text-white rounded-top-5 d-flex align-items-center gap-2" style="background: linear-gradient(90deg,#007bff 0,#6610f2 100%); border-bottom: 2px solid #36d1c4; box-shadow: 0 2px 12px rgba(102,16,242,0.07);">
                                 <span class="material-symbols-outlined align-middle" style="font-size:1.8rem;">confirmation_number</span>
@@ -25,15 +25,34 @@
                             </div>
                         </div>
                         @foreach($ticket->replies as $reply)
-                            <div class="card mb-3 ml-4 shadow-sm border-0 rounded-4" style="background:rgba(245,247,255,0.96); box-shadow: 0 4px 18px rgba(0,0,0,0.10); transition: box-shadow 0.2s; border-right: 4px solid #dc3545;">
-                                <div class="card-body" style="border-radius:1.5rem;">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <span class="material-symbols-outlined text-danger mr-2" style="font-size:1.13rem;">reply</span>
-                                        <span class="badge badge-danger ml-2" style="font-size:0.92rem; box-shadow: 0 2px 8px rgba(220,53,69,0.13); background:linear-gradient(90deg,#ff5858 0,#f09819 100%); color:#fff; border-radius:1rem;">پاسخ</span>
-                                    </div>
-                                    <div class="bg-white rounded-4 p-2 mb-1 border-right border-danger" style="border-right: 4px solid #dc3545; box-shadow: 0 2px 8px rgba(220,53,69,0.09);">
-                                        {{-- اگر پاسخ توسط ادمین فعلی ثبت شده باشد و تیکت باز باشد، دکمه ویرایش نمایش داده شود --}}
-                                        @if($reply->user_id == auth()->id())
+                        <div class="card mb-3  shadow-sm border-0 rounded-4 @if ($reply->user_id==auth('web')->id())
+                            mr-5
+                            @else
+                            ml-5
+                        @endif" style="background:rgba(245,247,255,0.7);">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-2">
+                               
+                                @if ($reply->user_id==auth('web')->id())
+                                <span class="material-symbols-outlined text-success ml-2" style="font-size:1.1rem;">reply</span>
+                                <span class="badge badge-light ml-2" style="font-size:0.85rem;">کاربر</span>
+                                {{-- <strong class="text-dark">کاربر</strong> --}}
+                                @else
+                                <span class="material-symbols-outlined" style="font-size:1.1rem; color:red; margin-left:0.5rem; transform: scaleX(-1); display:inline-block;">reply</span>                  
+                                <span class="badge badge-light ml-2" style="font-size:0.85rem;">شما</span>
+                                {{-- <strong class="text-dark">شما</strong> --}}
+                                @endif
+                                
+                                
+                            </div>
+                            @if ($reply->user_id==auth('web')->id())
+                                <div class="bg-white rounded p-2 mb-1 border-right border-success" style="border-right: 5px solid #28a745 !important;">
+        
+                            @else
+                                <div class="bg-white rounded p-2 mb-1 border-right border-danger " style="border-right: 5px solid #ff0303 !important;">
+        
+                             @endif                                   {{-- اگر پاسخ توسط ادمین فعلی ثبت شده باشد و تیکت باز باشد، دکمه ویرایش نمایش داده شود --}}
+                                        @if($reply->user_id == auth('admin')->id())
                                             @if($ticket->status == 'open')
                                                 @if(request('edit_reply') == $reply->id)
                                                     <form action="{{ route('admin.tickets.reply.update', [$ticket->id, $reply->id]) }}" method="POST" class="mb-2">

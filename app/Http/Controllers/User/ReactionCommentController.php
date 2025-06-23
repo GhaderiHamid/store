@@ -18,7 +18,7 @@ class ReactionCommentController extends Controller
             'reaction' => 'required|in:like,dislike',
         ]);
 
-        $userId = Auth::id();
+        $userId = Auth::guard('web')->id();
         $commentId = $request->input('comment_id');
         $reactionType = $request->input('reaction');
 

@@ -12,7 +12,7 @@ class LikeController extends Controller
 {
     public function toggleLike(Request $request)
     {
-        $user = Auth::user();
+        $user = Auth::guard('web')->user();
         $productId = $request->product_id;
 
         $likeExists = LikeProduct::where('user_id', $user->id)
@@ -35,7 +35,7 @@ class LikeController extends Controller
 
     public function getLikeStatus(Request $request)
     {
-        $user = Auth::user();
+        $user = Auth::guard('web')->user();
         $productId = $request->product_id;
 
         $liked = LikeProduct::where('user_id', $user->id)
@@ -47,7 +47,7 @@ class LikeController extends Controller
 
     public function getLikedProducts()
     {
-        $user = Auth::user();
+        $user = Auth::guard('web')->user();
         $likedProducts = Product::whereIn('id', function ($query) use ($user) {
             $query->select('product_id')
                 ->from('like_products')
@@ -59,7 +59,7 @@ class LikeController extends Controller
 
     public function unlikeProduct(Request $request)
     {
-        $user = Auth::user();
+        $user = Auth::guard('web')->user();
         $productId = $request->product_id;
 
         LikeProduct::where('user_id', $user->id)

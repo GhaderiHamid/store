@@ -32,14 +32,15 @@ class LoginController extends Controller
             'email' => $validatedData['email'],
             'password'=> Hash::make($validatedData['password']),
             'phone' => $validatedData['phone'],
-           
-          
+            'role' => 'user',
+
+
         ]);
         if (! $createdUser) {
             return back()->with('failed', '    ثبت نام انجام نشد');
         }
-        
-        Auth::login($createdUser);
+
+        Auth::guard('web')->login($createdUser);
         return redirect()->route('frontend.home.all')->with('success','ثبت نام با موفقیت انجام شد');
         // return back()->with('success', 'ثبت نام با موفقیت انجام شد ');
     }
@@ -50,7 +51,7 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::guard('web')->attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->route('frontend.home.all')->with('success', 'ورود موفقیت‌آمیز بود');
         }
@@ -61,7 +62,7 @@ class LoginController extends Controller
     }
     public function logout()
     {
-        Auth::logout();
+        Auth::guard('web')->logout();
         return redirect()->route('frontend.home.all')->with('success','با موفقیت خارج شدید');
     }
 }

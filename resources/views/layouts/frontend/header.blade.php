@@ -82,7 +82,7 @@
 
 
                         <div class="col-sm-12 col-md-5 d-flex mt-2">
-                            @if(Auth::check())
+                            @if(Auth::guard('web')->check())
                                 <div class="d-inline-block mr-2">
                                     <a class="btn btn-secondary login text-white shop-card text-decoration-none d-flex align-items-center"
                                         href="{{ route('frontend.cart.all') }}">
@@ -101,7 +101,7 @@
 
 
                             <div class="d-inline-block">
-                                @if(Auth::check())
+                                @if(Auth::guard('web')->check())
                                     <div class="dropdown ">
                                         <a href="#"
                                             class="btn btn-secondary dropdown-toggle  login text-white shop-card text-decoration-none d-flex align-items-center"
@@ -118,7 +118,7 @@
                                             <li><a class="dropdown-item border " href="{{ route('user.liked.products') }}">محصولات لایک‌ شده</a></li>
                                             <li><a class="dropdown-item border " href="{{ route('comments.index') }}">کامنت‌ها</a></li>
                                             <li><a class="dropdown-item border " href="{{ route('user.profile.edit') }}">بروزرسانی حساب کاربری</a></li>
-                                            <li><a class="dropdown-item border " href="{{ route('user.recommendations', ['userId' => Auth::user()->id]) }}"> توصیه ها و پیشنهادات</a></li>
+                                            <li><a class="dropdown-item border " href="{{ route('user.recommendations', ['userId' => Auth::guard('web')->user()->id]) }}"> توصیه ها و پیشنهادات</a></li>
                                             <li>
                                                 <hr class="dropdown-divider">
                                             </li>

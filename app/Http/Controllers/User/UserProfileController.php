@@ -13,13 +13,13 @@ class UserProfileController extends Controller
 {
     public function edit()
     {
-        $user = Auth::user();
+        $user = Auth::guard('web')->user();
         return view('frontend.user.edit', compact('user'));
     }
 
     public function update(Request $request)
     {
-        $user = Auth::user();
+        $user = Auth::guard('web')->user();
 
         $data = $request->validate([
             'first_name' => 'required|string|min:3|max:255',

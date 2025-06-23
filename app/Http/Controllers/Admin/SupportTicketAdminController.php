@@ -31,7 +31,7 @@ class SupportTicketAdminController extends Controller
         ]);
         \App\Models\SupportTicketReply::create([
             'ticket_id' => $ticket->id,
-            'user_id' => auth()->id(),
+            'user_id' => Auth::guard('admin')->id(),
             'message' => $request->message,
         ]);
         return back()->with('success', 'پاسخ شما ارسال شد.');
@@ -46,7 +46,7 @@ class SupportTicketAdminController extends Controller
 
     public function updateReply(Request $request, SupportTicket $ticket, SupportTicketReply $reply)
     {
-        if ($reply->user_id !== auth()->id()) {
+        if ($reply->user_id !== Auth::guard('admin')->id()) {
             abort(403);
         }
         if ($ticket->status === 'closed') {
