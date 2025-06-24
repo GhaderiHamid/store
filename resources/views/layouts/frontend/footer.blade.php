@@ -80,6 +80,7 @@
     
 
 <script src="/script/javaScript.js"></script>
+<script src="/script/cart.js"></script>
 
 <script src="/script/zoomy.js"></script>
 

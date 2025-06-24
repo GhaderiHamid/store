@@ -1,221 +1,216 @@
 <!DOCTYPE html>
 <html lang="fa">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>درگاه پرداخت</title>
-        <link rel="stylesheet" href="/css/payment.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درگاه پرداخت</title>
+    <link rel="stylesheet" href="/css/payment.css">
+</head>
 
-    <body>
-        <div class="payment-form">
-            <!-- شمارش معکوس -->
-            <div id="countdownBox">
-                <span class="timer-icon">⏳</span>
-                <span class="timer-label">زمان باقی‌مانده:</span>
-                <span id="countdownTimer">15:00</span>
-            </div>
-            <h5> درگاه پرداخت</h5>
-
-            <form id="paymentForm" action="{{ route('pay') }}" method="POST" autocomplete="off">
-                @csrf
-                <input type="hidden" name="amount" value="{{ isset($subtotal) ? $subtotal : $basket->subTotal() }}">
-
-
-                <input class="cartNumber" type="text" placeholder="شماره کارت" required maxlength="19"
-                    oninput="formatCardNumber(this);">
-                <div class="row-flex">
-                    <input type="password" placeholder="رمز دوم" required
-                        oninput="this.value=this.value.replace(/[^0-9]/g,'');">
-                    <input type="text" placeholder="CVV2" maxlength="4" required
-                        oninput="this.value=this.value.replace(/[^0-9]/g,'');">
-                </div>
-                <div class="expiry-row">
-                    <input type="text" id="yearInput" placeholder="سال" maxlength="2" required
-                        onkeypress="return validateYearKeyPress(event)" oninput="validateYearInput(this)">
-                    <p style="color: #38f9d7;">/</p>
-                    <input type="text" id="monthInput" placeholder="ماه" maxlength="2" required
-                        onkeypress="return validateMonthKeyPress(event)" oninput="validateMonthInput(this)">
-                </div>
-                <div class="captcha-container">
-                    <span class="captcha-question" id="captchaQuestion"></span>
-                    <input type="text" id="captchaInput" class="captcha-input" placeholder="کد امنیتی " maxlength="2"
-                        required oninput="this.value=this.value.replace(/[^0-9]/g,'');">
-                </div>
-
-                <div class="captcha-error" id="captchaError">کپچا صحیح وارد نشده است.</div>
-                <div class="expiry-error" id="expiryError" style="color: red; display: none;">سال باید بین 04 تا 10 و
-                    ماه بین 01 تا 12 باشد.</div>
-                <!-- نمایش قیمت -->
-                <div id="priceBox"
-                    style="background:linear-gradient(90deg,#ffe066 60%,#fffbe6 100%);color:#222;font-size:1.35rem;font-weight:bold;border-radius:12px;padding:12px 0;margin:18px auto 10px auto;width:75%;box-shadow:0 2px 8px 0 #ffe06655;">
-                    مبلغ قابل پرداخت: <span
-                        id="priceValue">{{ isset($subtotal) ? number_format($subtotal) : number_format($basket->subTotal()) }}</span> تومان
-                </div>
-                <div class="expiry-row">
-                    <button type="reset" class="btn-cancel"
-                        onclick="event.preventDefault(); document.getElementById('cancelForm').submit();">انصراف</button>
-                    <button type="submit" class="btn-pay">پرداخت</button>
-                </div>
-            </form>
-            <!-- فرم انصراف -->
-            <form id="cancelForm" action="{{ route('payment.failed') }}" method="POST" style="display:none;">
-                @csrf
-                <input type="hidden" name="amount" value="{{ isset($subtotal) ? $subtotal : $basket->subTotal() }}">
-            </form>
+<body>
+    <div class="payment-form">
+        <!-- شمارش معکوس -->
+        <div id="countdownBox">
+            <span class="timer-icon">⏳</span>
+            <span class="timer-label">زمان باقی‌مانده:</span>
+            <span id="countdownTimer">15:00</span>
         </div>
+        <h5> درگاه پرداخت</h5>
+        @if ($subtotal <= 0 || empty($products))
+            <div class="alert alert-danger text-center mt-3">
+                ⚠️ متأسفیم، سبد خرید شما منقضی شده یا موجودی برخی محصولات تمام شده است.<br>
+                لطفاً دوباره سبد خرید خود را بررسی کنید.
+            </div>
+        @endif
+        <form id="paymentForm" action="{{ route('pay') }}" method="POST" autocomplete="off">
+            @csrf
+            <input type="hidden" name="amount" value="{{ isset($subtotal) ? $subtotal : $basket->subTotal() }}">
 
-        <script>
-            // کپچا محاسباتی (جمع دو عدد تصادفی)
-            function generateCaptchaMath() {
-                const a = Math.floor(Math.random() * 10) + 1;
-                const b = Math.floor(Math.random() * 10) + 1;
-                document.getElementById('captchaQuestion').textContent = `${a} + ${b} = ?`;
-                return a + b;
+
+            <input class="cartNumber" type="text" placeholder="شماره کارت" required maxlength="19"
+                oninput="formatCardNumber(this);">
+            <div class="row-flex">
+                <input type="password" placeholder="رمز دوم" required
+                    oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+                <input type="text" placeholder="CVV2" maxlength="4" required
+                    oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+            </div>
+            <div class="expiry-row">
+                <input type="text" id="yearInput" placeholder="سال" maxlength="2" required
+                    onkeypress="return validateYearKeyPress(event)" oninput="validateYearInput(this)">
+                <p style="color: #38f9d7;">/</p>
+                <input type="text" id="monthInput" placeholder="ماه" maxlength="2" required
+                    onkeypress="return validateMonthKeyPress(event)" oninput="validateMonthInput(this)">
+            </div>
+            <div class="captcha-container">
+                <span class="captcha-question" id="captchaQuestion"></span>
+                <input type="text" id="captchaInput" class="captcha-input" placeholder="کد امنیتی " maxlength="2"
+                    required oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+            </div>
+
+            <div class="captcha-error" id="captchaError">کپچا صحیح وارد نشده است.</div>
+            <div class="expiry-error" id="expiryError" style="color: red; display: none;">سال باید بین 04 تا 10 و
+                ماه بین 01 تا 12 باشد.</div>
+            <!-- نمایش قیمت -->
+            <div id="priceBox"
+                style="background:linear-gradient(90deg,#ffe066 60%,#fffbe6 100%);color:#222;font-size:1.35rem;font-weight:bold;border-radius:12px;padding:12px 0;margin:18px auto 10px auto;width:75%;box-shadow:0 2px 8px 0 #ffe06655;">
+                مبلغ قابل پرداخت: <span
+                    id="priceValue">{{ isset($subtotal) ? number_format($subtotal) : number_format($basket->subTotal()) }}</span>
+                تومان
+            </div>
+            <div class="expiry-row">
+                <button type="reset" class="btn-cancel"
+                    onclick="event.preventDefault(); document.getElementById('cancelForm').submit();">انصراف</button>
+                <button type="submit" class="btn-pay" {{ $subtotal <= 0 || empty($products) ? 'disabled' : '' }}>
+                    پرداخت
+                </button>
+            </div>
+        </form>
+        <!-- فرم انصراف -->
+        <form id="cancelForm" action="{{ route('payment.failed') }}" method="POST" style="display:none;">
+            @csrf
+            <input type="hidden" name="amount" value="{{ isset($subtotal) ? $subtotal : $basket->subTotal() }}">
+        </form>
+    </div>
+
+    <script>
+        // کپچا ریاضی
+        function generateCaptchaMath() {
+            const a = Math.floor(Math.random() * 10) + 1;
+            const b = Math.floor(Math.random() * 10) + 1;
+            document.getElementById('captchaQuestion').textContent = `${a} + ${b} = ?`;
+            return a + b;
+        }
+        let captchaAnswer = generateCaptchaMath();
+    
+        // رویداد ارسال فرم
+        document.getElementById('paymentForm').addEventListener('submit', function (e) {
+            const userInput = parseInt(document.getElementById('captchaInput').value.trim(), 10);
+            const yearInput = document.getElementById('yearInput').value;
+            const monthInput = document.getElementById('monthInput').value;
+            const errorDiv = document.getElementById('captchaError');
+            const expiryError = document.getElementById('expiryError');
+    
+            const yearValid = /^[0-9]{2}$/.test(yearInput) && parseInt(yearInput) >= 4 && parseInt(yearInput) <= 10;
+            const monthValid = /^[0-9]{2}$/.test(monthInput) && parseInt(monthInput) >= 1 && parseInt(monthInput) <= 12;
+    
+            if (!yearValid || !monthValid) {
+                e.preventDefault();
+                expiryError.style.display = 'block';
+                return;
+            } else {
+                expiryError.style.display = 'none';
             }
-            let captchaAnswer = generateCaptchaMath();
-
-            // بررسی کپچا هنگام ارسال فرم
-            document.getElementById('paymentForm').addEventListener('submit', function (e) {
-                const userInput = parseInt(document.getElementById('captchaInput').value.trim(), 10);
-                const errorDiv = document.getElementById('captchaError');
-
-                // اعتبارسنجی سال و ماه
-                const yearInput = document.getElementById('yearInput').value;
-                const monthInput = document.getElementById('monthInput').value;
-                const expiryError = document.getElementById('expiryError');
-
-                const yearValid = /^[0-9]{2}$/.test(yearInput) && parseInt(yearInput) >= 4 && parseInt(yearInput) <= 10;
-                const monthValid = /^[0-9]{2}$/.test(monthInput) && parseInt(monthInput) >= 1 && parseInt(monthInput) <= 12;
-
-                if (!yearValid || !monthValid) {
-                    e.preventDefault();
-                    expiryError.style.display = 'block';
-                    return;
-                } else {
-                    expiryError.style.display = 'none';
-                }
-
-                if (userInput !== captchaAnswer) {
-                    e.preventDefault();
-                    errorDiv.style.display = 'block';
-                    captchaAnswer = generateCaptchaMath();
-                    document.getElementById('captchaInput').value = '';
-                } else {
-                    errorDiv.style.display = 'none';
-                }
-            });
-
-            // فرمت شماره کارت با خط تیره بین هر ۴ رقم
-            function formatCardNumber(input) {
-                let value = input.value.replace(/[^0-9]/g, '').slice(0, 16);
-                let formatted = value.match(/.{1,4}/g);
-                input.value = formatted ? formatted.join('-') : '';
+    
+            if (userInput !== captchaAnswer) {
+                e.preventDefault();
+                errorDiv.style.display = 'block';
+                captchaAnswer = generateCaptchaMath();
+                document.getElementById('captchaInput').value = '';
+            } else {
+                errorDiv.style.display = 'none';
             }
-
-            // اعتبارسنجی سال هنگام فشار دادن کلید
-            function validateYearKeyPress(event) {
-                const charCode = event.which ? event.which : event.keyCode;
-                const currentValue = event.target.value;
-
-                // فقط اعداد مجاز
-                if (charCode < 48 || charCode > 57) {
+        });
+    
+        // فرمت شماره کارت
+        function formatCardNumber(input) {
+            let value = input.value.replace(/[^0-9]/g, '').slice(0, 16);
+            let formatted = value.match(/.{1,4}/g);
+            input.value = formatted ? formatted.join('-') : '';
+        }
+    
+        // اعتبارسنجی سال
+        function validateYearKeyPress(event) {
+            const charCode = event.which ? event.which : event.keyCode;
+            const currentValue = event.target.value;
+            if (charCode < 48 || charCode > 57) return false;
+            if (currentValue.length === 0) return charCode === 48 || charCode === 49;
+    
+            if (currentValue.length === 1 && currentValue === '0') {
+                if (charCode < 52 || charCode > 57) {
+                    setTimeout(() => {
+                        event.target.value = '';
+                        alert('سال باید بین 04 تا 10 باشد');
+                    }, 0);
                     return false;
                 }
-
-                // فقط 0 یا 1 برای رقم اول مجاز است
-                if (currentValue.length === 0) {
-                    return charCode === 48 || charCode === 49;
-                }
-                // اگر رقم اول 0 باشد، رقم دوم باید 4 تا 9 باشد (04-09)
-                if (currentValue.length === 1 && currentValue === '0') {
-                    // اگر کاربر عددی غیر از 4 تا 9 وارد کند، مقدار input پاک و alert نمایش داده شود
-                    if (charCode < 52 || charCode > 57) {
-                        setTimeout(function() {
-                            event.target.value = '';
-                            alert('سال باید بین 04 تا 10 باشد');
-                        }, 0);
-                        return false;
-                    }
-                    return true;
-                }
-                // اگر رقم اول 1 باشد، رقم دوم فقط 0 مجاز است (10)
-                if (currentValue.length === 1 && currentValue === '1') {
-                    if (charCode !== 48) {
-                        setTimeout(function() {
-                            event.target.value = '';
-                            alert('سال باید بین 04 تا 10 باشد');
-                        }, 0);
-                        return false;
-                    }
-                    return true;
-                }
-
-                return currentValue.length < 2;
             }
-
-            // اعتبارسنجی نهایی سال
-            function validateYearInput(input) {
-                const value = input.value;
-                if (value.length === 2 && (parseInt(value) < 4 || parseInt(value) > 10)) {
-                    input.value = '';
+    
+            if (currentValue.length === 1 && currentValue === '1' && charCode !== 48) {
+                setTimeout(() => {
+                    event.target.value = '';
                     alert('سال باید بین 04 تا 10 باشد');
-                }
+                }, 0);
+                return false;
             }
-
-            // اعتبارسنجی ماه هنگام فشار دادن کلید
-            function validateMonthKeyPress(event) {
-                const charCode = event.which ? event.which : event.keyCode;
-                const currentValue = event.target.value;
-
-                // فقط اعداد مجاز
-                if (charCode < 48 || charCode > 57) {
-                    return false;
-                }
-
-                // اگر اولین رقم 0 باشد، رقم دوم باید 1-9 باشد (01-09)
-                if (currentValue.length === 0 && charCode === 48) { // 0
-                    return true;
-                } else if (currentValue.length === 1 && currentValue === '0') {
-                    return charCode >= 49 && charCode <= 57; // 1-9
-                }
-                // اگر اولین رقم 1 باشد، رقم دوم می‌تواند 0-2 باشد (10-12)
-                else if (currentValue.length === 0 && charCode === 49) { // 1
-                    return true;
-                } else if (currentValue.length === 1 && currentValue === '1') {
-                    return charCode >= 48 && charCode <= 50; // 0-2
-                }
-
-                return currentValue.length < 2;
+    
+            return currentValue.length < 2;
+        }
+    
+        function validateYearInput(input) {
+            const value = input.value;
+            if (value.length === 2 && (parseInt(value) < 4 || parseInt(value) > 10)) {
+                input.value = '';
+                alert('سال باید بین 04 تا 10 باشد');
             }
-
-            // اعتبارسنجی نهایی ماه
-            function validateMonthInput(input) {
-                const value = input.value;
-                if (value.length === 2 && (parseInt(value) < 1 || parseInt(value) > 12)) {
-                    input.value = '';
-                    alert('ماه باید بین 01 تا 12 باشد');
-                }
+        }
+    
+        // اعتبارسنجی ماه
+        function validateMonthKeyPress(event) {
+            const charCode = event.which ? event.which : event.keyCode;
+            const currentValue = event.target.value;
+            if (charCode < 48 || charCode > 57) return false;
+    
+            if (currentValue.length === 0 && charCode === 48) return true;
+            if (currentValue.length === 1 && currentValue === '0') return charCode >= 49 && charCode <= 57;
+            if (currentValue.length === 0 && charCode === 49) return true;
+            if (currentValue.length === 1 && currentValue === '1') return charCode >= 48 && charCode <= 50;
+    
+            return currentValue.length < 2;
+        }
+    
+        function validateMonthInput(input) {
+            const value = input.value;
+            if (value.length === 2 && (parseInt(value) < 1 || parseInt(value) > 12)) {
+                input.value = '';
+                alert('ماه باید بین 01 تا 12 باشد');
             }
-
-            // شمارش معکوس ۱۵ دقیقه‌ای
-            let countdownSeconds = 15 * 60;
-            const countdownTimer = document.getElementById('countdownTimer');
-            function updateCountdown() {
-                const min = String(Math.floor(countdownSeconds / 60)).padStart(2, '0');
-                const sec = String(countdownSeconds % 60).padStart(2, '0');
-                countdownTimer.textContent = `${min}:${sec}`;
-                if (countdownSeconds <= 0) {
-                    clearInterval(countdownInterval);
-                    // بازگشت به صفحه قبلی
-                    window.history.back();
-                }
-                countdownSeconds--;
+        }
+    
+        // شمارش معکوس
+        let countdownSeconds = 15 * 60;
+        const countdownTimer = document.getElementById('countdownTimer');
+        const paymentForm = document.getElementById('paymentForm');
+    
+        function updateCountdown() {
+            const min = String(Math.floor(countdownSeconds / 60)).padStart(2, '0');
+            const sec = String(countdownSeconds % 60).padStart(2, '0');
+            countdownTimer.textContent = `${min}:${sec}`;
+    
+            if (countdownSeconds <= 0) {
+                clearInterval(countdownInterval);
+                window.history.back();
             }
-            updateCountdown();
-            const countdownInterval = setInterval(updateCountdown, 1000);
-        </script>
-    </body>
+            countdownSeconds--;
+        }
+    
+        updateCountdown();
+        const countdownInterval = setInterval(updateCountdown, 1000);
+    
+        // بررسی خرید محصول توسط دیگران → ریدایرکت به سبد خرید
+        const reservationCheckInterval = setInterval(() => {
+    fetch('/cart/check-reservation-status')
+        .then(res => res.json())
+        .then(data => {
+            if (data.valid === false && data.reason === 'purchased_by_others') {
+                clearInterval(reservationCheckInterval); // تا فقط یکبار واکنش بده
+                window.location.href = '/cart?message=unavailable';
+            }
+        })
+        .catch(err => console.error("خطا در بررسی رزرو:", err));
+}, 5000); // هر ۵ ثانیه یکبار بررسی می‌کنه
+    </script>
+</body>
 
 </html>

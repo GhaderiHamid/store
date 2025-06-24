@@ -132,7 +132,7 @@ Route::prefix('')->group(function () {
      Route::prefix('products')->group (function () {
         Route::get('/all', [UserProductsController::class, 'all'])->name('frontend.product.all');
         Route::get('{product_id}/single', [UserProductsController::class,'single'])->name('frontend.product.single');
-        
+        Route::post('/cart/remove-expired/{product}', [CartController::class, 'removeExpired'])->name('cart.remove.expired');
         Route::get('{product_id}/add', [CartController::class, 'add'])->name('frontend.cart.add');
         Route::get('{product_id}/remove', [CartController::class, 'remove'])->name('frontend.cart.remove');
 
@@ -141,10 +141,11 @@ Route::prefix('')->group(function () {
         // بروزرسانی تعداد محصول در سبد خرید با AJAX
         Route::post('/update-cart-quantity', [CartController::class, 'updateQuantity'])->name('frontend.cart.update.quantity');
     });
+    Route::get('/cart/total', [CartController::class, 'getTotal']);
     Route::get('cart', [CartController::class,'all'])->name('frontend.cart.all');
+    Route::get('/cart/check-reservation-status', [CartController::class, 'checkReservationStatus']);
 
-
-
+Route::post('/cart/remove-expired/{product}', [CartController::class, 'removeExpired'])->name('cart.remove.expired');
 
 });
 

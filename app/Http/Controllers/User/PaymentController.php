@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Order_detail;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Reservation;
 use App\Support\Payment\Transaction;
 use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Http\Request;
@@ -60,7 +61,13 @@ class PaymentController extends Controller
       }
 
       $userId = $data['user_id'];
-      $subtotal = $data['subtotal'] ?? 0;
+      // $subtotal = $data['subtotal'] ?? 0;
+      $products = $data['products'] ?? [];
+      $subtotal = 0;
+
+      foreach ($products as $p) {
+         $subtotal += round($p['final_price'] ?? 0) * intval($p['quantity'] ?? 1);
+      }
       
       $products = $data['products'] ?? [];
 
@@ -90,33 +97,45 @@ class PaymentController extends Controller
 
       return view('frontend.payment.all', compact('subtotal', 'userId', 'products'));
    }
-  
-   
+
+
 
 
    public function pay()
    {
-
       $data = session()->get('payment_data');
 
       if (!$data || !isset($data['user_id'])) {
          return back()->withErrors('داده‌ای برای پرداخت دریافت نشده است!');
       }
 
-      // حذف داده از سشن پس از استفاده
-      session()->forget('payment_data');
-      
-      
       $subtotal = $data['subtotal'] ?? 0;
       $userId = $data['user_id'];
       $products = $data['products'] ?? [];
-      $chat_id=$data['chat_id'] ?? null;
+      $chat_id = $data['chat_id'] ?? null;
 
-      // پردازش پرداخت و ثبت سفارش
-      $amount = $subtotal;
-      do {
-         $orderId = 'ORD-' . time() . '-' . rand(1000, 9999);
-      } while (\App\Models\Payment::where('order_id', $orderId)->exists());
+      // 🛡️ بررسی رزرو و موجودی هر محصول
+      foreach ($products as $p) {
+         $product = Product::find($p['product_id']);
+
+         $reserved = Reservation::where('user_id', $userId)
+            ->where('product_id', $p['product_id'])
+            ->where('reserved_at', '>=', now()->subMinutes(15))
+            ->first();
+
+         if (
+            !$product ||
+            $product->quntity < $p['quantity'] ||
+            !$reserved
+         ) {
+            return back()->withErrors("محصول «{$p['name']}» توسط کاربر دیگری خریداری شده یا رزرو شما منقضی شده است.");
+         }
+      }
+
+      // ✅ رزروها معتبر هستن، ادامه بده
+      session()->forget('payment_data');
+      session()->forget('cart');
+      Reservation::where('user_id', $userId)->delete();
 
       $order = Order::create([
          'user_id' => $userId,
@@ -124,7 +143,7 @@ class PaymentController extends Controller
       ]);
 
       foreach ($products as $product) {
-         \App\Models\Order_detail::create([
+         Order_detail::create([
             'status' => 'processing',
             'order_id' => $order->id,
             'product_id' => $product['product_id'],
@@ -132,33 +151,32 @@ class PaymentController extends Controller
             'price' => $product['price'],
             'discount' => $product['discount'] ?? 0,
          ]);
-         \App\Models\Product::where('id', $product['product_id'])->decrement('quntity', $product['quantity']);
+
+         Product::where('id', $product['product_id'])
+            ->decrement('quntity', $product['quantity']);
       }
 
+      do {
+         $orderId = 'ORD-' . time() . '-' . rand(1000, 9999);
+      } while (Payment::where('order_id', $orderId)->exists());
+
       $payment = Payment::create([
-         'amount' => $amount,
+         'amount' => $subtotal,
          'transaction' => time() . rand(1000, 9999),
          'status' => 'paid',
          'order_id' => $order->id,
       ]);
 
-      if (session()->has('cart')) {
-         session()->forget('cart');
-      }
-      if($chat_id!= null){
+      if ($chat_id !== null) {
          $this->sendTelegramMessage($chat_id, '✅ پرداخت شما با موفقیت انجام شد');
       }
-     
-      return view(
-         'frontend.payment.paymentSuccess',
-         [
-            'amount' => $amount,
-            'transaction_time' => Jalalian::fromDateTime($payment->created_at)->format('Y/m/d H:i'),
-            'order_id' => $orderId,
-            'transaction' => $payment->transaction,
-         ]);
 
-
+      return view('frontend.payment.paymentSuccess', [
+         'amount' => $subtotal,
+         'transaction_time' => Jalalian::fromDateTime($payment->created_at)->format('Y/m/d H:i'),
+         'order_id' => $orderId,
+         'transaction' => $payment->transaction,
+      ]);
    }
    public function sendTelegramMessage($chatId, $message)
    {
@@ -203,6 +221,7 @@ class PaymentController extends Controller
       // حذف سبد خرید از سشن
      if (session()->has('cart')) {
          session()->forget('cart');
+         Reservation::where('user_id', $data['user_id'])->delete();
       }
       if ($chat_id != null) {
       $this->sendTelegramMessage($chat_id, '❌ پرداخت شما ناموفق بود');
