@@ -30,6 +30,7 @@ use App\Http\Controllers\User\UserProfileController as UserUserProfileController
 use App\Http\Controllers\User\UserProfileController;
 use App\Support\Storage\Contracts\StorageInterface;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\ShipperController;
 use App\Http\Controllers\shipper\ShipperProfileController;
 use App\Http\Controllers\User\OrderController;
 
@@ -89,6 +90,14 @@ Route::prefix('admin')->middleware(['admin.auth'])->group(function () {
         Route::get('{user_id}/edit', [UsersController::class, 'edit'])->name('admin.users.edit');
         Route::put('{user_id}/update', [UsersController::class, 'update'])->name('admin.users.update');
         Route::delete('{user_id}/delete', [UsersController::class, 'delete'])->name('admin.users.delete');
+    });
+    Route::prefix('shippers')->group(function () {
+        Route::get('', [ShipperController::class, 'all'])->name('admin.shippers.all');
+        Route::get('create', [ShipperController::class, 'create'])->name('admin.shippers.create');
+        Route::post('', [ShipperController::class, 'store'])->name('admin.shippers.store');
+        Route::get('{shipper_id}/edit', [ShipperController::class, 'edit'])->name('admin.shippers.edit');
+        Route::put('{shipper_id}/update', [ShipperController::class, 'update'])->name('admin.shippers.update');
+        Route::delete('{shipper_id}/delete', [ShipperController::class, 'delete'])->name('admin.shippers.delete');
     });
     Route::prefix('/orders')->group(function () {
         Route::get('/', [OrdersController::class, 'all'])->name('admin.orders.all');

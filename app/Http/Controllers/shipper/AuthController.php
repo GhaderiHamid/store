@@ -61,15 +61,7 @@ class AuthController extends Controller
        
         
 
-        // $shipper = new Shipper();
-        // $shipper->first_name = $validated['first_name'];
-        // $shipper->last_name = $validated['last_name'];
-        // $shipper->email = $validated['email'];
-        // $shipper->password = Hash::make($validated['password']);
-        // $shipper->phone = $validated['phone'];
-        // $shipper->city=$validated['city'];
-        // $shipper->save();
-       
+    
 
 
         if (! $createdShipper) {

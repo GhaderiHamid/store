@@ -105,6 +105,14 @@
                                             <a class="nav-link" href="{{ route('admin.users.all') }}">لیست
                                                 کاربران</a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('admin.shippers.create') }}">افزودن مامور ارسال
+                                                </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('admin.shippers.all') }}">لیست
+                                                ماموران ارسال</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>

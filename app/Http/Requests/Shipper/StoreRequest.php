@@ -30,6 +30,7 @@ class StoreRequest extends FormRequest
             'city' => 'required|string|min:2|max:255',
             'phone' => 'required|digits:11|unique:users,phone',
             'password' => 'required|string|min:3|max:255',
+            'address' => 'nullable|string|min:3|max:255',
         ];
     }
 }

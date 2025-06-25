@@ -106,5 +106,10 @@
     });
 </script>
 @endif
+<script>
+  function confirmDelete() {
+      return confirm('آیا از این حذف اطمینان دارید؟');
+  }
+</script>
 </body>
 </html>

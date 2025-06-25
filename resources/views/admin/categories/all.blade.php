@@ -37,11 +37,10 @@
                                                         class="btn action-btn  btn-info">ویرایش</button>
                                                 </a>
                                                 <form action="{{ route('admin.categories.delete', $category->id) }}" method="post"
-                                                    class="d-inline">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="btn action-btn btn-danger">حذف</button>
-                                                </form>
+                                                    class="d-inline" onsubmit="return confirmDelete()">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn action-btn btn-danger">حذف</button>
                                             </td>
                                         </tr>
                                     @endforeach
