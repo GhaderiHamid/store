@@ -261,4 +261,9 @@ class CartController extends Controller
 
         return response()->json(['valid' => true]);
     }
+    public function getCartCount()
+    {
+        $cart = session('cart', []);
+        return response()->json(['count' => array_sum($cart)]);
+    }
 }

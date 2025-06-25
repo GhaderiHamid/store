@@ -47,7 +47,7 @@ use App\Http\Controllers\User\OrderController;
 //     return view('admin.index');
 // });
 
-
+Route::get('/cart/count', [CartController::class, 'getCartCount'])->name('frontend.cart.count');
 Route::get('signIn', [LoginController::class, 'signIn'])->name('sigIn');
 Route::post('register',[LoginController::class, 'store'])->name('register');
 Route::post('login',[LoginController::class,'login'])->name('login');

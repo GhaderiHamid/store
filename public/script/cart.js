@@ -242,7 +242,6 @@ function formatTime(sec) {
     const s = sec % 60;
     return `${m}:${s.toString().padStart(2, '0')}`;
 }
-
 setInterval(() => {
     const timers = document.querySelectorAll('.reservation-timer');
     let allExpired = timers.length > 0; // فرض می‌کنیم همه منقضی شده‌اند مگر خلافش ثابت شود
@@ -277,6 +276,17 @@ setInterval(() => {
                         cartTotal.textContent = data.total.toLocaleString() + ' تومان';
                     }
 
+                    // بروزرسانی تعداد سبد خرید
+                    const cartCount = document.getElementById('cart-count');
+                    if (cartCount) {
+                        // درخواست جدید برای دریافت تعداد کل آیتم‌های سبد خرید
+                        fetch('/cart/count')
+                            .then(response => response.json())
+                            .then(countData => {
+                                cartCount.textContent = countData.count || 0;
+                            });
+                    }
+
                     // بروزرسانی فیلد data-input
                     const dataInput = document.getElementById('data-input');
                     if (dataInput) {
@@ -308,6 +318,12 @@ setInterval(() => {
         const paymentSection = document.querySelector('.col-sm-12.col-md-4.mt-1');
         if (paymentSection) {
             paymentSection.remove();
+        }
+
+        // بروزرسانی تعداد سبد خرید به صفر
+        const cartCount = document.getElementById('cart-count');
+        if (cartCount) {
+            cartCount.textContent = '0';
         }
 
         // اگر پیام قبلی وجود ندارد، آن را اضافه کنید
