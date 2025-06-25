@@ -78,5 +78,6 @@ class ProductsController extends Controller
 
         return view('frontend.user.recommendations', compact('recommendedProducts'));
     }
+    
    
 }

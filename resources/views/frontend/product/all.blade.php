@@ -62,15 +62,14 @@
                                 @else
                                     <!-- شرط برای دکمه افزودن به سبد خرید -->
                                     @auth
-                                        <!-- اگر کاربر لاگین کرده -->
-                                        <button class="price-btn mt-4 d-inline-block add-to-cart-btn" 
+                                    <button class="price-btn mt-4 d-inline-block add-to-cart-btn" 
                                         data-product-id="{{ $product->id }}"
                                         data-limited="{{ $product->limited }}" 
-                                        data-cart-quantity="{{ $product->cart_quantity ?? 0 }}"
+                                        data-cart-quantity="{{ session('cart.'.$product->id, 0) }}"
                                         data-product-quantity="{{ $product->quntity }}">
-                                    افزودن به سبد خرید
-                                </button>
-                                    @else
+                                        افزودن به سبد خرید
+                                    </button>
+                                @else
                                         <!-- اگر کاربر لاگین نکرده -->
                                         <div class="price-btn mt-4 d-inline-block"
                                             onclick="alert('لطفاً وارد حساب کاربری خود شوید!')">افزودن به سبد خرید</div>

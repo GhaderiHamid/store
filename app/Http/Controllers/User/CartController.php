@@ -18,22 +18,49 @@ class CartController extends Controller
         $productId = $request->input('product_id');
         $product = Product::find($productId);
 
-        if (!$product || $product->quntity <= 0) {
-            return response()->json(['success' => false, 'message' => 'محصول موجود نیست']);
+        if (!$product) {
+            return response()->json([
+                'success' => false,
+                'error' => 'out_of_stock',
+                'message' => 'محصول موجود نیست'
+            ]);
         }
 
         $cart = session()->get('cart', []);
         $currentQuantity = $cart[$productId] ?? 0;
-
+        if ($product->limited > 0 && $currentQuantity >= $product->limited) {
+            return response()->json([
+                'success' => false,
+                'error' => 'limited_exceeded',
+                'message' => 'شما به حداکثر تعداد مجاز خرید این محصول رسیده‌اید'
+            ]);
+        }
         $reservedByOthers = Reservation::where('product_id', $productId)
             ->where('reserved_at', '>=', now()->subMinutes(15))
             ->where('user_id', '!=', auth('web')->id())
             ->sum('quantity');
 
         $available = $product->quntity - $reservedByOthers;
-
+        if ($product->quntity <= 0) {
+            return response()->json([
+                'success' => false,
+                'error' => 'out_of_stock',
+                'message' => 'این محصول در حال حاضر موجود نیست'
+            ]);
+        }
+        if ($available <= 0) {
+            return response()->json([
+                'success' => false,
+                'error' => 'reserved_by_others',
+                'message' => 'این محصول توسط سایر مشتریان رزرو شده است. لطفاً بعداً مجدداً تلاش کنید یا محصول مشابه دیگری انتخاب نمایید.'
+            ]);
+        }
         if (($currentQuantity + 1) > $available) {
-            return response()->json(['success' => false, 'message' => 'موجودی کافی نیست']);
+            return response()->json([
+                'success' => false,
+                'error' => 'quantity_exceeded',
+                'message' => sprintf('فقط %d عدد از این محصول قابل خرید است', $available)
+            ]);
         }
 
         $cart[$productId] = $currentQuantity + 1;
@@ -46,7 +73,8 @@ class CartController extends Controller
 
         return response()->json([
             'success' => true,
-            'cart_count' => array_sum($cart)
+            'cart_count' => array_sum($cart),
+            'available_quantity' => $available - ($currentQuantity + 1)
         ]);
     }
 

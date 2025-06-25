@@ -24,6 +24,7 @@ class PaymentController extends Controller
 
    public function process(Request $request)
    {
+      
       // پردازش درخواست JSON
       if ($request->isJson()) {
          $data = $request->json()->all();
@@ -70,7 +71,7 @@ class PaymentController extends Controller
       }
       
       $products = $data['products'] ?? [];
-
+      
       session()->put('payment_data', $data);
       return view('frontend.payment.all', compact('subtotal', 'userId', 'products'));
    }

@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <div class="captcha-error" id="captchaError">کپچا صحیح وارد نشده است.</div>
     <div class="payment-form">
         <!-- شمارش معکوس -->
         <div id="countdownBox">
@@ -25,6 +26,7 @@
         @endif
         <form id="paymentForm" action="{{ route('pay') }}" method="POST" autocomplete="off">
             @csrf
+            
             <input type="hidden" name="amount" value="{{ isset($subtotal) ? $subtotal : $basket->subTotal() }}">
 
 
@@ -49,7 +51,7 @@
                     required oninput="this.value=this.value.replace(/[^0-9]/g,'');">
             </div>
 
-            <div class="captcha-error" id="captchaError">کپچا صحیح وارد نشده است.</div>
+            
             <div class="expiry-error" id="expiryError" style="color: red; display: none;">سال باید بین 04 تا 10 و
                 ماه بین 01 تا 12 باشد.</div>
             <!-- نمایش قیمت -->
@@ -62,11 +64,13 @@
             <div class="expiry-row">
                 <button type="reset" class="btn-cancel"
                     onclick="event.preventDefault(); document.getElementById('cancelForm').submit();">انصراف</button>
-                <button type="submit" class="btn-pay" {{ $subtotal <= 0 || empty($products) ? 'disabled' : '' }}>
+                    <button type="submit" id="submitPay" class="btn-pay"
+                    {{ $subtotal <= 0 || empty($products) ? 'disabled' : '' }}>
                     پرداخت
                 </button>
             </div>
         </form>
+        
         <!-- فرم انصراف -->
         <form id="cancelForm" action="{{ route('payment.failed') }}" method="POST" style="display:none;">
             @csrf
@@ -86,33 +90,50 @@
     
         // رویداد ارسال فرم
         document.getElementById('paymentForm').addEventListener('submit', function (e) {
-            const userInput = parseInt(document.getElementById('captchaInput').value.trim(), 10);
-            const yearInput = document.getElementById('yearInput').value;
-            const monthInput = document.getElementById('monthInput').value;
-            const errorDiv = document.getElementById('captchaError');
-            const expiryError = document.getElementById('expiryError');
-    
-            const yearValid = /^[0-9]{2}$/.test(yearInput) && parseInt(yearInput) >= 4 && parseInt(yearInput) <= 10;
-            const monthValid = /^[0-9]{2}$/.test(monthInput) && parseInt(monthInput) >= 1 && parseInt(monthInput) <= 12;
-    
-            if (!yearValid || !monthValid) {
-                e.preventDefault();
-                expiryError.style.display = 'block';
-                return;
+    e.preventDefault(); // جلوگیری موقت از ارسال
+
+    const userInput = parseInt(document.getElementById('captchaInput').value.trim(), 10);
+    const yearInput = document.getElementById('yearInput').value;
+    const monthInput = document.getElementById('monthInput').value;
+    const errorDiv = document.getElementById('captchaError');
+    const expiryError = document.getElementById('expiryError');
+
+    const yearValid = /^[0-9]{2}$/.test(yearInput) && parseInt(yearInput) >= 4 && parseInt(yearInput) <= 10;
+    const monthValid = /^[0-9]{2}$/.test(monthInput) && parseInt(monthInput) >= 1 && parseInt(monthInput) <= 12;
+
+    if (!yearValid || !monthValid) {
+        expiryError.style.display = 'block';
+        return;
+    } else {
+        expiryError.style.display = 'none';
+    }
+
+    if (userInput !== captchaAnswer) {
+        errorDiv.style.display = 'block';
+        captchaAnswer = generateCaptchaMath();
+        document.getElementById('captchaInput').value = '';
+        return;
+    } else {
+        errorDiv.style.display = 'none';
+    }
+
+    // 👇 بررسی نهایی موجودی از سرور
+    fetch('/cart/check-reservation-status')
+        .then(res => res.json())
+        .then(data => {
+            if (data.valid === false && data.reason === 'purchased_by_others') {
+                alert("⛔️پرداخت انجام نشد.");
+                window.location.href = '/cart?message=unavailable';
             } else {
-                expiryError.style.display = 'none';
+                // اگر موجودی اوکی بود، فرم ارسال شود
+                document.getElementById('paymentForm').submit();
             }
-    
-            if (userInput !== captchaAnswer) {
-                e.preventDefault();
-                errorDiv.style.display = 'block';
-                captchaAnswer = generateCaptchaMath();
-                document.getElementById('captchaInput').value = '';
-            } else {
-                errorDiv.style.display = 'none';
-            }
+        })
+        .catch(err => {
+            console.error('⚠️ خطا در بررسی موجودی:', err);
+            alert('مشکلی در بررسی موجودی پیش آمده است. لطفاً دوباره تلاش کنید.');
         });
-    
+});
         // فرمت شماره کارت
         function formatCardNumber(input) {
             let value = input.value.replace(/[^0-9]/g, '').slice(0, 16);
@@ -198,18 +219,14 @@
         updateCountdown();
         const countdownInterval = setInterval(updateCountdown, 1000);
     
-        // بررسی خرید محصول توسط دیگران → ریدایرکت به سبد خرید
-        const reservationCheckInterval = setInterval(() => {
-    fetch('/cart/check-reservation-status')
-        .then(res => res.json())
-        .then(data => {
-            if (data.valid === false && data.reason === 'purchased_by_others') {
-                clearInterval(reservationCheckInterval); // تا فقط یکبار واکنش بده
-                window.location.href = '/cart?message=unavailable';
-            }
-        })
-        .catch(err => console.error("خطا در بررسی رزرو:", err));
-}, 5000); // هر ۵ ثانیه یکبار بررسی می‌کنه
+        // جلوگیری از رفرش صفحه
+window.addEventListener('beforeunload', function(e) {
+    if (document.getElementById('submitPay').disabled) {
+        e.preventDefault();
+        e.returnValue = 'در حال پردازش پرداخت هستید. آیا مطمئنید می‌خواهید صفحه را ترک کنید؟';
+        return e.returnValue;
+    }
+});
     </script>
 </body>
 

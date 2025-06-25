@@ -40,11 +40,11 @@ document.addEventListener('DOMContentLoaded', function () {
             var productQuantity = parseInt(this.getAttribute('data-product-quantity') || '0', 10);
 
             if (cartQuantity >= limited) {
-                alert('بیشتر از این نمی‌توانی خرید کنی');
+                alert('بیشتر از این نمی‌توان خرید کرد');
                 return;
             }
 
-            if (productQuantity <= 0) {
+            else if (productQuantity <= 0) {
                 alert('محصول موجود نیست');
                 return;
             }
@@ -67,23 +67,32 @@ document.addEventListener('DOMContentLoaded', function () {
                             if (cartCountElem) cartCountElem.textContent = data.cart_count;
                         }
 
-                        // 🔄 فقط مقدار cartQuantity رو افزایش بده
                         btn.setAttribute('data-cart-quantity', cartQuantity + 1);
 
-                        // ❌ این خط حذف می‌شه: btn.setAttribute('data-product-quantity', productQuantity - 1);
-                        // ✅ اگر مقدار جدید از سمت سرور اومد، اینجا جایگزین کن
                         if (data.product_quantity !== undefined) {
                             btn.setAttribute('data-product-quantity', data.product_quantity);
                         }
-
-                    } else if (data.error === 'limited_exceeded') {
-                        alert('بیشتر از این نمی‌توانی خرید کنی');
-                    } else if (data.error === 'quantity_exceeded') {
-                        alert('تعداد درخواستی بیشتر از موجودی انبار است');
-                    } else if (data.error === 'out_of_stock') {
-                        alert('محصول موجود نیست');
                     } else {
-                        alert('خطا در افزودن به سبد خرید');
+                        // نمایش پیام خطای مناسب
+                        switch (data.error) {
+                            case 'limited_exceeded':
+                                alert(data.message || 'شما به حداکثر تعداد مجاز خرید این محصول رسیده‌اید.');
+                                break;
+                            case 'out_of_stock':
+                                alert(data.message || 'این محصول در حال حاضر موجود نیست.');
+                                break;
+                            case 'reserved_by_others':
+                                alert(data.message || 'این محصول توسط سایر مشتریان رزرو شده است. لطفاً بعداً مجدداً تلاش کنید یا محصول مشابه دیگری انتخاب نمایید.');
+                                break;
+                            case 'quantity_exceeded':
+                                alert(data.message || 'تعداد درخواستی بیشتر از موجودی انبار است.');
+                                break;
+                            case 'product_not_found':
+                                alert(data.message || 'محصول یافت نشد.');
+                                break;
+                            default:
+                                alert(data.message || 'خطا در افزودن به سبد خرید.');
+                        }
                     }
                 })
                 .catch(() => alert('خطا در ارتباط با سرور'));
