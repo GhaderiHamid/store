@@ -82,7 +82,7 @@
 
             <!-- Total and Payment -->
             <div class="col-sm-12 col-md-4 mt-1">
-                <div class="w-100 product-border p-3 text-white">
+                <div class="w-100 product-border p-3 text-white" >
                     <h5>جمع کل: &nbsp;
                         <span id="cart-total">{{ number_format($total) }} تومان</span>
                     </h5>

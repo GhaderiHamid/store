@@ -119,18 +119,16 @@ class PaymentController extends Controller
       foreach ($products as $p) {
          $product = Product::find($p['product_id']);
 
-         $reserved = Reservation::where('user_id', $userId)
-            ->where('product_id', $p['product_id'])
-            ->where('reserved_at', '>=', now()->subMinutes(15))
-            ->first();
+         // $reserved = Reservation::where('user_id', $userId)
+         //    ->where('product_id', $p['product_id'])
+         //    ->where('reserved_at', '>=', now()->subMinutes(15))
+         //    ->first();
 
-         if (
-            !$product ||
-            $product->quntity < $p['quantity'] ||
-            !$reserved
-         ) {
-            return back()->withErrors("محصول «{$p['name']}» توسط کاربر دیگری خریداری شده یا رزرو شما منقضی شده است.");
+         if (!$product|| $product->quntity < $p['quantity']) 
+         {
+            return back()->withErrors(provider: "محصول «{$p['name']}» شما موجودی ندارد.");
          }
+         
       }
 
       // ✅ رزروها معتبر هستن، ادامه بده

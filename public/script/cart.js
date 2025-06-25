@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var productQuantity = parseInt(this.getAttribute('data-product-quantity') || '0', 10);
 
             if (cartQuantity >= limited) {
-                alert('بیشتر از این نمی‌توان خرید کرد');
+                alert('بیشتر از این تعداد نمی‌توان خرید کرد');
                 return;
             }
 
@@ -76,22 +76,22 @@ document.addEventListener('DOMContentLoaded', function () {
                         // نمایش پیام خطای مناسب
                         switch (data.error) {
                             case 'limited_exceeded':
-                                alert(data.message || 'شما به حداکثر تعداد مجاز خرید این محصول رسیده‌اید.');
+                                alert( 'شما به حداکثر تعداد مجاز خرید این محصول رسیده‌اید.');
                                 break;
                             case 'out_of_stock':
-                                alert(data.message || 'این محصول در حال حاضر موجود نیست.');
+                                alert( 'این محصول در حال حاضر موجود نیست.');
                                 break;
                             case 'reserved_by_others':
-                                alert(data.message || 'این محصول توسط سایر مشتریان رزرو شده است. لطفاً بعداً مجدداً تلاش کنید یا محصول مشابه دیگری انتخاب نمایید.');
+                                alert( 'این محصول توسط سایر مشتریان رزرو شده است. لطفاً بعداً مجدداً تلاش کنید یا محصول مشابه دیگری انتخاب نمایید.');
                                 break;
                             case 'quantity_exceeded':
-                                alert(data.message || 'تعداد درخواستی بیشتر از موجودی انبار است.');
+                                alert( 'تعداد درخواستی بیشتر از موجودی انبار است.');
                                 break;
                             case 'product_not_found':
-                                alert(data.message || 'محصول یافت نشد.');
+                                alert( 'محصول یافت نشد.');
                                 break;
                             default:
-                                alert(data.message || 'خطا در افزودن به سبد خرید.');
+                                alert( 'خطا در افزودن به سبد خرید.');
                         }
                     }
                 })
@@ -245,6 +245,7 @@ function formatTime(sec) {
 
 setInterval(() => {
     const timers = document.querySelectorAll('.reservation-timer');
+    let allExpired = timers.length > 0; // فرض می‌کنیم همه منقضی شده‌اند مگر خلافش ثابت شود
 
     timers.forEach(span => {
         let seconds = parseInt(span.dataset.seconds);
@@ -292,11 +293,33 @@ setInterval(() => {
                 .catch(error => {
                     console.error('خطا در حذف آیتم منقضی‌شده:', error);
                 });
-
         } else {
+            allExpired = false; // اگر حتی یک تایمر منقضی نشده باشد
             seconds--;
             span.dataset.seconds = seconds;
             span.textContent = formatTime(seconds);
         }
     });
+
+    // بررسی نهایی برای حذف بخش پرداخت و نمایش پیام
+    const remainingProducts = document.querySelectorAll('[data-product-wrapper]');
+    if (remainingProducts.length === 0 && document.querySelector('.col-sm-12.col-md-4.mt-1')) {
+        // حذف بخش جمع کل و فرم پرداخت
+        const paymentSection = document.querySelector('.col-sm-12.col-md-4.mt-1');
+        if (paymentSection) {
+            paymentSection.remove();
+        }
+
+        // اگر پیام قبلی وجود ندارد، آن را اضافه کنید
+        if (!document.querySelector('.container.custom-container > p.text-white')) {
+            const emptyCartMessage = document.createElement('p');
+            emptyCartMessage.className = 'text-white';
+            emptyCartMessage.textContent = 'سبد خرید شما خالی است!';
+
+            const container = document.querySelector('.container.custom-container');
+            if (container) {
+                container.appendChild(emptyCartMessage);
+            }
+        }
+    }
 }, 1000);
