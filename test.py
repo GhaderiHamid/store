@@ -499,6 +499,10 @@ async def show_orders(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await send_orders_page(update, context, page=0)
 
 # تابع نمایش سفارش‌ها و محصولات خریداری شده (با دکمه نمایش جزییات برای هر محصول)
+import jdatetime
+from datetime import datetime
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+
 async def send_orders_page(update, context, page: int):
     email = context.user_data.get('user_email')
     cursor.execute("SELECT id FROM users WHERE email = %s", (email,))
@@ -506,8 +510,8 @@ async def send_orders_page(update, context, page: int):
     if not user:
         await update.message.reply_text("❌ کاربر یافت نشد.")
         return
-    user_id = user[0]
 
+    user_id = user[0]
     cursor.execute("SELECT id, status, created_at FROM orders WHERE user_id = %s ORDER BY id DESC", (user_id,))
     orders = cursor.fetchall()
     if not orders:
@@ -535,11 +539,18 @@ async def send_orders_page(update, context, page: int):
 
     for order_id, status, created_at in orders_page:
         status_fa = status_map.get(str(status).lower(), str(status))
+
+        # تبدیل تاریخ ایجاد به شمسی
+        if isinstance(created_at, str):
+            created_at = datetime.fromisoformat(created_at)
+        created_jalali = jdatetime.datetime.fromgregorian(datetime=created_at).strftime("%Y/%m/%d ساعت %H:%M")
+
         msg = (
             f"🧾 سفارش شماره: {order_id}\n"
-            f"تاریخ ثبت: {created_at}\n"
+            f"تاریخ ثبت: {created_jalali}\n"
             f"وضعیت: {status_fa}\n"
         )
+
         cursor.execute("""
             SELECT od.product_id, od.quantity, od.price, p.name, p.image_path
             FROM order_details od
@@ -547,6 +558,7 @@ async def send_orders_page(update, context, page: int):
             WHERE od.order_id = %s
         """, (order_id,))
         details = cursor.fetchall()
+
         if not details:
             msg += "بدون محصول.\n"
             await update.effective_chat.send_message(msg)
@@ -555,6 +567,7 @@ async def send_orders_page(update, context, page: int):
         total = 0
         product_lines = []
         image_ids = []
+
         for prod_id, qty, price, name, image_path in details:
             line_total = price * qty
             total += line_total
@@ -564,23 +577,26 @@ async def send_orders_page(update, context, page: int):
                 f"قیمت واحد: {format_price(price)} تومان\n"
                 f"جمع: {format_price(line_total)} تومان\n"
             )
-            # ذخیره مسیر کامل تصویر برای هندلر
-            image_ids.append({"prod_id": prod_id, "name": name, "image_path": image_path})
+            image_ids.append({
+                "prod_id": prod_id,
+                "name": name,
+                "image_path": image_path
+            })
+
         msg += "\n".join(product_lines)
         msg += f"\n💵 جمع کل سفارش: {format_price(total)} تومان"
 
-        # دکمه نمایش تصاویر همه محصولات این سفارش
+        # دکمه دیدن تصاویر
         images_button = InlineKeyboardMarkup([
             [InlineKeyboardButton("📷 نمایش تصاویر محصولات", callback_data=f"orderimgs_{order_id}")]
         ])
         await update.effective_chat.send_message(msg, reply_markup=images_button)
 
-        # ذخیره اطلاعات تصاویر محصولات سفارش در context.user_data['order_images']
-        if 'order_images' not in context.user_data:
-            context.user_data['order_images'] = {}
-        # ذخیره به صورت لیست دیکشنری
+        # ذخیره تصویرها برای callback
+        context.user_data.setdefault('order_images', {})
         context.user_data['order_images'][str(order_id)] = image_ids
 
+    # صفحه‌بندی
     nav_buttons = []
     if end < len(orders):
         nav_buttons.append(InlineKeyboardButton("بعدی ⏩", callback_data="orders_next_page"))
@@ -589,7 +605,6 @@ async def send_orders_page(update, context, page: int):
     if nav_buttons:
         reply_markup = InlineKeyboardMarkup([nav_buttons])
         await update.effective_chat.send_message("صفحه سفارش‌ها:", reply_markup=reply_markup)
-
 # هندلر صفحه‌بندی سفارش‌ها
 async def orders_pagination_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
