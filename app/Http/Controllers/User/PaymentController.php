@@ -169,6 +169,7 @@ class PaymentController extends Controller
          'transaction' => time() . rand(1000, 9999),
          'status' => 'paid',
          'order_id' => $order->id,
+         'user_id' => auth('web')->id(),
       ]);
 
       if ($chat_id !== null) {
@@ -220,6 +221,7 @@ class PaymentController extends Controller
          'transaction' => time() . rand(1000, 9999),
          'status' => 'failed',
          'order_id' => null,
+         'user_id' => auth('web')->id(),
       ]);
 
       // حذف سبد خرید از سشن

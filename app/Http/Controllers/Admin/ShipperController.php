@@ -15,13 +15,14 @@ class ShipperController extends Controller
 
     public function all(Request $request)
     {
-        $query = $request->input('query'); // مقدار ورودی جستجو را دریافت می‌کنیم
+        $query = $request->input('query');
 
         $shippers = Shipper::when($query, function ($queryBuilder) use ($query) {
             return $queryBuilder->where(function ($subQuery) use ($query) {
-                $subQuery->where('first_name', 'like', "%{$query}%")
-                    ->orWhere('last_name', 'like', "%{$query}%"); // فیلتر بر اساس نام و نام خانوادگی
+                $subQuery->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ["%{$query}%"])
+                    ->orWhereRaw("CONCAT(last_name, ' ', first_name) LIKE ?", ["%{$query}%"]);
             });
+        
         })->paginate(10); // صفحه‌بندی نتایج
         return view('admin.shippers.all', compact('shippers'));
     }

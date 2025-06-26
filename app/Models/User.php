@@ -48,4 +48,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(ReactionComment::class, 'user_id');
     }
+    public function payments()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

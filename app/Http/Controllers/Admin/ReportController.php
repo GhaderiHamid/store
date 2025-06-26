@@ -16,6 +16,7 @@ class ReportController extends Controller
     public function dailySalesReport()
     {
         $salesData = Order_detail::selectRaw('DATE(created_at) as date, SUM(quantity * price * (1 - discount / 100)) as total_sales')
+            ->whereNotIn('status', ['returned', 'return_in_progress'])
             ->groupBy('date')
             ->orderBy('date', 'asc')
             ->get()
@@ -34,7 +35,9 @@ class ReportController extends Controller
     public function monthlySalesReport()
     {
         // گرفتن همه سفارش‌ها با created_at و قیمت‌ها
-        $allOrders = Order_detail::select('created_at', 'quantity', 'price', 'discount')->get();
+        $allOrders = Order_detail::select('created_at', 'quantity', 'price', 'discount')
+        ->whereNotIn('status', ['returned', 'return_in_progress'])
+        ->get();
 
         // گروه‌بندی سفارش‌ها بر اساس ماه شمسی
         $monthlyGrouped = $allOrders->groupBy(function ($item) {
@@ -64,7 +67,9 @@ class ReportController extends Controller
 
     public function annualSalesReport()
     {
-        $orders = Order_detail::select('created_at', 'quantity', 'price', 'discount')->get();
+        $orders = Order_detail::select('created_at', 'quantity', 'price', 'discount')
+            ->whereNotIn('status', ['returned', 'return_in_progress'])
+            ->get();
 
         // مرحله ۱: گروه‌بندی سفارش‌ها بر اساس سال شمسی (با تایم‌زون تهران)
         $grouped = $orders->groupBy(function ($item) {
@@ -99,48 +104,42 @@ class ReportController extends Controller
     }
 
 
-  
+
     public function weeklySalesReport()
     {
-        $orders = Order_detail::select('quantity', 'price', 'discount', 'created_at')->get();
+        $orders = Order_detail::select('quantity', 'price', 'discount', 'created_at')
+        ->whereNotIn('status', ['returned', 'return_in_progress'])
+        ->get();
 
-        $weeklyGrouped = $orders->groupBy(function ($item) {
+        $grouped = $orders->groupBy(function ($item) {
             $tehran = $item->created_at->copy()->setTimezone('Asia/Tehran');
-            $jalali = Jalalian::fromCarbon($tehran);
-            return $jalali->format('%Y-%W'); // کلید: سال-شماره هفته
+            $startOfWeek = $tehran->copy()->startOfWeek(Carbon::SATURDAY);
+            return $startOfWeek->toDateString(); // کلید یکتا: تاریخ شروع هفته
         });
 
-        $weeklySales = $weeklyGrouped->map(function ($orders, $weekKey) {
-            [$year, $weekNum] = explode('-', $weekKey);
+        $weeklySales = $grouped->map(function ($orders, $weekStartDate) {
+            $carbonStart = Carbon::parse($weekStartDate)->setTimezone('Asia/Tehran');
+            $startOfWeekJalali = Jalalian::fromCarbon($carbonStart);
+            $endOfWeekJalali = Jalalian::fromCarbon($carbonStart->copy()->addDays(6));
 
-            $firstItem = $orders->first();
-            $createdAtTehran = $firstItem->created_at->copy()->setTimezone('Asia/Tehran');
+            $jalaliStart = $startOfWeekJalali->format('%d %B');
+            $jalaliEnd = $endOfWeekJalali->format('%d %B');
 
-            $startOfWeek = $createdAtTehran->copy()->startOfWeek(Carbon::SATURDAY);
-            $endOfWeek = $startOfWeek->copy()->addDays(6);
-
-            $jalaliStart = Jalalian::fromCarbon($startOfWeek)->format('%d %B');
-            $jalaliEnd = Jalalian::fromCarbon($endOfWeek)->format('%d %B');
+            $year = $startOfWeekJalali->format('%Y');
 
             $total = $orders->sum(
                 fn($item) =>
                 $item->quantity * $item->price * (1 - $item->discount / 100)
             );
 
-            $sortKey = intval($year) * 100 + intval($weekNum);
-
             return (object)[
                 'year' => $year,
                 'week_label' => "از $jalaliStart تا $jalaliEnd",
                 'total_sales' => round($total),
-                'sort_key' => $sortKey,
+                'sort_key' => $weekStartDate,
             ];
         })
             ->sortBy('sort_key')
-            ->map(function ($item) {
-                unset($item->sort_key);
-                return $item;
-            })
             ->values();
 
         return view('admin.reports.weekly_sales', compact('weeklySales'));
@@ -152,6 +151,7 @@ class ReportController extends Controller
             DB::raw('SUM(quantity) as total_quantity'),
             DB::raw('SUM(quantity * price * (1 - discount / 100)) as total_sales')
         )
+            ->whereNotIn('status', ['returned', 'return_in_progress'])    
             ->groupBy('product_id')
             ->with('product')
             ->orderByDesc('total_quantity') // 🔁 مرتب‌سازی بر اساس تعداد فروش
@@ -165,6 +165,7 @@ class ReportController extends Controller
         $customerStats = DB::table('order_details')
             ->join('orders', 'orders.id', '=', 'order_details.order_id')
             ->join('users', 'users.id', '=', 'orders.user_id')
+            ->whereNotIn('order_details.status', ['returned', 'return_in_progress'])
             ->select(
                 'users.id as user_id',
                 'users.first_name',
@@ -173,6 +174,7 @@ class ReportController extends Controller
                 DB::raw('COUNT(DISTINCT orders.id) as orders_count'),
                 DB::raw('SUM(order_details.quantity * order_details.price * (1 - order_details.discount / 100)) as total_spent')
             )
+            
             ->groupBy('users.id', 'users.first_name', 'users.last_name', 'users.email')
             ->orderByDesc('total_spent')
             ->paginate(20);
@@ -181,7 +183,9 @@ class ReportController extends Controller
     }
     public function categorySalesReport()
     {
-        $orders = Order_detail::with('product.category')->get();
+        $orders = Order_detail::with('product.category')
+        ->whereNotIn('status', ['returned', 'return_in_progress'])
+        ->get();
 
         $categorySales = $orders->groupBy(function ($item) {
             return optional($item->product->category)->category_name ?? 'بدون دسته‌بندی';
@@ -201,7 +205,9 @@ class ReportController extends Controller
     
     public function citySalesReport()
     {
-        $orders = Order_detail::with('order.user')->get();
+        $orders = Order_detail::with('order.user')
+        ->whereNotIn('status', ['returned', 'return_in_progress'])
+        ->get();
 
         $citySales = $orders->groupBy(function ($item) {
             return optional($item->order->user)->city ?? 'نامشخص';

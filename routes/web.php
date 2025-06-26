@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\BasketContoller;
 use App\Http\Controllers\User\BookmarkController;
 use App\Http\Controllers\User\LikeController;
-use App\Http\Controllers\User\VoteController;
+
 use App\Http\Controllers\User\PaymentController;
 
 use App\Http\Controllers\User\ReactionCommentController;
@@ -33,6 +33,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\ShipperController;
 use App\Http\Controllers\shipper\ShipperProfileController;
 use App\Http\Controllers\User\OrderController;
+use App\Http\Controllers\User\VoteController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -171,8 +172,10 @@ Route::post('/bookmark/toggle', [BookmarkController::class, 'toggleBookmark']);
 Route::post('/bookmark/status', [BookmarkController::class, 'getBookmarkStatus'])->middleware('user.auth');
 
 
-Route::get('/vote/{productId}', [VoteController::class, 'show']);
-Route::post('/vote', [VoteController::class, 'store']);
+// Route::get('/vote/{productId}', [VoteController::class, 'show']);
+// Route::post('/vote', [VoteController::class, 'store']);
+// Route::put('/vote/update',[VoteController::class, 'update']);
+
 
 
 
@@ -203,6 +206,8 @@ Route::middleware('user.auth')->group(function () {
     Route::post('/return-request/{order}', [OrderController::class, 'submit'])->name('user.return.submit');
     Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
     Route::put('/user/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
+    Route::get('/vote/{productId}', [VoteController::class, 'show']);
+    Route::post('/vote', [VoteController::class, 'store']);
 });
 
 Route::post('/reaction-comment', [ReactionCommentController::class, 'store'])->name('reaction.comment');

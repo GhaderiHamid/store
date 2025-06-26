@@ -49,12 +49,15 @@ class ProductsController extends Controller
     public function all(Request $request)
     {
         $query = $request->input('query');
-        $noStock = $request->has('no_stock'); // بررسی وضعیت چک‌باکس
+        $noStock = $request->has('no_stock');
+        $hasDiscount = $request->has('has_discount');
 
         $products = Product::when($query, function ($queryBuilder) use ($query) {
             return $queryBuilder->where('name', 'like', "%{$query}%");
         })->when($noStock, function ($queryBuilder) {
             return $queryBuilder->where('quntity', '<=', 0);
+        })->when($hasDiscount, function ($queryBuilder) {
+            return $queryBuilder->where('discount', '>', 0);
         })->paginate(10);
 
         return view('admin.products.all', compact('products'));

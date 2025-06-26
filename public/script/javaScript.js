@@ -309,65 +309,45 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.stars-container').forEach(container => {
         const productId = container.dataset.productId;
         const stars = container.querySelectorAll('.star');
+        let savedVote = null;
 
-        // دریافت رأی ثبت‌شده از سرور و تنظیم ستاره‌ها بعد از بارگیری صفحه
+        function fillStars(stars, value) {
+            stars.forEach(s => {
+                const v = parseInt(s.dataset.star);
+                s.textContent = v <= value ? 'star' : 'star_border';
+                s.style.color = v <= value ? 'orange' : '';
+            });
+        }
+
         axios.get(`/vote/${productId}`)
             .then(response => {
-                const savedVote = response.data.value;
-                if (savedVote) {
-                    stars.forEach(s => {
-                        if (parseInt(s.dataset.star) <= savedVote) {
-                            s.innerHTML = 'star'; // ستاره طلایی
-                            s.style.color = 'orange';
-                        } else {
-                            s.innerHTML = 'star_border'; // ستاره خالی
-                            s.style.color = '';
-                        }
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching vote:', error);
+                savedVote = response.data.value;
+                if (savedVote) fillStars(stars, savedVote);
             });
 
-        // ثبت رأی جدید هنگام کلیک
         stars.forEach(star => {
             star.addEventListener('click', function () {
-                const selectedStar = parseInt(this.dataset.star);
+                const selected = parseInt(this.dataset.star);
 
-                // تغییر رنگ ستاره‌ها
-                stars.forEach(s => {
-                    if (parseInt(s.dataset.star) <= selectedStar) {
-                        s.innerHTML = 'star'; // ستاره طلایی
-                        s.style.color = 'orange';
-                    } else {
-                        s.innerHTML = 'star_border'; // ستاره خالی
-                        s.style.color = '';
-                    }
-                });
-
-                // ارسال رأی جدید (همیشه POST، سرور باید آپدیت کند)
                 axios.post('/vote', {
                     product_id: productId,
-                    value: selectedStar
+                    value: selected
                 }, {
                     headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                     }
                 }).then(response => {
-                    // پیام موفقیت‌آمیز بودن آپدیت رأی
-                    if (response.data.updated) {
-                        alert('رأی شما با موفقیت به‌روزرسانی شد.');
-                    } else {
-                        alert('رأی شما ثبت شد.');
-                    }
+                    savedVote = response.data.value;
+                    fillStars(stars, savedVote);
+                    alert('رأی شما با موفقیت ثبت شد.');
                 }).catch(error => {
-                    console.error('Error saving vote:', error);
+                    alert('لطفاً ابتدا وارد حساب کاربری شوید.');
                 });
             });
         });
     });
 });
+
 
 ///////////////////////////////comment_Reaction///////////////////////
 document.addEventListener('DOMContentLoaded', function () {
@@ -406,3 +386,5 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error('Error:', error));
     }
 });
+
+

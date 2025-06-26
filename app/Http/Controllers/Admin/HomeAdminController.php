@@ -30,6 +30,7 @@ class HomeAdminController extends Controller
                 DB::raw('DATE(created_at) as date'),
                 DB::raw('SUM(quantity * price * (1 - discount / 100)) as total_sales')
             )
+            ->whereNotIn('status', ['returned', 'return_in_progress'])
             ->groupBy(DB::raw('DATE(created_at)'))
             ->orderBy('date', 'asc')
             ->get()

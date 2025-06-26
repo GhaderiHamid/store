@@ -14,17 +14,30 @@
                     </div>
                     <div class="card-body">
                         <form class="form-inline mb-3" method="GET" action="{{ route('admin.product.all') }}">
-                            <input type="text" name="query" class="form-control  mr-2" placeholder="جستجو براساس نام محصول"
-                                value="{{ request('query') }}">
-                                <div class="form-check ">
-                                   <div class=""> <input type="checkbox" name="no_stock" value="1" class="form-check-input " id="noStockCheckbox"
-                                    {{ request('no_stock') ? 'checked' : '' }}></div>
-                                  <div class=""><label class="form-check-label " for="noStockCheckbox">
+                            <input type="text" name="query" class="form-control mr-2"
+                                   placeholder="جستجو براساس نام محصول"
+                                   value="{{ request('query') }}">
+                        
+                            <div class="form-check mr-3">
+                                <input type="checkbox" name="no_stock" value="1" class="form-check-input"
+                                       id="noStockCheckbox"
+                                       {{ request('no_stock') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="noStockCheckbox">
                                     محصولات ناموجود
-                                </label></div>
-                                </div>
-
-                            <button type="submit" class="btn btn-primary m-1">جستجو</button>             </form>
+                                </label>
+                            </div>
+                        
+                            <div class="form-check mr-3">
+                                <input type="checkbox" name="has_discount" value="1" class="form-check-input"
+                                       id="hasDiscountCheckbox"
+                                       {{ request('has_discount') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="hasDiscountCheckbox">
+                                    فقط محصولات دارای تخفیف
+                                </label>
+                            </div>
+                        
+                            <button type="submit" class="btn btn-primary m-1">جستجو</button>
+                        </form>
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped text-center">
                                 <thead class="text-center">
@@ -60,7 +73,7 @@
                                             <td>{{ \Morilog\Jalali\Jalalian::fromCarbon($product->created_at)->format('Y/m/d H:i') }}</td>
                                             <td>
                                                 <a href="{{ route('admin.products.edit', $product->id) }}">
-                                                    <button class="btn  action-btn btn-info">ویرایش</button>
+                                                    <button class="btn my-1 action-btn btn-info">ویرایش</button>
                                                 </a>
                                                 <form action="{{ route('admin.products.delete', $product->id) }}" method="post"
                                                     class="d-inline" onsubmit="return confirmDelete()">
@@ -76,7 +89,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">
-                        {{ $products->appends(['query' => request('query')])->links() }}
+                        {{ $products->appends(request()->only(['query', 'no_stock', 'has_discount']))->links() }}
 
                     </div>
                 </div>
