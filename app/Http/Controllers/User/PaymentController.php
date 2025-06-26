@@ -62,6 +62,11 @@ class PaymentController extends Controller
       }
 
       $userId = $data['user_id'];
+      $user = \App\Models\User::find($userId);
+      if (!$user || !$user->city || !$user->address) {
+         return back()->withErrors('لطفاً ابتدا اطلاعات شهر و آدرس خود را در پروفایل تکمیل نمایید.');
+      }
+
       // $subtotal = $data['subtotal'] ?? 0;
       $products = $data['products'] ?? [];
       $subtotal = 0;

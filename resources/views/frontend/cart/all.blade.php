@@ -119,5 +119,20 @@
         <p class="text-white">سبد خرید شما خالی است!</p>
     @endif
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector('form[action="{{ route('payment.process') }}"]');
 
+        form.addEventListener('submit', function (event) {
+            const user = @json(auth()->user());
+
+            if (!user.city || !user.address) {
+                event.preventDefault();
+                alert("لطفاً ابتدا اطلاعات شهر و آدرس خود را در پروفایل تکمیل نمایید.");
+                optionally:
+                window.location.href = "{{ route('user.profile.edit') }}";
+            }
+        });
+    });
+</script>
 @endsection

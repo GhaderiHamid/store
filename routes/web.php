@@ -158,6 +158,7 @@ Route::prefix('')->group(function () {
 
 Route::post('/cart/remove-expired/{product}', [CartController::class, 'removeExpired'])->name('cart.remove.expired');
 
+
 });
 
 
