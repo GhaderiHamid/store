@@ -1,6 +1,7 @@
 @extends('layouts.admin.master')
 
 @section('content')
+<title> افزودن مامور ارسال</title>
     <main role="main" class="col-md-9  col-lg-10 px-4 content">
 
             <!-- فرم افزودن مامور ارسال جدید -->

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>لیست سفارشات</title>
+    <title>پنل مامور ارسال </title>
 
     <!-- فونت‌ها و آیکون‌ها -->
     <link rel="stylesheet"
@@ -35,7 +35,7 @@
                                 <span class="material-symbols-outlined">account_circle</span>
                             </div>
                             <div class="user-info ms-2">
-                                <span class="user-name">{{ Auth::guard('shipper')->user()->first_name  ?? 'حساب کاربری' }} {{ Auth::guard('shipper')->user()->last_name  ?? 'حساب کاربری' }}</span>
+                                <span class="user-name">{{ Auth::guard('shipper')->user()->first_name  ?? '' }} {{ Auth::guard('shipper')->user()->last_name  ?? '' }}</span>
                                 
                             </div>
                         </button>

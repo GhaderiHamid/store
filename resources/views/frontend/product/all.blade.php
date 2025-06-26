@@ -1,6 +1,8 @@
 @extends('layouts.frontend.master')
 
 @section('content')
+
+<title>  فروشگاه اینترنتی - انتخاب محصول </title>
     <!-- start offer nav -->
     <section class="container mt-5 custom-container">
         @if(request()->filled('category_id'))

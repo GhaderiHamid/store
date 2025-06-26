@@ -47,19 +47,16 @@ class AuthController extends Controller
         $validated = $request->validated();
 
 
-        $createdShipper=DB::table('shippers')->insert([
+        $createdShipper =  Shipper::create([
             'first_name' => $validated['first_name'],
             'last_name' => $validated['last_name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
             'phone' => $validated['phone'],
-            'city'=>$validated['city'],
-            'created_at' => now(),
-            'updated_at' => now(),
+            'city' => $validated['city'],
+
 
         ]);
-       
-        
 
     
 
@@ -68,8 +65,8 @@ class AuthController extends Controller
             return back()->with('failed', '    ثبت نام انجام نشد');
         }
 
-        // Auth::login($createdShipper);
-        return redirect()->route('frontend.about')->with('success', 'ثبت نام با موفقیت انجام شد');
+        Auth::guard('shipper')->login($createdShipper);
+        return redirect()->route('ShipperIndex')->with('success', 'ثبت نام با موفقیت انجام شد');
         // return back()->with('success', 'ثبت نام با موفقیت انجام شد ');
     }
     

@@ -1,6 +1,7 @@
 @extends('layouts.admin.master')
 
 @section('content')
+<title> ویرایش سفارش</title>
 <main role="main" class="col-md-9 col-lg-10 px-4 content">
     <div class="container-fluid">
         <div class="row mb-3">

@@ -1,6 +1,7 @@
 @extends('layouts.frontend.master')
 
 @section('content')
+<title> مشخصات محصول {{ $product->name }}</title>
     <!-- start product-details nav -->
 
     <div class="container my-5">

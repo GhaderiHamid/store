@@ -1,6 +1,7 @@
 @extends('layouts.admin.master')
 
 @section('content')
+<title> پنل ادمین</title>
     <!-- ناحیه محتوای اصلی -->
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 content">
 

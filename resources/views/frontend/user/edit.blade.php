@@ -1,6 +1,7 @@
 @extends('layouts.frontend.master')
 
 @section('content')
+<title>ویرایش حساب کاربری </title>
     <div class="container my-5 d-flex justify-content-center">
         <div class="card shadow-lg border-0" style="max-width: 500px; width: 100%; background: linear-gradient(135deg, #23272b 80%, #198754 100%);">
             <div class="card-body p-4">

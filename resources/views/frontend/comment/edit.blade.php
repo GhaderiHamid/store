@@ -1,6 +1,7 @@
 @extends('layouts.frontend.master')
 
 @section('content')
+<title> ویرایش کامنت </title>
     <div class="container custom-container mt-5">
         <h2 class="text-white">ویرایش دیدگاه</h2>
         <form action="{{ route('user.comments.update', $comment->id) }}" method="POST">

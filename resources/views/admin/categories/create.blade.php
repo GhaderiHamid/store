@@ -1,6 +1,7 @@
 @extends('layouts.admin.master')
 
 @section('content')
+<title>افزودن دسته بندی </title>
         <!-- فرم افزودن دسته‌بندی -->
         <main role="main" class="col-md-9  col-lg-10 px-4 content">
 

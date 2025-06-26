@@ -1,6 +1,7 @@
 @extends('layouts.frontend.master')
-@section('content')
 
+@section('content')
+<title> فروشگاه اینترنتی</title>
 
     <nav class="w-100">
         <div class="container">

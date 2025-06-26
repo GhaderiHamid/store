@@ -16,8 +16,8 @@ class HomeAdminController extends Controller
 
     public function home()
     {
-        $totalSales = Order_detail::sum(DB::raw('(price * quantity) * (1 - discount / 100)'));
-
+    
+        $totalSales = Order_detail::whereNotIn('status', ['returned', 'return_in_progress'])->sum(DB::raw('(price * quantity) * (1 - discount / 100)'));
         $totalOrders = Order::count();
         $todayOrders = Order::whereDate('created_at', Carbon::today())->count();
         $processingOrders = Order::where('status', 'processing')->count();

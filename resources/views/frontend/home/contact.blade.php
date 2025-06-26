@@ -1,5 +1,6 @@
 @extends('layouts.frontend.master')
 @section('content')
+<title>  تماس با ما</title>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">

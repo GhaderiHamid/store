@@ -1,6 +1,7 @@
 @extends('layouts.admin.master')
 
 @section('content')
+<title>لیست پرداخت ها </title>
     <main role="main" class="col-md-9 col-lg-10 px-4 content">
         <div id="form-payment-list">
             <div class="card">

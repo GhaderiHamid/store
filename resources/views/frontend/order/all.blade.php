@@ -1,6 +1,7 @@
 @extends('layouts.frontend.master')
 
 @section('content')
+<title>  سفارشات من</title>
     @php
         $statusColors = [
             'processing' => 'badge bg-warning',

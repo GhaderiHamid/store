@@ -1,6 +1,7 @@
 @extends('layouts.admin.master')
 
 @section('content')
+<title> گزارش فروش دسته بندی ها</title>
 <main class="col-md-9 ml-sm-auto col-lg-10 px-4 content">
     <h4 class="my-4">گزارش فروش دسته‌بندی‌ها</h4>
 

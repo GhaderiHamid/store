@@ -1,6 +1,6 @@
 @extends('layouts.frontend.master')
 @section('content')
-
+<title> سبد خرید </title>
 <div class="container custom-container mt-5">
     @if (request('message') === 'unavailable')
     <div class="alert alert-danger text-center mt-3">

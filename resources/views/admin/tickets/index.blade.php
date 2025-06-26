@@ -1,5 +1,6 @@
 @extends('layouts.admin.master')
 @section('content')
+<title> لیست تیکت ها</title>
         <main role="main" class="col-md-9  col-lg-10 px-4 content">
         <div class="container mt-4">
             <div class="card shadow border-0 rounded-4">

@@ -1,5 +1,6 @@
 @extends('layouts.frontend.master')
 @section('content')
+<title>   تیکت {{ $ticket->subject }}</title>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10">

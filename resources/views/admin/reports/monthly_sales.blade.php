@@ -1,6 +1,7 @@
 @extends('layouts.admin.master')
 
 @section('content')
+<title> گزارش فروش ماهانه</title>
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 content">
     <h2>گزارش فروش ماهانه</h2>
 

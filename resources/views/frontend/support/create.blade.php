@@ -1,5 +1,6 @@
 @extends('layouts.frontend.master')
 @section('content')
+<title> ایجاد تیکت </title>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-7 col-lg-6">

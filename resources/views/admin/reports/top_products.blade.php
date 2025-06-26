@@ -1,6 +1,7 @@
 @extends('layouts.admin.master')
 
 @section('content')
+<title> پرفروش ترین محصولات</title>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 content">
         <h3 class="mt-4 mb-4">پرفروش‌ترین محصولات</h3>
 

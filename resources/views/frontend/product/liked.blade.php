@@ -1,6 +1,7 @@
 @extends('layouts.frontend.master')
 
 @section('content')
+<title> محصولات لایک شده </title>
     <section class="container mt-5 custom-container">
         <h5 class="custom-font mb-3">محصولات لایک شده:</h5>
         <div class="row">

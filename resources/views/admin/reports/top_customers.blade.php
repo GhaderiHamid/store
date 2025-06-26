@@ -1,6 +1,7 @@
 @extends('layouts.admin.master')
 
 @section('content')
+<title> مشتریان با بیشترین خرید</title>
     <main class="col-md-9 col-lg-10 px-4 content">
         <h4 class="my-4">📊 مشتریان با بیشترین خرید</h4>
 

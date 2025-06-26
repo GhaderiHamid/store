@@ -1,5 +1,6 @@
 @extends('layouts.admin.master')
 @section('content')
+<title> جزئیات تیکت</title>
     <main role="main" class="col-md-9  col-lg-10 px-4 content">
             <div class="container mt-4" style="background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%); border-radius: 2.5rem; padding: 2.5rem 0; box-shadow: 0 8px 32px rgba(44,62,80,0.08);">
                 <div class="row justify-content-center">

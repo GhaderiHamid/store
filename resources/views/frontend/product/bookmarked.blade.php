@@ -1,6 +1,7 @@
 @extends('layouts.frontend.master')
 
 @section('content')
+<title> محصولات ذخیره شده  </title>
     <section class="container mt-5 custom-container">
         <h5 class="custom-font mb-3">محصولات ذخیره شده:</h5>
         <div class="row">

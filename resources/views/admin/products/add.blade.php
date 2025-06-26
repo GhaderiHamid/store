@@ -1,6 +1,7 @@
 @extends('layouts.admin.master')
 
 @section('content')
+<title>  ایجاد محصول</title>
     <main role="main" class="col-md-9  col-lg-10 px-4 content">
 
         <!-- فرم افزودن محصول -->

@@ -1,6 +1,7 @@
 @extends('layouts.frontend.master')
 
 @section('content')
+<title> کامنت های من </title>
     <div class="container custom-container mt-5">
         <h2 class="text-white">دیدگاه‌های شما</h2>
 

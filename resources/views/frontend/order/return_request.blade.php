@@ -2,7 +2,7 @@
 
 @section('content')
 
-
+<title>  درخواست مرجوعی کالا</title>
     <div class="container custom-container mt-5" >
         <h4 class="mb-4">درخواست مرجوعی برای سفارش شماره {{ $order->id }}</h4>
 
