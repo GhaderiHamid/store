@@ -162,12 +162,19 @@
                                                 فروش سالانه</a>
                                         </li>
                                         <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('admin.reports.category_sales') }}">فروش بر حسب دسته بندي</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('admin.reports.city_sales') }}">فروش بر حسب شهر</a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a class="nav-link" href="{{ route('admin.reports.top_products') }}">
                                                  محصولات پر فروش</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('admin.reports.top_customers') }}">مشتریان وفادار</a>
                                         </li>
+                                       
                                     </ul>
                                 </div>
                             </li>

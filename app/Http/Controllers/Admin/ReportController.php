@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\Order_detail;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Morilog\Jalali\Jalalian;
 
 class ReportController extends Controller
@@ -26,60 +27,121 @@ class ReportController extends Controller
 
         return view('admin.reports.daily_sales', compact('salesData'));
     }
+
+
+
+   
     public function monthlySalesReport()
     {
-        $monthlySales = Order_detail::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, SUM(quantity * price * (1 - discount / 100)) as total_sales')
-            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
-            ->orderBy('month', 'asc')
-            ->get()
-            ->map(function ($data) {
-                // تبدیل ماه میلادی به شمسی
-                $year = substr($data->month, 0, 4);
-                $month = substr($data->month, 5, 2);
-                $data->month = Jalalian::fromDateTime("$year-$month-01")->format('%Y/%m');
-                return $data;
+        // گرفتن همه سفارش‌ها با created_at و قیمت‌ها
+        $allOrders = Order_detail::select('created_at', 'quantity', 'price', 'discount')->get();
+
+        // گروه‌بندی سفارش‌ها بر اساس ماه شمسی
+        $monthlyGrouped = $allOrders->groupBy(function ($item) {
+            $tehranTime = Carbon::parse($item->created_at)->setTimezone('Asia/Tehran');
+            return Jalalian::fromCarbon($tehranTime)->format('%Y/%m');
+        });
+
+        // محاسبه مجموع فروش برای هر ماه
+        $monthlySales = $monthlyGrouped->map(function ($orders, $month) {
+            $total = $orders->sum(function ($item) {
+                return $item->price * $item->quantity * (1 - $item->discount / 100);
             });
+
+            return (object)[
+                'month' => $month,
+                'total_sales' => $total
+            ];
+        })
+            ->sortBy('month') // 💡 این خط مهمه
+            ->values();
 
         return view('admin.reports.monthly_sales', compact('monthlySales'));
     }
+
+
+
+
     public function annualSalesReport()
     {
-        $orders = Order_detail::select('quantity', 'price', 'discount', 'created_at')->get();
+        $orders = Order_detail::select('created_at', 'quantity', 'price', 'discount')->get();
 
-        $annualSales = $orders->groupBy(function ($item) {
-            return \Morilog\Jalali\Jalalian::fromDateTime($item->created_at)->format('%Y');
-        })->map(function ($group) {
-            return $group->reduce(function ($carry, $item) {
-                return $carry + ($item->quantity * $item->price * (1 - $item->discount / 100));
-            }, 0);
-        })->sortKeys()->map(function ($sales, $year) {
-            return (object)[
+        // مرحله ۱: گروه‌بندی سفارش‌ها بر اساس سال شمسی (با تایم‌زون تهران)
+        $grouped = $orders->groupBy(function ($item) {
+            $tehranTime = $item->created_at->copy()->setTimezone('Asia/Tehran');
+            return Jalalian::fromCarbon($tehranTime)->format('%Y'); // مثل "1403"
+        });
+
+        // مرحله ۲: محاسبه مجموع فروش سالانه بدون رشد
+        $annualData = $grouped->map(function ($orders) {
+            return $orders->sum(function ($item) {
+                return $item->quantity * $item->price * (1 - $item->discount / 100);
+            });
+        });
+
+        // مرحله ۳: مرتب‌سازی بر اساس سال صعودی
+        $annualData = $annualData->sortKeys();
+
+        // مرحله ۴: محاسبه درصد رشد سالانه
+        $previous = null;
+        $annualSales = collect();
+        foreach ($annualData as $year => $total) {
+            $growth = $previous !== null ? round((($total - $previous) / $previous) * 100, 1) : null;
+            $annualSales->push((object)[
                 'year' => $year,
-                'total_sales' => $sales
-            ];
-        })->values();
+                'total_sales' => round($total),
+                'growth_percent' => $growth
+            ]);
+            $previous = $total;
+        }
 
         return view('admin.reports.annual_sales', compact('annualSales'));
     }
-   
 
+
+  
     public function weeklySalesReport()
     {
         $orders = Order_detail::select('quantity', 'price', 'discount', 'created_at')->get();
 
-        $weeklySales = $orders->groupBy(function ($item) {
-            $date = Jalalian::fromDateTime($item->created_at);
-            return $date->format('%Y-%W'); // سال/هفته شمسی
-        })->map(function ($group) {
-            return $group->reduce(function ($carry, $item) {
-                return $carry + ($item->quantity * $item->price * (1 - $item->discount / 100));
-            }, 0);
-        })->sortKeys()->map(function ($sales, $week) {
+        $weeklyGrouped = $orders->groupBy(function ($item) {
+            $tehran = $item->created_at->copy()->setTimezone('Asia/Tehran');
+            $jalali = Jalalian::fromCarbon($tehran);
+            return $jalali->format('%Y-%W'); // کلید: سال-شماره هفته
+        });
+
+        $weeklySales = $weeklyGrouped->map(function ($orders, $weekKey) {
+            [$year, $weekNum] = explode('-', $weekKey);
+
+            $firstItem = $orders->first();
+            $createdAtTehran = $firstItem->created_at->copy()->setTimezone('Asia/Tehran');
+
+            $startOfWeek = $createdAtTehran->copy()->startOfWeek(Carbon::SATURDAY);
+            $endOfWeek = $startOfWeek->copy()->addDays(6);
+
+            $jalaliStart = Jalalian::fromCarbon($startOfWeek)->format('%d %B');
+            $jalaliEnd = Jalalian::fromCarbon($endOfWeek)->format('%d %B');
+
+            $total = $orders->sum(
+                fn($item) =>
+                $item->quantity * $item->price * (1 - $item->discount / 100)
+            );
+
+            $sortKey = intval($year) * 100 + intval($weekNum);
+
             return (object)[
-                'week' => $week,
-                'total_sales' => $sales
+                'year' => $year,
+                'week_label' => "از $jalaliStart تا $jalaliEnd",
+                'total_sales' => round($total),
+                'sort_key' => $sortKey,
             ];
-        })->values();
+        })
+            ->sortBy('sort_key')
+            ->map(function ($item) {
+                unset($item->sort_key);
+                return $item;
+            })
+            ->values();
 
         return view('admin.reports.weekly_sales', compact('weeklySales'));
     }
@@ -116,5 +178,46 @@ class ReportController extends Controller
             ->paginate(20);
 
         return view('admin.reports.top_customers', compact('customerStats'));
+    }
+    public function categorySalesReport()
+    {
+        $orders = Order_detail::with('product.category')->get();
+
+        $categorySales = $orders->groupBy(function ($item) {
+            return optional($item->product->category)->category_name ?? 'بدون دسته‌بندی';
+        })->map(function ($group, $category) {
+            $total = $group->sum(function ($item) {
+                return $item->price * $item->quantity * (1 - $item->discount / 100);
+            });
+
+            return (object)[
+                'category' => $category,
+                'total_sales' => round($total)
+            ];
+        })->sortByDesc('total_sales')->values();
+
+        return view('admin.reports.category_sales', compact('categorySales'));
+    }
+    
+    public function citySalesReport()
+    {
+        $orders = Order_detail::with('order.user')->get();
+
+        $citySales = $orders->groupBy(function ($item) {
+            return optional($item->order->user)->city ?? 'نامشخص';
+            
+        })->map(function ($group, $city) {
+            $total = $group->sum(function ($item) {
+                return $item->price * $item->quantity * (1 - $item->discount / 100);
+            });
+
+            return (object)[
+                'city' => $city,
+                'total_sales' => round($total)
+            ];
+        })->sortByDesc('total_sales')->values();
+        
+
+        return view('admin.reports.city_sales', compact('citySales'));
     }
 }

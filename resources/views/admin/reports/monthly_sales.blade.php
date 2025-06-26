@@ -1,36 +1,44 @@
 @extends('layouts.admin.master')
 
 @section('content')
-    <!-- ناحیه محتوای اصلی -->
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 content">
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 content">
+    <h2>گزارش فروش ماهانه</h2>
 
-        <canvas id="monthlySalesChart"></canvas>
+    <canvas id="monthlySalesChart"></canvas>
 
-        <script>
-            var ctx = document.getElementById('monthlySalesChart').getContext('2d');
-            var monthlySales = @json($monthlySales);
+    <script>
+        const ctx = document.getElementById('monthlySalesChart').getContext('2d');
+        const monthlySales = @json($monthlySales);
 
-            var labels = monthlySales.map(data => data.month); // نمایش ماه شمسی
-            var values = monthlySales.map(data => data.total_sales);
+        const labels = monthlySales.map(item => item.month);
+        const values = monthlySales.map(item => item.total_sales);
 
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'فروش ماهانه',
-                        data: values,
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 2
-                    }]
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'فروش ماهانه (تومان)',
+                    data: values,
+                    backgroundColor: 'rgba(75, 192, 192, 0.3)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString() + ' تومان';
+                            }
+                        }
+                    }
                 }
-            });
-        </script>
-
-    </main>
-
-    </div>
-    </div>
-
+            }
+        });
+    </script>
+</main>
 @endsection

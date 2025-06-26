@@ -114,6 +114,8 @@ Route::prefix('admin')->middleware(['admin.auth'])->group(function () {
         Route::get('annual-sales', [ReportController::class, 'annualSalesReport'])->name('admin.reports.annual_sales');
         Route::get('top-products', [ReportController::class, 'topSellingProducts'])->name('admin.reports.top_products');
         Route::get('top-customers', [ReportController::class, 'topCustomersReport'])->name('admin.reports.top_customers');
+        Route::get('category-sales', [ReportController::class, 'categorySalesReport'])->name('admin.reports.category_sales');
+        Route::get('city-sales', [ReportController::class, 'citySalesReport'])->name('admin.reports.city_sales');
     });
     
     Route::prefix('payments')->group(function () {
