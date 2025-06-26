@@ -57,9 +57,11 @@
                                     <p class="text-secondary lead mt-3">ناموجود</p>
                                 @else
                                     {{-- <a href="{{ route('frontend.cart.add', $product->id) }}" class="align-items-center"> --}}
-                                    <button class="price-btn mt-4 d-inline-block add-to-cart-btn"
-                                        data-product-id="{{ $product->id }}" data-limited="{{ $product->limited }}"
-                                        data-cart-quantity="{{ $product->cart_quantity ?? 0 }}">
+                                        <button class="price-btn mt-4 d-inline-block add-to-cart-btn" 
+                                        data-product-id="{{ $product->id }}"
+                                        data-limited="{{ $product->limited }}" 
+                                        data-cart-quantity="{{ session('cart.'.$product->id, 0) }}"
+                                        data-product-quantity="{{ $product->quntity }}">
                                         افزودن به سبد خرید
                                     </button>
                                 @endif

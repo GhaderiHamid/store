@@ -88,7 +88,7 @@
                         <div class="col-sm-5 w-100 bg-warning rounded d-flex align-items-center justify-content-center">
                             <div class="badge-danger rounded-circle mr-2 d-flex align-items-center justify-content-center "
                                 style="width: 20px;height: 20px;">
-                               
+                               !
                             </div>
 
                             <span>تنها {{ $product->quntity }} عدد در انبار باقی مانده</span>
@@ -130,11 +130,14 @@
                                     @auth
                                         <!-- اگر کاربر لاگین کرده -->
 
-                                        <button class="btn btn-danger mt-2  add-to-cart-btn"
-                                            data-product-id="{{ $product->id }}" data-limited="{{ $product->limited }}"
-                                            data-cart-quantity="{{ $product->cart_quantity ?? 0 }}">
-                                            افزودن به سبد خرید
-                                        </button>
+                                        
+                                         <button class="btn btn-danger mt-2  add-to-cart-btn" 
+                                        data-product-id="{{ $product->id }}"
+                                        data-limited="{{ $product->limited }}" 
+                                        data-cart-quantity="{{ session('cart.'.$product->id, 0) }}"
+                                        data-product-quantity="{{ $product->quntity }}">
+                                        افزودن به سبد خرید
+                                    </button>
                                     @else
                                         <!-- اگر کاربر لاگین نکرده -->
                                         <div class=" btn btn-danger mb-2 " onclick="alert('لطفاً وارد حساب کاربری خود شوید!')">
