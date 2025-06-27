@@ -1,7 +1,7 @@
 @extends('layouts.frontend.master')
 
 @section('content')
-<title> فروشگاه اینترنتی</title>
+    <title> فروشگاه اینترنتی</title>
 
     <nav class="w-100">
         <div class="container">
@@ -9,17 +9,16 @@
                 @include('errors.message')
                 <nav class="navbar navbar-expand-lg navbar-dark w-100">
                     <!-- <a class="navbar-brand" href="#">فروشگاه</a> -->
-                    <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                        aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav custom-navbar-nav mr-auto">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
-                                    data-toggle="dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
+                                    role="button" data-toggle="dropdown">
                                     دسته بندی محصولات
                                 </a>
                                 <div class="dropdown-menu custom-dropdown-menu border-0 shadow"
@@ -104,8 +103,8 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-4 d-flex flex-column justify-content-between">
-                <a ><img class="img-fluid custom-border mt-2" src="/img/slider/motherboard-1.jpg" alt="" /></a>
-                <a ><img class="img-fluid custom-border mt-2" src="/img/slider/ssd-1.jpg" alt="" /></a>
+                <a><img class="img-fluid custom-border mt-2" src="/img/slider/motherboard-1.jpg" alt="" /></a>
+                <a><img class="img-fluid custom-border mt-2" src="/img/slider/ssd-1.jpg" alt="" /></a>
             </div>
         </div>
     </div>
@@ -140,7 +139,6 @@
 
                     @foreach ($products as $product)
                         @if ($product->quntity != 0)
-
                             <a href="{{ route('frontend.product.single', $product->id) }}" class="text-decoration-none">
                                 <div class="p-3">
                                     <div class="card custom-card1">
@@ -150,14 +148,15 @@
                                             <p class="card-text">
                                             <p class="p-title mt-2">
 
-                                                {{ Str::limit($product->name, 20)}}
+                                                {{ Str::limit($product->name, 20) }}
                                             </p>
                                             <p class="p-price mt-2"><s>{{ number_format($product->price) }}
                                                 </s>
-                                                <span class="badge badge-pill badge-danger mt-1">{{ $product->discount }}%</span>
+                                                <span
+                                                    class="badge badge-pill badge-danger mt-1">{{ $product->discount }}%</span>
                                                 <span class="d-block mt-2">
-                                                    {{ number_format($product->price - ($product->price * $product->discount / 100)) }}
-                                                تومان
+                                                    {{ number_format($product->price - ($product->price * $product->discount) / 100) }}
+                                                    تومان
                                                 </span>
                                             </p>
                                             </p>
@@ -175,4 +174,62 @@
     </section>
     <!-- end offer nav -->
 
+    <!-- start topProducts nav -->
+    <section class="container mt-5 custom-container">
+        <p class="title">پرفروش ترین محصولات</p>
+        <div class="row">
+            <div class="col-sm-12 mt-3">
+
+                <div class="owl-carousel owl-theme bg-white position-relative">
+
+                    @foreach ($topProducts as $product)
+                        @if ($product->quntity != 0)
+                            <a href="{{ route('frontend.product.single', $product->id) }}" class="text-decoration-none">
+                                <div class="p-3">
+                                    <div class="card custom-card1">
+                                        <img class="p-img align-self-center mt-5" src="{{ $product->image_path }}"
+                                            alt="Card image cap">
+                                        <div class="card-body text-center ">
+                                            <p class="card-text">
+                                            <p class="p-title mt-2">
+
+                                                {{ Str::limit($product->name, 25) }}
+                                            </p>
+                                            <!-- شرط برای نمایش تخفیف -->
+                                            @if ($product->discount > 0)
+                                                <p class="mt-4 d-flex justify-content-center align-items-center">
+                                                    <s class="mr-2 p-price ">{{ number_format($product->price) }} تومان</s>
+                                                    <span
+                                                        class="d-flex align-items-center badge badge-pill badge-danger mt-1 "
+                                                        style="width: 38px ;height: 35px">
+                                                        {{ $product->discount }} %
+                                                    </span>
+                                                </p>
+                                                <p class="mt-4 d-flex justify-content-center align-items-center p-price">
+                                                    {{ number_format($product->price - ($product->price * $product->discount) / 100) }}
+                                                    &nbsp; تومان
+                                                </p>
+                                            @else
+                                                <!-- نمایش قیمت اصلی اگر تخفیف وجود نداشته باشد -->
+                                                <p class="mt-5 d-flex justify-content-center align-items-center  p-price">
+                                                    {{ number_format($product->price) }}
+                                                </p>
+                                                <p class="mt-3 d-flex justify-content-center align-items-center  p-price">
+                                                    تومان
+                                                </p>
+                                            @endif
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        @endif
+                    @endforeach
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end topProducts nav -->
 @endsection
