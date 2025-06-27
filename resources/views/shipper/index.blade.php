@@ -13,6 +13,8 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preload" href="/fonts/Vazir-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="/fonts/Vazir-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
     <!-- استایل‌های اختصاصی -->
     <link rel="stylesheet" href="/css/bootstrap-rtl.css">
@@ -262,7 +264,7 @@
     <script>
         function deliverOrder(orderId) {
             if (confirm('آیا از تحویل این سفارش اطمینان دارید؟')) {
-                fetch(`/orders/${orderId}/deliver`, {
+                fetch(`/shipper/orders/${orderId}/deliver`, {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -283,7 +285,7 @@
 
         function returnOrder(orderId) {
             if (confirm('آیا از مرجوع کردن این سفارش اطمینان دارید؟')) {
-                fetch(`/orders/${orderId}/return`, {
+                fetch(`/shipper/orders/${orderId}/return`, {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',

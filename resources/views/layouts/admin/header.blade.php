@@ -59,10 +59,7 @@
                                             <a class="nav-link" href="{{ route('admin.product.all') }}">لیست
                                                 محصولات</a>
                                         </li>
-                                        {{-- <li class="nav-item">
-                                            <a class="nav-link" onclick="showForm('form-product-categories');">دسته‌بندی
-                                                محصولات</a>
-                                        </li> --}}
+                                        
                                     </ul>
                                 </div>
                             </li>
@@ -74,14 +71,7 @@
                                 </a>
                                 <div class="collapse" id="collapseOrders">
                                     <ul class="nav flex-column submenu">
-                                        {{-- <li class="nav-item">
-                                            <a class="nav-link" onclick="showForm('form-new-orders');">سفارش‌های
-                                                جدید</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" onclick="showForm('form-processing-orders');">سفارش‌های
-                                                در حال پردازش</a>
-                                        </li> --}}
+                                        
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('admin.orders.all') }}">لیست سفارشات</a>
                                         </li>
@@ -186,13 +176,7 @@
                                 </a>
                                 <div class="collapse" id="collapsePayments">
                                     <ul class="nav flex-column submenu">
-                                        {{-- <li class="nav-item">
-                                            <a class="nav-link">پرداخت‌های جدید</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link">پرداخت‌های
-                                                تکمیل شده</a>
-                                        </li> --}}
+                                       
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('admin.payments.all') }}">لیست
                                                 پرداخت‌ها</a>
@@ -206,4 +190,4 @@
                         </ul>
                     </div>
                 </nav>
-                {{-- <p></p> --}}
+                

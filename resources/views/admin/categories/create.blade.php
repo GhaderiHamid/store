@@ -20,10 +20,7 @@
                                 <input type="text" class="form-control" id="categoryName"
                                     placeholder="نام دسته‌بندی را وارد کنید" name="category_name">
                             </div>
-                            {{-- <div class="form-group">
-                                <label for="categoryDescription">توضیحات</label>
-                                <textarea class="form-control" id="categoryDescription" rows="2" placeholder="توضیحات دسته‌بندی"></textarea>
-                            </div> --}}
+                           
                                 <div class="form-group">
                                     <label for="categoryImage">تصویر </label>
                                     <input type="file" class="form-control-file" name="image_path" id="categoryImage">

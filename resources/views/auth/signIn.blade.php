@@ -7,6 +7,7 @@
         <title>ورود کاربر</title>
 
         <link rel="stylesheet" href="/css/style1.css">
+        <link href="/fonts/Vazir-Medium.woff" rel="preload" as="font" type="font/woff" crossorigin="anonymous">
     </head>
 
     <body>

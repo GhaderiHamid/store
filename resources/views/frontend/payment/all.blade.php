@@ -79,7 +79,7 @@
     </div>
 
     <script>
-        // کپچا ریاضی
+        // کپچا 
         function generateCaptchaMath() {
             const a = Math.floor(Math.random() * 10) + 1;
             const b = Math.floor(Math.random() * 10) + 1;
@@ -117,20 +117,20 @@
         errorDiv.style.display = 'none';
     }
 
-    // 👇 بررسی نهایی موجودی از سرور
+    //  بررسی نهایی موجودی از سرور
     fetch('/cart/check-reservation-status')
         .then(res => res.json())
         .then(data => {
             if (data.valid === false && data.reason === 'purchased_by_others') {
-                alert("⛔️پرداخت انجام نشد.");
+                alert("پرداخت انجام نشد.");
                 window.location.href = '/cart?message=unavailable';
             } else {
-                // اگر موجودی اوکی بود، فرم ارسال شود
+                
                 document.getElementById('paymentForm').submit();
             }
         })
         .catch(err => {
-            console.error('⚠️ خطا در بررسی موجودی:', err);
+            console.error(' خطا در بررسی موجودی:', err);
             alert('مشکلی در بررسی موجودی پیش آمده است. لطفاً دوباره تلاش کنید.');
         });
 });

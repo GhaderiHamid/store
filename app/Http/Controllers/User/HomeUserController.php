@@ -17,8 +17,15 @@ class HomeUserController extends Controller
         return view('frontend.home.all', compact('categories', 'products'));
     
     }
-        
+    public function about(){
+        return view('frontend.home.about');
+    }
     
-   
+
+
+    public function contact()
+    {
+        return view('frontend.home.contact');
+    }
    
 }

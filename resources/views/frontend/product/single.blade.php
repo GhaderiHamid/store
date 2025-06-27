@@ -263,17 +263,17 @@
                             @foreach ($product->comments as $comment)
                                 <div class="row mt-5">
                                     <div class="col-sm-12 col-md-2">
-                                        <div class="media custom-product-media">
-                                            <div class="d-flex flex-column align-items-center">
-                                                <div class=" user-details  ">
+                                        <div class="media custom-product-media d-flex  align-items-center justify-content-center">
+                                            <div >
+                                                <div class=" user-details mx-1 ">
                                                     <img class="rounded-circle " src="/img/profile/Untitled.jpg"
                                                         class="mr-3" alt="">
 
                                               
 
 
-                                            </div> --}}
-                                                </div>
+                                                 </div> 
+                                             </div>
                                                 <p class="mt-2">
                                                     {{ $comment->user->first_name }}&nbsp;{{ $comment->user->last_name }}
                                                 </p>
@@ -281,7 +281,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-9">
+                                    <div class="col-sm-12 mt-4">
                                         <div class="media-body ">
                                             <p>{{ $comment->comment_text }} </p>
                                             <ul class="nav flex-column">

@@ -139,7 +139,7 @@ function changeQuantity(id, price, discount, delta) {
         return;
     }
 
-    const updateUrl = window.location.origin + '/products/update-cart-quantity';
+    const updateUrl = window.location.origin + '/cart/update-cart-quantity';
 
     if (newVal < 1) {
         alert('تعداد نمی‌تواند کمتر از 1 باشد');

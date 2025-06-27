@@ -35,39 +35,7 @@
         </div>
     </div>
     <!-- end shiping nav -->
-    <!-- start footer nav -->
-    {{-- <footer class="container-fluid custom-footer mt-5">
-        <div class="row">
-            <div class="col-sm-12 col-md-3 text-center">
-                <h5>اطلاعات</h5>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link " href="">درباره ما</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">نحوه خرید</a>
-                    </li>
-                   
-                    <li class="nav-item">
-                        <a class="nav-link " href="#">پیشنهادات</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-sm-12 col-md-3 text-center">
-                <h5>خدمات مشتریان</h5>
-               
-            </div>
-            <div class="col-sm-12 col-md-3 text-center">
-                <h5>حساب کاربری</h5>
-               
-            </div>
-            <div class="col-sm-12 col-md-3 text-center">
-                <h5>اطلاعات تماس</h5>
-               
-            </div>
-        </div>
-    </footer> --}}
-    <!-- end footer nav -->
+    
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
     crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
@@ -113,10 +81,6 @@
 
 
 <!-- اسکریپت اصلی -->
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>

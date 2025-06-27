@@ -10,9 +10,10 @@
     </div>
 
    
-    {{-- بارگذاری فونت فارسی --}}
+    <link href="/fonts/Vazir-Medium.woff"  as="font" type="font/woff" crossorigin="anonymous">
     <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet">
     <style>
+        
         canvas {
             font-family: 'Vazir', Tahoma, sans-serif !important;
         }
