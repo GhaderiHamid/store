@@ -1,7 +1,7 @@
 @extends('layouts.frontend.master')
 
 @section('content')
-<title> مشخصات محصول {{ $product->name }}</title>
+    <title> مشخصات محصول {{ $product->name }}</title>
     <!-- start product-details nav -->
 
     <div class="container my-5">
@@ -89,17 +89,17 @@
                         <div class="col-sm-5 w-100 bg-warning rounded d-flex align-items-center justify-content-center">
                             <div class="badge-danger rounded-circle mr-2 d-flex align-items-center justify-content-center "
                                 style="width: 20px;height: 20px;">
-                               !
+                                !
                             </div>
 
                             <span>تنها {{ $product->quntity }} عدد در انبار باقی مانده</span>
                         </div>
                     @endif
                     <div class="form-group row  d-flex align-items-center justify-content-end">
-                       
+
 
                         <div class="col-sm-12 mt-2  d-flex align-items-center justify-content-end">
-                         
+
                             @if ($product->quntity == 0)
                                 <p class="text-secondary lead mt-3">ناموجود</p>
                             @else
@@ -107,14 +107,16 @@
                                     <p class="d-inline-block">قیمت:</p>
                                     @if ($product->discount > 0)
                                         <p class=" d-flex align-items-center ">
-                                            <s class="mr-2 d-flex align-items-center">{{ number_format($product->price) }} تومان</s>
+                                            <s class="mr-2 d-flex align-items-center">{{ number_format($product->price) }}
+                                                تومان</s>
                                             <span class="d-flex align-items-center badge badge-pill badge-danger mt-1 mx-1"
                                                 style="width: 38px ;height: 35px">
                                                 {{ $product->discount }} %
                                             </span>
                                         </p>
                                         <p class="mt-1 d-inline-block justify-content-center align-items-center">
-                                            {{ number_format($product->price - ($product->price * $product->discount) / 100) }} &nbsp;
+                                            {{ number_format($product->price - ($product->price * $product->discount) / 100) }}
+                                            &nbsp;
                                             تومان
                                         </p>
                                     @else
@@ -131,14 +133,13 @@
                                     @auth
                                         <!-- اگر کاربر لاگین کرده -->
 
-                                        
-                                         <button class="btn btn-danger mt-2  add-to-cart-btn" 
-                                        data-product-id="{{ $product->id }}"
-                                        data-limited="{{ $product->limited }}" 
-                                        data-cart-quantity="{{ session('cart.'.$product->id, 0) }}"
-                                        data-product-quantity="{{ $product->quntity }}">
-                                        افزودن به سبد خرید
-                                    </button>
+
+                                        <button class="btn btn-danger mt-2  add-to-cart-btn"
+                                            data-product-id="{{ $product->id }}" data-limited="{{ $product->limited }}"
+                                            data-cart-quantity="{{ session('cart.' . $product->id, 0) }}"
+                                            data-product-quantity="{{ $product->quntity }}">
+                                            افزودن به سبد خرید
+                                        </button>
                                     @else
                                         <!-- اگر کاربر لاگین نکرده -->
                                         <div class=" btn btn-danger mb-2 " onclick="alert('لطفاً وارد حساب کاربری خود شوید!')">
@@ -159,7 +160,7 @@
         <div class="row mt-5">
             <div class="col-sm-12 ">
                 <ul class="nav nav-tabs custom-nav-tabs-product-page" id="myTab" role="tablist">
-                   
+
 
                     <li class="nav-item">
                         <a class="nav-link active" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
@@ -171,7 +172,7 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                  
+
                     <div class="tab-pane fade custom-tab-product-detail" id="profile" role="tabpanel"
                         aria-labelledby="profile-tab">
                         <h4 class="ml-3 mt-3"> مشخصات کلی</h4>
@@ -242,10 +243,10 @@
                                                 </div>
                                             @endfor
                                         </div>
-                                       
+
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-7">
+                                <div class="col-sm-12 col-md-7 mt-4">
                                     <div class="add-comment">
 
                                         @guest
@@ -260,26 +261,23 @@
                                 </div>
 
                             </div>
+                            <hr>
                             @foreach ($product->comments as $comment)
-                                <div class="row mt-5">
+                                <div class="row ">
                                     <div class="col-sm-12 col-md-2">
-                                        <div class="media custom-product-media d-flex  align-items-center justify-content-center">
-                                            <div >
+                                        <div
+                                            class="media custom-product-media d-flex  align-items-center justify-content-center">
+                                            <div>
                                                 <div class=" user-details mx-1 ">
-                                                    <img class="rounded-circle " src="/img/profile/Untitled.jpg"
-                                                        class="mr-3" alt="">
-
-                                              
-
-
-                                                 </div> 
-                                             </div>
-                                                <p class="mt-2">
-                                                    {{ $comment->user->first_name }}&nbsp;{{ $comment->user->last_name }}
-                                                </p>
+                                                    <img class="rounded-circle mr-3" src="/img/profile/Untitled.jpg"
+                                                        alt="">
+                                                </div>
                                             </div>
-
+                                            <p class="mt-2">
+                                                {{ $comment->user->first_name }}&nbsp;{{ $comment->user->last_name }}
+                                            </p>
                                         </div>
+
                                     </div>
                                     <div class="col-sm-12 mt-4">
                                         <div class="media-body ">
@@ -351,43 +349,45 @@
 
                                         </div>
                                     </div>
-
                                 </div>
                                 <hr>
-                            @endforeach
-
-
+                                @endforeach
 
                         </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="add-comment-user d-flex px-3 py-2" id="comment">
-                                    <span class="material-symbols-outlined text-white mt-1">
-                                        add_comment
-                                    </span>
-                                    <p class="d-inline-block ml-2"> دیدگاه خود را وارد کنید:</p>
-                                </div>
-                                <form class="w-100 mt-4" method="POST"
-                                    action="{{ route('frontend.product.comment', $product->id) }}"
-                                    @guest onsubmit="event.preventDefault(); alert('لطفاً وارد حساب کاربری خود شوید!');" @endguest>
-                                    @csrf
-                                    <div class="form-row">
-                                        <div class="form-group col-sm-12 col-md-12">
-                                            <textarea name="comment_text" class="form-control mt-3 p-2" placeholder="دیدگاه شما..." cols="30"
-                                                rows="6"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="text-right">
-                                        <button type="submit" class="btn btn-primary my-3">ارسال دیدگاه </button>
-                                    </div>
-                                </form>
+                        
 
+
+
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="add-comment-user d-flex px-3 py-2" id="comment">
+                                <span class="material-symbols-outlined text-white mt-1">
+                                    add_comment
+                                </span>
+                                <p class="d-inline-block ml-2"> دیدگاه خود را وارد کنید:</p>
                             </div>
+                            <form class="w-100 mt-4" method="POST"
+                                action="{{ route('frontend.product.comment', $product->id) }}"
+                                @guest onsubmit="event.preventDefault(); alert('لطفاً وارد حساب کاربری خود شوید!');" @endguest>
+                                @csrf
+                                <div class="form-row">
+                                    <div class="form-group col-sm-12 col-md-12">
+                                        <textarea name="comment_text" class="form-control mt-3 p-2" placeholder="دیدگاه شما..." cols="30"
+                                            rows="6"></textarea>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary my-3">ارسال دیدگاه </button>
+                                </div>
+                            </form>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 

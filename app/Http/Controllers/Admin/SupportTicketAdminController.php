@@ -9,9 +9,16 @@ use Illuminate\Support\Facades\Auth;
 
 class SupportTicketAdminController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $tickets = SupportTicket::with('user')->latest()->get();
+        $query = SupportTicket::with('user')->latest();
+
+        if ($request->has('status') && in_array($request->status, ['open', 'closed'])) {
+            $query->where('status', $request->status);
+        }
+
+        $tickets = $query->paginate(10); // صفحه‌بندی ۱۰ تایی
+
         return view('admin.tickets.index', compact('tickets'));
     }
 

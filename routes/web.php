@@ -124,7 +124,7 @@ Route::prefix('/')->group(function () {
             Route::get('/user/comments/{id}/edit', [App\Http\Controllers\User\CommentController::class, 'edit'])->name('user.comments.edit');
             Route::put('/user/comments/{id}', [App\Http\Controllers\User\CommentController::class, 'update'])->name('user.comments.update');
             Route::delete('/user/comments/{id}', [App\Http\Controllers\User\CommentController::class, 'destroy'])->name('user.comments.destroy');
-            Route::post('/reaction-comment', [ReactionCommentController::class, 'store'])->name('reaction.comment');
+            Route::post('/reaction-comment', action: [ReactionCommentController::class, 'store'])->name('reaction.comment');
             Route::get('/recommend/{userId}', [\App\Http\Controllers\User\ProductsController::class, 'recommendProducts'])->name('user.recommendations');
         });
     });
