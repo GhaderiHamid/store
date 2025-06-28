@@ -1,13 +1,8 @@
 {
-  "laravel":{
-    "phpVersion":"8.2"
-  }
-  {
-    "app":"hamidstore"
-    "port":3000
-    "build":{
-    "location":"iran"
-    }
-    
-    }
+  "app": "hamidstore",
+  "port": 3000,
+  "build": {
+    "location": "iran"
+  },
+  "disks": []
 }
