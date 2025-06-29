@@ -1,6 +1,7 @@
 @extends('layouts.admin.master')
 
 @section('content')
+
 <title> لیست محصولات</title>
     <main role="main" class="col-md-9  col-lg-10 px-4 content">
             @include('errors.message')
@@ -19,20 +20,20 @@
                                    placeholder="جستجو براساس نام محصول"
                                    value="{{ request('query') }}">
                         
-                            <div class="form-check mr-3">
-                                <input type="checkbox" name="no_stock" value="1" class="form-check-input"
+                            <div class="form-check mr-3 ">
+                                <input type="checkbox" name="no_stock" value="1" class="form-check-input "
                                        id="noStockCheckbox"
                                        {{ request('no_stock') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="noStockCheckbox">
+                                <label class="form-check-label mr-3" for="noStockCheckbox">
                                     محصولات ناموجود
                                 </label>
                             </div>
                         
                             <div class="form-check mr-3">
-                                <input type="checkbox" name="has_discount" value="1" class="form-check-input"
+                                <input type="checkbox" name="has_discount" value="1" class="form-check-input "
                                        id="hasDiscountCheckbox"
                                        {{ request('has_discount') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="hasDiscountCheckbox">
+                                <label class="form-check-label mr-3" for="hasDiscountCheckbox">
                                     فقط محصولات دارای تخفیف
                                 </label>
                             </div>
@@ -85,16 +86,23 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                 
                                 </tbody>
+                                
                             </table>
+                            <div class="d-flex align-items-center  mt-4">
+                                {{ $products->appends(request()->only(['query', 'no_stock', 'has_discount']))->links() }}    
+                              </div>
                         </div>
+                        
+                        
                     </div>
-                    <div class="d-flex justify-content-center">
-                        {{ $products->appends(request()->only(['query', 'no_stock', 'has_discount']))->links() }}
-
-                    </div>
+                    
                 </div>
+               
             </div>
+           
+        </div>
         </main>
 
         </div>

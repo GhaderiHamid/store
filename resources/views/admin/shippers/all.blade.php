@@ -44,25 +44,26 @@
              
                                                 <td style="text-align: center; vertical-align: middle;">{{ \Morilog\Jalali\Jalalian::fromCarbon($shipper->created_at)->format('Y/m/d H:i')}}</td>
                                                 <td style="text-align: center; vertical-align: middle;" >
-                                                    <a href="{{ route('admin.shippers.edit', $shipper->id) }}">
+                                                    <a href="{{ route('admin.shippers.edit', $shipper->id) }}" class="my-1">
                                                         <button class="btn action-btn  btn-info">ویرایش</button>
                                                     </a>
                                                     <form action="{{ route('admin.shippers.delete', $shipper->id) }}" method="post"
                                                         class="d-inline" onsubmit="return confirmDelete()">
                                                         @csrf
                                                         @method('delete')
-                                                        <button type="submit" class="btn action-btn btn-danger">حذف</button>
+                                                        <button type="submit" class="btn action-btn btn-danger my-1">حذف</button>
                                                     </form>
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <div class="d-flex align-items-center mt-4">
+                                    {{ $shippers->links() }}
+                                </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-center">
-                            {{ $shippers->links() }}
-                        </div>
+                       
                     </div>
                 </div>
             </main>

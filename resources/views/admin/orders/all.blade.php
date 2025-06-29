@@ -50,11 +50,11 @@
                                             <td>{{ $statusLabels[$order->status] ?? 'null' }}</td>
 
                                             <td class="text-center">
-                                                <a href="{{ route('admin.orders.show', $order) }}" class="btn btn-info btn-sm text-white">
-                                                    <i class="fas fa-eye"></i> مشاهده جزئیات
+                                                <a href="{{ route('admin.orders.show', $order) }}" class="btn btn-info btn-sm text-white my-1">
+                                                    <i class="fas fa-eye "></i> مشاهده جزئیات
                                                 </a>
-                                                <a href="{{ route('admin.orders.edit', $order) }}" class="btn btn-warning btn-sm text-white">
-                                                    <i class="fas fa-edit"></i> ویرایش سفارش
+                                                <a href="{{ route('admin.orders.edit', $order) }}" class="btn btn-warning btn-sm text-white my-1">
+                                                    <i class="fas fa-edit "></i> ویرایش سفارش
                                                 </a>
                                             </td>
                                         </tr>
@@ -65,7 +65,7 @@
                                 </tbody>
 
                             </table>
-                            <div class="d-flex justify-content-center mt-4">
+                            <div class="d-flex align-items-center mt-4">
                                 {{ $orders->appends(request()->query())->links() }}                 
                             </div>
 

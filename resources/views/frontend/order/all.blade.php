@@ -293,10 +293,10 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="d-flex align-items-center justify-content-around mt-3">
+                                                    <div class="d-flex  align-items-center justify-content-around mt-3 ">
                                                         <div class="d-flex align-items-center">
                                                             <p class="card-text">امتیاز دهید:</p>
-                                                            <div class="custom-icone mx-1">
+                                                            <div class="custom-icone ">
                                                                 <div class="d-flex align-items-center stars-container"
                                                                     data-product-id="{{ $detail->product_id }}"
                                                                     style="cursor: pointer">
@@ -313,7 +313,7 @@
                                                         <a href="{{ url('/products/' . $detail->product_id . '/single#comment') }}">
                                                             <button type="button" class="btn btn-primary d-flex">
                                                                 <span class="material-symbols-outlined">chat_bubble</span>
-                                                                <p class="mx-1">ثبت دیدگاه</p>
+                                                                <p >ثبت دیدگاه</p>
                                                             </button>
                                                         </a>
                                                     </div>

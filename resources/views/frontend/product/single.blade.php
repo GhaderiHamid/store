@@ -266,16 +266,19 @@
                                 <div class="row ">
                                     <div class="col-sm-12 col-md-2">
                                         <div
-                                            class="media custom-product-media d-flex  align-items-center justify-content-center">
-                                            <div>
+                                            class="media custom-product-media ">
+                                            <div class="d-flex  align-items-center justify-content-center">
                                                 <div class=" user-details mx-1 ">
                                                     <img class="rounded-circle mr-3" src="/img/profile/Untitled.jpg"
                                                         alt="">
                                                 </div>
+                                                <div>
+                                                    <p class="mt-2">
+                                                        {{ $comment->user->first_name }}&nbsp;{{ $comment->user->last_name }}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <p class="mt-2">
-                                                {{ $comment->user->first_name }}&nbsp;{{ $comment->user->last_name }}
-                                            </p>
+                                           
                                         </div>
 
                                     </div>

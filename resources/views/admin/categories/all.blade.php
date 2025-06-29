@@ -34,23 +34,24 @@
                                             <td class="align-middle">{{ \Morilog\Jalali\Jalalian::fromCarbon($category->created_at)->format('Y/m/d H:i')}}</td>
                                             <td class="align-middle">
                                                 <a href="{{ route('admin.categories.edit', $category->id) }}"><button
-                                                        class="btn action-btn  btn-info">ویرایش</button>
+                                                        class="btn action-btn my-1 btn-info">ویرایش</button>
                                                 </a>
                                                 <form action="{{ route('admin.categories.delete', $category->id) }}" method="post"
                                                     class="d-inline" onsubmit="return confirmDelete()">
                                                 @csrf
                                                 @method('delete')
-                                                <button type="submit" class="btn action-btn btn-danger">حذف</button>
+                                                <button type="submit" class="btn action-btn my-1 btn-danger">حذف</button>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="d-flex justify-content-center">
+                                {{ $categories->links() }}
+                            </div>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-center">
-                        {{ $categories->links() }}
-                    </div>
+                   
                 </div>
             </div>
         </main>

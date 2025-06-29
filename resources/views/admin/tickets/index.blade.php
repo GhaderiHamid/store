@@ -66,12 +66,13 @@
                             @endforelse
                         </tbody>
                     </table>
+                    <div class="mt-4 d-flex justify-content-center">
+                        {{ $tickets->appends(['status' => request('status')])->links() }}
+                    </div>
                 </div>
 
                 <!-- صفحه‌بندی -->
-                <div class="mt-4 d-flex justify-content-center">
-                    {{ $tickets->appends(['status' => request('status')])->links() }}
-                </div>
+                
 
             </div>
         </div>

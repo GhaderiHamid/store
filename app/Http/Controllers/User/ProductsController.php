@@ -65,7 +65,7 @@ class ProductsController extends Controller
     public function recommendProducts($userId)
     {
         // دریافت داده‌های پیشنهادی از API
-        $response = file_get_contents("http://127.0.0.1:5000/recommend?user_id=" . $userId);
+        $response = file_get_contents("http://127.0.0.1:5000/products/recommend?user_id=" . $userId);
         $data = json_decode($response, true);
 
         // بررسی اینکه آیا داده‌ای دریافت شده است

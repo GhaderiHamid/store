@@ -72,7 +72,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                @if ($orders->total() > 0)
+                @if ($counts > 0)
                     <ul class="nav nav-tabs custom-nav-tabs-product-page justify-content-center rounded-pill bg-dark p-2 shadow-lg"
                         id="myTab" role="tablist">
                         <li class="nav-item m-1">

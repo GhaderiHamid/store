@@ -44,24 +44,25 @@
                                                 <td style="text-align: center; vertical-align: middle;">{{ $user->role == 'admin' ? 'ادمین' : 'کاربر' }}</td>
                                                 <td style="text-align: center; vertical-align: middle;">{{ \Morilog\Jalali\Jalalian::fromCarbon($user->created_at)->format('Y/m/d H:i')}}</td>
                                                 <td style="text-align: center; vertical-align: middle;" >
-                                                    <a href="{{ route('admin.users.edit', $user->id) }}">
+                                                    <a href="{{ route('admin.users.edit', $user->id) }}" class="my-1">
                                                         <button class="btn action-btn  btn-info">ویرایش</button>
                                                     </a>
                                                     <form action="{{ route('admin.users.delete', $user->id) }}" method="post" class="d-inline" onsubmit="return confirmDelete()">
                                                         @csrf
                                                         @method('delete')
-                                                        <button type="submit" class="btn action-btn btn-danger">حذف</button>
+                                                        <button type="submit" class="btn action-btn btn-danger my-1">حذف</button>
                                                     </form>
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <div class="d-flex align-items-center mt-4">
+                                    {{ $users->links() }}
+                                </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-center">
-                            {{ $users->links() }}
-                        </div>
+                       
                     </div>
                 </div>
             </main>
