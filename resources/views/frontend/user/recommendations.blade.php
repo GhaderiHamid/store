@@ -8,7 +8,7 @@
 
             @if (!empty($recommendedProducts) && count($recommendedProducts) > 0)
                 @foreach ($recommendedProducts as $product)
-                    @if($product->quntity != 0)
+                 
                         <div class="col-sm-6 col-md-4 col-lg-3">
                             <div class="card mb-4 custom-card-body1">
                                 <img src="/{{ $product->image_path }}" class="card-img-top" alt="">
@@ -49,12 +49,15 @@
                                 </div>
                             </div>
                         </div>
-                    @endif
                 @endforeach
+               
             @else
                 <p class="no-recommend">متأسفانه محصولی برای شما پیشنهاد نشده است.</p>
             @endif
 
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+            {{ $recommendedProducts->appends(request()->query())->links() }}
         </div>
     </section>
 
