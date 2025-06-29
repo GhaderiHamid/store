@@ -4,5 +4,9 @@
   "build": {
     "location": "iran"
   },
-  "disks": []
+  "disks": [],
+  "laravel":{
+    "phpVersion":"8.2"
+  }
+  
 }
