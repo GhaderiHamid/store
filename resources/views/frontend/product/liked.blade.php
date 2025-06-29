@@ -17,7 +17,6 @@
                                             <div class="card-body custom-card-body text-center w-100">
 
                                                 <p class="card-text custom-card-text">
-
                                                     {{ $product->name }}
                                                 </p>
 
