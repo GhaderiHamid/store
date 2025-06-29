@@ -62,22 +62,22 @@ class ProductsController extends Controller
             ->get();
         return view('frontend.product.single', compact('product', 'similarProducts'));
     }
-    public function recommendProducts($userId)
-    {
-        // دریافت داده‌های پیشنهادی از API
-        $response = file_get_contents("http://127.0.0.1:5000/products/recommend?user_id=" . $userId);
-        $data = json_decode($response, true);
+    // public function recommendProducts($userId)
+    // {
+    //     // دریافت داده‌های پیشنهادی از API
+    //     $response = file_get_contents("http://127.0.0.1:5000/products/recommend?user_id=" . $userId);
+    //     $data = json_decode($response, true);
 
-        // بررسی اینکه آیا داده‌ای دریافت شده است
-        if (!isset($data['recommendations']) || empty($data['recommendations'])) {
-            return view('frontend.user.recommendations')->with('recommendedProducts', []);
-        }
+    //     // بررسی اینکه آیا داده‌ای دریافت شده است
+    //     if (!isset($data['recommendations']) || empty($data['recommendations'])) {
+    //         return view('frontend.user.recommendations')->with('recommendedProducts', []);
+    //     }
 
-        // دریافت محصولات پیشنهادی از دیتابیس
-        $recommendedProducts = Product::whereIn('id', $data['recommendations'])->get();
+    //     // دریافت محصولات پیشنهادی از دیتابیس
+    //     $recommendedProducts = Product::whereIn('id', $data['recommendations'])->get();
 
-        return view('frontend.user.recommendations', compact('recommendedProducts'));
-    }
+    //     return view('frontend.user.recommendations', compact('recommendedProducts'));
+    // }
     
    
 }

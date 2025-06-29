@@ -19,8 +19,6 @@
                                                 <p class="card-text custom-card-text">
                                                     {{ $product->name }}
                                                 </p>
-
-
                                                 <!-- شرط برای نمایش تخفیف -->
                                                 @if ($product->discount > 0)
                                                     <p class=" d-flex justify-content-center align-items-center">
