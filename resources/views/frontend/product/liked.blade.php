@@ -19,7 +19,6 @@
                                                 <p class="card-text custom-card-text">
 
                                                     {{ $product->name }}
-
                                                 </p>
 
 
