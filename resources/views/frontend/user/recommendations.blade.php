@@ -56,9 +56,11 @@
             @endif
 
         </div>
-        <div class="d-flex justify-content-center mt-4">
-            {{ $recommendedProducts->appends(request()->query())->links() }}
-        </div>
+          @if (method_exists($recommendedProducts, 'links'))
+    <div class="d-flex justify-content-center mt-4">
+        {{ $recommendedProducts->appends(request()->query())->links() }}
+    </div>
+@endif
     </section>
 
 @endsection
