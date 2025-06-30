@@ -9,6 +9,7 @@ use App\Models\Vote;
 use App\Support\Storage\Contracts\StorageInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class ProductsController extends Controller
 {
@@ -47,7 +48,6 @@ class ProductsController extends Controller
         }
 
         $products = $query->paginate(20)->appends($request->except('page'));
-
         return view('frontend.product.all', compact('products'));
     }
 
@@ -62,7 +62,25 @@ class ProductsController extends Controller
             ->get();
         return view('frontend.product.single', compact('product', 'similarProducts'));
     }
-  public function recommendProducts($userId)
+    // public function recommendProducts($userId)
+    // {
+    //     // دریافت داده‌های پیشنهادی از API
+    //     $response = file_get_contents("http://127.0.0.1:5000/products/recommend?user_id=" . $userId);
+    //     $data = json_decode($response, true);
+
+    //     // بررسی اینکه آیا داده‌ای دریافت شده است
+    //     if (!isset($data['recommendations']) || empty($data['recommendations'])) {
+    //         return view('frontend.user.recommendations')->with('recommendedProducts', []);
+    //     }
+
+    //     // دریافت محصولات پیشنهادی از دیتابیس
+    //     $recommendedProducts = Product::whereIn('id', $data['recommendations'])->get();
+
+    //     return view('frontend.user.recommendations', compact('recommendedProducts'));
+    // }
+  
+
+    public function recommendProducts($userId)
     {
         // آدرس جدید API روی سرور Render
         $apiUrl = 'https://flask-ai-ps4l.onrender.com/recommend';
