@@ -126,8 +126,8 @@ Route::prefix('/')->group(function () {
             Route::put('/user/comments/{id}', [App\Http\Controllers\User\CommentController::class, 'update'])->name('user.comments.update');
             Route::delete('/user/comments/{id}', [App\Http\Controllers\User\CommentController::class, 'destroy'])->name('user.comments.destroy');
             Route::post('/reaction-comment', action: [ReactionCommentController::class, 'store'])->name('reaction.comment');
-            Route::get('/recommend/view/{userId}', [RecommendationController::class, 'recommendProducts'])->name('user.recommendations');
-            // Route::get('/recommend/{userId}', [\App\Http\Controllers\User\ProductsController::class, 'recommendProducts'])->name('user.recommendations');
+         
+            Route::get('/recommend/{userId}', [\App\Http\Controllers\User\ProductsController::class, 'recommendProducts'])->name('user.recommendations');
         });
     });
     Route::prefix('cart')->middleware(['user.auth'])->group(function () {
