@@ -62,22 +62,33 @@ class ProductsController extends Controller
             ->get();
         return view('frontend.product.single', compact('product', 'similarProducts'));
     }
-    // public function recommendProducts($userId)
-    // {
-    //     // دریافت داده‌های پیشنهادی از API
-    //     $response = file_get_contents("http://127.0.0.1:5000/products/recommend?user_id=" . $userId);
-    //     $data = json_decode($response, true);
+  public function recommendProducts($userId)
+    {
+        // آدرس جدید API روی سرور Render
+        $apiUrl = 'https://flask-ai-ps4l.onrender.com/recommend';
 
-    //     // بررسی اینکه آیا داده‌ای دریافت شده است
-    //     if (!isset($data['recommendations']) || empty($data['recommendations'])) {
-    //         return view('frontend.user.recommendations')->with('recommendedProducts', []);
-    //     }
+        // ارسال درخواست به API Flask
+        $response = Http::get($apiUrl, [
+            'user_id' => $userId,
+        ]);
 
-    //     // دریافت محصولات پیشنهادی از دیتابیس
-    //     $recommendedProducts = Product::whereIn('id', $data['recommendations'])->get();
+        // بررسی موفقیت پاسخ
+        if (!$response->successful()) {
+            return view('frontend.user.recommendations')->with('recommendedProducts', []);
+        }
 
-    //     return view('frontend.user.recommendations', compact('recommendedProducts'));
-    // }
+        $data = $response->json();
+
+        // بررسی وجود پیشنهادها
+        if (!isset($data['recommendations']) || empty($data['recommendations'])) {
+            return view('frontend.user.recommendations')->with('recommendedProducts', []);
+        }
+
+        // دریافت اطلاعات محصولات از دیتابیس
+        $recommendedProducts = Product::whereIn('id', $data['recommendations'])->get();
+
+        return view('frontend.user.recommendations', compact('recommendedProducts'));
+    }
     
    
 }
