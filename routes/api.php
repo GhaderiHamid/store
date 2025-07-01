@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\User\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::post('/payment', [PaymentController::class, 'handle']);
 Route::post('/payment/webhook', function (Request $request) {
     $data = $request->json()->all();
 
