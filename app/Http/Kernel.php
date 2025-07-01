@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'admin.auth' => \App\Http\Middleware\AdminAuth::class,
         'user.auth' => \App\Http\Middleware\UserAuth::class,
         'shipper.auth'=> \App\Http\Middleware\ShipperAuth::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
 }
