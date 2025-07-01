@@ -240,4 +240,21 @@ class PaymentController extends Controller
       ]);
       
    }
+     public function handle(Request $request)
+    {
+        // اعتبارسنجی ساده
+        $validated = $request->validate([
+            'user_id' => 'required|integer',
+            'subtotal' => 'required|integer',
+            'products' => 'required|array',
+        ]);
+
+        // ساخت لینک پرداخت تستی یا رفتن به درگاه واقعی
+        $paymentUrl = "https://example.com/pay/{$validated['user_id']}-{$validated['subtotal']}";
+
+        return response()->json([
+            'payment_url' => $paymentUrl
+        ]);
+    }
+
 }
