@@ -154,8 +154,8 @@ Route::prefix('/')->group(function () {
         Route::get('/vote/{productId}', [VoteController::class, 'show']);
         Route::post('/vote', [VoteController::class, 'store']);
     });
+    Route::get('/payment/redirect', [PaymentController::class, 'redirectFromBot']);
     Route::prefix('payment')->middleware(['user.auth'])->group(function () {
-        Route::get('/redirect', [PaymentController::class, 'redirectFromBot']);
         Route::post('', [PaymentController::class, 'process'])->name('payment.process');
         Route::post('/pay', [PaymentController::class, 'pay'])->name('pay');
         Route::post('/failed', [\App\Http\Controllers\User\PaymentController::class, 'failed'])->name('payment.failed');
