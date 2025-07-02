@@ -50,7 +50,9 @@
                 <input type="text" id="captchaInput" class="captcha-input" placeholder="کد امنیتی" maxlength="2"
                     required oninput="this.value=this.value.replace(/[^0-9]/g,'');">
             </div>
-    
+     <div class="expiry-error" id="expiryError" style="color: red; display: none;">سال باید بین 04 تا 10 و
+                ماه بین 01 تا 12 باشد.</div>
+            <!-- نمایش قیمت -->
             <div id="priceBox">
                 مبلغ قابل پرداخت: 
                 <span id="priceValue">{{ isset($subtotal) ? number_format($subtotal) : number_format($basket->subTotal()) }}</span>
@@ -114,20 +116,20 @@
 
     //  بررسی نهایی موجودی از سرور
     fetch('/cart/check-reservation-status')
-        .then(res => res.json())
-        .then(data => {
-            if (data.valid === false && data.reason === 'purchased_by_others') {
-                alert("پرداخت انجام نشد.");
-                window.location.href = '/cart?message=unavailable';
-            } else {
-                
-                document.getElementById('paymentForm').submit();
-            }
-        })
-        .catch(err => {
-            console.error('i خطا در بررسی موجودی:', err);
-            alert('مشکلی در بررسی موجودی پیش آمده است. لطفاً دوباره تلاش کنید.');
-        });
+.then(res => res.json())
+.then(data => {
+    if (data.valid === false && data.reason === 'purchased_by_others') {
+        alert("پرداخت انجام نشد.");
+        window.location.href = '/cart?message=unavailable';
+    } else {
+        
+        document.getElementById('paymentForm').submit();
+    }
+})
+.catch(err => {
+    console.error(' خطا در بررسی موجودی:', err);
+    alert('مشکلی در بررسی موجودی پیش آمده است. لطفاً دوباره تلاش کنید.');
+});
 });
         // فرمت شماره کارت
         function formatCardNumber(input) {
@@ -226,3 +228,5 @@ window.addEventListener('beforeunload', function(e) {
 </body>
 
 </html>
+
+
