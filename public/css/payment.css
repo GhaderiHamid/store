@@ -4,17 +4,15 @@ body {
     min-height: 100vh;
     text-align: center;
     padding: 20px;
-   
+    margin: 0;
 }
 
 .payment-form {
-    /* background: #111; */
-   
     background: linear-gradient(90deg, #2e2929 0%, #472121 100%);
     padding: 15px 32px 15px 32px;
     border-radius: 22px;
-    max-width: 650px;
-    min-width: 650px;
+    max-width: 645px;
+    min-width: 64px;
     min-height: 520px;
     height: 520px;
     margin: 20px auto;
@@ -61,9 +59,11 @@ input::placeholder {
     font-size: 1.08rem;
     letter-spacing: 1px;
 }
-.cartNumber{
+
+.cartNumber {
     width: 73%;
 }
+
 input:focus {
     border: 2.5px solid #ffd600;
     box-shadow: 0 0 0 4px #ffe06633, 0 6px 24px 0 rgba(255, 224, 102, 0.13);
@@ -73,7 +73,6 @@ input:focus {
 }
 
 input:hover:not(:focus) {
-    
     background: linear-gradient(90deg, #232323 60%, #393939 100%);
     box-shadow: 0 2px 12px 0 rgba(255, 224, 102, 0.10);
 }
@@ -100,6 +99,7 @@ button {
     border: 2px solid #43e97b;
     box-shadow: 0 4px 16px 0 rgba(67, 233, 123, 0.13);
 }
+
 .btn-pay:hover {
     background: linear-gradient(90deg, #38f9d7 0%, #43e97b 100%);
     color: #fff;
@@ -115,6 +115,7 @@ button {
     box-shadow: 0 4px 16px 0 rgba(255, 88, 88, 0.13);
     margin-right: 18px;
 }
+
 .btn-cancel:hover {
     background: linear-gradient(90deg, #f857a6 0%, #ff5858 100%);
     color: #fff;
@@ -125,7 +126,7 @@ button {
 .captcha-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     background: #222;
     border-radius: 7px;
     padding: 8px 18px;
@@ -148,7 +149,7 @@ button {
 
 .captcha-input {
     width: 100px;
-    margin-right: 14px;
+    margin:0px;
     padding: 10px;
     border-radius: 14px;
     border: 1.5px solid #ffe066;
@@ -203,6 +204,8 @@ button {
     gap: 10px;
     width: 80%;
     margin: 0 auto 10px auto;
+    align-items: center;
+    justify-content: center;
 }
 
 .expiry-row input {
@@ -262,41 +265,153 @@ button {
     border: 1.5px solid #ffe066;
 }
 
+#priceBox {
+    background: linear-gradient(90deg, #ffe066 60%, #fffbe6 100%);
+    color: #222;
+    font-size: 1.35rem;
+    font-weight: bold;
+    border-radius: 12px;
+    padding: 12px 0;
+    margin: 18px auto 10px auto;
+    width: 75%;
+    box-shadow: 0 2px 8px 0 #ffe06655;
+}
+
+.alert {
+    color: #ff6b6b;
+    background-color: #222;
+    border: 1px solid #ff6b6b;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px auto;
+    width: 80%;
+    font-size: 1rem;
+}
+
+/* استایل‌های مخصوص موبایل */
 @media (max-width: 700px) {
     .payment-form {
-        max-width: 98vw;
+        max-width: 90vw;
         min-width: unset;
+        width: 90vw;
         height: auto;
-        min-height: 420px;
-        padding: 18px 8px 16px 8px;
+        min-height: unset;
+        padding: 15px 8px;
+        margin: 50px -10px;
     }
 
     .payment-form h5 {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
+        margin-bottom: 15px;
     }
 
-    input,
-    .captcha-input {
+    input, .row-flex, .expiry-row, .captcha-container {
+        width: 90% !important;
+    }
+
+    input {
+        padding: 12px 10px;
         font-size: 1rem;
-        padding: 10px 8px;
+        margin: 8px auto;
+    }
+
+    .cartNumber {
+        width: 90% !important;
+    }
+
+    .row-flex {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .row-flex input {
+        width: 100% !important;
+    }
+
+    .expiry-row {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .expiry-row input {
+        width: 45% !important;
+    }
+
+    .expiry-row p {
+        display: none;
+    }
+
+    .captcha-container {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+        gap: 8px;
     }
 
     .captcha-question {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
+        margin-bottom: 8px;
     }
+
+    .captcha-input {
+        width: 80% !important;
+        margin-right: 0;
+    }
+
     #countdownBox {
-        width: 98%;
-        font-size: 1rem;
-        padding: 10px 0;
-        gap: 6px;
+        width: 90%;
+        font-size: 0.9rem;
+        padding: 8px 0;
+        margin-top: 5px;
+        margin-bottom: 15px;
     }
+
     #countdownBox .timer-icon {
-        font-size: 1.3rem;
-        margin-left: 4px;
+        font-size: 1.2rem;
     }
+
     #countdownBox #countdownTimer {
         font-size: 1.1rem;
         padding: 2px 8px;
-        margin-right: 4px;
+    }
+
+    #priceBox {
+        width: 90%;
+        font-size: 1.1rem;
+        padding: 10px 0;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    .btn-cancel {
+        margin-right: 0;
+        margin-bottom: 8px;
+    }
+
+    .alert {
+        width: 90%;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .payment-form h5 {
+        font-size: 1.3rem;
+    }
+    
+    input {
+        font-size: 0.95rem;
+        padding: 10px 8px;
+    }
+    
+    #priceBox {
+        font-size: 1rem;
+    }
+    
+    button {
+        font-size: 0.95rem;
     }
 }
