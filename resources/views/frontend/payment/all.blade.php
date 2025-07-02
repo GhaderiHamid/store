@@ -17,7 +17,7 @@
             <span class="timer-label">زمان باقی‌مانده:</span>
             <span id="countdownTimer">15:00</span>
         </div>
-        <h5> درگاه پرداخت</h5>
+        <h5>درگاه پرداخت</h5>
         @if ($subtotal <= 0 || empty($products))
             <div class="alert alert-danger text-center mt-3">
                 ⚠️ متأسفیم، سبد خرید شما منقضی شده یا موجودی برخی محصولات تمام شده است.<br>
@@ -26,52 +26,47 @@
         @endif
         <form id="paymentForm" action="{{ route('pay') }}" method="POST" autocomplete="off">
             @csrf
-            
             <input type="hidden" name="amount" value="{{ isset($subtotal) ? $subtotal : $basket->subTotal() }}">
-
-
+    
             <input class="cartNumber" type="text" placeholder="شماره کارت" required maxlength="19"
                 oninput="formatCardNumber(this);">
+            
             <div class="row-flex">
                 <input type="password" placeholder="رمز دوم" required
                     oninput="this.value=this.value.replace(/[^0-9]/g,'');">
                 <input type="text" placeholder="CVV2" maxlength="4" required
                     oninput="this.value=this.value.replace(/[^0-9]/g,'');">
             </div>
+            
             <div class="expiry-row">
-                <input type="text" id="yearInput" placeholder="سال" maxlength="2" required
-                    onkeypress="return validateYearKeyPress(event)" oninput="validateYearInput(this)">
-                <p style="color: #38f9d7;">/</p>
                 <input type="text" id="monthInput" placeholder="ماه" maxlength="2" required
                     onkeypress="return validateMonthKeyPress(event)" oninput="validateMonthInput(this)">
+                <input type="text" id="yearInput" placeholder="سال" maxlength="2" required
+                    onkeypress="return validateYearKeyPress(event)" oninput="validateYearInput(this)">
             </div>
+            
             <div class="captcha-container">
                 <span class="captcha-question" id="captchaQuestion"></span>
-                <input type="text" id="captchaInput" class="captcha-input" placeholder="کد امنیتی " maxlength="2"
+                <input type="text" id="captchaInput" class="captcha-input" placeholder="کد امنیتی" maxlength="2"
                     required oninput="this.value=this.value.replace(/[^0-9]/g,'');">
             </div>
-
-            
-            <div class="expiry-error" id="expiryError" style="color: red; display: none;">سال باید بین 04 تا 10 و
-                ماه بین 01 تا 12 باشد.</div>
-            <!-- نمایش قیمت -->
-            <div id="priceBox"
-                style="background:linear-gradient(90deg,#ffe066 60%,#fffbe6 100%);color:#222;font-size:1.35rem;font-weight:bold;border-radius:12px;padding:12px 0;margin:18px auto 10px auto;width:75%;box-shadow:0 2px 8px 0 #ffe06655;">
-                مبلغ قابل پرداخت: <span
-                    id="priceValue">{{ isset($subtotal) ? number_format($subtotal) : number_format($basket->subTotal()) }}</span>
+    
+            <div id="priceBox">
+                مبلغ قابل پرداخت: 
+                <span id="priceValue">{{ isset($subtotal) ? number_format($subtotal) : number_format($basket->subTotal()) }}</span>
                 تومان
             </div>
+            
             <div class="expiry-row">
                 <button type="reset" class="btn-cancel"
                     onclick="event.preventDefault(); document.getElementById('cancelForm').submit();">انصراف</button>
-                    <button type="submit" id="submitPay" class="btn-pay"
+                <button type="submit" id="submitPay" class="btn-pay"
                     {{ $subtotal <= 0 || empty($products) ? 'disabled' : '' }}>
                     پرداخت
                 </button>
             </div>
         </form>
         
-        <!-- فرم انصراف -->
         <form id="cancelForm" action="{{ route('payment.failed') }}" method="POST" style="display:none;">
             @csrf
             <input type="hidden" name="amount" value="{{ isset($subtotal) ? $subtotal : $basket->subTotal() }}">
@@ -117,22 +112,7 @@
         errorDiv.style.display = 'none';
     }
 
-    //  بررسی نهایی موجودی از سرور
-    fetch('/cart/check-reservation-status')
-        .then(res => res.json())
-        .then(data => {
-            if (data.valid === false && data.reason === 'purchased_by_others') {
-                alert("پرداخت انجام نشد.");
-                window.location.href = '/cart?message=unavailable';
-            } else {
-                
-                document.getElementById('paymentForm').submit();
-            }
-        })
-        .catch(err => {
-            console.error(' خطا در بررسی موجودی:', err);
-            alert('مشکلی در بررسی موجودی پیش آمده است. لطفاً دوباره تلاش کنید.');
-        });
+  
 });
         // فرمت شماره کارت
         function formatCardNumber(input) {
