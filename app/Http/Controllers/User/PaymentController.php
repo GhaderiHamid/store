@@ -123,14 +123,6 @@ class PaymentController extends Controller
       // 🛡️ بررسی رزرو و موجودی هر محصول
       foreach ($products as $p) {
          $product = Product::find($p['product_id']);
-
-       
-
-         if (!$product|| $product->quntity < $p['quantity']) 
-         {
-            return back()->withErrors(provider: "محصول «{$p['name']}» شما موجودی ندارد.");
-         }
-         
       }
 
       // ✅ رزروها معتبر هستن، ادامه بده
