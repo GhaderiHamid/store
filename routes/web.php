@@ -130,6 +130,7 @@ Route::prefix('/')->group(function () {
             Route::get('/recommend/{userId}', [\App\Http\Controllers\User\ProductsController::class, 'recommendProducts'])->name('user.recommendations');
         });
     });
+    Route::get('cart/check-reservation-status', [CartController::class, 'checkReservationStatus']);
     Route::prefix('cart')->middleware(['user.auth'])->group(function () {
         Route::get('/count', [CartController::class, 'getCartCount'])->name('frontend.cart.count');
         Route::get('{product_id}/remove', [CartController::class, 'remove'])->name('frontend.cart.remove');
@@ -138,7 +139,6 @@ Route::prefix('/')->group(function () {
         Route::post('/remove-expired/{product}', [CartController::class, 'removeExpired'])->name('cart.remove.expired');
         Route::get('/total', [CartController::class, 'getTotal']);
         Route::get('', [CartController::class, 'all'])->name('frontend.cart.all');
-        Route::get('/check-reservation-status', [CartController::class, 'checkReservationStatus']);
         Route::post('/update-quantity', [\App\Http\Controllers\CartController::class, 'updateQuantity']);
     });
 
