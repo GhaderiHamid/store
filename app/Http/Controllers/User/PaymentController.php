@@ -124,10 +124,7 @@ class PaymentController extends Controller
       foreach ($products as $p) {
          $product = Product::find($p['product_id']);
 
-         // $reserved = Reservation::where('user_id', $userId)
-         //    ->where('product_id', $p['product_id'])
-         //    ->where('reserved_at', '>=', now()->subMinutes(15))
-         //    ->first();
+       
 
          if (!$product|| $product->quntity < $p['quantity']) 
          {
@@ -138,7 +135,9 @@ class PaymentController extends Controller
 
       // ✅ رزروها معتبر هستن، ادامه بده
       session()->forget('payment_data');
-      session()->forget('cart');
+      if (session()->has('cart')) {
+         session()->forget('cart');
+      }
       Reservation::where('user_id', $userId)->delete();
 
       $order = Order::create([
@@ -169,7 +168,7 @@ class PaymentController extends Controller
          'transaction' => time() . rand(1000, 9999),
          'status' => 'paid',
          'order_id' => $order->id,
-         'user_id' => auth('web')->id(),
+         'user_id' => $userId,
       ]);
 
       if ($chat_id !== null) {
@@ -185,8 +184,8 @@ class PaymentController extends Controller
    }
    public function sendTelegramMessage($chatId, $message)
    {
-      $botToken = env('TELEGRAM_BOT_TOKEN');
-      Http::withOptions(['verify' => false])->post("https://api.telegram.org/bot{$botToken}/sendMessage", [
+      $botToken = config('services.telegram.bot_token');
+      Http::post("https://api.telegram.org/bot{$botToken}/sendMessage", [
          'chat_id' => $chatId,
          'text' => $message,
       ]);
@@ -199,11 +198,11 @@ class PaymentController extends Controller
       // حذف داده از سشن پس از استفاده
       session()->forget('payment_data');
 
-
+      
       $subtotal = $data['subtotal'] ?? 0;
       $amount = $subtotal;
       $chat_id = $data['chat_id'] ?? null;
-
+      $userId = $data['user_id'];
       // ساخت شماره سفارش یکتا و غیرتکراری
       do {
          $orderId = 'ORD-' . time() . '-' . rand(1000, 9999);
@@ -221,14 +220,15 @@ class PaymentController extends Controller
          'transaction' => time() . rand(1000, 9999),
          'status' => 'failed',
          'order_id' => null,
-         'user_id' => auth('web')->id(),
+         'user_id' => $userId,
       ]);
 
       // حذف سبد خرید از سشن
      if (session()->has('cart')) {
          session()->forget('cart');
+     }
          Reservation::where('user_id', $data['user_id'])->delete();
-      }
+      
       if ($chat_id != null) {
       $this->sendTelegramMessage($chat_id, '❌ پرداخت شما ناموفق بود');
       }
@@ -240,21 +240,6 @@ class PaymentController extends Controller
       ]);
       
    }
-     public function handle(Request $request)
-    {
-        // اعتبارسنجی ساده
-        $validated = $request->validate([
-            'user_id' => 'required|integer',
-            'subtotal' => 'required|integer',
-            'products' => 'required|array',
-        ]);
-
-        // ساخت لینک پرداخت تستی یا رفتن به درگاه واقعی
-        $paymentUrl = "https://example.com/pay/{$validated['user_id']}-{$validated['subtotal']}";
-
-        return response()->json([
-            'payment_url' => $paymentUrl
-        ]);
-    }
+   
 
 }
