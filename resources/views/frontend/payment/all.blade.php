@@ -112,7 +112,22 @@
         errorDiv.style.display = 'none';
     }
 
-  
+    //  بررسی نهایی موجودی از سرور
+    fetch('/cart/check-reservation-status')
+        .then(res => res.json())
+        .then(data => {
+            if (data.valid === false && data.reason === 'purchased_by_others') {
+                alert("پرداخت انجام نشد.");
+                window.location.href = '/cart?message=unavailable';
+            } else {
+                
+                document.getElementById('paymentForm').submit();
+            }
+        })
+        .catch(err => {
+            console.error('i خطا در بررسی موجودی:', err);
+            alert('مشکلی در بررسی موجودی پیش آمده است. لطفاً دوباره تلاش کنید.');
+        });
 });
         // فرمت شماره کارت
         function formatCardNumber(input) {
