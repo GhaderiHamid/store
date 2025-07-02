@@ -119,7 +119,15 @@ class PaymentController extends Controller
       $userId = $data['user_id'];
       $products = $data['products'] ?? [];
       $chat_id = $data['chat_id'] ?? null;
-
+      // 🛡️ بررسی رزرو و موجودی هر محصول
+      foreach ($products as $p) {
+         $product = Product::find($p['product_id']);
+         if (!$product|| $product->quntity < $p['quantity']) 
+         {
+            return back()->withErrors(provider: "محصول «{$p['name']}» شما موجودی ندارد.");
+         }
+         
+      }
     
       session()->forget('payment_data');
       if (session()->has('cart')) {
