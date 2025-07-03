@@ -31,7 +31,7 @@ class UpdateRequest extends FormRequest
             'quntity' => 'required|numeric',
             'discount' => 'required|numeric',
             'limited' => 'required|numeric',
-            'image_path' => 'required|image|mimes:png,jpg,jpeg,webp',
+            'image_path' => 'image|mimes:png,jpg,jpeg,webp',
             'description' => 'required|min:10',
         ];
     }
