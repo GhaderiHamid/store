@@ -32,10 +32,10 @@
                                         @if ($discount > 0)
                                             <span
                                                 style="text-decoration:line-through;color:#bbb">{{ number_format($item->price) }}</span>
-                                            <span class="ml-2">{{ number_format($final_price) }} تومان</span>
+                                            <span class="ml-2"><mak>{{ number_format($final_price) }} تومان </mak></span>
                                             <span class="badge badge-success ml-1">{{ $discount }}٪ تخفیف</span>
                                         @else
-                                            {{ number_format($item->price) }} تومان
+                                           <mak> {{ number_format($item->price) }} تومان </mak>
                                         @endif
                                     </div>
                                 </div>
@@ -47,7 +47,7 @@
                                             <div class="form-group d-flex justify-content-center row align-items-center">
                                                 <div class="d-flex flex-column align-items-center justify-content-center">
                                                     <label for="quantity-{{ $item->id }}"
-                                                        class="col-form-label text-white mt-2">تعداد</label>
+                                                        class="col-form-label text-white mt-2"><mak> تعداد </mak></label>
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <button type="button" class="btn btn-secondary m-1"
                                                             onclick="changeQuantity({{ $item->id }}, {{ $item->price }}, {{ $discount }}, -1)">
@@ -120,7 +120,7 @@
                 </div>
             </div>
         @else
-            <p class="text-white">سبد خرید شما خالی است!</p>
+            <p class="text-white"><mak> سبد خرید شما خالی است!</mak></p>
         @endif
     </div>
     <script>

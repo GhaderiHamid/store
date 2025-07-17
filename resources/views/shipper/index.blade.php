@@ -66,14 +66,14 @@
     </header>
     <div class="container custom-container mt-5">
         <div class="header-container d-flex align-items-center justify-content-between mb-4">
-            <h2 class="text-white mb-0">لیست سفارشات شما</h2>
+            <h2 class="text-white mb-0"><mak>لیست سفارشات شما </mak></h2>
             
             
         </div>
         <div class="row">
             <div class="col-12">
                 @if ($counts > 0)
-                    <ul class="nav nav-tabs custom-nav-tabs-product-page justify-content-center rounded-pill bg-dark p-2 shadow-lg"
+                    <ul class="nav mak nav-tabs custom-nav-tabs-product-page justify-content-center rounded-pill bg-dark p-2 shadow-lg"
                         id="myTab" role="tablist">
                         <li class="nav-item m-1">
                             <a class="nav-link {{ request('status') == 'shipped' || !request('status') ? 'active' : '' }} text-white d-flex align-items-center px-4 py-2 rounded-pill fw-bold bg-primary shadow-sm"
@@ -100,7 +100,7 @@
                             <div class="container my-5 mx-2">
                                 <div class="row">
                                     @if ($orders->where('status', 'shipped')->isEmpty())
-                                        <p class="text-white">شما هیچ سفارش برای ارسال ندارید.</p>
+                                        <p class="text-white"><mak> شما هیچ سفارش برای ارسال ندارید. </mak></p>
                                     @endif
                                     
                                     @foreach ($orders as $order)
@@ -166,7 +166,7 @@
                             <div class="container my-5 mx-2">
                                 <div class="row">
                                     @if ($orders->where('status', 'return_in_progress')->isEmpty())
-                                        <p class="text-white">شما هیچ سفارش برای مرجوع ندارید.</p>
+                                        <p class="text-white"><mak> شما هیچ سفارش برای مرجوع ندارید. </mak></p>
                                     @endif
                                     
                                     @foreach ($orders as $order)
@@ -256,6 +256,7 @@
                 @endif
             </div>
         </div>
+       
     </div>
 
     <!-- اسکریپت‌های مورد نیاز -->
@@ -305,5 +306,28 @@
             }
         }
     </script>
+    <script>
+        function toggleTheme() {
+          document.body.classList.toggle("light-mode");
+      
+          // ذخیره وضعیت تم در localStorage
+          if (document.body.classList.contains("light-mode")) {
+            localStorage.setItem("theme", "light");
+          } else {
+            localStorage.setItem("theme", "dark");
+          }
+        }
+      
+        // هنگام بارگذاری صفحه، تنظیم تم بر اساس localStorage
+        window.onload = function () {
+          const savedTheme = localStorage.getItem("theme");
+          if (savedTheme === "light") {
+            document.body.classList.add("light-mode");
+          }
+        };
+      </script>
+       <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="تغییر حالت تم">
+        <span class="material-symbols-outlined">dark_mode</span>
+      </button>
 </body>
 </html>

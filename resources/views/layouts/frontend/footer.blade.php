@@ -86,6 +86,34 @@
 <script>
     window.addToCartAjaxUrl = "{{ route('frontend.cart.add.ajax') }}";
 </script>
+
+<script>
+    function toggleTheme() {
+      const body = document.body;
+      const icon = document.querySelector('.theme-toggle-btn span');
+  
+      body.classList.toggle('light-mode');
+  
+      // تغییر آیکون بسته به حالت تم
+      if (body.classList.contains('light-mode')) {
+        icon.textContent = 'light_mode';
+        localStorage.setItem('theme', 'light');
+      } else {
+        icon.textContent = 'dark_mode';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+  
+    // هنگام لود صفحه، بازیابی حالت از localStorage
+    window.onload = function () {
+      const savedTheme = localStorage.getItem("theme");
+      const icon = document.querySelector('.theme-toggle-btn span');
+      if (savedTheme === "light") {
+        document.body.classList.add("light-mode");
+        if (icon) icon.textContent = "light_mode";
+      }
+    };
+  </script>
 </body>
 
 </html>

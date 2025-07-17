@@ -26,13 +26,16 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         
     </head>
-
+    
     <body class="rtl">
 
+        <button class="theme-toggle-btn border border-info" onclick="toggleTheme()" aria-label="تغییر حالت تم">
+            <span class="material-symbols-outlined ">dark_mode</span>
+          </button>
+        
 
 
-
-
+      
         
 
         <!-- start top nav -->
@@ -54,6 +57,7 @@
                                     محصولات</p>
                                     
                             </nav>
+                          
                         </div>
                     </div>
                 </div>
@@ -135,9 +139,11 @@
                                         ثبت نام | ورود
                                     </a>
                                 @endif
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        

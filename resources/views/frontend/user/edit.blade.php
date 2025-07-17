@@ -8,9 +8,9 @@
              <div class="d-flex align-items-center ">
                 <span class="material-icons " style="font-size: 2.5rem;  color: #198754;">person</span>
                 <h5 class="card-title  text-center text-white  p-0 m-0" style="letter-spacing: 1px;">
-
+<mak>
                     ویرایش حساب کاربری
-                </h5>
+</mak></h5>
              </div>
 
                 @if(session('success'))
@@ -20,7 +20,7 @@
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
-                        <label for="first_name" class="form-label text-white">نام</label>
+                        <label for="first_name" class="form-label text-white"><mak>نام </mak></label>
                         <div class="input-group">
                             <span class="input-group-text bg-info text-white border-0">
                                 <span class="material-icons">badge</span>
@@ -33,7 +33,7 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="last_name" class="form-label text-white">نام خانوادگی</label>
+                        <label for="last_name" class="form-label text-white"><mak>نام خانوادگی </mak></label>
                         <div class="input-group">
                             <span class="input-group-text bg-info text-white border-0">
                                 <span class="material-icons">badge</span>
@@ -46,7 +46,7 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label text-white">ایمیل</label>
+                        <label for="email" class="form-label text-white"><mak>ایمیل </mak></label>
                         <div class="input-group">
                             <span class="input-group-text bg-info text-white border-0">
                                 <span class="material-icons">email</span>
@@ -59,7 +59,7 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label text-white">رمز عبور جدید</label>
+                        <label for="password" class="form-label text-white"><mak>رمز عبور جدید </mak></label>
                         <div class="input-group">
                             <span class="input-group-text bg-info text-white border-0">
                                 <span class="material-icons">lock</span>
@@ -72,7 +72,7 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="city" class="form-label text-white">شهر</label>
+                        <label for="city" class="form-label text-white"><mak>شهر </mak></label>
                         <div class="input-group">
                             <span class="input-group-text bg-info text-white border-0">
                                 <span class="material-icons">location_city</span>
@@ -85,7 +85,7 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="phone" class="form-label text-white">شماره تلفن</label>
+                        <label for="phone" class="form-label text-white"><mak>شماره تلفن </mak></label>
                         <div class="input-group">
                             <span class="input-group-text bg-info text-white border-0">
                                 <span class="material-icons">phone</span>
@@ -98,7 +98,7 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="sheba_number" class="form-label text-white">شماره شبا</label>
+                        <label for="sheba_number" class="form-label text-white"><mak>شماره شبا </mak></label>
                         <div class="input-group">
                             <span class="input-group-text bg-info text-white border-0">
                                 <span class="material-icons">account_balance</span> <!-- آیکون جدید -->
@@ -111,7 +111,7 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="address" class="form-label text-white">آدرس</label>
+                        <label for="address" class="form-label text-white"><mak>آدرس </mak></label>
                         <div class="input-group">
                             <span class="input-group-text bg-info text-white border-0">
                                 <span class="material-icons">home</span>

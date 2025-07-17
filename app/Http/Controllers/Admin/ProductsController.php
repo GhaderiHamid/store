@@ -85,6 +85,7 @@ class ProductsController extends Controller
             $uploadFolder = 'products/' . $categoryId; // مسیر پوشه بر اساس category_id
             $imagePath = ImageUploader::upload($request->file('image_path'), $uploadFolder); // آپلود تصویر
         }
+        
         $updatedProduct = $product->update([
             'name' => $validatedData['name'],
             'brand' => $validatedData['brand'],

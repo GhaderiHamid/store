@@ -18,12 +18,12 @@
                     <div class="mb-4">
                         <div class="d-flex align-items-center mb-2">
                             <span class="material-symbols-outlined align-middle mr-2" style="color:#ffc107; font-size: 28px;">mail</span>
-                            <span class="font-weight-bold ml-1" style="color:#fff; font-size: 18px;">ایمیل:</span>
+                            <span class="font-weight-bold ml-1" style="color:#fff; font-size: 18px;"><mak>ایمیل:</mak></span>
                             <a href="mailto:hamid@yahoo.com" class="ml-2 px-3 py-1 rounded-pill" style="background:#ffc107;color:#343a40;font-weight:bold;text-decoration:none;">hamid@yahoo.com</a>
                         </div>
                         <div class="d-flex align-items-center">
                             <span class="material-symbols-outlined align-middle mr-2" style="color:#ffc107; font-size: 28px;">call</span>
-                            <span class="font-weight-bold ml-1" style="color:#fff; font-size: 18px;">تلفن:</span>
+                            <span class="font-weight-bold ml-1" style="color:#fff; font-size: 18px;"><mak> تلفن:</mak> </span>
                             <a href="tel:09123456789" class="ml-2 px-3 py-1 rounded-pill" style="background:#ffc107;color:#343a40;font-weight:bold;text-decoration:none;">09123456789</a>
                         </div>
                     </div>

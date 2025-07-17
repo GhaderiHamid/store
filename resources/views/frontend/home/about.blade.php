@@ -35,15 +35,15 @@
                                 <ul class="list-unstyled mx-2">
                                     <li class="mb-3 d-flex align-items-center">
                                         <span class="material-symbols-outlined text-success mr-2" style="font-size: 28px;">check_circle</span>
-                                        <span>ارائه محصولات اصل و با کیفیت</span>
+                                        <span><mak> ارائه محصولات اصل و با کیفیت </mak></span>
                                     </li>
                                     <li class="mb-3 d-flex align-items-center">
                                         <span class="material-symbols-outlined text-success mr-2" style="font-size: 28px;">check_circle</span>
-                                        <span>پشتیبانی ۲۴ ساعته و پاسخگویی سریع به سوالات شما</span>
+                                        <span><mak>پشتیبانی ۲۴ ساعته و پاسخگویی سریع به سوالات شما </mak></span>
                                     </li>
                                     <li class="mb-3 d-flex align-items-center">
                                         <span class="material-symbols-outlined text-success mr-2" style="font-size: 28px;">check_circle</span>
-                                        <span>ارسال سریع و مطمئن به سراسر کشور</span>
+                                        <span><mak>ارسال سریع و مطمئن به سراسر کشور</mak></span>
                                     </li>
                                 </ul>
                             </div>
@@ -51,15 +51,15 @@
                                 <ul class="list-unstyled mx-2">
                                     <li class="mb-3 d-flex align-items-center">
                                         <span class="material-symbols-outlined text-success mr-2" style="font-size: 28px;">check_circle</span>
-                                        <span>تضمین بازگشت وجه در صورت عدم رضایت</span>
+                                        <span><mak>تضمین بازگشت وجه در صورت عدم رضایت </mak></span>
                                     </li>
                                     <li class="mb-3 d-flex align-items-center">
                                         <span class="material-symbols-outlined text-success mr-2" style="font-size: 28px;">check_circle</span>
-                                        <span>ارائه مشاوره تخصصی پیش از خرید</span>
+                                        <span><mak>ارائه مشاوره تخصصی پیش از خرید </mak></span>
                                     </li>
                                     <li class="mb-3 d-flex align-items-center">
                                         <span class="material-symbols-outlined text-success mr-2" style="font-size: 28px;">check_circle</span>
-                                        <span>برگزاری جشنواره‌های فروش و تخفیف‌های ویژه</span>
+                                        <span><mak>برگزاری جشنواره‌های فروش و تخفیف‌های ویژه </mak></span>
                                     </li>
                                 </ul>
                             </div>
@@ -72,7 +72,7 @@
                     <div class="bg-gradient rounded p-4 d-flex flex-column flex-md-row align-items-center justify-content-between" style="background: linear-gradient(90deg, #343a40 60%, #ffc107 100%);">
                         <div class="mb-3 mb-md-0 d-flex align-items-center">
                             <span class="material-symbols-outlined align-middle mr-2" style="color:#fff; font-size: 30px;">mail</span>
-                            <span class="font-weight-bold ml-1" style="color:#fff; font-size: 18px;">ایمیل:</span>
+                            <span class="font-weight-bold ml-1" style="color:#fff; font-size: 18px;"> ایمیل:</span>
                             <a href="mailto:hamid@yahoo.com" class="ml-2 px-3 py-1 rounded-pill" style="background:#fff;color:#343a40;font-weight:bold;text-decoration:none;transition:background 0.2s; background:#ffc107 !important;">hamid@yahoo.com</a>
                         </div>
                         

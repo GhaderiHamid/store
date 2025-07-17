@@ -13,11 +13,11 @@
     @endphp
     {{-- {{ request('status') == 'processing' || !request('status') ? 'bg-warning' : 'bg-secondary' }} --}}
     <div class="container custom-container mt-5">
-        <h2 class="text-white">لیست سفارشات شما</h2>
+        <h2 class="text-white"><mak>لیست سفارشات شما </mak></h2>
         <div class="row mt-5">
             <div class="col-sm-12">
                 @if (!$orders->isEmpty())
-                <ul class="nav nav-tabs custom-nav-tabs-product-page justify-content-center rounded-pill bg-dark p-2 shadow-lg" id="myTab" role="tablist">
+                <ul class="nav mak nav-tabs custom-nav-tabs-product-page justify-content-center rounded-pill bg-dark p-2 shadow-lg" id="myTab" role="tablist">
                     <!-- در حال پردازش -->
                     <li class="nav-item m-1">
                         <a class="nav-link {{ request('status') == 'processing' || !request('status') ? 'active' : '' }} text-white d-flex align-items-center px-4 py-2 rounded-pill fw-bold bg-warning shadow-sm"
@@ -71,6 +71,7 @@
 
                                     @foreach ($orders as $order)
                                         <div class="w-100 product-border p-3 mt-3 text-white border-white">
+                                            <mak3>
                                             <h5>شماره سفارش: {{ $order->id }}</h5>
                                             <p>تاریخ سفارش:
                                                 {{ \Morilog\Jalali\Jalalian::fromDateTime($order->created_at)->format('H:i Y/m/d') }}
@@ -78,6 +79,7 @@
 
                                             <p>وضعیت سفارش:
                                                 <span class="{{ $statusColors[$order->status] ?? 'badge bg-secondary' }} p-2">
+                                                    
                                                     {{ $statusLabels[$order->status] ?? 'نامشخص' }}
                                                 </span>
                                             </p>
@@ -129,6 +131,7 @@
                                                     </div>
                                                 </div>
                                             @endforeach
+                                            </mak3>
                                         </div>
                                     @endforeach
                                 </div>

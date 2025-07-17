@@ -40,7 +40,83 @@
     box-sizing: border-box;
 
 }
-
+.theme-toggle-btn {
+    position: fixed !important;
+    bottom: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    z-index: 9999;
+  }
+  
+  
+  
+  .theme-toggle-btn:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1);
+  }
+  
+  .theme-toggle-btn span {
+    font-size: 24px;
+    color: #fff;
+  }
+  body.light-mode .theme-toggle-btn span {
+    color: #222;
+  }
+body.light-mode {
+    background: linear-gradient(120deg, #ffffff 0%, #f0f0f0 30%, #e0e0e0 70%, #fafafa 100%);
+    color: #222;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+  
+  body.light-mode p,
+ body.light-mode h6,
+ body.light-mode mak,
+ body.light-mode .custom-card-text,
+  body.light-mode h2,
+  body.light-mode h4,
+  body.light-mode h5,
+  body.light-mode .favorite ,
+  body.light-mode .dropdown-toggle::after,
+  body.light-mode .custom-font {
+    color: #222;
+  }
+  body.light-mode .favorite{
+    color: #222;
+  }
+  body.light-mode mak2{
+    color: #d9d9d9;
+  }
+  body.light-mode .product-border{
+   border-color: #212121 !important;
+  }
+  body.light-mode .cat-desc:hover{
+    border: solid 1px #312e2e;
+  }
+  body.light-mode .custom-container ,  body.light-mode .custom-card-body,
+  body.light-mode .card-body,
+  body.light-mode .card {
+    background-color: #eaeaea;
+  }
+  body.light-mode .mak{
+    background-color: #c9c3c3 !important;
+  }
+ 
+  body.light-mode .btn-secondary,
+  body.light-mode .shop-card {
+    background-color: #ddd;
+    color: #222;
+  }
 body {
     /* background-color: #efefef; */
     /* background-color: #353535; */
@@ -66,7 +142,7 @@ body::before {
         radial-gradient(circle at 20% 80%, rgba(78,52,46,0.16) 0%, transparent 70%),
         radial-gradient(circle at 80% 80%, rgba(62,39,35,0.14) 0%, transparent 70%),
         radial-gradient(circle at 50% 50%, rgba(33,33,33,0.13) 0%, transparent 80%);
-    /* درخشش subtle */
+  
     box-shadow: 0 0 180px 90px rgba(191,169,128,0.11);
 }
 

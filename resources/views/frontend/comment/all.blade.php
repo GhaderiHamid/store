@@ -3,7 +3,7 @@
 @section('content')
 <title> کامنت های من </title>
     <div class="container custom-container mt-5">
-        <h2 class="text-white">دیدگاه‌های شما</h2>
+        <h2 class="text-white"><mak> دیدگاه‌های شما </mak></h2>
 
         @if (!$comments->isEmpty())
             @foreach ($comments as $comment)

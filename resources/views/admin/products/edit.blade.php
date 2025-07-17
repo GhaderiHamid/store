@@ -56,7 +56,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="productImage">تصویر محصول</label>
-                                <input type="file" class="form-control-file" name="image_path" id="productImage">
+                                <input type="file" class="form-control-file" name="image_path" id="productImage" placeholder="تصویر محصول " value="{{ $product->image_path }}">
                             </div>
                             <img src="/{{ $product->image_path}}" alt="" width="100px" height="100px">
                             <button type="submit" class="btn btn-primary">بروزرسانی محصول</button>

@@ -65,9 +65,9 @@
 
                             <div class="custom-icone mx-1 d-flex align-items-center">
                                 <p class="text-white">
-                                    تا حالا
-                                <p class="text-white mx-1" id="like-count-{{ $product->id }}">
-                                    {{ $product->likedByUsers->count() }}
+                                   <mak> تا حالا </mak>
+                                <p class=" mx-1" id="like-count-{{ $product->id }}">
+                                   <mak> {{ $product->likedByUsers->count() }}</mak>
                                 </p>
                                 <p> نفر این محصول را لایک کرده اند
                                 </p>
@@ -198,10 +198,11 @@
                                     <div class="progress-product p-4">
                                         <div class="rating-distribution mt-3">
                                             <div class="d-flex align-items-start justify-content-between">
-                                                <h5 class="mb-1">توزیع امتیازها</h5>
+                                                <h5 class="mb-1"><mak2>توزیع امتیازها </mak2></h5>
                                                 <div class="custom-icone  ">
                                                     <div class="d-flex align-items-end">
-                                                        <p class="mx-1">{{ round($product->votes->avg('value'), 1) }}
+                                                        <p class="mx-1"><mak2>{{ round($product->votes->avg('value'), 1) }}
+                                                        </mak2>
                                                         </p>
                                                         <span class="material-symbols-outlined  text-warning lead"
                                                             style="font-size: 30px">
@@ -330,7 +331,7 @@
                                                     </div>
 
                                                     <span class="thumb-up-count  text-white"
-                                                        id="thumb-up-count-{{ $comment->id }}">{{ $comment->reactions->where('reaction', 'like')->count() }}</span>
+                                                        id="thumb-up-count-{{ $comment->id }}"><mak>{{ $comment->reactions->where('reaction', 'like')->count() }}</mak></span>
                                                 </div>
                                                 <div
                                                     class="thumb mx-2 d-flex flex-column align-items-center position-relative">
@@ -346,7 +347,7 @@
                                                     </div>
 
                                                     <span class="thumb-down-count  text-white"
-                                                        id="thumb-down-count-{{ $comment->id }}">{{ $comment->reactions->where('reaction', 'dislike')->count() }}</span>
+                                                        id="thumb-down-count-{{ $comment->id }}"><mak>{{ $comment->reactions->where('reaction', 'dislike')->count() }}</mak></span>
                                                 </div>
                                             </div>
 
@@ -368,7 +369,7 @@
                                 <span class="material-symbols-outlined text-white mt-1">
                                     add_comment
                                 </span>
-                                <p class="d-inline-block ml-2"> دیدگاه خود را وارد کنید:</p>
+                                <p class="d-inline-block ml-2"><mak2> دیدگاه خود را وارد کنید:</mak2></p>
                             </div>
                             <form class="w-100 mt-4" method="POST"
                                 action="{{ route('frontend.product.comment', $product->id) }}"

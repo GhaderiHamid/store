@@ -17,9 +17,9 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav custom-navbar-nav mr-auto">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
+                                <a class="nav-link  dropdown-toggle text-white" href="#" id="navbarDropdown"
                                     role="button" data-toggle="dropdown">
-                                    دسته بندی محصولات
+                                    <mak>دسته بندی محصولات</mak>
                                 </a>
                                 <div class="dropdown-menu custom-dropdown-menu border-0 shadow"
                                     aria-labelledby="navbarDropdown">
@@ -41,14 +41,14 @@
                                 <a class="nav-link text-white" href="{{ route('frontend.home.all') }}">خانه </a>
                             </li> --}}
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="{{ route('frontend.about') }}">درباره ما</a>
+                                <a class="nav-link text-white" href="{{ route('frontend.about') }}"><mak> درباره ما </mak></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="{{ route('frontend.contact') }}">تماس با ما</a>
+                                <a class="nav-link text-white" href="{{ route('frontend.contact') }}"><mak> تماس با ما </mak></a>
                             </li>
                             @auth
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" href="{{ route('frontend.support') }}">پشتیبانی و تیکت</a>
+                                    <a class="nav-link text-white" href="{{ route('frontend.support') }}"><mak> پشتیبانی و تیکت </mak></a>
                                 </li>
                             @endauth
 

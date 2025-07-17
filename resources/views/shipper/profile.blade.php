@@ -192,5 +192,28 @@
             tab.show();
         }
     </script>
+       <script>
+        function toggleTheme() {
+          document.body.classList.toggle("light-mode");
+      
+          // ذخیره وضعیت تم در localStorage
+          if (document.body.classList.contains("light-mode")) {
+            localStorage.setItem("theme", "light");
+          } else {
+            localStorage.setItem("theme", "dark");
+          }
+        }
+      
+        // هنگام بارگذاری صفحه، تنظیم تم بر اساس localStorage
+        window.onload = function () {
+          const savedTheme = localStorage.getItem("theme");
+          if (savedTheme === "light") {
+            document.body.classList.add("light-mode");
+          }
+        };
+      </script>
+       <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="تغییر حالت تم">
+        <span class="material-symbols-outlined">dark_mode</span>
+      </button>
 </body>
 </html>
