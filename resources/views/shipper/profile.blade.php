@@ -18,6 +18,9 @@
 </head>
 
 <body class="rtl">
+    <button class="theme-toggle-btn border border-info" onclick="toggleTheme()" aria-label="تغییر حالت تم">
+        <span class="material-symbols-outlined ">dark_mode</span>
+      </button>
     <header class="main-header">
         <div class="container">
             <div class="header-content d-flex align-items-center justify-content-between py-3">
@@ -212,8 +215,6 @@
           }
         };
       </script>
-       <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="تغییر حالت تم">
-        <span class="material-symbols-outlined">dark_mode</span>
-      </button>
+      
 </body>
 </html>

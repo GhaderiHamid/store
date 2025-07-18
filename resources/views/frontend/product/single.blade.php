@@ -270,7 +270,7 @@
                                             class="media custom-product-media ">
                                             <div class="d-flex  align-items-center justify-content-center">
                                                 <div class=" user-details mx-1 ">
-                                                    <img class="rounded-circle mr-3" src="/img/profile/Untitled.jpg"
+                                                    <img class="rounded-circle mr-3" src="/img/profile/hod-dummy.png" style="width: 50px; height: 50px"
                                                         alt="">
                                                 </div>
                                                 <div>
@@ -286,33 +286,37 @@
                                     <div class="col-sm-12 mt-4">
                                         <div class="media-body ">
                                             <p>{{ $comment->comment_text }} </p>
+                                            @php
+                                            $analysis = json_decode($comment->analysis);
+                                        @endphp
+                                        
+                                        {{-- نقاط قوت --}}
+                                        @if (!empty($analysis->positives) && is_array($analysis->positives) && count($analysis->positives) > 0)
                                             <ul class="nav flex-column">
                                                 <span>
                                                     <p class="mt-2 text-color-1">نقاط قوت:</p>
                                                 </span>
-
-                                                @foreach (json_decode($comment->analysis)->positives as $positive)
+                                                @foreach ($analysis->positives as $positive)
                                                     <li class="nav-item">
-                                                        <p class="d-flex  align-items-center">✅{{ $positive }}</p>
+                                                        <p class="d-flex align-items-center">✅{{ $positive }}</p>
                                                     </li>
                                                 @endforeach
-
-
-
                                             </ul>
+                                        @endif
+                                        
+                                        {{-- نقاط ضعف --}}
+                                        @if (!empty($analysis->negatives) && is_array($analysis->negatives) && count($analysis->negatives) > 0)
                                             <ul class="nav flex-column">
                                                 <span>
-                                                    <p class="mt-2  text-color-2 "> نقاط ضعف:</p>
+                                                    <p class="mt-2 text-color-2">نقاط ضعف:</p>
                                                 </span>
-                                                @foreach (json_decode($comment->analysis)->negatives as $negative)
+                                                @foreach ($analysis->negatives as $negative)
                                                     <li class="nav-item">
-                                                        <p class="d-flex  align-items-center">❌{{ $negative }} </p>
+                                                        <p class="d-flex align-items-center">❌{{ $negative }}</p>
                                                     </li>
                                                 @endforeach
-
-
-
                                             </ul>
+                                        @endif
 
                                             <div class="d-flex justify-content-end mt-5">
 

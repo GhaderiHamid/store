@@ -24,6 +24,9 @@
 </head>
 
 <body class="rtl">
+    <button class="theme-toggle-btn border border-info" onclick="toggleTheme()" aria-label="تغییر حالت تم">
+        <span class="material-symbols-outlined ">dark_mode</span>
+      </button>
     <header class="main-header">
         <div class="container">
             <div class="header-content d-flex align-items-center justify-content-between py-3">
@@ -306,28 +309,32 @@
             }
         }
     </script>
-    <script>
-        function toggleTheme() {
-          document.body.classList.toggle("light-mode");
-      
-          // ذخیره وضعیت تم در localStorage
-          if (document.body.classList.contains("light-mode")) {
-            localStorage.setItem("theme", "light");
-          } else {
-            localStorage.setItem("theme", "dark");
-          }
-        }
-      
-        // هنگام بارگذاری صفحه، تنظیم تم بر اساس localStorage
-        window.onload = function () {
-          const savedTheme = localStorage.getItem("theme");
-          if (savedTheme === "light") {
-            document.body.classList.add("light-mode");
-          }
-        };
-      </script>
-       <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="تغییر حالت تم">
-        <span class="material-symbols-outlined">dark_mode</span>
-      </button>
+ <script>
+    function toggleTheme() {
+      const body = document.body;
+      const icon = document.querySelector('.theme-toggle-btn span');
+  
+      body.classList.toggle('light-mode');
+  
+      // تغییر آیکون بسته به حالت تم
+      if (body.classList.contains('light-mode')) {
+        icon.textContent = 'light_mode';
+        localStorage.setItem('theme', 'light');
+      } else {
+        icon.textContent = 'dark_mode';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+  
+    // هنگام لود صفحه، بازیابی حالت از localStorage
+    window.onload = function () {
+      const savedTheme = localStorage.getItem("theme");
+      const icon = document.querySelector('.theme-toggle-btn span');
+      if (savedTheme === "light") {
+        document.body.classList.add("light-mode");
+        if (icon) icon.textContent = "light_mode";
+      }
+    };
+  </script>
 </body>
 </html>

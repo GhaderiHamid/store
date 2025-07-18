@@ -5,11 +5,11 @@ from sklearn.neighbors import NearestNeighbors
 
 # 1️⃣ اتصال به پایگاه داده MySQL
 db = mysql.connector.connect(
-    host="services.irn12.chabokan.net",
-    port="5899",
+    host="127.0.0.1",
+    port="3306",
     user="root",  # نام کاربری خود را تنظیم کنید
-    password="r6oerSHeFeqhvYcZ",  # رمزعبور پایگاه داده را تنظیم کنید
-    database="joan"  # نام دیتابیس شما
+    password="",  # رمزعبور پایگاه داده را تنظیم کنید
+    database="store"  # نام دیتابیس شما
 )
 
 cursor = db.cursor()

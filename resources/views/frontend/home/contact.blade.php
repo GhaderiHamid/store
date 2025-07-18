@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card shadow-lg rounded bg-dark text-white border-0">
-                <div class="card-body p-5">
+                <div class="card-body p-5 rounded">
                     <div class="d-flex align-items-center mb-4">
                         <span class="material-symbols-outlined" style="font-size:48px;color:#ffc107;">call</span>
                         <p class="mb-0 ml-3" style="color:#ffc107; font-size: 30px;">تماس با ما</p>

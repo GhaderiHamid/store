@@ -4,7 +4,7 @@
 <title>ویرایش حساب کاربری </title>
     <div class="container my-5 d-flex justify-content-center">
         <div class="card shadow-lg border-0" style="max-width: 500px; width: 100%; background: linear-gradient(135deg, #23272b 80%, #198754 100%);">
-            <div class="card-body p-4">
+            <div class="card-body p-4 rounded">
              <div class="d-flex align-items-center ">
                 <span class="material-icons " style="font-size: 2.5rem;  color: #198754;">person</span>
                 <h5 class="card-title  text-center text-white  p-0 m-0" style="letter-spacing: 1px;">

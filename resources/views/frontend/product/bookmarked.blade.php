@@ -5,6 +5,7 @@
     <section class="container mt-5 custom-container">
         <h5 class="custom-font mb-3">محصولات ذخیره شده:</h5>
         <div class="row">
+            @if (!$bookmarkedProducts->isEmpty())
             @foreach ($bookmarkedProducts as $product)
                 <div class="col-sm-12 col-md-6 col-lg-3 position-relative">
 
@@ -50,7 +51,7 @@
                                     <span class="material-symbols-outlined">
                                         delete
                                     </span>
-                                    <p>حذف از لیست</p>
+                                    <p><mak2> حذف از لیست </mak2></p>
                                 </button>
 
 
@@ -88,6 +89,9 @@
 
                 </div>
             @endforeach
+            @else
+            <p class="text-white"><mak> شما هیچ محصولی ذخیره نکرده‌اید.</mak></p>
+        @endif
         </div>
     </section>
 @endsection

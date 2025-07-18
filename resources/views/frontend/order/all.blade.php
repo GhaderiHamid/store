@@ -13,10 +13,11 @@
     @endphp
     {{-- {{ request('status') == 'processing' || !request('status') ? 'bg-warning' : 'bg-secondary' }} --}}
     <div class="container custom-container mt-5">
-        <h2 class="text-white"><mak>لیست سفارشات شما </mak></h2>
+      
+        <h5 class="custom-font mb-3">لیست سفارشات شما </h5>
         <div class="row mt-5">
             <div class="col-sm-12">
-                @if (!$orders->isEmpty())
+                {{-- @if (!$orders->isEmpty()) --}}
                 <ul class="nav mak nav-tabs custom-nav-tabs-product-page justify-content-center rounded-pill bg-dark p-2 shadow-lg" id="myTab" role="tablist">
                     <!-- در حال پردازش -->
                     <li class="nav-item m-1">
@@ -66,7 +67,7 @@
                             <div class="container my-5 mx-2">
                                 <div class="row">
                                     @if ($orders->isEmpty())
-                                        <p class="text-white">شما هیچ سفارش در حال پردازش ندارید.</p>
+                                        <p class="text-white"><mak> شما هیچ سفارش در حال پردازش ندارید. </mak></p>
                                     @endif
 
                                     @foreach ($orders as $order)
@@ -149,7 +150,7 @@
                             <div class="container my-5 mx-2">
                                 <div class="row">
                                     @if ($orders->isEmpty())
-                                        <p class="text-white">شما هیچ سفارش در حال ارسال ندارید.</p>
+                                        <p class="text-white"><mak> شما هیچ سفارش در حال ارسال ندارید.</mak></p>
                                     @endif
 
                                     @foreach ($orders as $order)
@@ -227,7 +228,7 @@
                             <div class="container my-5 mx-2">
                                 <div class="row">
                                     @if ($orders->isEmpty())
-                                        <p class="text-white">شما هیچ سفارش تحویل داده شده ندارید.</p>
+                                        <p class="text-white"> <mak>شما هیچ سفارش تحویل داده شده ندارید.</mak></p>
                                     @endif
 
                                     @foreach ($orders as $order)
@@ -339,7 +340,7 @@
                             <div class="container my-5 mx-2">
                                 <div class="row">
                                     @if ($orders->isEmpty())
-                                        <p class="text-white">شما هیچ سفارش مرجوع شده ندارید.</p>
+                                        <p class="text-white"><mak> شما هیچ سفارش مرجوع شده ندارید.</mak></p>
                                     @endif
 
                                     @foreach ($orders as $order)
@@ -442,9 +443,9 @@
                             </div>
                         </div>
                     </div>
-                @else
-                    <p class="text-white">شما هیچ سفارش ثبت‌ شده‌ای ندارید.</p>
-                @endif
+                {{-- @else
+                    <p class="text-white"><mak> شما هیچ سفارش ثبت‌ شده‌ای ندارید.</mak></p>
+                @endif --}}
             </div>
         </div>
     </div>

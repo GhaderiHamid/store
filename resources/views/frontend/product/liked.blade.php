@@ -5,6 +5,7 @@
     <section class="container mt-5 custom-container">
         <h5 class="custom-font mb-3">محصولات لایک شده:</h5>
         <div class="row">
+            @if (!$likedProducts->isEmpty())
             @foreach ($likedProducts as $product)
                                 <div class="col-sm-12 col-md-6 col-lg-3 position-relative">
 
@@ -47,7 +48,7 @@
                                                     <span class="material-symbols-outlined">
                                                         delete
                                                     </span>
-                                                    <p>حذف از لیست</p>
+                                                    <p><mak2> حذف از لیست </mak2></p>
                                                 </button>
 
                                                 @if ($product->quntity == 0)
@@ -82,6 +83,9 @@
 
                                 </div>
             @endforeach
+            @else
+            <p class="text-white"><mak> شما هیچ محصولی لایک نکرده‌اید.</mak></p>
+        @endif
         </div>
     </section>
 @endsection

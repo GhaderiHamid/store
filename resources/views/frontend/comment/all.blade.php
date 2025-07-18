@@ -3,8 +3,8 @@
 @section('content')
 <title> کامنت های من </title>
     <div class="container custom-container mt-5">
-        <h2 class="text-white"><mak> دیدگاه‌های شما </mak></h2>
-
+        
+        <h5 class="custom-font mb-3">دیدگاه‌های شما </h5>
         @if (!$comments->isEmpty())
             @foreach ($comments as $comment)
                 <div class="w-100 product-border p-3 mt-3 text-white border-white">
@@ -34,7 +34,7 @@
                 </div>
             @endforeach
         @else
-            <p class="text-white">شما هیچ دیدگاهی ثبت نکرده‌اید.</p>
+            <p class="text-white"><mak> شما هیچ دیدگاهی ثبت نکرده‌اید.</mak></p>
         @endif
     </div>
 @endsection
