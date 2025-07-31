@@ -51,12 +51,8 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response.liked) {
-                    icon.css('color', 'red');
-                  
-                } else {
-                    icon.css('color', 'white');
-                
-                }
+                    icon[0].style.setProperty("color", "red", "important");
+                } 
             },
             error: function () {
                 console.error('Failed to fetch like status for product ' + productId);
@@ -79,9 +75,9 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response.status === 'liked') {
-                    icon.css('color', 'red');
+                    icon[0].style.setProperty("color", "red", "important");
                 } else if (response.status === 'unliked') {
-                    icon.css('color', 'white');
+                    icon[0].style.setProperty("color", "#a7a7a7", "important");
                 }
                 // پس از هر تغییر، شمارنده را بلافاصله به‌روزرسانی کن
                 $.ajax({
@@ -158,11 +154,12 @@ $(document).ready(function () {
                 if (response.bookmarked) {
                    
                     icon.text('bookmark_check');
-                    icon.css('color','#4db90f');
+                    // icon.css('color','#4db90f');
+                    icon[0].style.setProperty("color", "#4db90f", "important");
                    
 
                 } else {
-                    icon.css('color', 'white');
+                    // icon.css('color', 'white');
                     icon.text('bookmark');
                 }
             },
@@ -189,14 +186,16 @@ $(document).ready(function () {
                 if (response.status === 'bookmarked') {
                 
                     icon.text('bookmark_check');
-                    icon.css('color', '#4db90f');
+                    // icon.css('color', '#4db90f');
+                    icon[0].style.setProperty("color", "#4db90f", "important");
 
 
                     
 
                   
                 } else if (response.status === 'unBookmarked') {
-                    icon.css('color', 'white');
+                    icon[0].style.setProperty("color", "#a7a7a7", "important");
+                    // icon.css('color', 'white');
                     icon.text('bookmark');
                     
                 }
@@ -244,7 +243,12 @@ document.addEventListener('DOMContentLoaded', function () {
             stars.forEach(s => {
                 const v = parseInt(s.dataset.star);
                 s.textContent = v <= value ? 'star' : 'star_border';
-                s.style.color = v <= value ? 'orange' : '';
+
+                if (v <= value) {
+                    s.style.setProperty('color', 'orange', 'important');
+                } else {
+                    s.style.removeProperty('color'); // به‌جای مقدار خالی، حذف کامل بهتره
+                }
             });
         }
 

@@ -306,7 +306,7 @@
                                                                     style="cursor: pointer">
                                                                     @for ($i = 5; $i >= 1; $i--)
                                                                         <div class="d-flex flex-column align-items-center">
-                                                                            <span class="material-symbols-outlined star"
+                                                                            <span class="material-symbols-outlined star mat"
                                                                                 data-star="{{ $i }}">star_border</span>
                                                                             <p>{{ $i }}</p>
                                                                         </div>
@@ -414,7 +414,7 @@
                                                                     style="cursor: pointer">
                                                                     @for ($i = 5; $i >= 1; $i--)
                                                                         <div class="d-flex flex-column align-items-center">
-                                                                            <span class="material-symbols-outlined star"
+                                                                            <span class="material-symbols-outlined star mat"
                                                                                 data-star="{{ $i }}">star_border</span>
                                                                             <p>{{ $i }}</p>
                                                                         </div>

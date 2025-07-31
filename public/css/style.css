@@ -91,8 +91,8 @@ body.light-mode {
   body.light-mode .custom-font {
     color: #222;
   }
-  body.light-mode .dropdown-toggle::after{
-    color: #8f8b8b;
+  body.light-mode .drop::after{
+    color: #222;;
   }
   body.light-mode .favorite{
     color: #222;
@@ -122,7 +122,9 @@ body.light-mode {
     background-color: #ddd;
     color: #222;
   }
-
+.mat{  
+ color:  #a7a7a7 !important;
+}
   
 body {
     /* background-color: #efefef; */

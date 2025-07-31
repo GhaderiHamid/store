@@ -17,7 +17,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav custom-navbar-nav mr-auto">
                             <li class="nav-item dropdown">
-                                <a class="nav-link  dropdown-toggle  text-white" href="#" id="navbarDropdown"
+                                <a class="nav-link  dropdown-toggle drop text-white" href="#" id="navbarDropdown"
                                     role="button" data-toggle="dropdown">
                                     <mak>دسته بندی محصولات</mak>
                                 </a>

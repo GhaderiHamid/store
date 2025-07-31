@@ -39,7 +39,7 @@
                                 <div class="product" data-product-id="{{ $product->id }}">
                                     <button class="bookmark-button" data-product-id="{{ $product->id }}"
                                         style="border: none; background: none; cursor: pointer;">
-                                        <span class="material-symbols-outlined " id="bookmark-icon-{{ $product->id }}">
+                                        <span class="material-symbols-outlined mat" id="bookmark-icon-{{ $product->id }}">
                                             bookmark
                                         </span>
 
@@ -55,9 +55,10 @@
                                 <div class="product" data-product-id="{{ $product->id }}">
                                     <button class="like-button" data-product-id="{{ $product->id }}"
                                         style="border: none; background: none; cursor: pointer;">
-                                        <span class="material-symbols-outlined favorite "
-                                            id="favorite-icon-{{ $product->id }}">
+                                        <span class="material-symbols-outlined favorite mat"
+                                            id="favorite-icon-{{ $product->id }}" >
                                             favorite
+                                           
                                         </span>
                                     </button>
                                 </div>
