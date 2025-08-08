@@ -30,8 +30,8 @@
                     <h2> {{ $product->name }}</h2>
                     <hr>
                     @auth
-                        <div class="d-flex ">
-                            <div class="custom-icone mx-1">
+                        <div class="d-flex col-sm-12 p-0 align-items-center">
+                            <div class="custom-icone ">
 
 
 
@@ -50,7 +50,7 @@
 
 
 
-                            <div class="custom-icone mx-1">
+                            <div class="custom-icone ">
                                 <!-- فرض کنید چند محصول دارید، هر کدام با کلاس به جای id -->
                                 <div class="product" data-product-id="{{ $product->id }}">
                                     <button class="like-button" data-product-id="{{ $product->id }}"
@@ -64,14 +64,15 @@
                                 </div>
                             </div>
 
-                            <div class="custom-icone mx-1 d-flex align-items-center">
-                                <p class="text-white">
+                            <div class="custom-icone  mx-1">
+                                <p class="text-white d-inline-block">
                                    <mak> تا حالا </mak>
-                                <p class=" mx-1" id="like-count-{{ $product->id }}">
+                                </p>
+                                <p class="  d-inline-block" id="like-count-{{ $product->id }}">
                                    <mak> {{ $product->likedByUsers->count() }}</mak>
                                 </p>
-                                <p> نفر این محصول را لایک کرده اند
-                                </p>
+                                <p class="d-inline-block"> نفر این محصول را لایک کرده اند
+                                
                                 </p>
                             </div>
 

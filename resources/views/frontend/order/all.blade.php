@@ -20,8 +20,8 @@
                 {{-- @if (!$orders->isEmpty()) --}}
                 <ul class="nav mak nav-tabs custom-nav-tabs-product-page justify-content-center rounded-pill bg-dark p-2 shadow-lg" id="myTab" role="tablist">
                     <!-- در حال پردازش -->
-                    <li class="nav-item m-1">
-                        <a class="nav-link {{ request('status') == 'processing' || !request('status') ? 'active' : '' }} text-white d-flex align-items-center px-4 py-2 rounded-pill fw-bold bg-warning shadow-sm"
+                    <li class="nav-item m-1 ">
+                        <a class="nav-link {{ request('status') == 'processing' || !request('status') ? 'active' : '' }} text-white d-flex align-items-center px-3 py-2 rounded-pill fw-bold bg-warning shadow-sm"
                            href="?status=processing">
                             <span class="material-symbols-outlined me-2 text-white">autorenew</span>
                             در حال پردازش
@@ -30,30 +30,31 @@
                     </li>
                     
                     <!-- در حال ارسال -->
-                    <li class="nav-item m-1">
+                    <li class="nav-item m-1 ">
                         <a class="nav-link {{ request('status') == 'shipped' ? 'active' : '' }} text-white d-flex align-items-center px-4 py-2 rounded-pill fw-bold bg-primary shadow-sm"
                            href="?status=shipped">
-                            <span class="material-symbols-outlined me-2 text-white">local_shipping</span>
+                            <span class="material-symbols-outlined me-2 text-white ">local_shipping</span>
                             در حال ارسال
                             <span class="badge bg-white text-dark mx-1">{{ $counts['shipped'] ?? 0 }}</span>
                         </a>
                     </li>
                     
                     <!-- تحویل داده شده -->
-                    <li class="nav-item m-1">
+                    <li class="nav-item m-1 ">
                         <a class="nav-link {{ request('status') == 'delivered' ? 'active' : '' }} d-flex align-items-center px-4 py-2 rounded-pill fw-bold bg-success text-white"
                            href="?status=delivered">
-                            <span class="material-symbols-outlined me-2">check_circle</span>
+                            <span class="material-symbols-outlined me-2 ">check_circle</span> 
+                            
                             تحویل شده
                             <span class="badge bg-white text-dark mx-1">{{ $counts['delivered'] ?? 0 }}</span>
                         </a>
                     </li>
                     
                     <!-- مرجوع شده -->
-                    <li class="nav-item m-1">
+                    <li class="nav-item m-1 ">
                         <a class="nav-link {{ request('status') == 'returned' ? 'active' : '' }} d-flex align-items-center px-4 py-2 rounded-pill fw-bold bg-danger text-white"
                            href="?status=returned">
-                            <span class="material-symbols-outlined me-2">undo</span>
+                            <span class="material-symbols-outlined me-2 ">undo</span>
                             مرجوع شده
                             <span class="badge bg-white text-dark mx-1">{{ $counts['returned'] ?? 0 }}</span>
                         </a>
@@ -98,7 +99,7 @@
                                                             style="width: 100px; height: 100px" 
                                                             src="/{{ $detail->product->image_path }}" 
                                                             alt="Product Image">
-                                                        <div class="card-body col-sm-12 col-md-4">
+                                                        <div class="card-body col-sm-12 col-md-4 p-2">
                                                             <p class="card-text"> نام: {{ $detail->product->name }} </p>
                                                             @if ($detail->discount != 0)
                                                                 <p class="card-text d-inline-block">تخفیف:
@@ -177,7 +178,7 @@
                                                             style="width: 100px; height: 100px" 
                                                             src="/{{ $detail->product->image_path }}" 
                                                             alt="Product Image">
-                                                        <div class="card-body col-sm-12 col-md-4">
+                                                        <div class="card-body col-sm-12 col-md-4 p-2">
                                                             <p class="card-text"> نام: {{ $detail->product->name }} </p>
                                                             @if ($detail->discount != 0)
                                                                 <p class="card-text d-inline-block">تخفیف:
@@ -261,7 +262,7 @@
                                                             style="width: 100px; height: 100px" 
                                                             src="/{{ $detail->product->image_path }}" 
                                                             alt="Product Image">
-                                                        <div class="card-body col-sm-12 col-md-4">
+                                                        <div class="card-body col-sm-12 col-md-4 p-2">
                                                           @if ($order->status!='delivered')
                                                           <p class="card-text"> وضعیت: <span class="{{ $statusColors[$detail->status] ?? 'badge bg-secondary' }} p-2">
                                                             {{ $statusLabels[$detail->status] ?? 'نامشخص' }}
@@ -297,7 +298,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="d-flex  align-items-center justify-content-around mt-3 ">
+                                                    <div class="d-flex col-sm-12 p-1 align-items-center justify-content-around mt-3 ">
                                                         <div class="d-flex align-items-center">
                                                             <p class="card-text">امتیاز دهید:</p>
                                                             <div class="custom-icone ">
@@ -315,9 +316,9 @@
                                                             </div>
                                                         </div>
                                                         <a href="{{ url('/products/' . $detail->product_id . '/single#comment') }}">
-                                                            <button type="button" class="btn btn-primary d-flex">
-                                                                <span class="material-symbols-outlined">chat_bubble</span>
-                                                                <p >ثبت دیدگاه</p>
+                                                            <button type="button" class="btn btn-primary d-flex p-1">
+                                                                <div class="d-flex align-items-center"><span class="material-symbols-outlined ">chat_bubble</span>
+                                                                    <p>ثبت دیدگاه</p></div>
                                                             </button>
                                                         </a>
                                                     </div>
@@ -367,7 +368,7 @@
                                                             style="width: 100px; height: 100px" 
                                                             src="/{{ $detail->product->image_path }}" 
                                                             alt="Product Image">
-                                                        <div class="card-body col-sm-12 col-md-4">
+                                                        <div class="card-body col-sm-12 col-md-4 p-2">
                                                             <p class="card-text"> نام: {{ $detail->product->name }} </p>
                                                             @if ($detail->discount != 0)
                                                                 <p class="card-text d-inline-block">تخفیف:
@@ -405,7 +406,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="d-flex align-items-center justify-content-around mt-3">
+                                                    <div class="d-flex col-sm-12 p-1 align-items-center justify-content-around mt-3 ">
                                                         <div class="d-flex align-items-center">
                                                             <p class="card-text">امتیاز دهید:</p>
                                                             <div class="custom-icone ">
@@ -422,11 +423,10 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                         <a href="{{ url('/products/' . $detail->product_id . '/single#comment') }}">
-                                                            <button type="button" class="btn btn-primary d-flex">
-                                                                <span class="material-symbols-outlined">chat_bubble</span>
-                                                                <p >ثبت دیدگاه</p>
+                                                            <button type="button" class="btn btn-primary d-flex p-1">
+                                                                <div class="d-flex align-items-center"><span class="material-symbols-outlined ">chat_bubble</span>
+                                                                    <p>ثبت دیدگاه</p></div>
                                                             </button>
                                                         </a>
                                                     </div>

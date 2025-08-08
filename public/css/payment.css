@@ -113,6 +113,7 @@ button {
     border: 2px solid #ff5858;
     box-shadow: 0 4px 16px 0 rgba(255, 88, 88, 0.13);
     margin-right: 18px;
+    margin-bottom: 0px !important;
 }
 
 .btn-cancel:hover {
@@ -272,7 +273,7 @@ button {
     border-radius: 12px;
     padding: 12px 0;
     margin: 18px auto 10px auto;
-    width: 75%;
+    width: 80%;
     box-shadow: 0 2px 8px 0 #ffe06655;
 }
 
@@ -315,11 +316,11 @@ button {
     }
 
     .cartNumber {
-        width: 90% !important;
+        width: 85% !important;
     }
 
     .row-flex {
-        flex-direction: column;
+        /* flex-direction: column; */
         gap: 8px;
     }
 
@@ -328,7 +329,7 @@ button {
     }
 
     .expiry-row {
-        flex-wrap: wrap;
+        /* flex-wrap: wrap; */
         justify-content: center;
     }
 
@@ -341,6 +342,7 @@ button {
     }
 
     .captcha-container {
+        width: 85% !important;
         flex-direction: column;
         height: auto;
         padding: 10px;

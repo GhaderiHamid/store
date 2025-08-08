@@ -56,7 +56,7 @@
 
                                                         <input type="text" name="quantity"
                                                             id="quantity-{{ $item->id }}"
-                                                            class="form-control text-center input_cart"
+                                                            class="form-control text-center input_cart p-1"
                                                             value="{{ $quantity }}" readonly
                                                             data-price="{{ $item->price }}"
                                                             data-discount="{{ $discount }}"

@@ -31,7 +31,7 @@
             <input class="cartNumber" type="text" placeholder="شماره کارت" required maxlength="19"
                 oninput="formatCardNumber(this);">
             
-            <div class="row-flex">
+            <div class="row-flex ">
                 <input type="password" placeholder="رمز دوم" required
                     oninput="this.value=this.value.replace(/[^0-9]/g,'');">
                 <input type="text" placeholder="CVV2" maxlength="4" required
@@ -60,7 +60,7 @@
             </div>
             
             <div class="expiry-row">
-                <button type="reset" class="btn-cancel"
+                <button type="reset" class="btn-cancel "
                     onclick="event.preventDefault(); document.getElementById('cancelForm').submit();">انصراف</button>
                 <button type="submit" id="submitPay" class="btn-pay"
                     {{ $subtotal <= 0 || empty($products) ? 'disabled' : '' }}>
