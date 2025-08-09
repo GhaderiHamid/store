@@ -61,6 +61,7 @@
                 }
             }
         });
+    
     </script>
 </main>
 @endsection

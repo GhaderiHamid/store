@@ -41,7 +41,11 @@ class ProductsController extends Controller
             }
         } elseif ($request->filled('search')) {
             // اعمال جستجو فقط اگر دسته‌بندی انتخاب نشده باشد
-            $query->where('name', 'like', '%' . $request->input('search') . '%');
+            $query->where(function ($q) use ($request) {
+                $search = $request->input('search');
+                $q->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('brand', 'like', '%' . $search . '%');
+            });
         } else {
             // اگر هیچ دسته‌ای انتخاب نشده باشد، هیچ محصولی نمایش داده نشود
             $query->whereRaw('0 = 1');

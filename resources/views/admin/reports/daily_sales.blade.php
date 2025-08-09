@@ -15,7 +15,7 @@
             var values = salesData.map(data => data.total_sales);
 
             new Chart(ctx, {
-                type: 'bar', // تغییر نوع نمودار به ستونی
+                type: 'line', // تغییر نوع نمودار به ستونی
                 data: {
                     labels: labels,
                     datasets: [{
