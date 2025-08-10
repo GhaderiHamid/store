@@ -16,8 +16,8 @@ class ProductsController extends Controller
     public function all(Request $request)
     {
         $query = Product::query();
-        
-        // فقط اگر category_id وجود داشته باشد، محصولات همان دسته و مرتب‌سازی نمایش داده شود
+
+        // اگر دسته‌بندی انتخاب شده باشد
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->input('category_id'));
 
@@ -26,12 +26,21 @@ class ProductsController extends Controller
                 $query->where('quntity', '>', 0);
             }
 
+            // فیلتر قیمت
+            if ($request->filled('min_price')) {
+                $query->whereRaw('(price - (price * discount / 100)) >= ?', [$request->min_price]);
+            }
+
+            if ($request->filled('max_price')) {
+                $query->whereRaw('(price - (price * discount / 100)) <= ?', [$request->max_price]);
+            }
+
             // اگر مرتب‌سازی بر اساس قیمت است، مقدار محاسبه شده را select کنید
             if (in_array($request->get('sort'), ['price_asc', 'price_desc'])) {
                 $query->selectRaw('*, (price - (price * discount / 100)) as final_price');
             }
 
-            // مرتب‌سازی فقط روی محصولات این دسته
+            // مرتب‌سازی
             if ($request->get('sort') === 'newest') {
                 $query->orderBy('created_at', 'desc');
             } elseif ($request->get('sort') === 'price_asc') {
@@ -52,6 +61,7 @@ class ProductsController extends Controller
         }
 
         $products = $query->paginate(20)->appends($request->except('page'));
+
         return view('frontend.product.all', compact('products'));
     }
 

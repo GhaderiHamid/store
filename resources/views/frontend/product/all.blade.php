@@ -5,23 +5,49 @@
 <title>  فروشگاه اینترنتی - انتخاب محصول </title>
     <!-- start offer nav -->
     <section class="container mt-5 custom-container">
+      
         @if(request()->filled('category_id'))
-        <h5 class="custom-font mb-3">
-            مرتب‌سازی محصولات:
-        </h5>
-        <div class="input-group">
-            <select id="sortSelect" class="form-select mr-1 rounded">
-                <option value="">انتخاب معیار</option>
-                <option value="{{ route('frontend.product.all', ['category_id' => request('category_id'), 'sort' => 'price_asc']) }}">ارزان‌ترین</option>
-                <option value="{{ route('frontend.product.all', ['category_id' => request('category_id'), 'sort' => 'price_desc']) }}">گران‌ترین</option>
-                <option value="{{ route('frontend.product.all', ['category_id' => request('category_id'), 'sort' => 'newest']) }}">جدیدترین</option>
-                <option value="{{ route('frontend.product.all', array_merge(request()->only('category_id', 'sort'), ['in_stock' => 1])) }}"
-                    {{ request('in_stock') ? 'selected' : '' }}>محصولات موجود</option>
-            </select>
-            <button type="button" id="sortButton" class="btn btn-primary">مرتب کن</button>
-        </div>
-        <hr>
-        @endif
+    <div class="card shadow-sm rounded mb-4 p-3">
+        <form method="GET" action="{{ route('frontend.product.all') }}">
+            <input type="hidden" name="category_id" value="{{ request('category_id') }}">
+            <div class="row g-3 align-items-end">
+                <!-- مرتب‌سازی -->
+                <div class="col-md-3">
+                    <label for="sort" class="form-label">مرتب‌سازی:</label>
+                    <select name="sort" id="sort" class="form-select">
+                        <option value="">انتخاب معیار</option>
+                        <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>ارزان‌ترین</option>
+                        <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>گران‌ترین</option>
+                        <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>جدیدترین</option>
+                    </select>
+                </div>
+
+                <!-- فیلتر قیمت -->
+                <div class="col-md-3">
+                    <label for="min_price" class="form-label">حداقل قیمت:</label>
+                    <input type="number" min="0" name="min_price" id="min_price" class="form-control" value="{{ request('min_price') }}" placeholder="مثلاً 1000000">
+                </div>
+                <div class="col-md-3">
+                    <label for="max_price" class="form-label">حداکثر قیمت:</label>
+                    <input type="number" min="0" name="max_price" id="max_price" class="form-control" value="{{ request('max_price') }}" placeholder="مثلاً 5000000">
+                </div>
+
+                <!-- محصولات موجود -->
+                <div class="col-md-2 mb-1 ">
+                    <div class="form-check pl-3">
+                        <input class="form-check-input  " type="checkbox" name="in_stock" value="1" id="in_stock" {{ request('in_stock') ? 'checked' : '' }}>
+                        <label class="form-check-label pl-1" for="in_stock">فقط موجودها</label>
+                    </div>
+                </div>
+
+                <!-- دکمه فیلتر -->
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary w-100">اعمال</button>
+                </div>
+            </div>
+        </form>
+    </div>
+@endif
         @include('errors.message')
         <div class="row">
             @foreach ($products as $product)
