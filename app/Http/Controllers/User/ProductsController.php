@@ -98,7 +98,7 @@ class ProductsController extends Controller
     {
         // آدرس جدید API روی سرور Render
         // $apiUrl = 'https://flask-ai-ps4l.onrender.com/recommend';
-        $apiUrl = 'https://flask-ai-ps4l.onrender.com/recommend';
+        $apiUrl = 'https://flask.liara.run/recommend';
         // ارسال درخواست به API Flask
         $response = Http::get($apiUrl, [
             'user_id' => $userId,
