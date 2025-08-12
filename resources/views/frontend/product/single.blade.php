@@ -336,8 +336,8 @@
                                                         <p class="thumbup">بله</p>
                                                     </div>
 
-                                                    <span class="thumb-up-count  text-white"
-                                                        id="thumb-up-count-{{ $comment->id }}"><mak>{{ $comment->reactions->where('reaction', 'like')->count() }}</mak></span>
+                                                    <p class="thumb-up-count  lead"
+                                                        id="thumb-up-count-{{ $comment->id }}">{{ $comment->reactions->where('reaction', 'like')->count() }}</p>
                                                 </div>
                                                 <div
                                                     class="thumb mx-2 d-flex flex-column align-items-center position-relative">
@@ -352,8 +352,8 @@
                                                         <p class="thumbdown">خیر</p>
                                                     </div>
 
-                                                    <span class="thumb-down-count  text-white"
-                                                        id="thumb-down-count-{{ $comment->id }}"><mak>{{ $comment->reactions->where('reaction', 'dislike')->count() }}</mak></span>
+                                                    <p class="thumb-down-count lead "
+                                                        id="thumb-down-count-{{ $comment->id }}">{{ $comment->reactions->where('reaction', 'dislike')->count() }}</p>
                                                 </div>
                                             </div>
 

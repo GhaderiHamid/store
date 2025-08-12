@@ -78,7 +78,13 @@ body.light-mode {
     box-shadow: none;
     backdrop-filter: none;
   }
-  
+  body.light-mode .navbar-toggler {
+    border-color:  #5f5f5f !important; 
+    }
+    body.light-mode .navbar-toggler-icon {
+    filter: brightness(0);              
+    }
+    
   body.light-mode p,
  body.light-mode h6,
  body.light-mode mak,

@@ -72,7 +72,9 @@
                                 <p><strong>تلفن:</strong> {{ $order->user->phone }}</p>
                                 <p><strong>ایمیل:</strong> {{ $order->user->email }}</p>
                                 <p><strong>شهر:</strong> {{ $order->user->city }}</p>
-
+                                @if ($order->status === 'returned')
+                                <p><strong>شماره شبا:</strong> {{ $order->user->sheba_number }} </p>
+                            @endif
                             </div>
                         </div>
                     </div>

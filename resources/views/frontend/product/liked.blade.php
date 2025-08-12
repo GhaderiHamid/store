@@ -87,5 +87,9 @@
             <p class="text-white"><mak> شما هیچ محصولی لایک نکرده‌اید.</mak></p>
         @endif
         </div>
+        <div class="d-flex justify-content-center mt-4">
+            {{ $likedProducts->links() }}
+        </div>
+        
     </section>
 @endsection

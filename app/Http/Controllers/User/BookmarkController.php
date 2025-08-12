@@ -48,7 +48,12 @@ class BookmarkController extends Controller
     public function bookmarkedProducts()
     {
         $user = Auth::guard('web')->user();
-        $bookmarkedProducts = Product::whereIn('id', Bookmark::where('user_id', $user->id)->pluck('product_id'))->get();
+
+        // گرفتن آی‌دی محصولات بوکمارک‌شده
+        $bookmarkedProductIds = Bookmark::where('user_id', $user->id)->pluck('product_id');
+
+        // صفحه‌بندی محصولات
+        $bookmarkedProducts = Product::whereIn('id', $bookmarkedProductIds)->paginate(20); // مثلاً 10 محصول در هر صفحه
 
         return view('frontend.product.bookmarked', compact('bookmarkedProducts'));
     }

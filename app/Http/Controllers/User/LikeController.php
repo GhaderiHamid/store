@@ -52,7 +52,7 @@ class LikeController extends Controller
             $query->select('product_id')
                 ->from('like_products')
                 ->where('user_id', $user->id);
-        })->get();
+        })->paginate(20);
 
         return view('frontend.product.liked', compact('likedProducts'));
     }

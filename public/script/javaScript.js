@@ -312,6 +312,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.status === 'success') {
                     document.getElementById(`thumb-up-count-${commentId}`).textContent = data.thumb_up_count;
                     document.getElementById(`thumb-down-count-${commentId}`).textContent = data.thumb_down_count;
+                  
+
                 } else {
                     alert('خطایی رخ داده است.');
                 }

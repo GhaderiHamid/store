@@ -92,6 +92,11 @@
             @else
             <p class="text-white"><mak> شما هیچ محصولی ذخیره نکرده‌اید.</mak></p>
         @endif
+        
         </div>
+        <div class="d-flex justify-content-center mt-4">
+            {{ $bookmarkedProducts->links() }}
+        </div>
+        
     </section>
 @endsection

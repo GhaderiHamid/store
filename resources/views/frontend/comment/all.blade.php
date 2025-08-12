@@ -37,4 +37,8 @@
             <p class="text-white"><mak> شما هیچ دیدگاهی ثبت نکرده‌اید.</mak></p>
         @endif
     </div>
+    <div class="d-flex justify-content-center mt-4">
+        {{ $comments->links() }}
+    </div>
+    
 @endsection

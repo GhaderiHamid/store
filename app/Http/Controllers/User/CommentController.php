@@ -33,7 +33,7 @@ class CommentController extends Controller
 
     public function index()
     {
-        $comments = Comment::with('product')->where('user_id', Auth::guard('web')->id())->get();
+        $comments = Comment::with('product')->where('user_id', Auth::guard('web')->id())->paginate(10);
         return view('frontend.comment.all', compact('comments'));
     }
 
