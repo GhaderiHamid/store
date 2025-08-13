@@ -117,7 +117,7 @@ class ProductsController extends Controller
         }
 
         // دریافت اطلاعات محصولات از دیتابیس
-        $recommendedProducts = Product::whereIn('id', $data['recommendations'])->get();
+        $recommendedProducts = Product::whereIn('id', $data['recommendations'])->paginate(20);
 
         return view('frontend.user.recommendations', compact('recommendedProducts'));
     }
