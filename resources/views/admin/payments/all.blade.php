@@ -64,12 +64,13 @@
                                 @endforelse
                             </tbody>
                         </table>
-                    </div>
-
-                    <!-- صفحه‌بندی -->
+                         <!-- صفحه‌بندی -->
                     <div class="d-flex justify-content-center">
                         {{ $payments->appends(request()->only(['search', 'status']))->links() }}
                     </div>
+                    </div>
+
+                   
                 </div>
             </div>
         </div>
